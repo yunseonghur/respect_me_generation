@@ -1,7 +1,15 @@
 import React from 'react';
-import "./Cards.css";
+// import "./Cards.css";
 
-class Cards extends React.Component{
+// class Cards extends React.Component{
+// }
+
+function Cards(){
+    return (
+        <div>
+            <span>This is a page for Cards</span>
+        </div>
+    );
 }
 
 

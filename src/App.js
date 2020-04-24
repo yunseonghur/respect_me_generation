@@ -1,5 +1,5 @@
 import React from 'react';
-// import { HashRouter, Route} from "react-router-dom";
+import { HashRouter, Route} from "react-router-dom";
 import Home from "./routes/Home";
 import Cards from "./routes/Cards";
 import Videos from "./routes/Videos";
@@ -10,21 +10,16 @@ import Navigation from "./components/Navigation";
 
 function App() {
   return (
-    <div>
-      <h1>hello!</h1>
-    </div>
+    <HashRouter>
+    <Navigation />
+    <Route path="/" exact={true} component={Home} />
+    <Route path="/cards" component={Cards} />
+    <Route path="/videos" component={Videos} />
+    <Route path="/resources" component={Resources} />
+    <Route path="/profile" component={Profile} />
+    <Route path="/login" component={Login} />
+  </HashRouter>
   );
-  // (
-  //   <HashRouter>
-  //   <Navigation />
-  //   <Route path="/" exact={true} component={Home} />
-  //   <Route path="/cards" component={Cards} />
-  //   <Route path="/videos" component={Videos} />
-  //   <Route path="/resources" component={Resources} />
-  //   <Route path="/profile" component={Profile} />
-  //   <Route path="/login" component={Login} />
-  // </HashRouter>
-  // );
 }
 
 export default App;

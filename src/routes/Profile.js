@@ -1,7 +1,14 @@
 import React from 'react';
-import "./Profile.css";
+// import "./Profile.css";
 
-class Profile extends React.Component{
+// class Profile extends React.Component{
+// }
+function Profile(){
+    return (
+        <div>
+            <span>This is a page for Profile</span>
+        </div>
+    );
 }
 
 

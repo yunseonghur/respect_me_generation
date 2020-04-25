@@ -4,19 +4,22 @@ import Carousel from 'react-bootstrap/Carousel'
 import fire from '../fire.js';
 
 class Home extends React.Component{
-    constructor() {
-        super();
-        
-        this.database = fire.database().ref().child('message');
-        this.state = { message: "" };
-    }
+    state = { 
+        message: "",
+        topThreeCards: [],
+        topResources: [],
+    };
     componentDidMount(){
+        var year = new Date().getFullYear();
+        var month = new Date().getMonth(); // Jan:0 ~ Dec:11
+        var date = new Date().getDate();
+        this.database = fire.database().ref().child('Messages').orderByKey();
         this.database.on('value', snap => {
+            const messages = snap.val();
             this.setState({
-                message: snap.val()
+                message: messages[year][month][date]
             });
         });
-        console.log(this.state.message);
     }
     render(){
         return (
@@ -49,6 +52,7 @@ class Home extends React.Component{
         );
     }
 }
+
 
 // function Home(){
 //     return (

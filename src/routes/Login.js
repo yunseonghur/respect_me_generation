@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import fire from '../fire.js';
+import fireui from '../fireui';
 
 // import "./Login.css";
 
@@ -12,7 +12,16 @@ class Login extends Component {
     }
 
     componentDidMount(){
-        fire('#login')
+
+        fireui('#firebaseui-auth-container')
+
+        // fireui.start("#firebaseui-auth-container", {
+        //     signInOptions: [
+        //         firebase.auth.GoogleAuthProvider.PROVIDER_ID
+        //     ]
+        // });
+
+        // fire('#login')
         // this.authListener();
     }
 
@@ -28,7 +37,7 @@ class Login extends Component {
     render() {
         return (
             <div className="login">
-                <div id='firevaseui-auth-container'></div>
+                <div id='firebaseui-auth-container'></div>
                 {/* {this.state.user ? console.log("Logged in"): console.log("Not logged in") } */}
                 
             </div>

@@ -1,4 +1,9 @@
 
+import firebase from 'firebase';
+
+const firebaseConfig = {
+
+
 
   var firebaseConfig = {
     apiKey: "AIzaSyC4AYpNhs6fcMlJEIryxi4KkOAcvTdgB_Y",
@@ -8,6 +13,8 @@
     storageBucket: "project3800-test.appspot.com",
     messagingSenderId: "801608378603",
     appId: "1:801608378603:web:77485eac7b3e46ca03f6ae"
-  };
-  // Initialize Firebase
-  //firebase.initializeApp(firebaseConfig);
+};
+const fire = firebase.initializeApp(firebaseConfig);
+
+export default fire;
+

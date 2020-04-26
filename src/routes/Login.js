@@ -1,7 +1,35 @@
 import React, { Component } from 'react';
-import fireui from '../fireui';
+// import fireui from '../fireui';
+import firebase from 'firebase';
+import fire from '../fire'
+import * as firebaseui from 'firebaseui'
+import Home from '../routes/Home';
 
 // import "./Login.css";
+
+const ui = new firebaseui.auth.AuthUI(fire.auth());
+
+var uiConfig = {
+    callbacks: {
+      signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+        // User successfully signed in.
+        // Return type determines whether we continue the redirect automatically
+        // or whether we leave that to developer to handle.
+        return true;
+      }
+    },
+    // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+    signInFlow: 'popup',
+    signInSuccessUrl: { Home },
+    signInOptions: [
+      // Leave the lines as is for the providers you want to offer your users.
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    ]
+  };
+
+const fireui= function (elementId) {
+    ui.start(elementId, uiConfig)
+}
 
 class Login extends Component {
     constructor(props) {
@@ -12,49 +40,18 @@ class Login extends Component {
     }
 
     componentDidMount(){
-
         fireui('#firebaseui-auth-container')
-
-        // fireui.start("#firebaseui-auth-container", {
-        //     signInOptions: [
-        //         firebase.auth.GoogleAuthProvider.PROVIDER_ID
-        //     ]
-        // });
-
-        // fire('#login')
-        // this.authListener();
+        var user = firebase.auth().currentUser;
+        console.log(user);
     }
 
-    // authListener() {
-    //     App.fire.auth().onAuthStateChanged((user) => {
-    //         if (user) {
-    //             this.setState({ user });
-    //         } else {
-    //             this.setState({ user: null });
-    //         }
-    //     });
-    // }
     render() {
         return (
             <div className="login">
                 <div id='firebaseui-auth-container'></div>
-                {/* {this.state.user ? console.log("Logged in"): console.log("Not logged in") } */}
-                
             </div>
         )
     }
 }
-
-
-
-
-// function Login(){
-//     return (
-//         <div>
-//             <span>This is a page for Login</span>
-//         </div>
-//     );
-// }
-
 
 export default Login;

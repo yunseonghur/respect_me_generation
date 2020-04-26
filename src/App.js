@@ -8,6 +8,22 @@ import Profile from "./routes/Profile";
 import Login from "./routes/Login";
 import Navigation from "./components/Navigation";
 
+// vimeo setup
+let Vimeo = require('vimeo').Vimeo;
+let client = new Vimeo("{client_id}", "{client_secret}", "{access_token}");
+
+client.request({
+  method: 'GET',
+  path: '/tutorial'
+}, function (error, body, status_code, headers) {
+  if (error) {
+    console.log(error);
+  }
+
+  console.log(body);
+})
+
+// router set-up
 function App() {
   return (
     <HashRouter>

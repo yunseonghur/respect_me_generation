@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import fire from '../fire'
 import * as firebaseui from 'firebaseui'
 import Home from '../routes/Home';
+import navigation from '../components/Navigation'
 
 // import "./Login.css";
 
@@ -15,6 +16,10 @@ var uiConfig = {
         // User successfully signed in.
         // Return type determines whether we continue the redirect automatically
         // or whether we leave that to developer to handle.
+        // navigation.setState({ loggedIn: true });
+        this.setState({
+            logInStatus: "Log Out",
+        })
         return true;
       }
     },
@@ -32,23 +37,29 @@ const fireui= function (elementId) {
 }
 
 class Login extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state ={
+            logInStatus: "Log In",
             user: {},
         }
     }
 
     componentDidMount(){
         fireui('#firebaseui-auth-container')
-        var user = firebase.auth().currentUser;
-        console.log(user);
+        // var user = firebase.auth().currentUser;
+        // firebase.auth().onAuthStateChanged(function(user) {
+        //     if(user){
+        //         var name = user.displayName;
+        //         console.log(name);
+        //     }
+        // })
     }
 
     render() {
         return (
             <div className="login">
-                <div id='firebaseui-auth-container'></div>
+                <div id='firebaseui-auth-container' />
             </div>
         )
     }

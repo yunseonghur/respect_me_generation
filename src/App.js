@@ -6,6 +6,7 @@ import Videos from "./routes/Videos";
 import Resources from "./routes/Resources";
 import Profile from "./routes/Profile";
 import Login from "./routes/Login";
+import Logout from "./routes/Logout";
 import Navigation from "./components/Navigation";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     <Route path="/resources" component={Resources} />
     <Route path="/profile" component={Profile} />
     <Route path="/login" component={Login} />
+    <Route path="/logout" component={Logout} />
   </HashRouter>
   );
 }

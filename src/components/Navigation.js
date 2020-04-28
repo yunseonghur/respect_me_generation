@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import fire from '../fire';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+
 
 class Navigation extends Component {
     constructor(props) {
@@ -37,13 +40,15 @@ class Navigation extends Component {
     }
 
     render() {
-        return(
+        return( 
             <div>
                 <Navbar bg="light" expand="lg">
-                    <Navbar.Toggle area-controls="basic-navbar-nav" />
+                    <Navbar.Brand href="#home">Respect Me Generation</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
                             <Nav.Link href="#home">Home</Nav.Link>
+                            <Nav.Link href="#link">Link</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

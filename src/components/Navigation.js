@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import fire from '../fire';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-
+import '../components/Navigation.css';
 
 class Navigation extends Component {
     constructor(props) {
@@ -47,17 +46,16 @@ class Navigation extends Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link href="#home">Home</Nav.Link>
-                            <Nav.Link href="#link">Link</Nav.Link>
+                            <Nav.Link to="/">Home</Nav.Link>
+                            <Nav.Link to="/cards">Cards</Nav.Link>
+                            <Nav.Link to="/videos">Videos</Nav.Link>
+                            <Nav.Link to="/resources">Resources</Nav.Link>
+                            <Nav.Link to="/profile">Profile</Nav.Link>
+                            { this.state.user ? <Nav.Link href="#logout">Log Out</Nav.Link>: <Nav.Link href='#login'>Log In</Nav.Link>}
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
-                <Link to="/">Home</Link>
-                <Link to="/cards">Cards</Link>
-                <Link to="/videos">Videos</Link>
-                <Link to="/resources">Resources</Link>
-                <Link to="/profile">Profile</Link>
-                { this.state.user ? <Link to="/logout">Log Out</Link>: <Link to='/login'>Log In</Link>}
+                
             </div>
         )
     }

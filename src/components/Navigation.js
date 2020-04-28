@@ -46,11 +46,11 @@ class Navigation extends Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link to="/">Home</Nav.Link>
-                            <Nav.Link to="/cards">Cards</Nav.Link>
-                            <Nav.Link to="/videos">Videos</Nav.Link>
-                            <Nav.Link to="/resources">Resources</Nav.Link>
-                            <Nav.Link to="/profile">Profile</Nav.Link>
+                            <Nav.Link href="/">Home</Nav.Link>
+                            <Nav.Link href="#cards">Cards</Nav.Link>
+                            <Nav.Link href="#videos">Videos</Nav.Link>
+                            <Nav.Link href="#resources">Resources</Nav.Link>
+                            <Nav.Link href="#profile">Profile</Nav.Link>
                             { this.state.user ? <Nav.Link href="#logout">Log Out</Nav.Link>: <Nav.Link href='#login'>Log In</Nav.Link>}
                         </Nav>
                     </Navbar.Collapse>

@@ -17,9 +17,7 @@ var uiConfig = {
         // Return type determines whether we continue the redirect automatically
         // or whether we leave that to developer to handle.
         // navigation.setState({ loggedIn: true });
-        this.setState({
-            logInStatus: "Log Out",
-        })
+        
         return true;
       }
     },
@@ -39,21 +37,10 @@ const fireui= function (elementId) {
 class Login extends Component {
     constructor() {
         super();
-        this.state ={
-            logInStatus: "Log In",
-            user: {},
-        }
     }
 
     componentDidMount(){
         fireui('#firebaseui-auth-container')
-        // var user = firebase.auth().currentUser;
-        // firebase.auth().onAuthStateChanged(function(user) {
-        //     if(user){
-        //         var name = user.displayName;
-        //         console.log(name);
-        //     }
-        // })
     }
 
     render() {

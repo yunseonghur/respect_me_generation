@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+import fire from '../fire';
 
 class Logout extends Component {
     logOut = () => {
-        firebase.auth().signOut().then(function() {
+        fire.auth().signOut().then(function() {
             console.log("Successfully Signed out");
         }).catch(function(error) {
             console.log("Sign out ERROR");

@@ -9,26 +9,44 @@ class Navigation extends Component {
             // logInState: "Login"
             user: {}
         };
-        // this.setLogIn = this.setLogIn.bind(this);
+        this.db = fire.database();
         this.authListener = this.authListener.bind(this);
+        this.writeUserData = this.writeUserData.bind(this);
     }
 
     componentDidMount() {
         this.authListener();
     }
 
+    writeUserData(userId, name, email) {
+        this.db.ref('User/' + userId).set({
+            name: name,
+            email: email
+        })
+    }
+
     authListener() {
         fire.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.setState({ user });
+                this.writeUserData(user.uid, user.displayName, user.email);
             } else {
                 this.setState({ user: null });
             }
         })
     }
+
     render() {
         return(
             <div>
+                <Navbar bg="light" expand="lg">
+                    <Navbar.Toggle area-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="mr-auto">
+                            <Nav.Link href="#home">Home</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
                 <Link to="/">Home</Link>
                 <Link to="/cards">Cards</Link>
                 <Link to="/videos">Videos</Link>

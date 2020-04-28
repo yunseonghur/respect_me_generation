@@ -1,14 +1,18 @@
 import firebase from 'firebase';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyC4AYpNhs6fcMlJEIryxi4KkOAcvTdgB_Y",
-    authDomain: "project3800-test.firebaseapp.com",
-    databaseURL: "https://project3800-test.firebaseio.com",
-    projectId: "project3800-test",
-    storageBucket: "project3800-test.appspot.com",
-    messagingSenderId: "801608378603",
-    appId: "1:801608378603:web:77485eac7b3e46ca03f6ae"
+    apiKey: "AIzaSyD7IhQMMaMIey5EtltwifTlJBnA_d6cZXM",
+    authDomain: "respect-me-generation.firebaseapp.com",
+    databaseURL: "https://respect-me-generation.firebaseio.com",
+    projectId: "respect-me-generation",
+    storageBucket: "respect-me-generation.appspot.com",
+    messagingSenderId: "483399260701",
+    appId: "1:483399260701:web:55314a007780e2080ec4f4",
+    measurementId: "G-E4JYGZMKGP"
 };
+
 const fire = firebase.initializeApp(firebaseConfig);
 
 export default fire;
+
+

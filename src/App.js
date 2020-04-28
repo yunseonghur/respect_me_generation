@@ -8,6 +8,7 @@ import Profile from "./routes/Profile";
 import Login from "./routes/Login";
 import Navigation from "./components/Navigation";
 
+
 function App() {
   return (
     <HashRouter>
@@ -21,5 +22,6 @@ function App() {
   </HashRouter>
   );
 }
+
 
 export default App;

@@ -19,10 +19,10 @@ client.request({
   path: '/tutorial'
 }, function (error, body, status_code, headers) {
   if (error) {
-    console.log(error);
+    console.log("vimeo: " + error);
   }
 
-  console.log(body);
+  console.log("vimeo: " + body);
 })
 
 // router set-up

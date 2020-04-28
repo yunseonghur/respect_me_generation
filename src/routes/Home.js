@@ -1,13 +1,16 @@
 import React from 'react';
 import "./Home.css";
-import Carousel from 'react-bootstrap/Carousel'
 import fire from '../fire.js';
+import MyCard from '../components/MyCard';
+import Carousel from 'react-bootstrap/Carousel';
+import CardDeck from 'react-bootstrap/CardDeck';
+import Jumbotron from 'react-bootstrap/Jumbotron'
 
 class Home extends React.Component{
     state = { 
         message: "",
-        topThreeCards: [],
-        topResources: [],
+        cards: [],
+        resources: [],
     };
     componentDidMount(){
         var year = new Date().getFullYear();
@@ -24,31 +27,40 @@ class Home extends React.Component{
     render(){
         return (
             <div>
-            <h2 className="logo-text"><b>Respect Me<br/>Generation</b></h2>
-            <Carousel>
-                <Carousel.Item>
-                    <img className="slide-img" src="https://via.placeholder.com/1200x400" alt="This is the first slide" />
-                    <Carousel.Caption>
-                        <p>Today's message</p>
-                        <h3>"{this.state.message}"</h3>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img className="slide-img" src="https://via.placeholder.com/1200x400" alt="This is the second slide" />
-                    <Carousel.Caption>
-                        <h3>Second slide label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img className="slide-img" src="https://via.placeholder.com/1200x400" alt="This is the third slide" />
-                    <Carousel.Caption>
-                        <h3>Third slide label</h3>
-                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-        </Carousel>
-        </div>
+                <h2 className="logo-text"><b>Respect Me<br/>Generation</b></h2>
+                <Carousel interval="8000">
+                    <Carousel.Item>
+                        <img className="slide-img" src="https://via.placeholder.com/1200x400" alt="This is the first slide" />
+                        <Carousel.Caption className="caption">
+                            <p>Today's message</p>
+                            <h3>"{this.state.message}"</h3>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img className="slide-img" src="https://via.placeholder.com/1200x400" alt="This is the second slide" />
+                        <Carousel.Caption className="caption">
+                            <h3>Introducing Respect Me Generation</h3>
+                            <p>A community for teenagers.</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                </Carousel>
+
+                <div className="card-section">
+                    <h3>Cards</h3>
+                    <CardDeck>
+                        <MyCard id="1" background="https://via.placeholder.com/120px100" text="You yourself, as much as anybody in the entire universe, deserve your love and affection" />
+                        <MyCard id="2" background="https://via.placeholder.com/120px100" text="I have public speaking tmrw, any suggestions on how to make myself feel less anxious?" />
+                        <MyCard id="3" background="https://via.placeholder.com/120px100" text="" />
+                    </CardDeck>
+                </div>
+
+                <div className="resource-section">
+                    <h3>Resources</h3>
+                    <Jumbotron fluid>
+                        <p></p>
+                    </Jumbotron>
+                </div>
+            </div>
         );
     }
 }

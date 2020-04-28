@@ -1,0 +1,18 @@
+
+
+.slide-img {
+    width: 100%;
+}
+
+.caption {
+    text-align:left;
+    top:50%;
+    bottom:auto;
+    -webkit-transform:translate(0, -50%);
+    -ms-transform:translate(0, -50%);
+    transform:translate(0, -50%);
+}
+
+.resource-section, .card-section{
+    margin: 50px;
+}

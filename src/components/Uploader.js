@@ -1,5 +1,4 @@
 import React from 'react';
-import CloudinaryContext from 'cloudinary-react';
 
 const uploader = (props) => {
     return (

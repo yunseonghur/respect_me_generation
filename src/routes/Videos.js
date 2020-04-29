@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Uploader from "../components/Uploader";
+import { Video, Transformation } from 'cloudinary-react';
+import { Player } from 'video-react';
 
 function Videos(){
     return (
@@ -14,14 +16,14 @@ function Videos(){
 
 class UploadVid extends Component {
 
-    componentDidMount() {
-        // move the var here once its working
+    state ={
+        cloudname: "respectmegen"
     }
 
     uploadHandler = () => {
-        console.log("was clicked");
+        console.log("uploadhandler was clicked");
         const myWidget = window.cloudinary.createUploadWidget({
-            cloudName: 'respectmegen', 
+            cloudName: this.state.cloudname, 
             uploadPreset: 'h5awwspl'}, (error, result) => { 
               if (!error && result && result.event === "success") { 
                 console.log('Done! Here is the image info: ', result.info); 
@@ -31,16 +33,29 @@ class UploadVid extends Component {
         myWidget.open();
     }
 
+    showVideoHandler = () => {
+        console.log("showhandler was clicked");
+    }
+
     render() {
         return(
             <div>
                 <h1>Upload a Video</h1>
                 <button onClick={this.uploadHandler}>Upload File</button>
+                <h2>Showing all current videos</h2>
+                <button onClick={this.showVideoHandler}>Show all videos</button>
+                <div>
+                <Video controls cloudName={this.state.cloudname} publicId="ifvmawhn3oivphchla8z" >
+                    <Transformation width="511" crop="scale" />
+                </Video>
+                </div>
             </div>
         )
     }
 }
 
 export default UploadVid;
+
+// https://234536288681363:aMMSnPSTD2UlFH35lI4uay7oOpA@api.cloudinary.com/v1_1/respectmegen/resources/video
 
 

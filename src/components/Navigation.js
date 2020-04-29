@@ -55,7 +55,7 @@ class Navigation extends Component {
 
     render() {
         return( 
-<div>
+            <div>
                 <Navbar bg="light" expand="lg">
                     <Navbar.Brand href="#home">Respect Me Generation</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -70,7 +70,6 @@ class Navigation extends Component {
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
-
             </div>
         )
     }

@@ -2,10 +2,11 @@ import React from 'react';
 import "./Profile.css";
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import MyCard from '../components/MyCard';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import CardDeck from 'react-bootstrap/CardDeck';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import fire from '../fire.js';
+import { CardHeader } from 'react-bootstrap/Card';
 
 
 class Profile extends React.Component{
@@ -15,7 +16,8 @@ class Profile extends React.Component{
         badge: "",
         points: "",
         cards: [],
-        videos: []
+        videos: [],
+        visible: true  // true if cards are visible & false if videos are visible
     };
     componentDidMount(){
         fire.auth().onAuthStateChanged((user) => {
@@ -38,6 +40,8 @@ class Profile extends React.Component{
         });
     }
     render(){
+        const label = this.state.visible? "Your Cards" : "Your Videos";
+
         return (
             <div>
                 <Jumbotron>
@@ -46,18 +50,26 @@ class Profile extends React.Component{
                     <span>points: {this.state.points}</span>
                 </Jumbotron>
 
-                <Container>
-                    <Row>
-                        <Col>
-                            <h3>Your Cards</h3>
-                            <MyCard id="1" background="https://via.placeholder.com/120px100" text="You yourself, as much as anybody in the entire universe, deserve your love and affection" />
-                        </Col>
-                        <Col>
-                            <h3>Your Videos</h3>
-                            <MyCard id="2" background="https://via.placeholder.com/120px100" text="place holder for videos" />
-                        </Col>
-                    </Row>
-                </Container>
+                <ButtonGroup>
+                    <Button variant="light" onClick={()=>{
+                        this.setState({ visible: true});
+                    }}>
+                        Your Cards
+                    </Button>
+                    <Button variant="light" onClick={()=>{
+                        this.setState({ visible: false});
+                    }}>
+                        Your Videos
+                    </Button>
+                </ButtonGroup>
+                <h3>{label}</h3>
+                {this.state.visible ?
+                    <CardDeck>
+                        <MyCard id="1" background="https://via.placeholder.com/120px100" text="You yourself, as much as anybody in the entire universe, deserve your love and affection" />
+                        <MyCard id="2" background="https://via.placeholder.com/120px100" text="I have public speaking tmrw, any suggestions on how to make myself feel less anxious?" />
+                        <MyCard id="3" background="https://via.placeholder.com/120px100" text="" />
+                    </CardDeck>
+                    : <div>displaying videos</div>}
             </div>
         );
     }

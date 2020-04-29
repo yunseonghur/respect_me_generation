@@ -1,0 +1,13 @@
+.jumbotron p {
+    font-size: 25pt;
+    font-weight: 400;
+}
+
+.col h3 {
+    text-align: center;
+}
+
+.jumbotron {
+    padding-top: 18px;
+    padding-bottom: 18px;
+}

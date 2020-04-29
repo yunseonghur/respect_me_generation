@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import fire from '../fire';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import { Link } from 'react-router-dom';
 import '../components/Navigation.css';
 
 class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // logInState: "Login"
             user: {}
         };
         this.db = fire.database();
@@ -21,7 +21,7 @@ class Navigation extends Component {
     }
 
     writeUserData(userId, name, email) {
-        this.db.ref('User/' + userId).set({
+        this.db.ref('User/' + userId).update({
             name: name,
             email: email
         })
@@ -30,11 +30,12 @@ class Navigation extends Component {
     authListener() {
         fire.auth().onAuthStateChanged((user) => {
             if (user) {
-                this.setState({ user });
+                this.setState({ user: user });
                 this.writeUserData(user.uid, user.displayName, user.email);
             } else {
                 this.setState({ user: null });
             }
+
         })
     }
 
@@ -47,10 +48,10 @@ class Navigation extends Component {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
                             <Nav.Link href="/">Home</Nav.Link>
-                            <Nav.Link href="/cards">Cards</Nav.Link>
-                            <Nav.Link href="/videos">Videos</Nav.Link>
-                            <Nav.Link href="/resources">Resources</Nav.Link>
-                            <Nav.Link href="/profile">Profile</Nav.Link>
+                            <Nav.Link user="ginakim" href="#cards">Cards</Nav.Link>
+                            <Nav.Link href="#videos">Videos</Nav.Link>
+                            <Nav.Link href="#resources">Resources</Nav.Link>
+                            <Nav.Link href="#profile">Profile</Nav.Link>
                             { this.state.user ? <Nav.Link href="#logout">Log Out</Nav.Link>: <Nav.Link href='#login'>Log In</Nav.Link>}
                         </Nav>
                     </Navbar.Collapse>

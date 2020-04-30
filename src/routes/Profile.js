@@ -2,34 +2,109 @@ import React from 'react';
 import "./Profile.css";
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import MyCard from '../components/MyCard';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import CardDeck from 'react-bootstrap/CardDeck';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import fire from '../fire.js';
+
+const dbRef = fire.database().ref();
 
 class Profile extends React.Component{
     state = {
-        username: "Yuni" // need to read it from firebase
+        userUID: "",
+        username: "",
+        badge: "",
+        points: "",
+        cards: [],
+        videos: [],
+        isLoading: true,
+        visible: true  // true if cards are visible & false if videos are visible
     };
+    getUserInfo(){
+        dbRef.child('User').on('value', snap => {
+            const userInfo = snap.val();
+            this.setState({
+                badge: userInfo[this.state.userUID]['badge'],
+                points: userInfo[this.state.userUID]['points'],
+                cards: userInfo[this.state.userUID]['cards']
+            });
+            this.getCardDetails();
+        });
+    }
+    getCardDetails(){
+        let cards = this.state.cards;
+        let cardDetails = [];
+        for (let card in cards){
+            cardDetails.push({
+                id: card,
+                background: cards[card].imgOption,
+                text: cards[card].text
+            });
+        }
+        this.setState({
+            cards: cardDetails,  // re-set cards as an array
+            isLoading: false
+        });
+    }
+    componentDidMount(){
+        fire.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({
+                    username: user.displayName,
+                    userUID: user.uid
+                });
+                this.getUserInfo();
+            } else {
+                console.log("no current user");
+            }
+        })
+    }
     render(){
+        const tabLabel = this.state.visible? "Your Cards" : "Your Videos";
         return (
             <div>
-                <h2 className="logo-text"><b>Respect Me<br/>Generation</b></h2>
                 <Jumbotron>
                     <p>Hi {this.state.username}!</p>
+                    <span>badge: {this.state.badge}, </span>
+                    <span>points: {this.state.points}</span>
                 </Jumbotron>
 
-                <Container>
-                    <Row>
-                        <Col>
-                            <h3>Your Cards</h3>
-                            <MyCard id="1" background="https://via.placeholder.com/120px100" text="You yourself, as much as anybody in the entire universe, deserve your love and affection" />
-                        </Col>
-                        <Col>
-                            <h3>Your Videos</h3>
-                            <MyCard id="2" background="https://via.placeholder.com/120px100" text="place holder for videos" />
-                        </Col>
-                    </Row>
-                </Container>
+                <ButtonGroup> 
+                    <Button variant="light" onClick={()=>{
+                        this.setState({ visible: true});
+                    }}>
+                        Your Cards
+                    </Button>
+                    <Button variant="light" onClick={()=>{
+                        this.setState({ visible: false});
+                    }}>
+                        Your Videos
+                    </Button>
+                </ButtonGroup>
+
+                <h3>{tabLabel}</h3>
+                {this.state.isLoading ? (
+                    <div className="loader">
+                    <span className="loader__text">Loading...</span>
+                    </div>
+                ) : this.state.visible ?
+                    (
+                    <div className="cards">
+                        <CardDeck>
+                            {this.state.cards.map((myCard)=> 
+                            <MyCard 
+                                key={myCard.id} 
+                                id={myCard.id} 
+                                background={myCard.background} 
+                                text={myCard.text} 
+                            />)}
+                        </CardDeck>
+                    </div>
+                    ) : (
+                    <div className="videos">
+                        <p>displaying videos</p>
+                    </div>)
+                }
             </div>
         );
     }

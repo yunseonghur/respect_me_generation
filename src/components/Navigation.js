@@ -21,10 +21,23 @@ class Navigation extends Component {
     }
 
     writeUserData(userId, name, email) {
-        this.db.ref('User/' + userId).set({
+        this.db.ref('User/' + userId).update({
             name: name,
             email: email
         })
+    }
+
+    addUserData(userId){
+        this.db.ref('User/'+userId).once('value')
+        .then(function(snapshot){
+            // if points not exist, set default points and badge
+            if(!(snapshot.child('points').exists())){
+                fire.database().ref('User/' + userId).update({
+                    points: 10,
+                    badge: 'basic'
+                })
+            }
+        });
     }
 
     authListener() {
@@ -32,6 +45,8 @@ class Navigation extends Component {
             if (user) {
                 this.setState({ user });
                 this.writeUserData(user.uid, user.displayName, user.email);
+                this.addUserData(user.uid);
+
             } else {
                 this.setState({ user: null });
             }
@@ -50,12 +65,15 @@ class Navigation extends Component {
                             <Nav.Link href="#cards">Cards</Nav.Link>
                             <Nav.Link href="#videos">Videos</Nav.Link>
                             <Nav.Link href="#resources">Resources</Nav.Link>
-                            <Nav.Link href="#profile">Profile</Nav.Link>
-                            { this.state.user ? <Nav.Link href="#logout">Log Out</Nav.Link>: <Nav.Link href='#login'>Log In</Nav.Link>}
+                            { this.state.user ? (
+                                <Nav className="mr-auto">
+                                    <Nav.Link href="#profile">Profile</Nav.Link>
+                                    <Nav.Link href="#logout">Log Out</Nav.Link>
+                                </Nav>
+                            ): <Nav.Link href='#login'>Log In</Nav.Link>}
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
-                
             </div>
         )
     }

@@ -4,10 +4,6 @@ import Card from 'react-bootstrap/Card';
 
 class MyCard extends Component {
 
-    constructor(props){
-        super(props);
-        
-    }
     render () {
         return (
             <div>

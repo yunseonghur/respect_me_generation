@@ -6,9 +6,16 @@ import AddComment from '../components/AddComment';
 
 class Cards extends React.Component{
 
-    state = {
-        cards: [],
-        visible: false
+    constructor(props){
+        super(props);
+        this.state = {
+            visible: false,
+            cards: [
+                {id:"1", background:"https://via.placeholder.com/120px100", text:"You yourself, as much as anybody in the entire universe, deserve your love"},
+                {id:"2", background:"https://via.placeholder.com/120px100", text:"Testing Testing"},
+                {id:"3", background:"https://via.placeholder.com/120px100", text:"Blah blah"}
+            ]
+        }
     }
 
     cardClicked = () => {
@@ -31,9 +38,12 @@ class Cards extends React.Component{
                 </Jumbotron>
                 <Container>
                     <CardDeck>
-                        <MyCard onClick={this.cardClicked} id="1" background="https://via.placeholder.com/120px100" text="You yourself, as much as anybody in the entire universe, deserve your love and affection"/>
-                        <MyCard onClick={this.cardClicked} id="2" background="https://via.placeholder.com/120px100" text="blah"/>
-                        <MyCard onClick={this.cardClicked} id="3" background="https://via.placeholder.com/120px100" text="test"/>
+                        {this.state.cards.map((card) => {
+                            return (
+                                <MyCard onClick={this.cardClicked} background={card.background} text={card.text} id={card.id} key={card.id}/>
+                            )
+                        })
+                        }
 
                         {this.state.visible ?
                         <AddComment hideModal={this.hideModal} />

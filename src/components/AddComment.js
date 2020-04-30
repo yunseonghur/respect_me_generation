@@ -1,15 +1,48 @@
 import React, {Component} from 'react';
 import {Modal, Button, Row, Col, Form} from 'react-bootstrap';
+import Comment from './Comment';
 
 class AddComment extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            newComment: ' ',
+            comments: [
+                {id: 1, comment: "Hello", user: "Irene"},
+                {id: 2, comment: "Testing", user: "Gina"},
+                {id: 3, comment: "You're doing great", user: "Yuni"},
+                {id: 4, comment: "Good job", user: "Sherry"},
+            ]
+        }
+
+        this.writeComment = this.writeComment.bind(this);
+        this.handleInput = this.handleInput.bind(this);
+    }
 
     state = {
         visible: false
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        alert(event.target.Comments.value)
+    // addComment(comment) {
+    //     this.state.comments.push(comment);
+
+    // }
+
+    // writeComment(event) {
+    //     // call method from parent to set comment
+    //     console.log('submit');
+    //     // sets it back to empty
+    //     this.setState({
+    //         newComment: ' '
+    //     })
+    // }
+
+    handleInput(event) {
+        console.log(this);
+        this.setState({
+            newComment: event.target.value,
+        })
     }
 
     render(){
@@ -23,22 +56,35 @@ class AddComment extends Component {
                 <Modal.Body>
                   <div className='container'>
                       <Row>
+                          <Col>
+                            {this.state.comments.map((comment) => {
+                                return (
+                                    <Comment user={comment.user} comment={comment.comment} key={comment.id}/>
+                                )
+                            })
+                            }
+                          </Col>
+                      </Row>
+                      <Row>
                           <Col sm={6}>
+
                               <Form onSubmit={this.handleSubmit}>
                                   <Form.Group controlId="Comments">
-                                      <Form.Control
+                                      <input
                                         type="text"
-                                        name="Comments"
-                                        required
-                                        placeholder="add your comment here"
+                                        className="Comments"                                    
+                                        placeholder="add your comment"
+                                        value={this.state.NewComment}
+                                        onChange={this.handleInput}
                                       />
                                   </Form.Group>
                                   <Form.Group>
-                                      <Button type="submit">
+                                      <Button onClick={this.writeComment}>
                                           Add Comment
                                       </Button>
                                   </Form.Group>
                               </Form>
+
                           </Col>
                       </Row>
                   </div>

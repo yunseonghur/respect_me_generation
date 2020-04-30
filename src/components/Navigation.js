@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import { Link } from 'react-router-dom';
 import '../components/Navigation.css';
 
+
 class Navigation extends Component {
     constructor(props) {
         super(props);

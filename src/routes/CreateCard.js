@@ -2,8 +2,10 @@ import React from 'react';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import fire from '../fire';
-// import "./Home.css";
+import MyCard from '../components/MyCard';
+import "../routes/CreateCard.css"
 
 
 class CreateCard extends React.Component {
@@ -11,7 +13,8 @@ class CreateCard extends React.Component {
         super(props);
         this.state = {
             imgOption: '',
-            text: ''
+            text: '',
+            visible: false
         };
         this.db = fire.database();
         this.handleImgChange = this.handleImgChange.bind(this);
@@ -45,56 +48,83 @@ class CreateCard extends React.Component {
             });
             console.log("InCreateCard", currentUser.uid);
             this.db.ref("User/" + currentUser.uid).child("cards/" + key).set({
-                key
+                imgOption: this.state.imgOption,
+                text: this.state.text
             });
         }
+        this.setState({visible:true});
+        console.log("in handle submit", this.state.imgOption);
     }
 
     render() {
         const {text} = this.state
         return (
+            <div>
             <form onSubmit={this.handleSubmit}>
                 <div id='selectImg'>
-                    <p>1. Select Image</p>
+                    <p className="instruction">1. Select Image</p>
                     <div className='jumbotron'>
                         <CardDeck>
-                            <label>
-                                <div className="imgOption">
-                                    <Card>
-                                        <Card.Img src="https://via.placeholder.com/120px100" />
-                                    </Card>
-                                    <input type="radio" value="img1" checked={this.state.imgOption === "img1"} onChange={this.handleImgChange} />
-                                </div>
-                            </label>
-                            <label>
-                                <div className="imgOption">
-                                    <Card>
-                                        <Card.Img src="https://via.placeholder.com/120px100" />
-                                    </Card>
-                                    <input type="radio" value="img2" checked={this.state.imgOption === "img2"} onChange={this.handleImgChange} />
-                                </div>
-                            </label>
-                            <label>
-                                <div className="imgOption">
-                                    <Card>
-                                        <Card.Img src="https://via.placeholder.com/120px100" />
-                                    </Card>
-                                    <input type="radio" value="img3" checked={this.state.imgOption === "img3"} onChange={this.handleImgChange} />
-                                </div>
-                            </label>
+                            <div className='container'>
+                                <label>
+                                    <div className="imgOption">
+                                        <Card>
+                                            <Card.Img className="cardImage" src={require("../images/img1.jpg")}/>
+                                        </Card>
+                                        <input type="radio" value="img1" checked={this.state.imgOption === "img1"} onChange={this.handleImgChange} />
+                                    </div>
+                                </label>
+                                <label>
+                                    <div className="imgOption">
+                                        <Card>
+                                            <Card.Img className="cardImage" src={require("../images/img2.jpg")}/>
+                                        </Card>
+                                        <input type="radio" value="img2" checked={this.state.imgOption === "img2"} onChange={this.handleImgChange} />
+                                    </div>
+                                </label>
+                                <label>
+                                    <div className="imgOption">
+                                        <Card>
+                                            <Card.Img className="cardImage" src={require("../images/img3.jpg")}/>
+                                        </Card>
+                                        <input type="radio" value="img3" checked={this.state.imgOption === "img3"} onChange={this.handleImgChange} />
+                                    </div>
+                                </label>
+                            </div>
                         </CardDeck>
-                        
                     </div>
                 </div>
                 <div id="enterText">
-                    <p>2. Enter Text</p>
-                    <div id="textField">
+                    <p className="instruction">2. Enter Text</p>
+                    <div id="textField" className='jumbotron'>
                         <textarea name='text' onChange={this.handleTxtChange} />
                     </div>
                 </div>
-                <Button onClick={this.handleSubmit}>Create!</Button>
-
+                <div className='container'>
+                    <Button onClick={this.handleSubmit} size="lg">Create!</Button>
+                </div>
             </form>
+             { this.state.visible ? 
+                <Modal.Dialog>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Your Card</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <MyCard id="1" background={this.state.imgOption} text={this.state.text} />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={
+                            ()=> {
+                                this.setState({ visible: false });
+                            }
+                        }>Close</Button>
+                    </Modal.Footer>
+                </Modal.Dialog>
+                :
+                null
+            }
+            </div>
+            
         )
     }
 }

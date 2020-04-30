@@ -1,0 +1,31 @@
+.card{
+    width: 200px;
+    height: 200px;
+}
+
+.jumbotron {
+    text-align: center;
+}
+
+.card-deck {
+    text-align: center;
+}
+
+textarea {
+    width: 400px;
+    height: 200px;
+}
+
+.container {
+    text-align: center; 
+}
+
+button {
+    width: 400px;
+    height: 30px;
+    font-size: 30pt;
+}
+
+.instruction {
+    font-size: 15pt;
+}

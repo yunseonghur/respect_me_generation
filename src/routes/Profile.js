@@ -20,6 +20,17 @@ class Profile extends React.Component{
         isLoading: true,
         visible: true  // true if cards are visible & false if videos are visible
     };
+    getUserInfo(){
+        dbRef.child('User').on('value', snap => {
+            const userInfo = snap.val();
+            this.setState({
+                badge: userInfo[this.state.userUID]['badge'],
+                points: userInfo[this.state.userUID]['points'],
+                cards: userInfo[this.state.userUID]['cards']
+            });
+            this.getCardDetails();
+        });
+    }
     getCardDetails(){
         let cards = this.state.cards;
         let cardDetails = [];
@@ -42,22 +53,14 @@ class Profile extends React.Component{
                     username: user.displayName,
                     userUID: user.uid
                 });
+                this.getUserInfo();
             } else {
                 console.log("no current user");
             }
         })
-        dbRef.child('User').on('value', snap => {
-            const userInfo = snap.val();
-            this.setState({
-                badge: userInfo[this.state.userUID]['badge'],
-                points: userInfo[this.state.userUID]['points'],
-                cards: userInfo[this.state.userUID]['cards']
-            });
-            this.getCardDetails();
-        });
     }
     render(){
-        const label = this.state.visible? "Your Cards" : "Your Videos";
+        const tabLabel = this.state.visible? "Your Cards" : "Your Videos";
         return (
             <div>
                 <Jumbotron>
@@ -79,6 +82,7 @@ class Profile extends React.Component{
                     </Button>
                 </ButtonGroup>
 
+                <h3>{tabLabel}</h3>
                 {this.state.isLoading ? (
                     <div className="loader">
                     <span className="loader__text">Loading...</span>
@@ -86,7 +90,6 @@ class Profile extends React.Component{
                 ) : this.state.visible ?
                     (
                     <div className="cards">
-                        <h3>{label}</h3>
                         <CardDeck>
                             {this.state.cards.map((myCard)=> 
                             <MyCard 
@@ -99,7 +102,6 @@ class Profile extends React.Component{
                     </div>
                     ) : (
                     <div className="videos">
-                        <h3>{label}</h3>
                         <p>displaying videos</p>
                     </div>)
                 }

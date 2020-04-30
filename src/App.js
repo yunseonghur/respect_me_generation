@@ -9,7 +9,6 @@ import Login from "./routes/Login";
 import Logout from "./routes/Logout";
 import Navigation from "./components/Navigation";
 
-
 function App() {
   return (
     <HashRouter>

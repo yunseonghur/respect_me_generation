@@ -4,7 +4,6 @@ import firebase from 'firebase';
 import fire from '../fire'
 import * as firebaseui from 'firebaseui'
 import Home from '../routes/Home';
-import navigation from '../components/Navigation'
 
 // import "./Login.css";
 
@@ -35,10 +34,6 @@ const fireui= function (elementId) {
 }
 
 class Login extends Component {
-    constructor() {
-        super();
-    }
-
     componentDidMount(){
         fireui('#firebaseui-auth-container')
     }

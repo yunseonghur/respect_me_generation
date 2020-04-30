@@ -1,22 +1,32 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 
-function MyCard({id, background, text}){
-    return (
-        <div className="card">
-            <Card>
-                <Card.Img className="card__img" src={background} alt="Card image" />
-                <Card.ImgOverlay>
-                    <Card.Text>{text}</Card.Text>
-                </Card.ImgOverlay>
-            </Card>
-        </div>
-    );
+class MyCard extends Component {
+
+    constructor(props){
+        super(props);
+        
+    }
+    render () {
+        return (
+            <div>
+                <a style={{ cursor: "pointer" }} onClick={this.props.onClick}>
+                <Card>
+                    <Card.Img className="card__img" src={this.props.background} alt="Card image" />
+                    <Card.ImgOverlay>
+                        <Card.Text>{this.props.text}</Card.Text>
+                    </Card.ImgOverlay>
+                </Card>
+                </a>
+            </div>
+        )
+
+    }
 }
 
 MyCard.propTypes = {
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     background: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired
 }

@@ -1,91 +1,57 @@
 import React, {Component} from 'react';
 import MyCard from '../components/MyCard';
-import {Modal, Card, Button, Row, Col, Form} from 'react-bootstrap';
+import {Modal, CardDeck, Button, Row, Col, Form, Jumbotron, Container} from 'react-bootstrap';
 import AddComment from '../components/AddComment';
 // import "./Cards.css";
 
 class Cards extends React.Component{
 
     state = {
+        cards: [],
         visible: false
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        alert(event.target.Comments.value)
+    cardClicked = () => {
+        this.setState({visible: true})
+      };
+    
+    hideModal = () => {
+        this.setState({visible: false})
     }
 
     render() {
 
         return (
-            <div className="deck">
-               
-                <Card style={{width: '18rem'}}>
-                    <Button variant="primary" onClick={()=> this.setState({visible:true})}>
-                        <Card.Img variant="top" src="https://i.pinimg.com/564x/83/f0/3a/83f03ac706568420b12b98ed22016650.jpg" />
-                    </Button>
-                    <Card.Body>
-                        <Card.Title>Owner</Card.Title>
-                    </Card.Body>
-                </Card>
-                {this.state.visible?
-                <Modal.Dialog>
-                <Modal.Header>
-                  <Modal.Title>Comments</Modal.Title>
-                </Modal.Header>
+            <div>
+                <h2 className="logo-text"><b>Respect Me<br/>Generation</b></h2>
 
-                <Modal.Body>
-                  <div className='container'>
-                      <Row>
-                          <Col sm={6}>
-                              <Form onSubmit={this.handleSubmit}>
-                                  <Form.Group controlId="Comments">
-                                      <Form.Label>Comments</Form.Label>
-                                      <Form.Control
-                                        type="text"
-                                        name="Comments"
-                                        required
-                                        placeholder="add your comment here"
-                                      />
-                                  </Form.Group>
-                                  <Form.Group>
-                                      <Button type="submit">
-                                          Add Comment
-                                      </Button>
-                                  </Form.Group>
-                              </Form>
-                          </Col>
-                      </Row>
-                  </div>
-                </Modal.Body>
+                <Jumbotron>
+                    <h1>How are you feeling today?</h1>
+                    <Button>Add Card</Button>
+                </Jumbotron>
+                <Container>
+                    <CardDeck>
+                        <MyCard onClick={this.cardClicked} id="1" background="https://via.placeholder.com/120px100" text="You yourself, as much as anybody in the entire universe, deserve your love and affection"/>
+                        <MyCard onClick={this.cardClicked} id="2" background="https://via.placeholder.com/120px100" text="blah"/>
+                        <MyCard onClick={this.cardClicked} id="3" background="https://via.placeholder.com/120px100" text="test"/>
 
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={
-                        ()=>{
-                            this.setState({ visible: false});
-                            console.log("close")
-                        }
-                  }>Close</Button>
-                </Modal.Footer>
-              </Modal.Dialog>
-                :
-                null}
-                {/* <AddComment 
-                show={this.state.visible}
-                onHide={addModalClose}
-                /> */}
+                        {this.state.visible ?
+                        <AddComment hideModal={this.hideModal} />
+                        : null}
+                    </CardDeck>
+                </Container>
             </div>
         )
     }
 }
 
 {/* <Card style={{width: '18rem'}}>
-            <Button variant="primary">
-                <Card.Img variant="top" src="https://i.pinimg.com/564x/83/f0/3a/83f03ac706568420b12b98ed22016650.jpg" />
-            </Button>
-            <Card.Body>
-                <Card.Title>Owner</Card.Title>
-            </Card.Body>
-            </Card> */}
+                        <Button variant="primary" onClick={()=> this.setState({visible:true})}>
+                            <Card.Img variant="top" src="https://via.placeholder.com/120px100" />
+                        </Button>
+                        {this.state.visible ?
+                        <AddComment />
+                        : null}
+                    </Card> */}
 
 export default Cards;

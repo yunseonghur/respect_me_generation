@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { CloudinaryContext, Video } from 'cloudinary-react';
 import axios from 'axios';
 
-
 class VideoDisplay extends Component {
 
     state = {
@@ -17,18 +16,24 @@ class VideoDisplay extends Component {
     });
     }
 
+    getMyVideos() {
+        
+    }
+
     componentDidMount() {
         this.getVideos();
     }
 
     render() {
 
+        // update video state
         const {videos} = this.state;
 
         return (
             <div>
                 <CloudinaryContext cloudName="respectmegen">
                     {
+                        // map 
                         videos.map((data, index) => (
                             <div className="col-sm-3" key={index}>
                                     <Video publicId={data.public_id} width="350" controls></Video>

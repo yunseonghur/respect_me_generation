@@ -1,25 +1,66 @@
 import React, { Component } from 'react';
 import VideoDisplay from "../components/VideoDisplay";
-import { Video, Transformation } from 'cloudinary-react';
-import axios from 'axios';
+import fire from '../fire.js';
+
+
+const db = fire.database();
 
 class Videos extends Component {
 
     state ={
-        cloudname: "respectmegen"
+        userUID: null
+    }
+
+    componentDidMount() {
+        // get references that DON'T change
+        fire.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({
+                    userUID: user.uid,
+                })
+                console.log("Logged in. UID: " + this.state.userUID);
+            } else {
+                console.log("you're not logged in.")
+            }
+        })
+
+        // get snapshot of CHANGING attributes
+        // snap is the current state of database
+        // dbRef.child('User').on('value', snap => {
+        //     const userInfo = snap.val();
+
+        //     if (user) {
+
+        //     }
+            
+        // })
     }
 
     uploadHandler = () => {
         console.log("uploadhandler was clicked");
         const myWidget = window.cloudinary.createUploadWidget({
-            cloudName: this.state.cloudname, 
+            cloudName: "respectmegen", 
             tags: ['project'],
             uploadPreset: 'h5awwspl'}, (error, result) => { 
               if (!error && result && result.event === "success") { 
-                console.log('Done! Here is the image info: ', result.info); 
+                console.log('Done! Here is the video info: ', result.info);
+                console.log("public_id: " + result.info.public_id); 
+                
+                if (this.state.userUID) {
+                    // store the id into the current user:
+                    db.ref('User/' + this.state.userUID + '/video').set({
+                        video: result.info.public_id
+                    });
+                    console.log("video id" + result.info.public_id + "saved to user " + this.state.userUID);
+                } else if (!this.state.userUID) {
+                    console.log("video uploaded, but user wasn't logged in.")
+                }
+
               }
             }
           )
+        
+        // todo: do not open widget if user not logged in!
         myWidget.open();
     }
 

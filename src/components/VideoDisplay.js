@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CloudinaryContext, Transformation, Video } from 'cloudinary-react';
+import { CloudinaryContext, Video } from 'cloudinary-react';
 import axios from 'axios';
 
 

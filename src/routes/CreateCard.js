@@ -7,7 +7,6 @@ import fire from '../fire';
 import MyCard from '../components/MyCard';
 import "../routes/CreateCard.css"
 
-
 class CreateCard extends React.Component {
     constructor(props) {
         super(props);
@@ -86,7 +85,7 @@ class CreateCard extends React.Component {
                                 <label>
                                     <div className="imgOption">
                                         <Card>
-                                            <Card.Img className="cardImage" src={"https://i.pinimg.com/564x/73/6b/2c/736b2c0555170cc90589f8fef5f8f6e8.jpg"}/>
+                                            <Card.Img className="cardImage" src={"https://i.pinimg.com/564x/40/39/5c/40395c9d7cd4263ce1eb1d9eae47b920.jpg"}/>
                                         </Card>
                                         <input type="radio" value="3" checked={this.state.imgOption === "3"} onChange={this.handleImgChange} />
                                     </div>

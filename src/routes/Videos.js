@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import VideoDisplay from "../components/VideoDisplay";
+import UserVideo from "../components/UserVideo"
 import fire from '../fire.js';
 
 
@@ -9,6 +10,10 @@ class Videos extends Component {
 
     state ={
         userUID: null
+    }
+
+    getUserInfo = () => {
+
     }
 
     componentDidMount() {
@@ -23,6 +28,10 @@ class Videos extends Component {
                 console.log("you're not logged in.")
             }
         })
+
+        if (this.state.userUID) {
+
+        }
     }
 
     uploadHandler = () => {
@@ -38,11 +47,11 @@ class Videos extends Component {
                 if (this.state.userUID) {
                     // store the id into the current user:
                     var key = db.ref().child('videos').push().key;
-                    
+
                     var updates = {};
                     updates['/videos/' + key] = result.info.public_id;
 
-                    db.ref('User/' + this.state.userUID + '/video').update(updates);
+                    db.ref('User/' + this.state.userUID).update(updates);
 
                     console.log("video id" + result.info.public_id + "added to user " + this.state.userUID);
                 
@@ -60,12 +69,16 @@ class Videos extends Component {
 
     render() {
         return(
-            <div>
+            <div class="root">
                 <h1>Upload a Video</h1>
                 <button onClick={this.uploadHandler}>Upload File</button>
-                <h2>Showing all current videos</h2>
+                <h2>Showing all current videos:</h2>
                 <div>
                     <VideoDisplay />
+                </div>
+                <div>
+                    <h1>Showing MY uploads only:</h1>
+                    <UserVideo videoId="dtftmkj4imdatwadbaop" />
                 </div>
             </div>
         )

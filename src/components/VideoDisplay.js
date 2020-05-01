@@ -16,10 +16,6 @@ class VideoDisplay extends Component {
     });
     }
 
-    getMyVideos() {
-        
-    }
-
     componentDidMount() {
         this.getVideos();
     }

@@ -21,7 +21,7 @@ class Navigation extends Component {
     }
 
     writeUserData(userId, name, email) {
-        this.db.ref('User/' + userId).set({
+        this.db.ref('User/' + userId).update({
             name: name,
             email: email
         })

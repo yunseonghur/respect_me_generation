@@ -57,11 +57,11 @@ class Navigation extends Component {
     render() {
         return( 
             <div>
-                <Navbar bg="light" expand="lg">
-                    <Navbar.Brand href="#home">Respect Me Generation</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar bg="light" expand="md">
+                    <Navbar.Brand href="#home" id="brand">Respect Me Generation</Navbar.Brand>
+                    <Navbar.Toggle id="navBtb" aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="mr-auto">
+                        <Nav className="ml-auto">
                             <Nav.Link href="/">Home</Nav.Link>
                             <Nav.Link href="#cards">Cards</Nav.Link>
                             <Nav.Link href="#videos">Videos</Nav.Link>

@@ -9,14 +9,14 @@ class AddComment extends Component {
         this.state = {
             newComment: ' ',
             comments: [
-                {id: 1, comment: "Hello", user: "Irene"},
-                {id: 2, comment: "Testing", user: "Gina"},
-                {id: 3, comment: "You're doing great", user: "Yuni"},
-                {id: 4, comment: "Good job", user: "Sherry"},
+                {id: 1, cardId:"1", comment: "Hello", user: "Irene"},
+                {id: 2, cardId:"1", comment: "Testing", user: "Gina"},
+                {id: 3, cardId:"1", comment: "You're doing great", user: "Yuni"},
+                {id: 4, cardId:"1", comment: "Good job", user: "Sherry"},
             ]
         }
 
-        this.writeComment = this.writeComment.bind(this);
+        //this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
     }
 

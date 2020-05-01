@@ -12,9 +12,10 @@ class CreateCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            imgOption: '',
+            imgOption: 1,
             text: '',
-            visible: false
+            visible: false,
+            imgSrc: ''
         };
         this.db = fire.database();
         this.handleImgChange = this.handleImgChange.bind(this);
@@ -26,7 +27,8 @@ class CreateCard extends React.Component {
         this.setState({
             imgOption: event.target.value
         })
-        
+        console.log(this.state.imgOption);
+
     }
 
     handleTxtChange(event) {
@@ -52,8 +54,12 @@ class CreateCard extends React.Component {
                 text: this.state.text
             });
         }
+        var imgRef = this.db.ref("Image");
+        imgRef.on('value', snap => {
+            const imgInfo = snap.val();
+            this.setState({ imgSrc: imgInfo[this.state.imgOption]});
+        })
         this.setState({visible:true});
-        console.log("in handle submit", this.state.imgOption);
     }
 
     render() {
@@ -69,25 +75,25 @@ class CreateCard extends React.Component {
                                 <label>
                                     <div className="imgOption">
                                         <Card>
-                                            <Card.Img className="cardImage" src={require("../images/img1.jpg")}/>
+                                            <Card.Img className="cardImage" src={"https://i.pinimg.com/564x/aa/b8/49/aab84958979e408935c1b472deacda43.jpg"}/>
                                         </Card>
-                                        <input type="radio" value="img1" checked={this.state.imgOption === "img1"} onChange={this.handleImgChange} />
+                                        <input type="radio" value="1" checked={this.state.imgOption === "1"} onChange={this.handleImgChange} />
                                     </div>
                                 </label>
                                 <label>
                                     <div className="imgOption">
                                         <Card>
-                                            <Card.Img className="cardImage" src={require("../images/img2.jpg")}/>
+                                            <Card.Img className="cardImage" src={"https://i.pinimg.com/564x/73/96/bd/7396bd1cbf9e8ef8c73be0476290fd95.jpg"}/>
                                         </Card>
-                                        <input type="radio" value="img2" checked={this.state.imgOption === "img2"} onChange={this.handleImgChange} />
+                                        <input type="radio" value="2" checked={this.state.imgOption === "2"} onChange={this.handleImgChange} />
                                     </div>
                                 </label>
                                 <label>
                                     <div className="imgOption">
                                         <Card>
-                                            <Card.Img className="cardImage" src={require("../images/img3.jpg")}/>
+                                            <Card.Img className="cardImage" src={"https://i.pinimg.com/564x/73/6b/2c/736b2c0555170cc90589f8fef5f8f6e8.jpg"}/>
                                         </Card>
-                                        <input type="radio" value="img3" checked={this.state.imgOption === "img3"} onChange={this.handleImgChange} />
+                                        <input type="radio" value="3" checked={this.state.imgOption === "3"} onChange={this.handleImgChange} />
                                     </div>
                                 </label>
                             </div>
@@ -110,7 +116,7 @@ class CreateCard extends React.Component {
                         <Modal.Title>Your Card</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <MyCard id="1" background={this.state.imgOption} text={this.state.text} />
+                        <MyCard id="1" background={this.state.imgSrc} text={this.state.text} />
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={

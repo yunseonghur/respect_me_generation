@@ -29,3 +29,8 @@ button {
 .instruction {
     font-size: 15pt;
 }
+
+.cardImage {
+    width: 200px;
+    height: 200px;
+}

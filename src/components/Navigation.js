@@ -49,18 +49,43 @@ class Navigation extends Component {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
                             <Nav.Link href="/">Home</Nav.Link>
-                            <Nav.Link user="ginakim" href="#cards">Cards</Nav.Link>
+                            <Nav.Link href="#cards">Cards</Nav.Link>
                             <Nav.Link href="#videos">Videos</Nav.Link>
                             <Nav.Link href="#resources">Resources</Nav.Link>
-                            <Nav.Link href="#profile">Profile</Nav.Link>
-                            { this.state.user ? <Nav.Link href="#logout">Log Out</Nav.Link>: <Nav.Link href='#login'>Log In</Nav.Link>}
+                            { this.state.user ? (
+                                <Nav className="mr-auto">
+                                    <Nav.Link href="#profile">Profile</Nav.Link>
+                                    <Nav.Link href="#logout">Log Out</Nav.Link>
+                                </Nav>
+                            ): <Nav.Link href='#login'>Log In</Nav.Link>}
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
-                
             </div>
         )
     }
+
+    // render() {
+    //     return( 
+    //         <div>
+    //             <Navbar bg="light" expand="lg">
+    //                 <Navbar.Brand href="#home">Respect Me Generation</Navbar.Brand>
+    //                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    //                 <Navbar.Collapse id="basic-navbar-nav">
+    //                     <Nav className="mr-auto">
+    //                         <Nav.Link href="/">Home</Nav.Link>
+    //                         <Nav.Link user="ginakim" href="#cards">Cards</Nav.Link>
+    //                         <Nav.Link href="#videos">Videos</Nav.Link>
+    //                         <Nav.Link href="#resources">Resources</Nav.Link>
+    //                         <Nav.Link href="#profile">Profile</Nav.Link>
+    //                         { this.state.user ? <Nav.Link href="#logout">Log Out</Nav.Link>: <Nav.Link href='#login'>Log In</Nav.Link>}
+    //                     </Nav>
+    //                 </Navbar.Collapse>
+    //             </Navbar>
+                
+    //         </div>
+    //     )
+    // }
 }
 
 export default Navigation;

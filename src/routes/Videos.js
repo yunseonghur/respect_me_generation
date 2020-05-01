@@ -23,17 +23,6 @@ class Videos extends Component {
                 console.log("you're not logged in.")
             }
         })
-
-        // get snapshot of CHANGING attributes
-        // snap is the current state of database
-        // dbRef.child('User').on('value', snap => {
-        //     const userInfo = snap.val();
-
-        //     if (user) {
-
-        //     }
-            
-        // })
     }
 
     uploadHandler = () => {
@@ -48,10 +37,15 @@ class Videos extends Component {
                 
                 if (this.state.userUID) {
                     // store the id into the current user:
-                    db.ref('User/' + this.state.userUID + '/video').set({
-                        video: result.info.public_id
-                    });
-                    console.log("video id" + result.info.public_id + "saved to user " + this.state.userUID);
+                    var key = db.ref().child('videos').push().key;
+                    
+                    var updates = {};
+                    updates['/videos/' + key] = result.info.public_id;
+
+                    db.ref('User/' + this.state.userUID + '/video').update(updates);
+
+                    console.log("video id" + result.info.public_id + "added to user " + this.state.userUID);
+                
                 } else if (!this.state.userUID) {
                     console.log("video uploaded, but user wasn't logged in.")
                 }

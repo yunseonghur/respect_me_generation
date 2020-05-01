@@ -67,12 +67,8 @@ class Navigation extends Component {
                             <Nav.Link href="#cards">Cards</Nav.Link>
                             <Nav.Link href="#videos">Videos</Nav.Link>
                             <Nav.Link href="#resources">Resources</Nav.Link>
-                            { this.state.user ? (
-                                <Nav className="mr-auto">
-                                    <Nav.Link href="#profile">Profile</Nav.Link>
-                                    <Nav.Link href="#logout">Log Out</Nav.Link>
-                                </Nav>
-                            ): <Nav.Link href='#login'>Log In</Nav.Link>}
+                            { this.state.user ? <Nav.Link href="#profile">Profile</Nav.Link> : null}
+                            { this.state.user ? <Nav.Link href="#logout">Log Out</Nav.Link> : <Nav.Link href='#login'>Log In</Nav.Link>}
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

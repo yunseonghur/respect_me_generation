@@ -74,7 +74,3 @@ class Videos extends Component {
 }
 
 export default Videos;
-
-// https://234536288681363:aMMSnPSTD2UlFH35lI4uay7oOpA@api.cloudinary.com/v1_1/respectmegen/resources/video
-
-

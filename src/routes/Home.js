@@ -48,9 +48,13 @@ class Home extends React.Component{
                 <div className="card-section">
                     <h3>Cards</h3>
                     <CardDeck>
-                        <MyCard id="1" background="https://via.placeholder.com/120px100" text="You yourself, as much as anybody in the entire universe, deserve your love and affection" />
-                        <MyCard id="2" background="https://via.placeholder.com/120px100" text="I have public speaking tmrw, any suggestions on how to make myself feel less anxious?" />
-                        <MyCard id="3" background="https://via.placeholder.com/120px100" text="" />
+                        {Array.from(this.state.cards).map((myCard)=> 
+                            <MyCard 
+                                key={myCard.id} 
+                                id={myCard.id} 
+                                background={myCard.background} 
+                                text={myCard.text} 
+                            />)}
                     </CardDeck>
                 </div>
 

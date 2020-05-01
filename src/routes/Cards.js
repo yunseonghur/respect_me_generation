@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import MyCard from '../components/MyCard';
 import {Modal, CardDeck, Button, Row, Col, Form, Jumbotron, Container} from 'react-bootstrap';
 import AddComment from '../components/AddComment';
+import { Link } from 'react-router-dom';
 // import "./Cards.css";
 
 class Cards extends React.Component{
@@ -31,11 +32,10 @@ class Cards extends React.Component{
         return (
             <div>
                 <h2 className="logo-text"><b>Respect Me<br/>Generation</b></h2>
-                <Link to='createCard' className="btn btn-primary">Create Card</Link>
 
                 <Jumbotron>
                     <h1>How are you feeling today?</h1>
-                    <Button>Add Card</Button>
+                    <Link to='createCard' className="btn btn-primary">Add Card</Link>
                 </Jumbotron>
                 <Container>
                     <CardDeck>

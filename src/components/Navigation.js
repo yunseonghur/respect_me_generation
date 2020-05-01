@@ -58,7 +58,7 @@ class Navigation extends Component {
         return( 
             <div>
                 <Navbar bg="light" expand="md">
-                    <Navbar.Brand href="#home" id="brand">Respect Me Generation</Navbar.Brand>
+                    <Navbar.Brand href="/" id="brand">Respect Me Generation</Navbar.Brand>
                     <Navbar.Toggle id="navBtb" aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ml-auto">

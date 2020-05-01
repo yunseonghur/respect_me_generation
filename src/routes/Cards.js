@@ -1,21 +1,61 @@
 import React, {Component} from 'react';
 import MyCard from '../components/MyCard';
-import {Modal, CardDeck, Button, Row, Col, Form, Jumbotron, Container} from 'react-bootstrap';
+import {CardDeck, Button, Jumbotron, Container} from 'react-bootstrap';
 import AddComment from '../components/AddComment';
+import fire from '../fire'
 // import "./Cards.css";
+
+const dbRef = fire.database().ref();
 
 class Cards extends React.Component{
 
     constructor(props){
         super(props);
         this.state = {
+            isLoading: true,
             visible: false,
-            cards: [
-                {id:"1", background:"https://via.placeholder.com/120px100", text:"You yourself, as much as anybody in the entire universe, deserve your love"},
-                {id:"2", background:"https://via.placeholder.com/120px100", text:"Testing Testing"},
-                {id:"3", background:"https://via.placeholder.com/120px100", text:"Blah blah"}
-            ]
+            cards: []
         }
+    }
+
+    getUserInfo(){
+        dbRef.child('User').on('value', snap => {
+            const userInfo = snap.val();
+            this.setState({
+                cards: userInfo[this.state.userUID]['cards']
+            });
+            this.getCardDetails();
+        });
+    }
+
+    getCardDetails(){
+        let cards = this.state.cards;
+        let cardDetails = [];
+        for (let card in cards){
+            cardDetails.push({
+                id: card,
+                background: cards[card].imgOption,
+                text: cards[card].text
+            });
+        }
+        this.setState({
+            cards: cardDetails,  // re-set cards as an array
+            isLoading: false
+        });
+    }
+
+    componentDidMount(){
+        fire.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({
+                    username: user.displayName,
+                    userUID: user.uid
+                });
+                this.getUserInfo();
+            } else {
+                console.log("no current user");
+            }
+        })
     }
 
     cardClicked = () => {
@@ -63,5 +103,9 @@ class Cards extends React.Component{
                         <AddComment />
                         : null}
                     </Card> */}
+
+                    // {id:"1", background:"https://via.placeholder.com/120px100", text:"You yourself, as much as anybody in the entire universe, deserve your love"},
+                    // {id:"2", background:"https://via.placeholder.com/120px100", text:"Testing Testing"},
+                    // {id:"3", background:"https://via.placeholder.com/120px100", text:"Blah blah"}
 
 export default Cards;

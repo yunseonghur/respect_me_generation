@@ -6,7 +6,7 @@ function MyCard({id, background, text}){
     return (
         <div className="card">
             <Card>
-                <Card.Img className="card__img" src={background} alt="Card image" />
+                <Card.Img  width="200px" height="200px" className="card__img" src={background} alt="Card image" />
                 <Card.ImgOverlay>
                     <Card.Text>{text}</Card.Text>
                 </Card.ImgOverlay>

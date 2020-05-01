@@ -2,14 +2,27 @@ import React from 'react';
 import "./Profile.css";
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import MyCard from '../components/MyCard';
-import VideoDisplay from "../components/VideoDisplay";
 import AddComment from '../components/AddComment';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import fire from '../fire.js';
+import { CloudinaryContext, Video } from 'cloudinary-react';
 
 const dbRef = fire.database().ref();
+const UserVideo = (props) => { // a single video component in UserVideo.js
+    return (
+        <div>
+            <CloudinaryContext cloudName="respectmegen">
+                {
+                    <div>
+                        <Video publicId={props.videoId} width="350" controls></Video>
+                    </div>
+                }
+            </CloudinaryContext>
+        </div>
+    );
+}
 
 class Profile extends React.Component{
     state = {
@@ -36,9 +49,11 @@ class Profile extends React.Component{
             this.setState({
                 badge: userInfo[this.state.userUID]['badge'],
                 points: userInfo[this.state.userUID]['points'],
-                cards: userInfo[this.state.userUID]['cards']
+                cards: userInfo[this.state.userUID]['cards'],
+                videos: userInfo[this.state.userUID]['videos']
             });
             this.getCardDetails();
+            this.getVideos();
         });
     }
     getCardDetails(){
@@ -55,6 +70,16 @@ class Profile extends React.Component{
             cards: cardDetails,  // re-set cards as an array
             isLoading: false
         });
+    }
+    getVideos(){
+        let videos = this.state.videos;
+        let videoArr = [];
+        for (let video in videos){
+            videoArr.push({
+                id: videos[video]
+            });
+        }
+        this.setState({ videos: videoArr });
     }
     componentDidMount(){
         fire.auth().onAuthStateChanged((user) => {
@@ -118,7 +143,11 @@ class Profile extends React.Component{
                     </div>
                     ) : (
                     <div className="videos">
-                        <VideoDisplay></VideoDisplay>
+                            {Array.from(this.state.videos).map((myVideo)=> 
+                            <UserVideo 
+                                key={myVideo.id} 
+                                videoId={myVideo.id}
+                            />)}
                     </div>)
                 }
             </div>

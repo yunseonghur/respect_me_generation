@@ -52,7 +52,6 @@ class AddComment extends Component {
                     text: comments[comment]
                 });
             }
-            console.log(commentDetails)
         });
         return (commentDetails.map((comment)=> 
             <Comment 

@@ -8,6 +8,7 @@ import Profile from "./routes/Profile";
 import Login from "./routes/Login";
 import Logout from "./routes/Logout";
 import Navigation from "./components/Navigation";
+import CreateCard from "./routes/CreateCard";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
     <Route path="/profile" component={Profile} />
     <Route path="/login" component={Login} />
     <Route path="/logout" component={Logout} />
+    <Route path="/createCard" component={CreateCard} />
   </HashRouter>
   );
 }

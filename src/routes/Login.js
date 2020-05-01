@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-// import fireui from '../fireui';
 import firebase from 'firebase';
 import fire from '../fire'
 import * as firebaseui from 'firebaseui'
 import Home from '../routes/Home';
+import '../routes/Login.css';
 
-// import "./Login.css";
-
+// firebase login authentication UI
 const ui = new firebaseui.auth.AuthUI(fire.auth());
 
 var uiConfig = {
@@ -14,9 +13,7 @@ var uiConfig = {
       signInSuccessWithAuthResult: function(authResult, redirectUrl) {
         // User successfully signed in.
         // Return type determines whether we continue the redirect automatically
-        // or whether we leave that to developer to handle.
-        // navigation.setState({ loggedIn: true });
-        
+        // or whether we leave that to developer to handle.        
         return true;
       }
     },

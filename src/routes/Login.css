@@ -1,3 +1,22 @@
-body {
+.firebaseui-card-content {
     text-align: center;
+}
+
+.firebaseui-idp-icon{
+    height: 30px;
+    width: 30px;
+    margin: 10px;
+}
+
+.firebaseui-idp-text {
+    font-size: 12pt;
+}
+
+.firebaseui-idp-button {
+    width: 350px;
+    height: 80px;
+}
+
+li {
+    list-style: none;
 }

@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {Modal, Button, Row, Col, Form} from 'react-bootstrap';
 import Comment from './Comment';
+import fire from '../fire';
+
+const dbRef = fire.database().ref();
 
 class AddComment extends Component {
 
@@ -8,15 +11,10 @@ class AddComment extends Component {
         super(props);
         this.state = {
             newComment: ' ',
-            comments: [
-                {id: 1, cardId:"1", comment: "Hello", user: "Irene"},
-                {id: 2, cardId:"1", comment: "Testing", user: "Gina"},
-                {id: 3, cardId:"1", comment: "You're doing great", user: "Yuni"},
-                {id: 4, cardId:"1", comment: "Good job", user: "Sherry"},
-            ]
+            comments: []
         }
 
-        //this.writeComment = this.writeComment.bind(this);
+        this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
     }
 
@@ -24,19 +22,61 @@ class AddComment extends Component {
         visible: false
     }
 
+    getUserInfo(){
+        dbRef.child('User').on('value', snap => {
+            const userInfo = snap.val();
+            this.setState({
+                cards: userInfo[this.state.userUID]['cards']
+            });
+            this.getCardDetails();
+        });
+    }
+
+    getCardDetails(){
+        let cards = this.state.cards;
+        let cardDetails = [];
+        for (let card in cards){
+            cardDetails.push({
+                id: card,
+                comment: cards[card].comments,
+                background: cards[card].imgOption,
+                text: cards[card].text
+            });
+        }
+        this.setState({
+            cards: cardDetails,  // re-set cards as an array
+            isLoading: false
+        });
+    }
+
+    componentDidMount(){
+        fire.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({
+                    username: user.displayName,
+                    userUID: user.uid
+                });
+                this.getUserInfo();
+            } else {
+                console.log("no current user");
+            }
+        })
+    }
+
+
     // addComment(comment) {
     //     this.state.comments.push(comment);
 
     // }
 
-    // writeComment(event) {
-    //     // call method from parent to set comment
-    //     console.log('submit');
-    //     // sets it back to empty
-    //     this.setState({
-    //         newComment: ' '
-    //     })
-    // }
+    writeComment(event) {
+        // call method from parent to set comment
+        console.log('write comment');
+        // sets it back to empty
+        this.setState({
+            newComment: ' '
+        })
+    }
 
     handleInput(event) {
         console.log(this);
@@ -57,9 +97,9 @@ class AddComment extends Component {
                   <div className='container'>
                       <Row>
                           <Col>
-                            {this.state.comments.map((comment) => {
+                            {this.state.cards.map((card) => {
                                 return (
-                                    <Comment user={comment.user} comment={comment.comment} key={comment.id}/>
+                                    <Comment user="Irene" comment={card.comments.text} key={card.comments.id}/>
                                 )
                             })
                             }
@@ -108,5 +148,10 @@ class AddComment extends Component {
 //         console.log("close")
 //     }
 // }
+
+// {id: 1, cardId:"1", comment: "Hello", user: "Irene"},
+// {id: 2, cardId:"1", comment: "Testing", user: "Gina"},
+// {id: 3, cardId:"1", comment: "You're doing great", user: "Yuni"},
+// {id: 4, cardId:"1", comment: "Good job", user: "Sherry"},
 
 export default AddComment;

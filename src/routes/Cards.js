@@ -13,6 +13,7 @@ class Cards extends React.Component{
         super(props);
         this.state = {
             isLoading: true,
+            showCards: true, 
             visible: false,
             cards: []
         }
@@ -76,20 +77,34 @@ class Cards extends React.Component{
                     <h1>How are you feeling today?</h1>
                     <Button>Add Card</Button>
                 </Jumbotron>
-                <Container>
-                    <CardDeck>
-                        {this.state.cards.map((card) => {
-                            return (
-                                <MyCard onClick={this.cardClicked} background={card.background} text={card.text} id={card.id} key={card.id}/>
-                            )
-                        })
-                        }
 
-                        {this.state.visible ?
-                        <AddComment hideModal={this.hideModal} />
-                        : null}
-                    </CardDeck>
-                </Container>
+                {this.state.isLoading ? (
+                    <div className="loader">
+                    <span className="loader__text">Loading...</span>
+                    </div>
+                ) : this.state.showCards ?
+                    (
+                
+                    <Container>
+                        <CardDeck>
+                            {this.state.cards.map((card) => {
+                                return (
+                                    <MyCard onClick={this.cardClicked} background={card.background} text={card.text} id={card.id} key={card.id}/>
+                                )
+                            })
+                            }
+
+                            {this.state.visible ?
+                                <AddComment hideModal={this.hideModal} />
+                            : null}
+                        
+                        </CardDeck>
+                    </Container>
+                    ) : (
+                        <div className="loader">
+                        <span className="loader__text">Not Visible</span>
+                        </div>
+                    )}
             </div>
         )
     }

@@ -15,7 +15,8 @@ class Cards extends React.Component{
             isLoading: true,
             showCards: true, 
             visible: false,
-            cards: []
+            cards: [],
+            cardSelected: ""
         }
     }
 
@@ -87,12 +88,16 @@ class Cards extends React.Component{
                 
                     <Container>
                         <CardDeck>
-                            {this.state.cards.map((card) => {
-                                return (
-                                    <MyCard onClick={this.cardClicked} background={card.background} text={card.text} id={card.id} key={card.id}/>
-                                )
-                            })
-                            }
+                        {Array.from(this.state.cards).map((card)=> 
+                            <MyCard 
+                                key={card.id} 
+                                id={card.id} 
+                                background={card.background} 
+                                text={card.text} 
+                                onClick={()=>{
+                                    this.setState({ visible: true, cardSelected: card.id });
+                                }}
+                            />)}
 
                             {this.state.visible ?
                                 <AddComment hideModal={this.hideModal} />

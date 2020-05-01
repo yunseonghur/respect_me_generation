@@ -97,9 +97,9 @@ class AddComment extends Component {
                   <div className='container'>
                       <Row>
                           <Col>
-                            {this.state.cards.map((card) => {
+                            {Array.from(this.state.cards).map((card) => {
                                 return (
-                                    <Comment user="Irene" comment={card.comments.text} key={card.comments.id}/>
+                                    // <Comment user={card.} comment={card.comments.text} key={card.comments.id}/>
                                 )
                             })
                             }

@@ -73,17 +73,17 @@ class AddComment extends Component {
                   <div className='container'>
                       <Row>
                           <Col>
-                            {this.state.comments.map((comment) => {
+                            {/* {this.state.comments.map((comment) => {
                                 return (
                                     <Comment user={comment.user} comment={comment.comment} key={comment.id}/>
                                 )
                             })
-                            }
+                            } */}
+                            {this.getComments()}
                           </Col>
                       </Row>
                       <Row>
                           <Col sm={6}>
-                              {this.getComments()}
                               <Form onSubmit={this.handleSubmit}>
                                   <Form.Group controlId="Comments">
                                       <input

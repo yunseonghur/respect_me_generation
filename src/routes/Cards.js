@@ -12,6 +12,8 @@ class Cards extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            userUID: "",
+            cardSelected: "",
             isLoading: true,
             showCards: true, 
             visible: false,
@@ -100,7 +102,7 @@ class Cards extends React.Component{
                             />)}
 
                             {this.state.visible ?
-                                <AddComment hideModal={this.hideModal} />
+                                <AddComment hideModal={this.hideModal} userUID={this.state.userUID} cardID={this.state.cardSelected}/>
                             : null}
                         
                         </CardDeck>

@@ -10,11 +10,13 @@ class AddComment extends Component {
     constructor(props){
         super(props);
         this.state = {
+            userUID: props.userUID,
+            cardID: props.cardID,
             newComment: ' ',
             comments: []
         }
 
-        this.writeComment = this.writeComment.bind(this);
+        //this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
     }
 
@@ -69,20 +71,41 @@ class AddComment extends Component {
 
     // }
 
-    writeComment(event) {
-        // call method from parent to set comment
-        console.log('write comment');
-        // sets it back to empty
-        this.setState({
-            newComment: ' '
-        })
-    }
+    // writeComment(event) {
+    //     // call method from parent to set comment
+    //     console.log('write comment');
+    //     // sets it back to empty
+    //     this.setState({
+    //         newComment: ' '
+    //     })
+    // }
 
     handleInput(event) {
         console.log(this);
         this.setState({
             newComment: event.target.value,
         })
+    }
+
+    getComments(){
+        let commentDetails = []
+        dbRef.child('User').on('value', snap => {
+            const userInfo = snap.val();
+            console.log(userInfo[this.props.userUID]['cards']);
+            const comments = userInfo[this.props.userUID]['cards'][this.props.cardID]['comments']
+            for (let comment in comments){
+                commentDetails.push({
+                    id: comment,
+                    text: comments[comment]
+                });
+            }
+        });
+        return (commentDetails.map((comment)=> 
+            <Comment 
+                key={comment.id} 
+                user={comment.id} 
+                comment={comment.text} 
+            />));
     }
 
     render(){
@@ -97,12 +120,13 @@ class AddComment extends Component {
                   <div className='container'>
                       <Row>
                           <Col>
-                            {Array.from(this.state.cards).map((card) => {
+                            {/* {Array.from(this.state.cards).map((card) => {
                                 return (
                                     // <Comment user={card.} comment={card.comments.text} key={card.comments.id}/>
                                 )
                             })
-                            }
+                            } */}
+                            {this.getComments()}
                           </Col>
                       </Row>
                       <Row>

@@ -3,6 +3,7 @@ import "./Profile.css";
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import MyCard from '../components/MyCard';
 import VideoDisplay from "../components/VideoDisplay";
+import AddComment from '../components/AddComment';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -19,8 +20,16 @@ class Profile extends React.Component{
         cards: [],
         videos: [],
         isLoading: true,
-        visible: true  // true if cards are visible & false if videos are visible
+        visible: true,  // true if cards are visible & false if videos are visible
+        show: false,
+        cardSelected: ""
     };
+    showModal = () => {
+        this.setState({show: true})
+      };
+    hideModal = () => {
+        this.setState({show: false})
+    }
     getUserInfo(){
         dbRef.child('User').on('value', snap => {
             const userInfo = snap.val();
@@ -92,13 +101,19 @@ class Profile extends React.Component{
                     (
                     <div className="cards">
                         <CardDeck>
-                            {this.state.cards.map((myCard)=> 
+                            {Array.from(this.state.cards).map((myCard)=> 
                             <MyCard 
                                 key={myCard.id} 
                                 id={myCard.id} 
                                 background={myCard.background} 
                                 text={myCard.text} 
+                                onClick={()=>{
+                                    this.setState({ show: true, cardSelected: myCard.id });
+                                }}
                             />)}
+                            {this.state.show ?
+                            <AddComment hideModal={this.hideModal} userUID={this.state.userUID} cardID={this.state.cardSelected}/>
+                            : null}
                         </CardDeck>
                     </div>
                     ) : (

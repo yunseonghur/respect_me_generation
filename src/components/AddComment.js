@@ -1,27 +1,24 @@
 import React, {Component} from 'react';
 import {Modal, Button, Row, Col, Form} from 'react-bootstrap';
 import Comment from './Comment';
+import fire from '../fire.js';
+
+const dbRef = fire.database().ref();
 
 class AddComment extends Component {
 
     constructor(props){
         super(props);
         this.state = {
+            userUID: props.userUID,
+            cardID: props.cardID,
             newComment: ' ',
-            comments: [
-                {id: 1, comment: "Hello", user: "Irene"},
-                {id: 2, comment: "Testing", user: "Gina"},
-                {id: 3, comment: "You're doing great", user: "Yuni"},
-                {id: 4, comment: "Good job", user: "Sherry"},
-            ]
+            comments: [],
+            visible: false
         }
 
-        this.writeComment = this.writeComment.bind(this);
+        // this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
-    }
-
-    state = {
-        visible: false
     }
 
     // addComment(comment) {
@@ -44,7 +41,26 @@ class AddComment extends Component {
             newComment: event.target.value,
         })
     }
-
+    getComments(){
+        let commentDetails = []
+        dbRef.child('User').on('value', snap => {
+            const userInfo = snap.val();
+            const comments = userInfo[this.props.userUID]['cards'][this.props.cardID]['comments']
+            for (let comment in comments){
+                commentDetails.push({
+                    id: comment,
+                    text: comments[comment]
+                });
+            }
+            console.log(commentDetails)
+        });
+        return (commentDetails.map((comment)=> 
+            <Comment 
+                key={comment.id} 
+                user={comment.id} 
+                comment={comment.text} 
+            />));
+    }
     render(){
         return(
             <div>
@@ -67,7 +83,7 @@ class AddComment extends Component {
                       </Row>
                       <Row>
                           <Col sm={6}>
-
+                              {this.getComments()}
                               <Form onSubmit={this.handleSubmit}>
                                   <Form.Group controlId="Comments">
                                       <input
@@ -101,12 +117,5 @@ class AddComment extends Component {
         )
     }
 }
-
-// onClick={
-//     ()=>{
-//         this.setState({ visible: false});
-//         console.log("close")
-//     }
-// }
 
 export default AddComment;

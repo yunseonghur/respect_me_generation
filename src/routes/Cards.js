@@ -44,7 +44,6 @@ class Cards extends React.Component{
                             )
                         })
                         }
-
                         {this.state.visible ?
                         <AddComment hideModal={this.hideModal} />
                         : null}

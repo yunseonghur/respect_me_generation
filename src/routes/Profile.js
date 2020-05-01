@@ -3,26 +3,13 @@ import "./Profile.css";
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import MyCard from '../components/MyCard';
 import AddComment from '../components/AddComment';
+import UserVideo from '../components/UserVideo';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import fire from '../fire.js';
-import { CloudinaryContext, Video } from 'cloudinary-react';
 
 const dbRef = fire.database().ref();
-const UserVideo = (props) => { // a single video component in UserVideo.js
-    return (
-        <div>
-            <CloudinaryContext cloudName="respectmegen">
-                {
-                    <div>
-                        <Video publicId={props.videoId} width="350" controls></Video>
-                    </div>
-                }
-            </CloudinaryContext>
-        </div>
-    );
-}
 
 class Profile extends React.Component{
     state = {

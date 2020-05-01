@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react';
 import MyCard from '../components/MyCard';
 import {Modal, CardDeck, Button, Row, Col, Form, Jumbotron, Container} from 'react-bootstrap';
@@ -27,10 +28,10 @@ class Cards extends React.Component{
     }
 
     render() {
-
         return (
             <div>
                 <h2 className="logo-text"><b>Respect Me<br/>Generation</b></h2>
+                <Link to='createCard' className="btn btn-primary">Create Card</Link>
 
                 <Jumbotron>
                     <h1>How are you feeling today?</h1>
@@ -54,6 +55,7 @@ class Cards extends React.Component{
     }
 }
 
+
 {/* <Card style={{width: '18rem'}}>
                         <Button variant="primary" onClick={()=> this.setState({visible:true})}>
                             <Card.Img variant="top" src="https://via.placeholder.com/120px100" />
@@ -62,5 +64,6 @@ class Cards extends React.Component{
                         <AddComment />
                         : null}
                     </Card> */}
+
 
 export default Cards;

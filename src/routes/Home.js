@@ -44,6 +44,7 @@ class Home extends React.Component{
         this.pickTopThreeCards(cardCollected);
         
     }
+    // Count the number of comments for each card and pick top 3
     pickTopThreeCards(cardCollected){
         console.log(cardCollected)
     }

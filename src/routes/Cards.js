@@ -1,9 +1,7 @@
-
 import React, {Component} from 'react';
 import MyCard from '../components/MyCard';
 import {Modal, CardDeck, Button, Row, Col, Form, Jumbotron, Container} from 'react-bootstrap';
 import AddComment from '../components/AddComment';
-import { Link } from 'react-router-dom';
 // import "./Cards.css";
 
 class Cards extends React.Component{
@@ -29,13 +27,14 @@ class Cards extends React.Component{
     }
 
     render() {
+
         return (
             <div>
                 <h2 className="logo-text"><b>Respect Me<br/>Generation</b></h2>
 
                 <Jumbotron>
                     <h1>How are you feeling today?</h1>
-                    <Link to='createCard' className="btn btn-primary">Add Card</Link>
+                    <Button>Add Card</Button>
                 </Jumbotron>
                 <Container>
                     <CardDeck>
@@ -45,6 +44,7 @@ class Cards extends React.Component{
                             )
                         })
                         }
+
                         {this.state.visible ?
                         <AddComment hideModal={this.hideModal} />
                         : null}
@@ -55,7 +55,6 @@ class Cards extends React.Component{
     }
 }
 
-
 {/* <Card style={{width: '18rem'}}>
                         <Button variant="primary" onClick={()=> this.setState({visible:true})}>
                             <Card.Img variant="top" src="https://via.placeholder.com/120px100" />
@@ -64,6 +63,5 @@ class Cards extends React.Component{
                         <AddComment />
                         : null}
                     </Card> */}
-
 
 export default Cards;

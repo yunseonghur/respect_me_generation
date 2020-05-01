@@ -27,8 +27,6 @@ class CreateCard extends React.Component {
         this.setState({
             imgOption: event.target.value
         })
-        console.log(this.state.imgOption);
-
     }
 
     handleTxtChange(event) {
@@ -41,14 +39,11 @@ class CreateCard extends React.Component {
         event.preventDefault();
         var currentUser = fire.auth().currentUser;
         if (currentUser != null) {
-            console.log("You selected", this.state.imgOption);
-            console.log("Your text:", this.state.text);
             var key = this.db.ref().child('Card').push().key;
             this.db.ref("Card/" + key).set({
                 imgOption: this.state.imgOption,
                 text: this.state.text
             });
-            console.log("InCreateCard", currentUser.uid);
             this.db.ref("User/" + currentUser.uid).child("cards/" + key).set({
                 imgOption: this.state.imgOption,
                 text: this.state.text

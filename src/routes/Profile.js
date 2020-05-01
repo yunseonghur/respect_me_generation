@@ -2,6 +2,7 @@ import React from 'react';
 import "./Profile.css";
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import MyCard from '../components/MyCard';
+import VideoDisplay from "../components/VideoDisplay";
 import CardDeck from 'react-bootstrap/CardDeck';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -102,7 +103,7 @@ class Profile extends React.Component{
                     </div>
                     ) : (
                     <div className="videos">
-                        <p>displaying videos</p>
+                        <VideoDisplay></VideoDisplay>
                     </div>)
                 }
             </div>

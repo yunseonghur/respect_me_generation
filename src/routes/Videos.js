@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import VideoDisplay from "../components/VideoDisplay";
-import UserVideo from "../components/UserVideo"
 import fire from '../fire.js';
 
 
@@ -10,10 +9,6 @@ class Videos extends Component {
 
     state ={
         userUID: null
-    }
-
-    getUserInfo = () => {
-
     }
 
     componentDidMount() {
@@ -28,10 +23,6 @@ class Videos extends Component {
                 console.log("you're not logged in.")
             }
         })
-
-        if (this.state.userUID) {
-
-        }
     }
 
     uploadHandler = () => {
@@ -42,9 +33,10 @@ class Videos extends Component {
             uploadPreset: 'h5awwspl'}, (error, result) => { 
               if (!error && result && result.event === "success") { 
                 console.log('Done! Here is the video info: ', result.info);
-                console.log("public_id: " + result.info.public_id); 
+                console.log("public_id: " + result.info.public_id);
+                console.log("userUID in createWidget: " + this.state.userUID);
                 
-                if (this.state.userUID) {
+                if (this.state.userUID != null) {
                     // store the id into the current user:
                     var key = db.ref().child('videos').push().key;
 
@@ -53,9 +45,9 @@ class Videos extends Component {
 
                     db.ref('User/' + this.state.userUID).update(updates);
 
-                    console.log("video id" + result.info.public_id + "added to user " + this.state.userUID);
+                    console.log("video " + result.info.public_id + "added to user " + this.state.userUID);
                 
-                } else if (!this.state.userUID) {
+                } else if (this.state.userUID == null) {
                     console.log("video uploaded, but user wasn't logged in.")
                 }
 
@@ -69,16 +61,12 @@ class Videos extends Component {
 
     render() {
         return(
-            <div class="root">
+            <div>
                 <h1>Upload a Video</h1>
                 <button onClick={this.uploadHandler}>Upload File</button>
                 <h2>Showing all current videos:</h2>
                 <div>
                     <VideoDisplay />
-                </div>
-                <div>
-                    <h1>Showing MY uploads only:</h1>
-                    <UserVideo videoId="dtftmkj4imdatwadbaop" />
                 </div>
             </div>
         )

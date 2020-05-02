@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import fire from '../fire';
 import MyCard from '../components/MyCard';
-import "../routes/CreateCard.css"
+import "../routes/CreateCard.css";
 
 class CreateCard extends React.Component {
     constructor(props) {
@@ -13,8 +13,9 @@ class CreateCard extends React.Component {
         this.state = {
             imgOption: 1,
             text: '',
-            visible: false,
-            imgSrc: ''
+            createdCard: false,
+            imgSrc: '',
+            logInModal: false
         };
         this.db = fire.database();
         this.handleImgChange = this.handleImgChange.bind(this);
@@ -63,14 +64,36 @@ class CreateCard extends React.Component {
                 this.setState({ imgSrc: imgInfo[this.state.imgOption]});
                 this.writeCardInfo(imgSource, currentUser);
             })
+            this.setState({createdCard:true});
+        } else {
+            this.setState({logInModal:true});
         }
-        this.setState({visible:true});
+        
     }
 
     render() {
         const {text} = this.state
         return (
             <div>
+            { this.state.logInModal ? 
+                <Modal.Dialog>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Please Login</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        Please log in before you create a card.
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={
+                            ()=> {
+                                this.setState({ logInModal: false });
+                            }
+                        }>Close</Button>
+                    </Modal.Footer>
+                </Modal.Dialog>
+                :
+                null
+            }
             <form onSubmit={this.handleSubmit}>
                 <div id='selectImg'>
                     <p className="instruction">1. Select Image</p>
@@ -115,7 +138,7 @@ class CreateCard extends React.Component {
                     <Button onClick={this.handleSubmit} size="lg">Create!</Button>
                 </div>
             </form>
-             { this.state.visible ? 
+             { this.state.createdCard ? 
                 <Modal.Dialog>
                     <Modal.Header closeButton>
                         <Modal.Title>Your Card</Modal.Title>
@@ -126,7 +149,7 @@ class CreateCard extends React.Component {
                     <Modal.Footer>
                         <Button variant="secondary" onClick={
                             ()=> {
-                                this.setState({ visible: false });
+                                this.setState({ createdCard: false });
                             }
                         }>Close</Button>
                     </Modal.Footer>

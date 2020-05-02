@@ -17,7 +17,7 @@
     margin: 50px;
 }
 
-.card-section button, .resource-section button {
+.card-section .btn, .resource-section .btn {
     float: right;
     width: fit-content;
 }

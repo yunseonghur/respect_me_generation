@@ -6,6 +6,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 const dbRef = fire.database().ref();
 
@@ -34,11 +35,21 @@ class Home extends React.Component{
         for (let user in users){
             let cards = users[user].cards
             for (let card in cards){
-                cardCollected.push({
-                    id: card,
-                    background: cards[card].imgOption,
-                    text: cards[card].text
-                });
+                // Store comments as well if exist
+                if (cards[card]['comments']!=null){
+                    cardCollected.push({
+                        id: card,
+                        background: cards[card].imgOption,
+                        text: cards[card].text,
+                        comments: cards[card].comments
+                    });
+                } else {
+                    cardCollected.push({
+                        id: card,
+                        background: cards[card].imgOption,
+                        text: cards[card].text
+                    });
+                }
             }
         }
         // If the number of total cards is less than 3, display them all
@@ -52,20 +63,13 @@ class Home extends React.Component{
     }
     // Count the number of comments for each card and pick top 3
     pickTopThreeCards(cardCollected){
-        console.log(cardCollected.length)
-        console.log(cardCollected)
+        let numOfComments = []
         for(let card in cardCollected){
-            console.log(cardCollected[card])
+            if(cardCollected[card]['comments']!=null){
+                console.log(cardCollected[card]['comments'])
+                console.log(Object.keys(cardCollected[card]['comments']).length)
+            }
         }
-        dbRef.child('User').on('value', snap => {
-            var a = snap.exists();
-            var b = snap.child('FuPDC6SXFbRUwfWFkhZtjVdGPWX2/cards/id1/comments').exists();
-            //snap.child('{userUID}/cards/{cardID}/comments').exists();
-            console.log("a "+a);
-            console.log("b "+b);
-
-            let numOfComments = []
-        });
     }
     componentDidMount(){
         this.getDailyMessage();
@@ -96,7 +100,7 @@ class Home extends React.Component{
                 </Carousel>
 
                 <div className="card-section">
-                    <h3>Cards<Button variant="link">> View More</Button></h3>
+                    <h3>Cards<Link to='/cards' className="btn btn-link">> View More</Link></h3>
                     <CardDeck>
                         {Array.from(this.state.cards).map((myCard)=> 
                             <MyCard 
@@ -109,7 +113,7 @@ class Home extends React.Component{
                 </div>
 
                 <div className="resource-section">
-                    <h3>Resources<Button variant="link">> View More</Button></h3>
+                    <h3>Resources<Link to='/resources' className="btn btn-link">> View More</Link></h3>
                     <Jumbotron fluid>
                         <p></p>
                     </Jumbotron>

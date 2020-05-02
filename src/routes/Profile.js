@@ -19,17 +19,20 @@ class Profile extends React.Component{
         points: "",
         cards: [],
         videos: [],
-        isLoading: true,
+        isLoading: true, // true if the server is still loading cards data
         visible: true,  // true if cards are visible & false if videos are visible
-        show: false,
+        show: false, // false if modal is hiden
         cardSelected: ""
     };
+    // Set a flag for modal to true to appear
     showModal = () => {
         this.setState({show: true})
-      };
+    }
+    // Set a flag for modal to false to be hidden
     hideModal = () => {
         this.setState({show: false})
     }
+    // Get current user's info: badge, points, cards, and videos
     getUserInfo(){
         dbRef.child('User').on('value', snap => {
             const userInfo = snap.val();
@@ -43,6 +46,7 @@ class Profile extends React.Component{
             this.getVideos();
         });
     }
+    // Store the cards in an array and set a flag for loading to false
     getCardDetails(){
         let cards = this.state.cards;
         let cardDetails = [];
@@ -54,10 +58,11 @@ class Profile extends React.Component{
             });
         }
         this.setState({
-            cards: cardDetails,  // re-set cards as an array
+            cards: cardDetails,  // re-set cards state as an array
             isLoading: false
         });
     }
+    // Store the current user's videos in an array instead of in json format
     getVideos(){
         let videos = this.state.videos;
         let videoArr = [];
@@ -68,6 +73,7 @@ class Profile extends React.Component{
         }
         this.setState({ videos: videoArr });
     }
+    // Get current user's name and uid if exist
     componentDidMount(){
         fire.auth().onAuthStateChanged((user) => {
             if (user) {

@@ -39,3 +39,21 @@ button {
     width: 200px;
     height: 200px;
 }
+
+#tag-row{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.nav-pills .nav-link.active{
+    background-color: gray  !important;
+}
+
+.nav-pills .nav-link {
+    background-color: lightgray;
+    color: white;
+}
+
+p {
+    text-align: left;
+}

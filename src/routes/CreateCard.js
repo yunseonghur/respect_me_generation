@@ -1,25 +1,24 @@
 import React from 'react';
-import CardDeck from 'react-bootstrap/CardDeck';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import fire from '../fire';
 import MyCard from '../components/MyCard';
 import "../routes/CreateCard.css";
+import { Nav, Row, Col, Tab, CardDeck, Card, Button, Modal } from 'react-bootstrap';
 
 class CreateCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            imgOption: 1,
+            imgOption: '1',
             text: '',
             createdCard: false,
             imgSrc: '',
-            logInModal: false
+            logInModal: false,
+            tag: ''
         };
         this.db = fire.database();
         this.handleImgChange = this.handleImgChange.bind(this);
         this.handleTxtChange = this.handleTxtChange.bind(this);
+        this.handleTagChange = this.handleTagChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -37,16 +36,24 @@ class CreateCard extends React.Component {
         })
     }
 
+    handleTagChange(event) {
+        this.setState({
+            tag: event.target.name
+        })
+    }
+
     // saves card information to firebase
     writeCardInfo(imgSrc, currentUser) {
         var key = this.db.ref().child('Card').push().key;
         this.db.ref("Card/" + key).set({
             imgOption: imgSrc,
-            text: this.state.text
+            text: this.state.text,
+            tag: this.state.tag
         });
         this.db.ref("User/" + currentUser.uid).child('cards/' + key).set({
             imgOption: imgSrc,
-            text: this.state.text
+            text: this.state.text,
+            tag: this.state.tag
         });
     }
 
@@ -72,9 +79,8 @@ class CreateCard extends React.Component {
     }
 
     render() {
-        const {text} = this.state
         return (
-            <div>
+            <div className="container">
             { this.state.logInModal ? 
                 <Modal.Dialog>
                     <Modal.Header closeButton>
@@ -133,6 +139,33 @@ class CreateCard extends React.Component {
                     <div id="textField" className='jumbotron'>
                         <textarea name='text' onChange={this.handleTxtChange} />
                     </div>
+                </div>
+                <div id="selectTag">
+                    <p className="instruction">3. Select a Tag</p>
+                    <div className="jumbotron">
+                        <Tab.Container id="center-tab">
+                            <Row id="tag-row">
+                                <Nav variant="pills" className="flex-row">
+                                    <Col>
+                                        <Nav.Item>
+                                            <Nav.Link eventKey="study" name="study" onClick={this.handleTagChange}>Study</Nav.Link>
+                                        </Nav.Item>
+                                    </Col>
+                                    <Col>
+                                        <Nav.Item>
+                                            <Nav.Link eventKey="relationship" name="relationship" onClick={this.handleTagChange}>Relationship</Nav.Link>
+                                        </Nav.Item>
+                                    </Col>
+                                    <Col>
+                                        <Nav.Item>
+                                            <Nav.Link eventKey="health" name="health" onClick={this.handleTagChange}>Health</Nav.Link>
+                                        </Nav.Item>
+                                    </Col>
+                                </Nav>
+                            </Row>
+                        </Tab.Container>
+                    </div>
+                    
                 </div>
                 <div className='container'>
                     <Button onClick={this.handleSubmit} size="lg">Create!</Button>

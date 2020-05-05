@@ -31,20 +31,20 @@ class Home extends React.Component{
     }
     // Get all cards from the users
     getCards(users){
-        let cardCollected = [];
+        let cardsCollected = [];
         for (let user in users){
             let cards = users[user].cards
             for (let card in cards){
                 // Store comments as well if exist
                 if (cards[card]['comments']!=null){
-                    cardCollected.push({
+                    cardsCollected.push({
                         id: card,
                         background: cards[card].imgOption,
                         text: cards[card].text,
                         comments: cards[card].comments
                     });
                 } else {
-                    cardCollected.push({
+                    cardsCollected.push({
                         id: card,
                         background: cards[card].imgOption,
                         text: cards[card].text
@@ -53,23 +53,67 @@ class Home extends React.Component{
             }
         }
         // If the number of total cards is less than 3, display them all
-        if(cardCollected.length <= 3){
-            this.setState({ cards: cardCollected });
-            console.log(cardCollected) // Testing: print all cards stored in the database
+        if(cardsCollected.length <= 3){
+            this.setState({ cards: cardsCollected });
+            console.log(cardsCollected) // Testing: print all cards stored in the database
             // Else pick top 3 cards
         } else {
-        this.pickTopThreeCards(cardCollected);
+        this.pickTopThreeCards(cardsCollected);
         }
     }
     // Count the number of comments for each card and pick top 3
-    pickTopThreeCards(cardCollected){
-        let numOfComments = []
-        for(let card in cardCollected){
-            if(cardCollected[card]['comments']!=null){
-                console.log(cardCollected[card]['comments'])
-                console.log(Object.keys(cardCollected[card]['comments']).length)
+    pickTopThreeCards(cardsCollected){
+        let cardsPicked = [];
+        let candidates = [];
+        for(let card in cardsCollected){
+            if(cardsCollected[card]['comments']!=null){
+                candidates.push(cardsCollected[card])
+                candidates.push(Object.keys(cardsCollected[card]['comments']).length)
             }
         }
+        let first = -1
+        let second = -1
+        let third = -1
+        let firstCard, secondCard, thirdCard
+        for(var i=1; i<candidates.length; i+=2){
+            /* If current element is greater than first*/
+            if (candidates[i] > first){ 
+                third = second; 
+                second = first; 
+                first = candidates[i]; 
+                // Keep track of their index
+                thirdCard = secondCard;
+                secondCard = firstCard;
+                firstCard = i;
+            /* If candidatesNumOfComments[i] is in between first and second then update second  */
+            } else if (candidates[i] > second){ 
+                third = second; 
+                second = candidates[i]; 
+                thirdCard = secondCard;
+                secondCard = i;
+            } else if (candidates[i] > third) 
+                third = candidates[i]; 
+                thirdCard = i;
+        }
+        // store the most popular card
+        cardsPicked.push({
+            id: candidates[firstCard-1]['id'],
+            background: candidates[firstCard-1]['background'],
+            text: candidates[firstCard-1]['text'],
+        });
+        // store the second most popular card
+        cardsPicked.push({
+            id: candidates[secondCard-1]['id'],
+            background: candidates[secondCard-1]['background'],
+            text: candidates[secondCard-1]['text'],
+        });
+        // store the third most popular card
+        cardsPicked.push({
+            id: candidates[thirdCard-1]['id'],
+            background: candidates[thirdCard-1]['background'],
+            text: candidates[thirdCard-1]['text'],
+        });
+        this.setState({ cards: cardsPicked });
     }
     componentDidMount(){
         this.getDailyMessage();

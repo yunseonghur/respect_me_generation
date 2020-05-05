@@ -1,0 +1,59 @@
+.card{
+    width: 200px;
+    height: 200px;
+}
+
+.card-img{
+    width: 200px;
+    height: 200px;
+}
+
+.jumbotron {
+    text-align: center;
+}
+
+.card-deck {
+    text-align: center;
+}
+
+textarea {
+    width: 400px;
+    height: 200px;
+}
+
+.container {
+    text-align: center; 
+}
+
+button {
+    width: 400px;
+    height: 30px;
+    font-size: 30pt;
+}
+
+.instruction {
+    font-size: 15pt;
+}
+
+.cardImage {
+    width: 200px;
+    height: 200px;
+}
+
+#tag-row{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.nav-pills .nav-link.active{
+    background-color: gray  !important;
+}
+
+.nav-pills .nav-link {
+    background-color: lightgray;
+    color: white;
+}
+
+p {
+    text-align: left;
+}

@@ -1,3 +1,12 @@
-.mr-auto {
+.ml-auto {
+    font-size: 13pt;
+}
+
+#brand {
     font-size: 15pt;
+}
+
+button.navbar-toggler {
+    width: 40px;
+    height: 40px;
 }

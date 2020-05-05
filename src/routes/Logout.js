@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import fire from '../fire';
+import Home from './Home';
 
 class Logout extends Component {
     logOut = () => {
         fire.auth().signOut().then(function() {
             console.log("Successfully Signed out");
+            window.location=<Home />;
         }).catch(function(error) {
             console.log("Sign out ERROR");
         })
+        
     }
     render() {
         return(

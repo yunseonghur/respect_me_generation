@@ -30,7 +30,7 @@ class Home extends React.Component{
         });
     }
     // Get all cards from the users
-    getCards(users){
+    async getCards(users){
         let cardsCollected = [];
         for (let user in users){
             let cards = users[user].cards
@@ -58,7 +58,7 @@ class Home extends React.Component{
             console.log(cardsCollected) // Testing: print all cards stored in the database
             // Else pick top 3 cards
         } else {
-        this.pickTopThreeCards(cardsCollected);
+        await this.pickTopThreeCards(cardsCollected);
         }
     }
     // Count the number of comments for each card and pick top 3

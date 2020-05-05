@@ -103,53 +103,57 @@ class Profile extends React.Component{
                     <span>badge: {this.state.badge}, </span>
                     <span>points: {this.state.points}</span>
                 </Jumbotron>
-
-                <ButtonGroup> 
-                    <Button variant="light" onClick={()=>{
-                        this.setState({ visible: true});
-                    }}>
-                        Your Cards
-                    </Button>
-                    <Button variant="light" onClick={()=>{
-                        this.setState({ visible: false});
-                    }}>
-                        Your Videos
-                    </Button>
-                </ButtonGroup>
-
-                <h3>{tabLabel}</h3>
-                {this.state.isLoading ? (
-                    <div className="loader">
-                    <span className="loader__text">Loading...</span>
-                    </div>
-                ) : this.state.visible ?
-                    (
-                    <div className="cards">
-                        <CardDeck>
-                            {Array.from(this.state.cards).map((myCard)=> 
-                            <MyCard 
-                                key={myCard.id} 
-                                id={myCard.id} 
-                                background={myCard.background} 
-                                text={myCard.text} 
-                                onClick={()=>{
-                                    this.setState({ show: true, cardSelected: myCard.id });
-                                }}
-                            />)}
-                            {this.state.show ?
-                            <AddComment hideModal={this.hideModal} userUID={this.state.userUID} cardID={this.state.cardSelected}/>
-                            : null}
-                        </CardDeck>
-                    </div>
-                    ) : (
-                    <div className="videos">
-                            {Array.from(this.state.videos).map((myVideo)=> 
-                            <UserVideo 
-                                key={myVideo.id} 
-                                videoId={myVideo.id}
-                            />)}
-                    </div>)
-                }
+                <div className="container">
+                    <ButtonGroup> 
+                        <Button variant="light" onClick={()=>{
+                            this.setState({ visible: true});
+                        }}>
+                            Your Cards
+                        </Button>
+                        <Button variant="light" onClick={()=>{
+                            this.setState({ visible: false});
+                        }}>
+                            Your Videos
+                        </Button>
+                    </ButtonGroup>
+                    
+                    <br /><br />
+                    <h3>{tabLabel}</h3>
+                    <br />
+                    {this.state.isLoading ? (
+                        <div className="loader">
+                        <span className="loader__text">Loading...</span>
+                        </div>
+                    ) : this.state.visible ?
+                        (
+                        <div className="cards">
+                            <CardDeck>
+                                {Array.from(this.state.cards).map((myCard)=> 
+                                <MyCard 
+                                    key={myCard.id} 
+                                    id={myCard.id} 
+                                    background={myCard.background} 
+                                    text={myCard.text} 
+                                    onClick={()=>{
+                                        this.setState({ show: true, cardSelected: myCard.id });
+                                    }}
+                                />)}
+                                {this.state.show ?
+                                <AddComment hideModal={this.hideModal} userUID={this.state.userUID} cardID={this.state.cardSelected}/>
+                                : null}
+                            </CardDeck>
+                        </div>
+                        ) : (
+                        <div className="videos">
+                                {Array.from(this.state.videos).map((myVideo)=> 
+                                <UserVideo 
+                                    key={myVideo.id} 
+                                    videoId={myVideo.id}
+                                />)}
+                        </div>)
+                    }
+                </div>
+                
             </div>
         );
     }

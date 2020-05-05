@@ -61,7 +61,7 @@ class Videos extends Component {
 
     render() {
         return(
-            <div>
+            <div className="container">
                 <h1>Upload a Video</h1>
                 <button onClick={this.uploadHandler}>Upload File</button>
                 <h2>Showing all current videos:</h2>

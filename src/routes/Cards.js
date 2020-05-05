@@ -117,17 +117,4 @@ class Cards extends React.Component{
     }
 }
 
-{/* <Card style={{width: '18rem'}}>
-                        <Button variant="primary" onClick={()=> this.setState({visible:true})}>
-                            <Card.Img variant="top" src="https://via.placeholder.com/120px100" />
-                        </Button>
-                        {this.state.visible ?
-                        <AddComment />
-                        : null}
-                    </Card> */}
-
-                    // {id:"1", background:"https://via.placeholder.com/120px100", text:"You yourself, as much as anybody in the entire universe, deserve your love"},
-                    // {id:"2", background:"https://via.placeholder.com/120px100", text:"Testing Testing"},
-                    // {id:"3", background:"https://via.placeholder.com/120px100", text:"Blah blah"}
-
 export default Cards;

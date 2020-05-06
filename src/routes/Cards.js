@@ -80,13 +80,8 @@ class Cards extends React.Component{
                 <h2 className="logo-text"><b>Respect Me<br/>Generation</b></h2>
 
                 <Jumbotron>
-<<<<<<< HEAD
-                    <h1>How are you feeling today?</h1>
-                    <Link to='createCard' className="btn btn-primary">Add Card</Link>
-=======
                     <h1>What do you want to share today?</h1>
                     <Button>Add Card</Button>
->>>>>>> cards
                 </Jumbotron>
 
                 {this.state.isLoading ? (

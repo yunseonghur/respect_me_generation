@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import MyCard from '../components/MyCard';
 import {CardDeck, Button, Jumbotron, Container} from 'react-bootstrap';
@@ -75,13 +74,14 @@ class Cards extends React.Component{
       };
 
     render() {
+
         return (
             <div>
                 <h2 className="logo-text"><b>Respect Me<br/>Generation</b></h2>
 
                 <Jumbotron>
                     <h1>What do you want to share today?</h1>
-                    <Button>Add Card</Button>
+                    <Link to='createCard' className="btn btn-primary">Add Card</Link>
                 </Jumbotron>
 
                 {this.state.isLoading ? (

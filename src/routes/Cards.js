@@ -32,6 +32,22 @@ class Cards extends React.Component{
         });
     }
 
+    getCards(users){
+        let cardCollected = [];
+        for (let user in users){
+            let cards = users[user].cards
+            for (let card in cards){
+                cardCollected.push({
+                    id: card,
+                    background: cards[card].imgOption,
+                    text: cards[card].text
+                });
+            }
+        }
+        this.setState({ cards: cardCollected})
+        console.log(this.state.cards)
+    }
+
     getCardDetails(){
         let cards = this.state.cards;
         let cardDetails = [];
@@ -51,11 +67,11 @@ class Cards extends React.Component{
     componentDidMount(){
         fire.auth().onAuthStateChanged((user) => {
             if (user) {
-                this.setState({
-                    username: user.displayName,
-                    userUID: user.uid
-                });
                 this.getUserInfo();
+                dbRef.child('User').on('value', snap => {
+                    const users = snap.val();
+                    this.getCards(users);
+                });
             } else {
                 console.log("no current user");
             }
@@ -77,7 +93,7 @@ class Cards extends React.Component{
                 <h2 className="logo-text"><b>Respect Me<br/>Generation</b></h2>
 
                 <Jumbotron>
-                    <h1>How are you feeling today?</h1>
+                    <h1>What do you want to share today?</h1>
                     <Button>Add Card</Button>
                 </Jumbotron>
 
@@ -103,6 +119,7 @@ class Cards extends React.Component{
 
                             {this.state.visible ?
                                 <AddComment hideModal={this.hideModal} userUID={this.state.userUID} cardID={this.state.cardSelected}/>
+                                // not passing other user's UID 
                             : null}
                         
                         </CardDeck>

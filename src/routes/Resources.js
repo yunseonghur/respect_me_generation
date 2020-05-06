@@ -51,7 +51,7 @@ class Resources extends Component{
         return (
                 <div className="base">
                     <h1>Resources</h1>
-                    <p>Get accesses to resources to improve yourself in different areas!</p>
+                    
                     <Accordion className="accordion">
                         {
                             titles.map((data, index) => (

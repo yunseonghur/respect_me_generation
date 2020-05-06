@@ -12,7 +12,6 @@ class Cards extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            userUID: "",
             cardSelected: "",
             isLoading: true,
             showCards: true, 
@@ -20,16 +19,6 @@ class Cards extends React.Component{
             cards: [],
             cardSelected: ""
         }
-    }
-
-    getUserInfo(){
-        dbRef.child('User').on('value', snap => {
-            const userInfo = snap.val();
-            this.setState({
-                cards: userInfo[this.state.userUID]['cards']
-            });
-            this.getCardDetails();
-        });
     }
 
     getCards(users){
@@ -40,42 +29,23 @@ class Cards extends React.Component{
                 cardCollected.push({
                     id: card,
                     background: cards[card].imgOption,
-                    text: cards[card].text
+                    text: cards[card].text,
+                    comments: cards[card].comments
                 });
             }
         }
-        this.setState({ cards: cardCollected})
+        this.setState({ 
+            cards: cardCollected,
+            isLoading: false
+        })
         console.log(this.state.cards)
     }
 
-    getCardDetails(){
-        let cards = this.state.cards;
-        let cardDetails = [];
-        for (let card in cards){
-            cardDetails.push({
-                id: card,
-                background: cards[card].imgOption,
-                text: cards[card].text
-            });
-        }
-        this.setState({
-            cards: cardDetails,  // re-set cards as an array
-            isLoading: false
-        });
-    }
-
     componentDidMount(){
-        fire.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.getUserInfo();
-                dbRef.child('User').on('value', snap => {
-                    const users = snap.val();
-                    this.getCards(users);
-                });
-            } else {
-                console.log("no current user");
-            }
-        })
+        dbRef.child('User').on('value', snap => {
+            const users = snap.val();
+            this.getCards(users);
+        });
     }
 
     cardClicked = () => {
@@ -85,6 +55,22 @@ class Cards extends React.Component{
     hideModal = () => {
         this.setState({visible: false})
     }
+
+    getCardOwner = () => {
+        let userUID
+        dbRef.child('User').on('value', snap => {
+            const users = snap.val();
+            for (let user in users){
+                let cards = users[user].cards
+                for (let card in cards){
+                    if(card == this.state.cardSelected){
+                        userUID = user
+                    }
+                }
+            }
+        });
+        return userUID
+      };
 
     render() {
 
@@ -118,7 +104,7 @@ class Cards extends React.Component{
                             />)}
 
                             {this.state.visible ?
-                                <AddComment hideModal={this.hideModal} userUID={this.state.userUID} cardID={this.state.cardSelected}/>
+                                <AddComment hideModal={this.hideModal} userUID={this.getCardOwner()} cardID={this.state.cardSelected}/>
                                 // not passing other user's UID 
                             : null}
                         

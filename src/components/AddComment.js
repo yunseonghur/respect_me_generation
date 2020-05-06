@@ -91,14 +91,18 @@ class AddComment extends Component {
         let commentDetails = []
         dbRef.child('User').on('value', snap => {
             const userInfo = snap.val();
-            console.log(userInfo[this.props.userUID]['cards']);
-            const comments = userInfo[this.props.userUID]['cards'][this.props.cardID]['comments']
-            for (let comment in comments){
-                commentDetails.push({
-                    id: comment,
-                    text: comments[comment]
-                });
+            if(userInfo[this.props.userUID]!=null){
+                const comments = userInfo[this.props.userUID]['cards'][this.props.cardID]['comments']
+                for (let comment in comments){
+                    commentDetails.push({
+                        id: comment,
+                        text: comments[comment]
+                    });
+                }
+            }else{
+                console.log("userUID is null!")
             }
+
         });
         return (commentDetails.map((comment)=> 
             <Comment 

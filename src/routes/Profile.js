@@ -3,26 +3,13 @@ import "./Profile.css";
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import MyCard from '../components/MyCard';
 import AddComment from '../components/AddComment';
+import UserVideo from '../components/UserVideo';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import fire from '../fire.js';
-import { CloudinaryContext, Video } from 'cloudinary-react';
 
 const dbRef = fire.database().ref();
-const UserVideo = (props) => { // a single video component in UserVideo.js
-    return (
-        <div>
-            <CloudinaryContext cloudName="respectmegen">
-                {
-                    <div>
-                        <Video publicId={props.videoId} width="350" controls></Video>
-                    </div>
-                }
-            </CloudinaryContext>
-        </div>
-    );
-}
 
 class Profile extends React.Component{
     state = {
@@ -32,17 +19,20 @@ class Profile extends React.Component{
         points: "",
         cards: [],
         videos: [],
-        isLoading: true,
+        isLoading: true, // true if the server is still loading cards data
         visible: true,  // true if cards are visible & false if videos are visible
-        show: false,
+        show: false, // false if modal is hiden
         cardSelected: ""
     };
+    // Set a flag for modal to true to appear
     showModal = () => {
         this.setState({show: true})
-      };
+    }
+    // Set a flag for modal to false to be hidden
     hideModal = () => {
         this.setState({show: false})
     }
+    // Get current user's info: badge, points, cards, and videos
     getUserInfo(){
         dbRef.child('User').on('value', snap => {
             const userInfo = snap.val();
@@ -56,6 +46,7 @@ class Profile extends React.Component{
             this.getVideos();
         });
     }
+    // Store the cards in an array and set a flag for loading to false
     getCardDetails(){
         let cards = this.state.cards;
         let cardDetails = [];
@@ -67,10 +58,11 @@ class Profile extends React.Component{
             });
         }
         this.setState({
-            cards: cardDetails,  // re-set cards as an array
+            cards: cardDetails,  // re-set cards state as an array
             isLoading: false
         });
     }
+    // Store the current user's videos in an array instead of in json format
     getVideos(){
         let videos = this.state.videos;
         let videoArr = [];
@@ -81,6 +73,7 @@ class Profile extends React.Component{
         }
         this.setState({ videos: videoArr });
     }
+    // Get current user's name and uid if exist
     componentDidMount(){
         fire.auth().onAuthStateChanged((user) => {
             if (user) {

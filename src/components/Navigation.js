@@ -58,15 +58,13 @@ class Navigation extends Component {
         return( 
             <div>
                 <Navbar bg="light" expand="md">
-                    <Navbar.Brand href="/" id="brand">Respect Me Generation</Navbar.Brand>
+                    <Navbar.Brand href="/" id="brand">Respect Me<br/>Generation</Navbar.Brand>
                     <Navbar.Toggle id="navBtb" aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ml-auto">
-                            <Nav.Link href="/">Home</Nav.Link>
-                            <Nav.Link href="#cards">Cards</Nav.Link>
-                            <Nav.Link href="#videos">Videos</Nav.Link>
-                            <Nav.Link href="#resources">Resources</Nav.Link>
-                            { this.state.user ? <Nav.Link href="#profile">Profile</Nav.Link> : null}
+                            { this.state.user ? <Nav.Link href="#profile"><img src="https://img.icons8.com/material-outlined/24/000000/person-male.png" alt="Profile"/></Nav.Link> : null}
+                            <Nav.Link href="#communityBoard"><img src="https://img.icons8.com/material-outlined/24/000000/megaphone.png" alt="Community Board"/></Nav.Link>
+                            <Nav.Link href="#resources"><img src="https://img.icons8.com/material-outlined/24/000000/diversity.png" alt="Resources"/></Nav.Link>
                             { this.state.user ? <Nav.Link href="#logout">Log Out</Nav.Link> : <Nav.Link href='#login'>Log In</Nav.Link>}
                         </Nav>
                     </Navbar.Collapse>

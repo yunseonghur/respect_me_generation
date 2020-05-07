@@ -4,6 +4,7 @@ import Tag from './Tag';
 import Cards from './Cards';
 import VideoDisplay from "./VideoDisplay";
 import { Container, Button, Link } from 'react-floating-action-button';
+import { Tab, Row, Nav } from 'react-bootstrap';
 import fire from '../fire.js';
 
 const db = fire.database();
@@ -68,11 +69,17 @@ class Board extends React.Component{
             <div className="text-center">
                 <h2>COMMUNITY BOARD</h2>
                 <h5>What is your community talking about today?</h5>
-
                 <div className="tagGroup">
-                    <Tag tagName="Studying"></Tag>
-                    <Tag tagName="Sports"></Tag>
-                    <Tag tagName="Arts"></Tag>
+                    <Tab.Container id="center-tab">
+                        <Row id="tag-row">
+                            <Nav variant="pills" className="flex-row">
+                                <Tag name="study"></Tag>
+                                <Tag name="relationship"></Tag>
+                                <Tag name="health"></Tag>
+                            </Nav>
+                        </Row>
+                    </Tab.Container>
+                    
                 </div>
 
                 <Container>

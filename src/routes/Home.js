@@ -143,7 +143,7 @@ class Home extends React.Component{
                 </Carousel>
 
                 <div className="card-section">
-                    <h3>Cards<Link to='/cards' className="btn btn-link">> View More</Link></h3>
+                    <h3>Cards<Link to='/communityBoard' className="btn btn-link">> View More</Link></h3>
                     <CardDeck>
                         {Array.from(this.state.cards).map((myCard)=> 
                             <MyCard 

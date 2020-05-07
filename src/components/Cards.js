@@ -99,7 +99,6 @@ class Cards extends React.Component{
 
                             {this.state.visible ?
                                 <AddComment hideModal={this.hideModal} userUID={this.getCardOwner()} cardID={this.state.cardSelected}/>
-                                // not passing other user's UID 
                             : null}
                         
                         </CardDeck>

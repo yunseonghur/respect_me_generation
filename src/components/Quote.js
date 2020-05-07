@@ -20,6 +20,7 @@ class Quote extends Component {
 
             let text = quoteObject.quote;
             console.log("text: " + text);
+
             let author = quoteObject.author;
             console.log("author: " + author);
 
@@ -38,11 +39,11 @@ class Quote extends Component {
         return (
             <div className="quote-section">
                 <blockquote className="blockquote mb-0">
-                    <div>
+                    <div className="quote">
                         {this.state.quoteText}
                     </div>
                     <footer className="blockquote-footer">
-                    <cite title="Source Title">{this.state.quoteAuthor}</cite>
+                    <cite title="Source Title" className="author">{this.state.quoteAuthor}</cite>
                     </footer>
                 </blockquote>
             </div>

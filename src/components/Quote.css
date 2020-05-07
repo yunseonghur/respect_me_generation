@@ -5,13 +5,21 @@
   margin-top: 100px;
   margin-bottom: 100px;
   font-family: 'Noto Sans';
-  padding-left: 160px;
-  padding-right: 160px;
+  padding-left: 140px;
+  padding-right: 140px;
 }
 
 /* remove gray border in original format */
 .blockquote {
   border-left: 0px solid #eee;
+}
+
+.quote {
+  font-size: 16px;
+}
+
+.author {
+  font-size: 14px;
 }
 
 .blockquote-footer {

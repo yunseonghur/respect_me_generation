@@ -16,7 +16,7 @@ class Home extends React.Component{
         cards: [], 
         resources: []
     };
-    
+
     // Get current year, month, date to get a daily message from database
     getDailyMessage(){
         var year = new Date().getFullYear();
@@ -128,10 +128,8 @@ class Home extends React.Component{
 
     render(){
         return (
-            <div>
-    
+            <div className="wrapper">
                 <Quote />
-
                 <div className="card-section">
                     <h3>Cards<Link to='/cards' className="btn btn-link">> View More</Link></h3>
                     <CardDeck>

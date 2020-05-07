@@ -127,7 +127,6 @@ class CreateCard extends React.Component {
                 this.writeCardInfo(imgSource, currentUser);
             })
             this.setState({createdCard:true});
-            this.showResource();
         } else {
             this.setState({logInModal:true});
         }

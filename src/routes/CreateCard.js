@@ -2,7 +2,8 @@ import React from 'react';
 import fire from '../fire';
 import MyCard from '../components/MyCard';
 import "../routes/CreateCard.css";
-import { Container, Nav, Row, Col, Tab, CardDeck, Card, Button, Modal, Alert } from 'react-bootstrap';
+import { Container, Nav, Row, Col, Tab, CardDeck, Card, Button, Modal } from 'react-bootstrap';
+import ARTICLES from '../components/ResourceArticles';
 
 class CreateCard extends React.Component {
     constructor(props) {
@@ -10,7 +11,7 @@ class CreateCard extends React.Component {
         this.state = {
             imgOption: '1',
             text: '',
-            createdCard: true,
+            createdCard: false,
             imgSrc: '',
             logInModal: false,
             tag: ''
@@ -20,6 +21,7 @@ class CreateCard extends React.Component {
         this.handleTxtChange = this.handleTxtChange.bind(this);
         this.handleTagChange = this.handleTagChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.showModal = this.showModal.bind(this);
     }
 
     // imgOption state is set when an image is selected
@@ -57,6 +59,56 @@ class CreateCard extends React.Component {
         });
     }
 
+    showModal() {
+        return (
+            <Modal.Dialog>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Your Card</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Container>
+                                <Row>
+                                    <MyCard id="1" background={this.state.imgSrc} text={this.state.text} />
+                                </Row>
+                                <Row id="text-row">
+                                   <div id="tagResource">
+                                       {
+                                           ARTICLES.map(ARTICLE => {
+                                               if (ARTICLE.id === this.state.tag){
+                                                    return (
+                                                        <div key={ARTICLE.id}>
+                                                            {ARTICLE.description}
+                                                            <br />
+                                                            {ARTICLE.link}
+                                                        </div>
+                                                    );
+                                                }
+                                           })
+                                       }
+                                   </div>
+                                </Row>
+                            </Container>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Container>
+                                <Row>
+                                    <Col>
+                                        <Button className="modal-btn" href="#cards">Go to Community Board</Button>
+                                    </Col>
+                                    <Col>
+                                        <Button className="modal-btn" variant="secondary" onClick={
+                                            ()=> {
+                                                this.setState({ createdCard: false });
+                                            }
+                                        }>Close</Button>
+                                    </Col>   
+                                </Row>
+                            </Container>
+                        </Modal.Footer>
+                    </Modal.Dialog>
+        )    
+    }
+
     // finds src of the image selected by user
     handleSubmit(event) {
         event.preventDefault();
@@ -72,16 +124,15 @@ class CreateCard extends React.Component {
                 this.writeCardInfo(imgSource, currentUser);
             })
             this.setState({createdCard:true});
+            this.showResource();
         } else {
             this.setState({logInModal:true});
         }
-        
     }
 
     render() {
         return (
             <div className="container">
-                <Alert variant="success">Im an alert</Alert>
                 { this.state.logInModal ? 
                     <Modal.Dialog>
                         <Modal.Header closeButton>
@@ -172,35 +223,7 @@ class CreateCard extends React.Component {
                         <Button onClick={this.handleSubmit} size="lg" block>Create!</Button>
                     </div>
                 </form>
-                { this.state.createdCard ? 
-                    <Modal.Dialog>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Your Card</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <MyCard id="1" background={this.state.imgSrc} text={this.state.text} />
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Container>
-                                <Row>
-                                    <Col>
-                                        <Button className="modalBtn">Go to Community Board</Button>
-                                    </Col>
-                                    <Col>
-                                        <Button className="modalBtn" variant="secondary" onClick={
-                                            ()=> {
-                                                this.setState({ createdCard: false });
-                                            }
-                                        }>Close</Button>
-                                    </Col>   
-                                </Row>
-                            </Container>
-                        </Modal.Footer>
-                    </Modal.Dialog>
-                    :
-                    null
-                }
-            
+                { this.state.createdCard ? this.showModal() : null}
             </div>
             
         )

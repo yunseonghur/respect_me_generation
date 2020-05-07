@@ -56,7 +56,19 @@ button.close {
     width: 40px;
 }
 
-.modalBtn {
+.modal-btn {
     width: 200px;
     margin: 2px;
+}
+
+.modal-body {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#text-row {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

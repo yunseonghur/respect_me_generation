@@ -59,6 +59,7 @@ class CreateCard extends React.Component {
         });
     }
 
+    // displays the modal upon card creation
     showModal() {
         return (
             <Modal.Dialog>

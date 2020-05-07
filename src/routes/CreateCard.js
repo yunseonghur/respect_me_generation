@@ -4,7 +4,6 @@ import MyCard from '../components/MyCard';
 import "../routes/CreateCard.css";
 import { Container, Nav, Row, Col, Tab, CardDeck, Card, Button, Modal } from 'react-bootstrap';
 import ARTICLES from '../components/ResourceArticles';
-import Tag from '../components/Tag';
 
 class CreateCard extends React.Component {
     constructor(props) {
@@ -74,9 +73,6 @@ class CreateCard extends React.Component {
                                 </Row>
                                 <Row id="text-row">
                                    <div id="tagResource">
-                                       {
-                                           console.log(ARTICLES)
-                                       }
                                        {
                                            ARTICLES.map(ARTICLE => {
                                                if (ARTICLE.id === this.state.tag){
@@ -204,9 +200,21 @@ class CreateCard extends React.Component {
                             <Tab.Container id="center-tab">
                                 <Row id="tag-row">
                                     <Nav variant="pills" className="flex-row">
-                                        <Tag name="study"></Tag>
-                                        <Tag name="relationship"></Tag>
-                                        <Tag name="health"></Tag>
+                                        <Col>
+                                            <Nav.Item>
+                                                <Nav.Link eventKey="study" name="study" onClick={this.handleTagChange}>Study</Nav.Link>
+                                            </Nav.Item>
+                                        </Col>
+                                        <Col>
+                                            <Nav.Item>
+                                                <Nav.Link eventKey="relationship" name="relationship" onClick={this.handleTagChange}>Relationship</Nav.Link>
+                                            </Nav.Item>
+                                        </Col>
+                                        <Col>
+                                            <Nav.Item>
+                                                <Nav.Link eventKey="health" name="health" onClick={this.handleTagChange}>Health</Nav.Link>
+                                            </Nav.Item>
+                                        </Col>
                                     </Nav>
                                 </Row>
                             </Tab.Container>
@@ -225,3 +233,4 @@ class CreateCard extends React.Component {
 }
 
 export default CreateCard;
+

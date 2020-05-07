@@ -3,6 +3,10 @@ import fire from '../fire';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import '../components/Navigation.css';
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faBullhorn } from "@fortawesome/free-solid-svg-icons";
+import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 class Navigation extends Component {
@@ -62,9 +66,9 @@ class Navigation extends Component {
                     <Navbar.Toggle id="navBtb" aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ml-auto">
-                            { this.state.user ? <Nav.Link href="#profile"><img src="https://img.icons8.com/material-outlined/24/000000/person-male.png" alt="Profile"/></Nav.Link> : null}
-                            <Nav.Link href="#communityBoard"><img src="https://img.icons8.com/material-outlined/24/000000/megaphone.png" alt="Community Board"/></Nav.Link>
-                            <Nav.Link href="#resources"><img src="https://img.icons8.com/material-outlined/24/000000/diversity.png" alt="Resources"/></Nav.Link>
+                            { this.state.user ? <Nav.Link href="#profile"><FontAwesomeIcon icon={faUser} /></Nav.Link> : null}
+                            <Nav.Link href="#communityBoard"><FontAwesomeIcon icon={faBullhorn} /></Nav.Link>
+                            <Nav.Link href="#resources"><FontAwesomeIcon icon={faLightbulb} /></Nav.Link>
                             { this.state.user ? <Nav.Link href="#logout">Log Out</Nav.Link> : <Nav.Link href='#login'>Log In</Nav.Link>}
                         </Nav>
                     </Navbar.Collapse>
@@ -75,3 +79,5 @@ class Navigation extends Component {
 }
 
 export default Navigation;
+
+// <img src="https://img.icons8.com/material-outlined/24/000000/person-male.png" alt="Profile"/>

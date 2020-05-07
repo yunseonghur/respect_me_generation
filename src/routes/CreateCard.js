@@ -79,7 +79,9 @@ class CreateCard extends React.Component {
                                                         <div key={ARTICLE.id}>
                                                             {ARTICLE.description}
                                                             <br />
-                                                            {ARTICLE.link}
+                                                            {ARTICLE.title}
+                                                            <br />
+                                                            <a href={ARTICLE.link}>CLICK HERE!</a>
                                                         </div>
                                                     );
                                                 }

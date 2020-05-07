@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import VideoDisplay from "../components/VideoDisplay";
+import VideoDisplay from "./VideoDisplay";
 import fire from '../fire.js';
 
 
@@ -62,9 +62,7 @@ class Videos extends Component {
     render() {
         return(
             <div className="container">
-                <h1>Upload a Video</h1>
                 <button onClick={this.uploadHandler}>Upload File</button>
-                <h2>Showing all current videos:</h2>
                 <div>
                     <VideoDisplay />
                 </div>

@@ -6,6 +6,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import { Link } from 'react-router-dom';
+import Quote from '../components/Quote';
 
 const dbRef = fire.database().ref();
 
@@ -114,6 +115,7 @@ class Home extends React.Component{
         });
         this.setState({ cards: cardsPicked });
     }
+
     componentDidMount(){
         this.getDailyMessage();
         // Get all users to collect their cards
@@ -125,7 +127,7 @@ class Home extends React.Component{
     render(){
         return (
             <div>
-                <Carousel interval="8000">
+                {/* <Carousel interval="8000">
                     <Carousel.Item>
                         <img className="slide-img" src="https://via.placeholder.com/1200x400" alt="This is the first slide" />
                         <Carousel.Caption className="caption">
@@ -140,7 +142,9 @@ class Home extends React.Component{
                             <p>A community for teenagers.</p>
                         </Carousel.Caption>
                     </Carousel.Item>
-                </Carousel>
+                </Carousel> */}
+            
+                <Quote />
 
                 <div className="card-section">
                     <h3>Cards<Link to='/cards' className="btn btn-link">> View More</Link></h3>

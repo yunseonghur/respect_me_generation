@@ -17,6 +17,7 @@ class Board extends React.Component{
         isLoading: true, // true if the server is still loading cards data
         visible: true,  // true if cards are visible & false if videos are visible
         show: false, // false if modal is hiden
+        tag: "" // selected tag to sort
     }
 
     componentDidMount() {
@@ -67,6 +68,15 @@ class Board extends React.Component{
         myWidget.open();
     }
 
+    handleTag = (event) => {
+        event.preventDefault();
+        this.setState({
+            tag: event.target.name,
+            visible: true
+        })
+        window.location.reload(false);
+    }
+
     // TODO: Replace hardcoded tags (line14~)
     render() {
         return (
@@ -75,16 +85,11 @@ class Board extends React.Component{
                 <h5>What is your community talking about today?</h5>
 
                 <div className="tagGroup">
-                    <Tab.Container id="center-tab">
-                        <Row id="tag-row">
-                            <Nav variant="pills" className="flex-row">
-                                <Tag name="study"></Tag>
-                                <Tag name="relationship"></Tag>
-                                <Tag name="health"></Tag>
-                            </Nav>
-                        </Row>
-                    </Tab.Container>
-                    
+                    <ButtonGroup>
+                        <Button name="study" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">study</Button>
+                        <Button name="relationship" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">relationship</Button>
+                        <Button name="health" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">health</Button>
+                    </ButtonGroup>
                 </div>
 
                 <ButtonGroup> 
@@ -100,7 +105,7 @@ class Board extends React.Component{
                     </Button>
                 </ButtonGroup>
 
-                { this.state.visible ? <Cards></Cards> : <VideoDisplay></VideoDisplay> }
+                { this.state.visible ? <Cards tag={this.state.tag} />: <VideoDisplay />}
             </div>
         )}
 }

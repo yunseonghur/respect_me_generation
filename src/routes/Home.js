@@ -6,6 +6,7 @@ import CardDeck from 'react-bootstrap/CardDeck';
 import { Link } from 'react-router-dom';
 import Quote from '../components/Quote';
 import HomeResourceEntry from '../components/HomeResourceEntry';
+import MiniBoard from '../components/MiniBoard';
 
 
 const dbRef = fire.database().ref();
@@ -134,7 +135,8 @@ class Home extends React.Component{
                 <div className="card-section">
                     <h2>COMMUNITY BOARD</h2>
                     <p>What is your community talking about today?</p>
-                    <CardDeck>
+                    <MiniBoard />
+                    {/* <CardDeck>
                         {Array.from(this.state.cards).map((myCard)=> 
                             <MyCard 
                                 key={myCard.id} 
@@ -143,7 +145,7 @@ class Home extends React.Component{
                                 text={myCard.text} 
                             />)}
                         <Link to='/communityBoard' className="btn btn-link">></Link>
-                    </CardDeck>
+                    </CardDeck> */}
                 </div>
 
                 <div className="resource-section">

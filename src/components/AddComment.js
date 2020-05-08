@@ -12,6 +12,7 @@ class AddComment extends Component {
         this.state = {
             userUID: props.userUID,
             cardID: props.cardID,
+            cardOwnerUID: "",
             username: "",
             comments: [],
             newComment: ''
@@ -78,6 +79,7 @@ class AddComment extends Component {
         //     user: this.state.userUID
         // });
 
+        // change to cardOwnerUID
         dbRef.ref("User/" + this.state.userUID).child('cards/' + this.state.cardID+ '/comments').push({
             comment: this.state.newComment,
             user: this.state.username
@@ -92,7 +94,7 @@ class AddComment extends Component {
         })
     }
     getComments(){
-        let commentDetails = []
+        let commentDetails = [];
         dbRef.ref().child('User').on('value', snap => {
             const userInfo = snap.val();
             if(userInfo[this.props.userUID]!=null){
@@ -112,7 +114,7 @@ class AddComment extends Component {
         });
         return (commentDetails.map((comment)=> 
             <Comment 
-                key={comment.id} 
+                key={comment.key} 
                 user={comment.id} 
                 comment={comment.text} 
             />));

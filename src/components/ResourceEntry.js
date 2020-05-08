@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React from 'react';
 import "../routes/Resources.css";
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';

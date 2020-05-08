@@ -1,23 +1,36 @@
-
-
-.slide-img {
-    width: 100%;
-}
-
-.caption {
-    text-align:left;
-    top:50%;
-    bottom:auto;
-    -webkit-transform:translate(0, -50%);
-    -ms-transform:translate(0, -50%);
-    transform:translate(0, -50%);
-}
-
 .resource-section, .card-section{
     margin: 50px;
+    margin-bottom: 0px;
+}
+
+h2 {
+    text-align: center;
 }
 
 .card-section .btn, .resource-section .btn {
     float: right;
     width: fit-content;
+    font-size: 25pt;
+    font-weight: 100;
+    color: black;
+}
+
+.card-section p {
+    text-align: center;
+    font-size: 10pt;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.resource-section {
+    margin-top: 150px;
+}
+
+.resource-section .jumbotron-fluid {
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.card-deck img {
+    padding: 10px;
 }

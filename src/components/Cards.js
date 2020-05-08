@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import MyCard from '../components/MyCard';
-import {CardDeck, Button, Jumbotron, Container} from 'react-bootstrap';
-import AddComment from '../components/AddComment';
+import React from 'react';
+import MyCard from './MyCard';
+import {CardDeck, Container} from 'react-bootstrap';
+import AddComment from './AddComment';
 import { Link } from 'react-router-dom';
 import fire from '../fire'
 // import "./Cards.css";
@@ -77,13 +77,6 @@ class Cards extends React.Component{
 
         return (
             <div>
-                <h2 className="logo-text"><b>Respect Me<br/>Generation</b></h2>
-
-                <Jumbotron>
-                    <h1>What do you want to share today?</h1>
-                    <Link to='createCard' className="btn btn-primary">Add Card</Link>
-                </Jumbotron>
-
                 {this.state.isLoading ? (
                     <div className="loader">
                     <span className="loader__text">Loading...</span>

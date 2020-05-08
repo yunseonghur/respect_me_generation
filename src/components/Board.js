@@ -3,7 +3,9 @@ import './Board.css';
 import Tag from './Tag';
 import Cards from './Cards';
 import VideoDisplay from "./VideoDisplay";
-import { Container, Button, Link } from 'react-floating-action-button';
+import { Tab, Row, Nav } from 'react-bootstrap';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
 import fire from '../fire.js';
 
 const db = fire.database();
@@ -11,7 +13,11 @@ const db = fire.database();
 class Board extends React.Component{
 
     state ={
-        userUID: null
+        userUID: null,
+        isLoading: true, // true if the server is still loading cards data
+        visible: true,  // true if cards are visible & false if videos are visible
+        show: false, // false if modal is hiden
+        tag: "" // selected tag to sort
     }
 
     componentDidMount() {
@@ -62,6 +68,15 @@ class Board extends React.Component{
         myWidget.open();
     }
 
+    handleTag = (event) => {
+        event.preventDefault();
+        this.setState({
+            tag: event.target.name,
+            visible: true
+        })
+        window.location.reload(false);
+    }
+
     // TODO: Replace hardcoded tags (line14~)
     render() {
         return (
@@ -70,21 +85,27 @@ class Board extends React.Component{
                 <h5>What is your community talking about today?</h5>
 
                 <div className="tagGroup">
-                    <Tag tagName="Studying"></Tag>
-                    <Tag tagName="Sports"></Tag>
-                    <Tag tagName="Arts"></Tag>
+                    <ButtonGroup>
+                        <Button name="study" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">study</Button>
+                        <Button name="relationship" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">relationship</Button>
+                        <Button name="health" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">health</Button>
+                    </ButtonGroup>
                 </div>
 
-                <Container>
-                {/* <Link to='createCard' className="btn btn-primary">Add Card</Link> */}
-                    {/* <button onClick={this.uploadHandler}><img src="https://img.icons8.com/material-outlined/24/000000/camcorder-pro.png"/></button> */}
-                    <Link tooltip="Upload a video"><Button onClick={this.uploadHandler} ><img src="https://img.icons8.com/material-outlined/24/000000/camcorder-pro.png"/></Button></Link>
-                    <Link href='#createCard' tooltip="Add a card"><img src="https://img.icons8.com/android/24/000000/note.png"/></Link>
-                    <Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png"/></Button>
-                </Container>
+                <ButtonGroup> 
+                    <Button variant="light" onClick={()=>{
+                        this.setState({ visible: true});
+                    }}>
+                        Cards
+                    </Button>
+                    <Button variant="light" onClick={()=>{
+                        this.setState({ visible: false});
+                    }}>
+                        Videos
+                    </Button>
+                </ButtonGroup>
 
-                <Cards></Cards>
-                <VideoDisplay></VideoDisplay>
+                { this.state.visible ? <Cards tag={this.state.tag} />: <VideoDisplay />}
             </div>
         )}
 }

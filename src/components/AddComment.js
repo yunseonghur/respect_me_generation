@@ -10,27 +10,22 @@ class AddComment extends Component {
     constructor(props){
         super(props);
         this.state = {
-            userUID: props.userUID,
-            cardID: props.cardID,
-            cardOwnerUID: "",
+            userUID: "",
             username: "",
             comments: [],
-            newComment: ''
+            newComment: '',
+            visible: false
         }
 
         this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
     }
 
-    state = {
-        visible: false
-    }
-
     getUserInfo(){
         dbRef.ref().child('User').on('value', snap => {
             const userInfo = snap.val();
             this.setState({
-                cards: userInfo[this.state.userUID]['cards']
+                cards: userInfo[this.props.cardOwnerUID]['cards']
             });
             this.getCardDetails();
         });
@@ -72,6 +67,7 @@ class AddComment extends Component {
         console.log('write comment');
         console.log(this.state.newComment);
         console.log(this.state.userUID);
+        console.log(this.state.cardOwnerUID);
         console.log(this.state.cardID);
         
         // dbRef.ref("Card/" + this.state.cardID + '/comments').push({
@@ -79,8 +75,8 @@ class AddComment extends Component {
         //     user: this.state.userUID
         // });
 
-        // change to cardOwnerUID
-        dbRef.ref("User/" + this.state.userUID).child('cards/' + this.state.cardID+ '/comments').push({
+        // we need card owner UID
+        dbRef.ref("User/" + this.props.cardOwnerUID).child('cards/' + this.props.cardID+ '/comments').push({
             comment: this.state.newComment,
             user: this.state.username
         });
@@ -94,15 +90,14 @@ class AddComment extends Component {
         })
     }
     getComments(){
-        let commentDetails = [];
+        let commentDetails = []
         dbRef.ref().child('User').on('value', snap => {
             const userInfo = snap.val();
-            if(userInfo[this.props.userUID]!=null){
-                const comments = userInfo[this.props.userUID]['cards'][this.props.cardID]['comments']
-                console.log(comments)
+            if(userInfo[this.props.cardOwnerUID]!=null){
+                const comments = userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['comments']
                 for (let comment in comments){
-                    console.log(comments[comment].comment)
                     commentDetails.push({
+                        key: comment,
                         id: comments[comment].user,
                         text: comments[comment].comment
                     });

@@ -58,19 +58,19 @@ class Cards extends React.Component{
     }
 
     getCardOwner = () => {
-        let userUID
+        let cardOwnerUID;
         dbRef.child('User').on('value', snap => {
             const users = snap.val();
             for (let user in users){
                 let cards = users[user].cards
                 for (let card in cards){
                     if(card == this.state.cardSelected){
-                        userUID = user
+                        cardOwnerUID = user
                     }
                 }
             }
         });
-        return userUID
+        return cardOwnerUID
       };
 
     render() {
@@ -98,7 +98,7 @@ class Cards extends React.Component{
                             />)}
 
                             {this.state.visible ?
-                                <AddComment hideModal={this.hideModal} userUID={this.getCardOwner()} cardID={this.state.cardSelected}/>
+                                <AddComment hideModal={this.hideModal} cardOwnerUID={this.getCardOwner()} cardID={this.state.cardSelected}/>
                             : null}
                         
                         </CardDeck>

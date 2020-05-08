@@ -3,32 +3,29 @@ import {Modal, Button, Row, Col, Form} from 'react-bootstrap';
 import Comment from './Comment';
 import fire from '../fire';
 
-const dbRef = fire.database().ref();
+const dbRef = fire.database();
 
 class AddComment extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            userUID: props.userUID,
-            cardID: props.cardID,
-            newComment: ' ',
-            comments: []
+            userUID: "",
+            username: "",
+            comments: [],
+            newComment: '',
+            visible: false
         }
 
-        //this.writeComment = this.writeComment.bind(this);
+        this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
     }
 
-    state = {
-        visible: false
-    }
-
     getUserInfo(){
-        dbRef.child('User').on('value', snap => {
+        dbRef.ref().child('User').on('value', snap => {
             const userInfo = snap.val();
             this.setState({
-                cards: userInfo[this.state.userUID]['cards']
+                cards: userInfo[this.props.cardOwnerUID]['cards']
             });
             this.getCardDetails();
         });
@@ -65,21 +62,27 @@ class AddComment extends Component {
         })
     }
 
+    writeComment(event) {
+        
+        console.log('write comment');
+        console.log(this.state.newComment);
+        console.log(this.state.userUID);
+        console.log(this.state.cardOwnerUID);
+        console.log(this.state.cardID);
+        
+        // dbRef.ref("Card/" + this.state.cardID + '/comments').push({
+        //     comment: this.state.newComment,
+        //     user: this.state.userUID
+        // });
 
-    // addComment(comment) {
-    //     this.state.comments.push(comment);
+        // we need card owner UID
+        dbRef.ref("User/" + this.props.cardOwnerUID).child('cards/' + this.props.cardID+ '/comments').push({
+            comment: this.state.newComment,
+            user: this.state.username
+        });
+    }
 
-    // }
-
-    // writeComment(event) {
-    //     // call method from parent to set comment
-    //     console.log('write comment');
-    //     // sets it back to empty
-    //     this.setState({
-    //         newComment: ' '
-    //     })
-    // }
-
+    // what is being typed into form
     handleInput(event) {
         console.log(this);
         this.setState({
@@ -88,14 +91,15 @@ class AddComment extends Component {
     }
     getComments(){
         let commentDetails = []
-        dbRef.child('User').on('value', snap => {
+        dbRef.ref().child('User').on('value', snap => {
             const userInfo = snap.val();
-            if(userInfo[this.props.userUID]!=null){
-                const comments = userInfo[this.props.userUID]['cards'][this.props.cardID]['comments']
+            if(userInfo[this.props.cardOwnerUID]!=null){
+                const comments = userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['comments']
                 for (let comment in comments){
                     commentDetails.push({
-                        id: comment,
-                        text: comments[comment]
+                        key: comment,
+                        id: comments[comment].user,
+                        text: comments[comment].comment
                     });
                 }
             }else{
@@ -105,7 +109,7 @@ class AddComment extends Component {
         });
         return (commentDetails.map((comment)=> 
             <Comment 
-                key={comment.id} 
+                key={comment.key} 
                 user={comment.id} 
                 comment={comment.text} 
             />));
@@ -122,12 +126,6 @@ class AddComment extends Component {
                   <div className='container'>
                       <Row>
                           <Col>
-                            {/* {Array.from(this.state.cards).map((card) => {
-                                return (
-                                    // <Comment user={card.} comment={card.comments.text} key={card.comments.id}/>
-                                )
-                            })
-                            } */}
                             {this.getComments()}
                           </Col>
                       </Row>
@@ -139,7 +137,7 @@ class AddComment extends Component {
                                         type="text"
                                         className="Comments"                                    
                                         placeholder="add your comment"
-                                        value={this.state.NewComment}
+                                        value={this.state.newComment}
                                         onChange={this.handleInput}
                                       />
                                   </Form.Group>

@@ -132,8 +132,7 @@ class Home extends React.Component{
                 <Quote />
 
                 <div className="card-section">
-                    <h2>COMMUNITY BOARD</h2>
-                    <p>What is your community talking about today?</p>
+                    <h3>Cards<Link to='/communityBoard' className="btn btn-link">> View More</Link></h3>
                     <CardDeck>
                         {Array.from(this.state.cards).map((myCard)=> 
                             <MyCard 

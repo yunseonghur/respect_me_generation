@@ -6,6 +6,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import { Link } from 'react-router-dom';
+import Quote from '../components/Quote';
 
 const dbRef = fire.database().ref();
 
@@ -15,6 +16,7 @@ class Home extends React.Component{
         cards: [], 
         resources: []
     };
+
     // Get current year, month, date to get a daily message from database
     getDailyMessage(){
         var year = new Date().getFullYear();
@@ -114,47 +116,32 @@ class Home extends React.Component{
         });
         this.setState({ cards: cardsPicked });
     }
+
     componentDidMount(){
-        this.getDailyMessage();
+        // this.getDailyMessage();
         // Get all users to collect their cards
         dbRef.child('User').on('value', snap => {
             const users = snap.val();
             this.getCards(users);
         });
     }
+
     render(){
         return (
-            <div>
-                <Carousel interval="8000">
-                    <Carousel.Item>
-                        <img className="slide-img" src="https://via.placeholder.com/1200x400" alt="This is the first slide" />
-                        <Carousel.Caption className="caption">
-                            <p>Today's message</p>
-                            <h3>"{this.state.message}"</h3>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img className="slide-img" src="https://via.placeholder.com/1200x400" alt="This is the second slide" />
-                        <Carousel.Caption className="caption">
-                            <h3>Introducing Respect Me Generation</h3>
-                            <p>A community for teenagers.</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                </Carousel>
-
+            <div className="wrapper">
+                <Quote />
                 <div className="card-section">
-                    <h3>Cards<Link to='/cards' className="btn btn-link">> View More</Link></h3>
-                    <CardDeck>
-                        {Array.from(this.state.cards).map((myCard)=> 
-                            <MyCard 
-                                key={myCard.id} 
-                                id={myCard.id} 
-                                background={myCard.background} 
-                                text={myCard.text} 
-                            />)}
-                    </CardDeck>
-                </div>
-
+            <h3>Cards<Link to='/cards' className="btn btn-link">> View More</Link></h3>
+            <CardDeck>
+                {Array.from(this.state.cards).map((myCard)=> 
+                    <MyCard 
+                        key={myCard.id} 
+                        id={myCard.id} 
+                        background={myCard.background} 
+                        text={myCard.text} 
+                                    />)}
+            </CardDeck>
+            </div>
                 <div className="resource-section">
                     <h3>Resources<Link to='/resources' className="btn btn-link">> View More</Link></h3>
                     <Jumbotron fluid>

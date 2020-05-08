@@ -12,6 +12,7 @@ class Cards extends React.Component{
 
     constructor(props){
         super(props);
+        console.log("printing", this.props.tag);
         this.state = {
             cardSelected: "",
             isLoading: true,
@@ -24,6 +25,9 @@ class Cards extends React.Component{
 
     getCards(users){
         let cardCollected = [];
+        if (this.props.tag) {
+            console.log(this.props.tag);
+        }
         for (let user in users){
             let cards = users[user].cards
             for (let card in cards){
@@ -39,7 +43,7 @@ class Cards extends React.Component{
             cards: cardCollected,
             isLoading: false
         })
-        console.log(this.state.cards)
+        console.log("getting cards", this.state.cards)
     }
 
     componentDidMount(){

@@ -91,12 +91,12 @@ class Board extends React.Component{
                     <Button variant="light" onClick={()=>{
                         this.setState({ visible: true});
                     }}>
-                        Your Cards
+                        Cards
                     </Button>
                     <Button variant="light" onClick={()=>{
                         this.setState({ visible: false});
                     }}>
-                        Your Videos
+                        Videos
                     </Button>
                 </ButtonGroup>
 

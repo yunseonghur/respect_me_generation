@@ -148,6 +148,8 @@ class Home extends React.Component{
 
                 <div className="resource-section">
                     <HomeResourceEntry tagName="health"></HomeResourceEntry>
+                    <HomeResourceEntry tagName="relationships"></HomeResourceEntry>
+                    <HomeResourceEntry tagName="studying"></HomeResourceEntry>
                 </div>
             </div>
         );

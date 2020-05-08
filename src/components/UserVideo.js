@@ -5,11 +5,7 @@ const UserVideo = (props) => {
     return (
         <div>
             <CloudinaryContext cloudName="respectmegen">
-                {
-                    <div>
-                    <Video publicId={props.videoId} width="350" controls></Video>
-                    </div>
-                }
+                {<Video publicId={props.videoId} width="350" controls></Video>}
             </CloudinaryContext>
         </div>
     );

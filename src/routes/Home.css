@@ -21,3 +21,16 @@ h2 {
     padding-top: 10px;
     padding-bottom: 20px;
 }
+
+.resource-section {
+    margin-top: 150px;
+}
+
+.resource-section .jumbotron-fluid {
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.card-deck img {
+    padding: 5px;
+}

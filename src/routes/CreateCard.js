@@ -75,9 +75,9 @@ class CreateCard extends React.Component {
                                    <div id="tagResource">
                                        {
                                            ARTICLES.map(ARTICLE => {
-                                               if (ARTICLE.id === this.state.tag){
+                                               if (ARTICLE.tag === this.state.tag){
                                                     return (
-                                                        <div key={ARTICLE.id}>
+                                                        <div key={ARTICLE.tag}>
                                                             {ARTICLE.description}
                                                             <br />
                                                             {ARTICLE.title}

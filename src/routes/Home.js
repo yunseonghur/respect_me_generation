@@ -131,18 +131,17 @@ class Home extends React.Component{
             <div className="wrapper">
                 <Quote />
                 <div className="card-section">
-                    <h3>Cards<Link to='/cards' className="btn btn-link">> View More</Link></h3>
-                    <CardDeck>
-                        {Array.from(this.state.cards).map((myCard)=> 
-                            <MyCard 
-                                key={myCard.id} 
-                                id={myCard.id} 
-                                background={myCard.background} 
-                                text={myCard.text} 
-                            />)}
-                    </CardDeck>
-                </div>
-
+            <h3>Cards<Link to='/cards' className="btn btn-link">> View More</Link></h3>
+            <CardDeck>
+                {Array.from(this.state.cards).map((myCard)=> 
+                    <MyCard 
+                        key={myCard.id} 
+                        id={myCard.id} 
+                        background={myCard.background} 
+                        text={myCard.text} 
+                                    />)}
+            </CardDeck>
+            </div>
                 <div className="resource-section">
                     <h3>Resources<Link to='/resources' className="btn btn-link">> View More</Link></h3>
                     <Jumbotron fluid>

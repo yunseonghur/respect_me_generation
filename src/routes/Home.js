@@ -2,11 +2,11 @@ import React from 'react';
 import "./Home.css";
 import fire from '../fire.js';
 import MyCard from '../components/MyCard';
-import Carousel from 'react-bootstrap/Carousel';
 import CardDeck from 'react-bootstrap/CardDeck';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import { Link } from 'react-router-dom';
 import Quote from '../components/Quote';
+import HomeResourceEntry from '../components/HomeResourceEntry';
+
 
 const dbRef = fire.database().ref();
 
@@ -130,23 +130,24 @@ class Home extends React.Component{
         return (
             <div className="wrapper">
                 <Quote />
+
                 <div className="card-section">
-            <h3>Cards<Link to='/cards' className="btn btn-link">> View More</Link></h3>
-            <CardDeck>
-                {Array.from(this.state.cards).map((myCard)=> 
-                    <MyCard 
-                        key={myCard.id} 
-                        id={myCard.id} 
-                        background={myCard.background} 
-                        text={myCard.text} 
-                                    />)}
-            </CardDeck>
-            </div>
+                    <h2>COMMUNITY BOARD</h2>
+                    <p>What is your community talking about today?</p>
+                    <CardDeck>
+                        {Array.from(this.state.cards).map((myCard)=> 
+                            <MyCard 
+                                key={myCard.id} 
+                                id={myCard.id} 
+                                background={myCard.background} 
+                                text={myCard.text} 
+                            />)}
+                        <Link to='/communityBoard' className="btn btn-link">></Link>
+                    </CardDeck>
+                </div>
+
                 <div className="resource-section">
-                    <h3>Resources<Link to='/resources' className="btn btn-link">> View More</Link></h3>
-                    <Jumbotron fluid>
-                        <p></p>
-                    </Jumbotron>
+                    <HomeResourceEntry tagName="health"></HomeResourceEntry>
                 </div>
             </div>
         );

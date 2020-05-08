@@ -75,16 +75,11 @@ class Board extends React.Component{
                 <h5>What is your community talking about today?</h5>
 
                 <div className="tagGroup">
-                    <Tab.Container id="center-tab">
-                        <Row id="tag-row">
-                            <Nav variant="pills" className="flex-row">
-                                <Tag name="study"></Tag>
-                                <Tag name="relationship"></Tag>
-                                <Tag name="health"></Tag>
-                            </Nav>
-                        </Row>
-                    </Tab.Container>
-                    
+                    <ButtonGroup>
+                        <Tag name="study"></Tag>
+                            <Tag name="relationship"></Tag>
+                            <Tag name="health"></Tag>
+                    </ButtonGroup>
                 </div>
 
                 <ButtonGroup> 

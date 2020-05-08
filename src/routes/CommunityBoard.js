@@ -1,11 +1,7 @@
 import React from 'react';
 import './CommunityBoard.css';
-import Cards from '../components/Cards';
-import VideoDisplay from '../components/VideoDisplay';
-import Tag from '../components/Tag';
 import Board from '../components/Board';
-import { CardDeck, Container, Button, Link } from 'react-floating-action-button';
-import { Tab, Row, Nav, ButtonGroup } from 'react-bootstrap';
+import { Container, Button, Link } from 'react-floating-action-button';
 
 
 class CommunityBoard extends React.Component{

@@ -14,7 +14,7 @@ class CreateCard extends React.Component {
             createdCard: false,
             imgSrc: '',
             logInModal: false,
-            tag: ''
+            tag: 'all'
         };
         this.db = fire.database();
         this.handleImgChange = this.handleImgChange.bind(this);

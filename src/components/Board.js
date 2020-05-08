@@ -17,7 +17,8 @@ class Board extends React.Component{
         isLoading: true, // true if the server is still loading cards data
         visible: true,  // true if cards are visible & false if videos are visible
         show: false, // false if modal is hiden
-        tag: "" // selected tag to sort
+        tag: "all", // selected tag to sort
+        displayMode: "card"
     }
 
     componentDidMount() {
@@ -71,10 +72,22 @@ class Board extends React.Component{
     handleTag = (event) => {
         event.preventDefault();
         this.setState({
-            tag: event.target.name,
-            visible: true
+            tag: event.target.name
         })
-        window.location.reload(false);
+    }
+
+    display = () => {
+        if (this.state.tag === "study") {
+            if (this.state.visible) {
+                return <Cards tag={this.state.tag}/>
+            }
+            // return <Cards tag={this.state.tag} />
+        } else if (this.state.tag === "relationship") {
+            if (this.state.visible) {
+                return <Cards tag={this.state.tag}/>
+            }
+            // return <Cards tag={this.state.tag} />
+        }
     }
 
     // TODO: Replace hardcoded tags (line14~)
@@ -86,6 +99,7 @@ class Board extends React.Component{
 
                 <div className="tagGroup">
                     <ButtonGroup>
+                        <Button name="all" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">ALL</Button>
                         <Button name="study" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">study</Button>
                         <Button name="relationship" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">relationship</Button>
                         <Button name="health" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">health</Button>
@@ -104,7 +118,6 @@ class Board extends React.Component{
                         Videos
                     </Button>
                 </ButtonGroup>
-
                 { this.state.visible ? <Cards tag={this.state.tag} />: <VideoDisplay />}
             </div>
         )}

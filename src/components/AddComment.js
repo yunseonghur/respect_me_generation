@@ -3,7 +3,7 @@ import {Modal, Button, Row, Col, Form} from 'react-bootstrap';
 import Comment from './Comment';
 import fire from '../fire';
 
-const dbRef = fire.database().ref();
+const dbRef = fire.database();
 
 class AddComment extends Component {
 
@@ -12,11 +12,12 @@ class AddComment extends Component {
         this.state = {
             userUID: props.userUID,
             cardID: props.cardID,
-            newComment: ' ',
-            comments: []
+            username: "",
+            comments: [],
+            newComment: ''
         }
 
-        //this.writeComment = this.writeComment.bind(this);
+        this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
     }
 
@@ -25,7 +26,7 @@ class AddComment extends Component {
     }
 
     getUserInfo(){
-        dbRef.child('User').on('value', snap => {
+        dbRef.ref().child('User').on('value', snap => {
             const userInfo = snap.val();
             this.setState({
                 cards: userInfo[this.state.userUID]['cards']
@@ -65,21 +66,25 @@ class AddComment extends Component {
         })
     }
 
+    writeComment(event) {
+        
+        console.log('write comment');
+        console.log(this.state.newComment);
+        console.log(this.state.userUID);
+        console.log(this.state.cardID);
+        
+        // dbRef.ref("Card/" + this.state.cardID + '/comments').push({
+        //     comment: this.state.newComment,
+        //     user: this.state.userUID
+        // });
 
-    // addComment(comment) {
-    //     this.state.comments.push(comment);
+        dbRef.ref("User/" + this.state.userUID).child('cards/' + this.state.cardID+ '/comments').push({
+            comment: this.state.newComment,
+            user: this.state.username
+        });
+    }
 
-    // }
-
-    // writeComment(event) {
-    //     // call method from parent to set comment
-    //     console.log('write comment');
-    //     // sets it back to empty
-    //     this.setState({
-    //         newComment: ' '
-    //     })
-    // }
-
+    // what is being typed into form
     handleInput(event) {
         console.log(this);
         this.setState({
@@ -88,14 +93,16 @@ class AddComment extends Component {
     }
     getComments(){
         let commentDetails = []
-        dbRef.child('User').on('value', snap => {
+        dbRef.ref().child('User').on('value', snap => {
             const userInfo = snap.val();
             if(userInfo[this.props.userUID]!=null){
                 const comments = userInfo[this.props.userUID]['cards'][this.props.cardID]['comments']
+                console.log(comments)
                 for (let comment in comments){
+                    console.log(comments[comment].comment)
                     commentDetails.push({
-                        id: comment,
-                        text: comments[comment]
+                        id: comments[comment].user,
+                        text: comments[comment].comment
                     });
                 }
             }else{
@@ -122,12 +129,6 @@ class AddComment extends Component {
                   <div className='container'>
                       <Row>
                           <Col>
-                            {/* {Array.from(this.state.cards).map((card) => {
-                                return (
-                                    // <Comment user={card.} comment={card.comments.text} key={card.comments.id}/>
-                                )
-                            })
-                            } */}
                             {this.getComments()}
                           </Col>
                       </Row>
@@ -139,7 +140,7 @@ class AddComment extends Component {
                                         type="text"
                                         className="Comments"                                    
                                         placeholder="add your comment"
-                                        value={this.state.NewComment}
+                                        value={this.state.newComment}
                                         onChange={this.handleInput}
                                       />
                                   </Form.Group>

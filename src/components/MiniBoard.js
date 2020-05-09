@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Cards from './Cards';
 import VideoDisplay from "./VideoDisplay";
 
+import { useHistory, withRouter } from 'react-router-dom';
+
 /**
  * A minified version of the community board
  * which doesn't show all videos.
@@ -13,25 +15,27 @@ class MiniBoard extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {isCardVisible: true, isCollapsed: true, btnText: "Show"};
+        this.state = {isCardVisible: true, isCollapsed: true, btnText: "See more"};
         this.toggleExpandHandler =this.toggleExpandHandler.bind(this);
         this.divStyle = {
-          maxHeight: "400px"
+          maxHeight: "200px"
         }  
       }
-    
-    // toggles the size 
+
+    toCommBoard = () => {
+        this.props.history.push("/communityBoard");
+    }
+
+    // clicking once expands, another takes user to commBoard
     toggleExpandHandler = () => {
         if (this.state.isCollapsed === true) {
-            this.setState({isCollapsed: false, btnText: "Hide" })
-            this.divStyle = {
-                maxHeight: "2000px"
-            }
-        } else {
-            this.setState({isCollapsed: true, btnText: "Show" })
+            this.setState({isCollapsed: false, btnText: "View Full Board" })
             this.divStyle = {
                 maxHeight: "400px"
             }
+        } else {
+            // redirect to full community board
+            this.toCommBoard();
         }
     }
 
@@ -68,4 +72,4 @@ class MiniBoard extends Component {
 
 }
 
-export default MiniBoard;
+export default withRouter(MiniBoard);

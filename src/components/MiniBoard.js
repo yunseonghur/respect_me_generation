@@ -13,26 +13,22 @@ class MiniBoard extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {isCardVisible: true, isCollapsed: true};
+        this.state = {isCardVisible: true, isCollapsed: true, btnText: "Show"};
         this.toggleExpandHandler =this.toggleExpandHandler.bind(this);
         this.divStyle = {
           maxHeight: "400px"
         }  
       }
-
-    // state = {
-    //     isCardVisible: true  // false when video tab selected   
-    // }
     
-    // sets the maxHeight in 
+    // toggles the size 
     toggleExpandHandler = () => {
         if (this.state.isCollapsed === true) {
-            this.setState({isCollapsed: false })
+            this.setState({isCollapsed: false, btnText: "Hide" })
             this.divStyle = {
                 maxHeight: "2000px"
             }
         } else {
-            this.setState({isCollapsed: true })
+            this.setState({isCollapsed: true, btnText: "Show" })
             this.divStyle = {
                 maxHeight: "400px"
             }
@@ -59,7 +55,7 @@ class MiniBoard extends Component {
                 
                 <div className="visibleBoardWrapper">
                     
-                    <button onClick={this.toggleExpandHandler} className="show">toggle show</button> 
+                <button onClick={this.toggleExpandHandler} className="show">{this.state.btnText}</button> 
 
                     <div style={this.divStyle} className="visibleBoard">
                     { this.state.isCardVisible ? <Cards></Cards> : <VideoDisplay></VideoDisplay> }

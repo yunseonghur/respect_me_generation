@@ -5,6 +5,66 @@ import "../routes/CreateCard.css";
 import { Container, Nav, Row, Col, Tab, CardDeck, Card, Button, Modal } from 'react-bootstrap';
 import ARTICLES from '../components/ResourceArticles';
 
+function CardModal(props) {
+    return (
+    <Modal
+        {...props} size="sm" aria-labelledby="contained-modal-title-vcenter" centered>
+            <Modal.Header closeButton>
+                <Modal.Title>Your Card</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Container>
+                    <Row>
+                        <MyCard id="1" background={props.imgsrc} text={props.text} />
+                    </Row>
+                    <Row id="text-row">
+                        <div id="tagResource">
+                            {
+                                ARTICLES.map(ARTICLE => {
+                                    if (ARTICLE.tag === props.tag){
+                                        return (
+                                            <div key={ARTICLE.tag}>
+                                                {ARTICLE.description}
+                                                <br />
+                                                {ARTICLE.title}
+                                                <br />
+                                                <a href={ARTICLE.link}>CLICK HERE!</a>
+                                            </div>
+                                        );
+                                    }
+                                })
+                            }
+                        </div>
+                    </Row>
+                </Container>
+            </Modal.Body>
+            <Modal.Footer>
+                <Container>
+                    <Row>
+                        <Col>
+                            <Button className="modal-btn" href="#cards">Go to Community Board</Button>
+                        </Col>
+                    </Row>
+                </Container>
+            </Modal.Footer>
+    </Modal>
+    );
+  };
+
+  function LogInModal(props) {
+    return (
+        <Modal {...props}
+        size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+            <Modal.Header closeButton>
+                <Modal.Title>Please Login</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                Please log in before you create a card.
+            </Modal.Body>
+            
+        </Modal>
+    )
+}; 
 class CreateCard extends React.Component {
     constructor(props) {
         super(props);
@@ -14,14 +74,13 @@ class CreateCard extends React.Component {
             createdCard: false,
             imgSrc: '',
             logInModal: false,
-            tag: 'all'
+            tag: 'all',
         };
         this.db = fire.database();
         this.handleImgChange = this.handleImgChange.bind(this);
         this.handleTxtChange = this.handleTxtChange.bind(this);
         this.handleTagChange = this.handleTagChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.showModal = this.showModal.bind(this);
     }
 
     // imgOption state is set when an image is selected
@@ -59,59 +118,6 @@ class CreateCard extends React.Component {
         });
     }
 
-    // displays the modal upon card creation
-    showModal() {
-        return (
-            <Modal.Dialog>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Your Card</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Container>
-                                <Row>
-                                    <MyCard id="1" background={this.state.imgSrc} text={this.state.text} />
-                                </Row>
-                                <Row id="text-row">
-                                   <div id="tagResource">
-                                       {
-                                           ARTICLES.map(ARTICLE => {
-                                               if (ARTICLE.tag === this.state.tag){
-                                                    return (
-                                                        <div key={ARTICLE.tag}>
-                                                            {ARTICLE.description}
-                                                            <br />
-                                                            {ARTICLE.title}
-                                                            <br />
-                                                            <a href={ARTICLE.link}>CLICK HERE!</a>
-                                                        </div>
-                                                    );
-                                                }
-                                           })
-                                       }
-                                   </div>
-                                </Row>
-                            </Container>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Container>
-                                <Row>
-                                    <Col>
-                                        <Button className="modal-btn" href="#cards">Go to Community Board</Button>
-                                    </Col>
-                                    <Col>
-                                        <Button className="modal-btn" variant="secondary" onClick={
-                                            ()=> {
-                                                this.setState({ createdCard: false });
-                                            }
-                                        }>Close</Button>
-                                    </Col>   
-                                </Row>
-                            </Container>
-                        </Modal.Footer>
-                    </Modal.Dialog>
-        )    
-    }
-
     // finds src of the image selected by user
     handleSubmit(event) {
         event.preventDefault();
@@ -126,34 +132,15 @@ class CreateCard extends React.Component {
                 this.setState({ imgSrc: imgInfo[this.state.imgOption]});
                 this.writeCardInfo(imgSource, currentUser);
             })
-            this.setState({createdCard:true});
+            this.setState({createdCard: true});
         } else {
-            this.setState({logInModal:true});
+            this.setState({logInModal: true});
         }
     }
 
     render() {
         return (
             <div className="container">
-                { this.state.logInModal ? 
-                    <Modal.Dialog>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Please Login</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            Please log in before you create a card.
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={
-                                ()=> {
-                                    this.setState({ logInModal: false });
-                                }
-                            }>Close</Button>
-                        </Modal.Footer>
-                    </Modal.Dialog>
-                    :
-                    null
-                }
                 <form onSubmit={this.handleSubmit}>
                     <div id='selectImg'>
                         <p className="instruction">1. Select Image</p>
@@ -219,18 +206,27 @@ class CreateCard extends React.Component {
                                 </Row>
                             </Tab.Container>
                         </div>
-                        
                     </div>
                     <div className='container'>
                         <Button onClick={this.handleSubmit} size="lg" block>Create!</Button>
                     </div>
                 </form>
-                { this.state.createdCard ? this.showModal() : null}
+                <CardModal
+                    imgsrc={this.state.imgSrc}
+                    text={this.state.text}
+                    tag={this.state.tag}
+                    animation={false}
+                    show={this.state.createdCard}
+                    onHide={()=> this.setState({createdCard: false})} />
+                <LogInModal
+                    animation={false}
+                    show={this.state.logInModal}
+                    onHide={()=> this.setState({logInModal: false})} />
             </div>
-            
         )
     }
 }
 
 export default CreateCard;
+
 

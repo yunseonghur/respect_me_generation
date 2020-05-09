@@ -11,14 +11,39 @@ import VideoDisplay from "./VideoDisplay";
  */
 class MiniBoard extends Component {
 
-    state = {
-        isCardVisible: true  // false when video tab selected
+    constructor(props) {
+        super(props)
+        this.state = {isCardVisible: true, isCollapsed: true};
+        this.toggleExpandHandler =this.toggleExpandHandler.bind(this);
+        this.divStyle = {
+          maxHeight: "400px"
+        }  
+      }
+
+    // state = {
+    //     isCardVisible: true  // false when video tab selected   
+    // }
+    
+    // sets the maxHeight in 
+    toggleExpandHandler = () => {
+        if (this.state.isCollapsed === true) {
+            this.setState({isCollapsed: false })
+            this.divStyle = {
+                maxHeight: "2000px"
+            }
+        } else {
+            this.setState({isCollapsed: true })
+            this.divStyle = {
+                maxHeight: "400px"
+            }
+        }
     }
 
     render() {
         return (
             <div>
-                <ButtonGroup> 
+                <div className="toggleButtons">
+                <ButtonGroup className="btnGroup"> 
                     <Button variant="light" onClick={()=>{
                         this.setState({ isCardVisible: true});
                     }}>
@@ -30,8 +55,16 @@ class MiniBoard extends Component {
                         Videos
                     </Button>
                 </ButtonGroup>
-                <div className="visibleBoard">
-                { this.state.isCardVisible ? <Cards></Cards> : <VideoDisplay></VideoDisplay> }
+                </div>
+                
+                <div className="visibleBoardWrapper">
+                    
+                    <button onClick={this.toggleExpandHandler} className="show">toggle show</button> 
+
+                    <div style={this.divStyle} className="visibleBoard">
+                    { this.state.isCardVisible ? <Cards></Cards> : <VideoDisplay></VideoDisplay> }
+                    </div>
+                    <div className="fade" style={{opacity: "1"}}></div>
                 </div>
             </div>
         )

@@ -1,11 +1,13 @@
 import React from 'react';
 import "./Home.css";
 import fire from '../fire.js';
-import MyCard from '../components/MyCard';
-import CardDeck from 'react-bootstrap/CardDeck';
-import { Link } from 'react-router-dom';
+// import MyCard from '../components/MyCard';
+// import CardDeck from 'react-bootstrap/CardDeck';
+// import { Link } from 'react-router-dom';
 import Quote from '../components/Quote';
 import HomeResourceEntry from '../components/HomeResourceEntry';
+import Board from '../components/Board';
+import ARTICLES from '../components/ResourceArticles';
 
 
 const dbRef = fire.database().ref();
@@ -14,7 +16,9 @@ class Home extends React.Component{
     state = { 
         message: "",
         cards: [], 
-        resources: []
+        studyResources: [],
+        healthResources: [],
+        relationshipResources: []
     };
 
     // Get current year, month, date to get a daily message from database
@@ -117,6 +121,39 @@ class Home extends React.Component{
         this.setState({ cards: cardsPicked });
     }
 
+    resourceSortByTag(){
+        var study = []
+        var health = []
+        var relationship = []
+        ARTICLES.map(ARTICLE => {
+            if (ARTICLE.tag === "study"){
+                study.push({
+                    key: ARTICLE.id,
+                    title: ARTICLE.title,
+                    image: ARTICLE.image,
+                    tag: ARTICLE.tag
+                });
+                this.setState({ studyResources: study })
+            } else if (ARTICLE.tag === "health"){
+                health.push({
+                    key: ARTICLE.id,
+                    title: ARTICLE.title,
+                    image: ARTICLE.image,
+                    tag: ARTICLE.tag
+                });
+                this.setState({ healthResources: health })
+            } else if (ARTICLE.tag === "relationship"){
+                relationship.push({
+                    key: ARTICLE.id,
+                    title: ARTICLE.title,
+                    image: ARTICLE.image,
+                    tag: ARTICLE.tag
+                });
+                this.setState({ relationshipResources: relationship })
+            }
+        })
+    }
+
     componentDidMount(){
         // this.getDailyMessage();
         // Get all users to collect their cards
@@ -130,9 +167,8 @@ class Home extends React.Component{
         return (
             <div className="wrapper">
                 <Quote />
-
-                <div className="card-section">
-                    <h3>Cards<Link to='/communityBoard' className="btn btn-link">> View More</Link></h3>
+                <Board />
+                {/* <div className="card-section">
                     <CardDeck>
                         {Array.from(this.state.cards).map((myCard)=> 
                             <MyCard 
@@ -143,12 +179,16 @@ class Home extends React.Component{
                             />)}
                         <Link to='/communityBoard' className="btn btn-link">></Link>
                     </CardDeck>
-                </div>
+                </div> */}
 
                 <div className="resource-section">
-                    <HomeResourceEntry tagName="health"></HomeResourceEntry>
-                    <HomeResourceEntry tagName="relationships"></HomeResourceEntry>
-                    <HomeResourceEntry tagName="studying"></HomeResourceEntry>
+                    {ARTICLES.map((ARTICLE) => 
+                        <HomeResourceEntry 
+                            key={ARTICLE.id} 
+                            tagName={ARTICLE.tag} 
+                            title={ARTICLE.title} 
+                            image={ARTICLE.image} />
+                    )}
                 </div>
             </div>
         );

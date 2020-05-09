@@ -13,7 +13,7 @@ const ARTICLES = [
         title: "10 Things you Can Do to Improve Your Relationship",
         description: "You selected #RELATIONSHIP, you might be interested in this article!",
         link: "https://theeverygirl.com/10-things-you-can-do-to-improve-your-relationship/",
-        image: "https://media.theeverygirl.com/wp-content/uploads/2017/11/10-Things-You-Can-Do-to-Improve-Your-Relationship.jpg"
+        image: "https://i.ibb.co/9HdG8z8/Screen-Shot-2020-05-08-at-5-38-13-PM.png"
     },
     {
         id: "h1",

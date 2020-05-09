@@ -5,4 +5,5 @@
 .card-text {
     font-size: 12pt;
     font-family: 'Montserrat', sans-serif;
+    opacity: 0.8;
 }

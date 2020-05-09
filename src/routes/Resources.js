@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import "../routes/Resources.css";
 import Accordion from 'react-bootstrap/Accordion';
-import Card from 'react-bootstrap/Card';
 import fire from '../fire.js';
 import ResourceEntry from "../components/ResourceEntry";
 

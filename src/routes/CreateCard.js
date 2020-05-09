@@ -14,7 +14,7 @@ class CreateCard extends React.Component {
             createdCard: false,
             imgSrc: '',
             logInModal: false,
-            tag: ''
+            tag: 'all'
         };
         this.db = fire.database();
         this.handleImgChange = this.handleImgChange.bind(this);
@@ -75,9 +75,9 @@ class CreateCard extends React.Component {
                                    <div id="tagResource">
                                        {
                                            ARTICLES.map(ARTICLE => {
-                                               if (ARTICLE.id === this.state.tag){
+                                               if (ARTICLE.tag === this.state.tag){
                                                     return (
-                                                        <div key={ARTICLE.id}>
+                                                        <div key={ARTICLE.tag}>
                                                             {ARTICLE.description}
                                                             <br />
                                                             {ARTICLE.title}
@@ -233,3 +233,4 @@ class CreateCard extends React.Component {
 }
 
 export default CreateCard;
+

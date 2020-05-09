@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+.quote-section {
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  font-family: 'Noto Sans';
+  padding-left: 140px;
+  padding-right: 140px;
+}
+
+/* remove gray border in original format */
+.blockquote {
+  border-left: 0px solid #eee;
+}
+
+.quote {
+  font-size: 16px;
+}
+
+.author {
+  font-size: 14px;
+}
+
+.blockquote-footer {
+  margin: 20px;
+}
+
+

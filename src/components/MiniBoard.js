@@ -40,6 +40,13 @@ class MiniBoard extends Component {
         }
     }
 
+    handleTag = (event) => {
+        event.preventDefault();
+        this.setState({
+            tag: event.target.name
+        })
+    }
+
     render() {
         return (
             <div>

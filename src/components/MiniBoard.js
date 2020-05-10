@@ -10,6 +10,8 @@ import { useHistory, withRouter } from 'react-router-dom';
 /**
  * A minified version of the community board
  * which doesn't show all videos.
+ * 
+ * isCardVisible = true if card selected, false if video
  */
 class MiniBoard extends Component {
 

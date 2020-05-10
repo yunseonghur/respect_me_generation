@@ -15,7 +15,7 @@ class Board extends React.Component{
     state ={
         userUID: null,
         isLoading: true, // true if the server is still loading cards data
-        isCardVisible: true,  // true if cards are visible & false if videos are visible
+        visible: true,  // true if cards are visible & false if videos are visible
         show: false, // false if modal is hidden
     }
 
@@ -89,18 +89,18 @@ class Board extends React.Component{
 
                 <ButtonGroup> 
                     <Button variant="light" onClick={()=>{
-                        this.setState({ isCardVisible: true});
+                        this.setState({ visible: true});
                     }}>
                         Cards
                     </Button>
                     <Button variant="light" onClick={()=>{
-                        this.setState({ isCardVisible: false});
+                        this.setState({ visible: false});
                     }}>
                         Videos
                     </Button>
                 </ButtonGroup>
 
-                { this.state.isCardVisible ? <Cards></Cards> : <VideoDisplay></VideoDisplay> }
+                { this.state.visible ? <Cards></Cards> : <VideoDisplay></VideoDisplay> }
             </div>
         )}
 }

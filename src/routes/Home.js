@@ -136,16 +136,6 @@ class Home extends React.Component{
                     <h2>COMMUNITY BOARD</h2>
                     <p>What is your community talking about today?</p>
                     <MiniBoard />
-                    {/* <CardDeck>
-                        {Array.from(this.state.cards).map((myCard)=> 
-                            <MyCard 
-                                key={myCard.id} 
-                                id={myCard.id} 
-                                background={myCard.background} 
-                                text={myCard.text} 
-                            />)}
-                        <Link to='/communityBoard' className="btn btn-link">></Link>
-                    </CardDeck> */}
                 </div>
 
                 <div className="resource-section">

@@ -8,13 +8,19 @@
 }
 
 .show {
-  position: absolute;
-  bottom: -1em;
+  display: block;
+  margin: 0 auto;
   z-index: 100;
+  font-size: 18px;
+  color: white;
+  background-color: rgb(42, 170, 255);
+  border: 1px solid white;
+}
+
+.buttonContainer {
+  margin-top: 20px;
+  height: 100px;
   text-align: center;
-  font-size: 20px;
-  background-color: white;
-  border: 1px solid blue;
 }
 
 .visibleBoard {

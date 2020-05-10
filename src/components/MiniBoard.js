@@ -58,13 +58,13 @@ class MiniBoard extends Component {
                 </div>
                 
                 <div className="visibleBoardWrapper">
-                    
-                <button onClick={this.toggleExpandHandler} className="show">{this.state.btnText}</button> 
-
                     <div style={this.divStyle} className="visibleBoard">
-                    { this.state.isCardVisible ? <Cards></Cards> : <VideoDisplay></VideoDisplay> }
+                        { this.state.isCardVisible ? <Cards></Cards> : <VideoDisplay></VideoDisplay> }
                     </div>
                     <div className="fade" style={{opacity: "1"}}></div>
+                    <div className="buttonContainer">
+                        <button onClick={this.toggleExpandHandler} className="show">{this.state.btnText}</button>
+                    </div>
                 </div>
             </div>
         )

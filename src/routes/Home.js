@@ -121,37 +121,19 @@ class Home extends React.Component{
         this.setState({ cards: cardsPicked });
     }
 
-    resourceSortByTag(){
-        var study = []
-        var health = []
-        var relationship = []
+    // Read resource entries from the given article list to display
+    getResourceEntries(){
+        var resources = []
         ARTICLES.map(ARTICLE => {
-            if (ARTICLE.tag === "study"){
-                study.push({
-                    key: ARTICLE.id,
-                    title: ARTICLE.title,
-                    image: ARTICLE.image,
-                    tag: ARTICLE.tag
-                });
-                this.setState({ studyResources: study })
-            } else if (ARTICLE.tag === "health"){
-                health.push({
-                    key: ARTICLE.id,
-                    title: ARTICLE.title,
-                    image: ARTICLE.image,
-                    tag: ARTICLE.tag
-                });
-                this.setState({ healthResources: health })
-            } else if (ARTICLE.tag === "relationship"){
-                relationship.push({
-                    key: ARTICLE.id,
-                    title: ARTICLE.title,
-                    image: ARTICLE.image,
-                    tag: ARTICLE.tag
-                });
-                this.setState({ relationshipResources: relationship })
-            }
+            resources.push({
+                id: ARTICLE.id,
+                title: ARTICLE.title,
+                image: ARTICLE.image,
+                tag: ARTICLE.tag
+            });
+            return null; 
         })
+        return ( <HomeResourceEntry resourcesEntries={resources} /> );
     }
 
     componentDidMount(){
@@ -182,13 +164,7 @@ class Home extends React.Component{
                 </div> */}
 
                 <div className="resource-section">
-                    {ARTICLES.map((ARTICLE) => 
-                        <HomeResourceEntry 
-                            key={ARTICLE.id} 
-                            tagName={ARTICLE.tag} 
-                            title={ARTICLE.title} 
-                            image={ARTICLE.image} />
-                    )}
+                    {this.getResourceEntries()}
                 </div>
             </div>
         );

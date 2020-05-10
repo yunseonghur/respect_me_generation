@@ -15,66 +15,23 @@ const ResourceEntry = (props) => {
 }
 
 class HomeResourceEntry extends React.Component{
-    constructor(props) {
-        super(props);
-
-        // Sort the entries by tag: study, health, relationship
-        let entries = this.props.resourcesEntries
-        let studyEntries = []
-        let healthEntries = []
-        let relationshipEntries = []
-        for (let entry in entries){
-            if (entries[entry].tag === "study"){
-                studyEntries.push(entries[entry])
-            } else if (entries[entry].tag === "health"){
-                healthEntries.push(entries[entry])
-            } else if (entries[entry].tag === "relationship"){
-                relationshipEntries.push(entries[entry])
-            } else {
-                console.log("Cannot find the tag")
-            }
-        }
-
-        this.state = {
-            studyResources: studyEntries,
-            healthResources: healthEntries,
-            relationshipResources: relationshipEntries
-        };
+    state = {
+        entries: []
+    };
+    componentDidMount(){
+        this.setState({ entries: this.props.resourcesEntries })
     }
     render(){
         return (
             <div>
+                <h3><b>#{this.props.tagName}</b></h3>
                 <Jumbotron fluid>
                     <CardDeck>
-                        {(this.state.studyResources.map((study)=> 
+                        {(this.state.entries.map((entry)=> 
                             <ResourceEntry 
-                                key={study.id} 
-                                title={study.title} 
-                                image={study.image} />
-                        ))}
-                        <Link to='/resources' className="btn btn-link">></Link>
-                    </CardDeck>
-                </Jumbotron>
-
-                <Jumbotron fluid>
-                    <CardDeck>
-                        {(this.state.healthResources.map((health)=> 
-                            <ResourceEntry 
-                                key={health.id} 
-                                title={health.title} 
-                                image={health.image} />
-                        ))}
-                        <Link to='/resources' className="btn btn-link">></Link>
-                    </CardDeck>
-                </Jumbotron>
-
-                <Jumbotron fluid>
-                    <CardDeck>
-                        {(this.state.relationshipResources.map((relationship)=> 
-                            <ResourceEntry 
-                                key={relationship.id} 
-                                title={relationship.title} 
-                                image={relationship.image} />
+                                key={entry.id} 
+                                title={entry.title} 
+                                image={entry.image} />
                         ))}
                         <Link to='/resources' className="btn btn-link">></Link>
                     </CardDeck>
@@ -82,7 +39,6 @@ class HomeResourceEntry extends React.Component{
             </div>
         )
     }
-
 }
 
 export default HomeResourceEntry;

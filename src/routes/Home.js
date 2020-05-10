@@ -121,7 +121,7 @@ class Home extends React.Component{
         this.setState({ cards: cardsPicked });
     }
 
-    // Read resource entries from the given article list to display
+    // Read resource entries from the given article list to display by tag
     getResourceEntries(){
         var resources = []
         ARTICLES.map(ARTICLE => {
@@ -133,8 +133,29 @@ class Home extends React.Component{
             });
             return null; 
         })
-        return ( <HomeResourceEntry resourcesEntries={resources} /> );
+        let studyEntries = []
+        let healthEntries = []
+        let relationshipEntries = []
+        for (let entry in resources){
+            if (resources[entry].tag === "study"){
+                studyEntries.push(resources[entry])
+            } else if (resources[entry].tag === "health"){
+                healthEntries.push(resources[entry])
+            } else if (resources[entry].tag === "relationship"){
+                relationshipEntries.push(resources[entry])
+            } else {
+                console.log("Cannot find the tag")
+            }
+        }
+        return ( 
+            <div>
+                <HomeResourceEntry tagName="study" resourcesEntries={studyEntries} /> 
+                <HomeResourceEntry tagName="health" resourcesEntries={healthEntries} /> 
+                <HomeResourceEntry tagName="relationship" resourcesEntries={relationshipEntries} /> 
+            </div>
+        );
     }
+
 
     componentDidMount(){
         // this.getDailyMessage();

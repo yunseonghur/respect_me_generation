@@ -4,7 +4,6 @@ import {CardDeck, Container} from 'react-bootstrap';
 import AddComment from './AddComment';
 import { Link } from 'react-router-dom';
 import fire from '../fire'
-// import "./Cards.css";
 
 const dbRef = fire.database().ref();
 

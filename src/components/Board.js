@@ -14,7 +14,7 @@ class Board extends React.Component{
         userUID: null,
         isLoading: true, // true if the server is still loading cards data
         visible: true,  // true if cards are visible & false if videos are visible
-        show: false, // false if modal is hiden
+        show: false, // false if modal is hidden
         tag: "all", // selected tag to sort
         displayMode: "card"
     }

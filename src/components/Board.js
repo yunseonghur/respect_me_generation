@@ -1,9 +1,7 @@
 import React from 'react';
 import './Board.css';
-import Tag from './Tag';
 import Cards from './Cards';
 import VideoDisplay from "./VideoDisplay";
-import { Tab, Row, Nav } from 'react-bootstrap';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import fire from '../fire.js';

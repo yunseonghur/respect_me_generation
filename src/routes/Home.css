@@ -31,6 +31,20 @@ h2 {
     padding-top: 0px;
 }
 
-.card-deck img {
-    padding: 10px;
+.entry {
+    margin: 10px;
 }
+
+.entry img {
+    height: 150px;
+    width: 200px;
+}
+
+.resource-section .jumbotron-fluid p {
+    font-size: 9pt;
+    margin: 0;
+    text-align: center;
+}
+/* .card-deck img {
+    padding: 10px;
+} */

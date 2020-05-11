@@ -1,9 +1,7 @@
 import React from 'react';
 import './Board.css';
-import Tag from './Tag';
 import Cards from './Cards';
 import VideoDisplay from "./VideoDisplay";
-import { Tab, Row, Nav } from 'react-bootstrap';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import fire from '../fire.js';
@@ -16,7 +14,7 @@ class Board extends React.Component{
         userUID: null,
         isLoading: true, // true if the server is still loading cards data
         visible: true,  // true if cards are visible & false if videos are visible
-        show: false, // false if modal is hiden
+        show: false, // false if modal is hidden
         tag: "all", // selected tag to sort
         displayMode: "card"
     }

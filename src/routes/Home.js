@@ -1,11 +1,13 @@
 import React from 'react';
 import "./Home.css";
 import fire from '../fire.js';
-import MyCard from '../components/MyCard';
-import CardDeck from 'react-bootstrap/CardDeck';
-import { Link } from 'react-router-dom';
+// import MyCard from '../components/MyCard';
+// import CardDeck from 'react-bootstrap/CardDeck';
+// import { Link } from 'react-router-dom';
 import Quote from '../components/Quote';
 import HomeResourceEntry from '../components/HomeResourceEntry';
+import ARTICLES from '../components/ResourceArticles';
+import MiniBoard from '../components/MiniBoard';
 
 
 const dbRef = fire.database().ref();
@@ -14,7 +16,9 @@ class Home extends React.Component{
     state = { 
         message: "",
         cards: [], 
-        resources: []
+        studyResources: [],
+        healthResources: [],
+        relationshipResources: []
     };
 
     // Get current year, month, date to get a daily message from database
@@ -117,6 +121,42 @@ class Home extends React.Component{
         this.setState({ cards: cardsPicked });
     }
 
+    // Read resource entries from the given article list to display by tag
+    getResourceEntries(){
+        var resources = []
+        ARTICLES.map(ARTICLE => {
+            resources.push({
+                id: ARTICLE.id,
+                title: ARTICLE.title,
+                image: ARTICLE.image,
+                tag: ARTICLE.tag
+            });
+            return null; 
+        })
+        let studyEntries = []
+        let healthEntries = []
+        let relationshipEntries = []
+        for (let entry in resources){
+            if (resources[entry].tag === "study"){
+                studyEntries.push(resources[entry])
+            } else if (resources[entry].tag === "health"){
+                healthEntries.push(resources[entry])
+            } else if (resources[entry].tag === "relationship"){
+                relationshipEntries.push(resources[entry])
+            } else {
+                console.log("Cannot find the tag")
+            }
+        }
+        return ( 
+            <div>
+                <HomeResourceEntry tagName="study" resourcesEntries={studyEntries} /> 
+                <HomeResourceEntry tagName="health" resourcesEntries={healthEntries} /> 
+                <HomeResourceEntry tagName="relationship" resourcesEntries={relationshipEntries} /> 
+            </div>
+        );
+    }
+
+
     componentDidMount(){
         // this.getDailyMessage();
         // Get all users to collect their cards
@@ -132,23 +172,13 @@ class Home extends React.Component{
                 <Quote />
 
                 <div className="card-section">
-                    <h3>Cards<Link to='/communityBoard' className="btn btn-link">> View More</Link></h3>
-                    <CardDeck>
-                        {Array.from(this.state.cards).map((myCard)=> 
-                            <MyCard 
-                                key={myCard.id} 
-                                id={myCard.id} 
-                                background={myCard.background} 
-                                text={myCard.text} 
-                            />)}
-                        <Link to='/communityBoard' className="btn btn-link">></Link>
-                    </CardDeck>
+                    <h2>COMMUNITY BOARD</h2>
+                    <p>What is your community talking about today?</p>
+                    <MiniBoard />
                 </div>
 
                 <div className="resource-section">
-                    <HomeResourceEntry tagName="health"></HomeResourceEntry>
-                    <HomeResourceEntry tagName="relationships"></HomeResourceEntry>
-                    <HomeResourceEntry tagName="studying"></HomeResourceEntry>
+                    {this.getResourceEntries()}
                 </div>
             </div>
         );

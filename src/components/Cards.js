@@ -133,7 +133,7 @@ class Cards extends React.Component{
                             />)}
                             {this.state.visible ?
                                 <AddComment show={this.state.visible} cardOwnerUID={this.getCardOwner()} cardID={this.state.cardSelected} onHide={() => this.setState({visible: false})}/>
-                             : null} }
+                             : null}
                         </CardDeck>
                     </Container>
                     ) : (

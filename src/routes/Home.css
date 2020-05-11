@@ -45,6 +45,12 @@ h2 {
     margin: 0;
     text-align: center;
 }
-/* .card-deck img {
-    padding: 10px;
-} */
+
+@media only screen and (max-width: 768px){
+    .myWell {
+      margin: 0;
+    }
+    .myWell2 {
+      margin: 0;
+    }
+  }

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
+import './MyCard.css';
 
 class MyCard extends Component {
 
@@ -11,7 +12,7 @@ class MyCard extends Component {
                 <Card>
                     <Card.Img className="card__img" src={this.props.background} alt="Card image" />
                     <Card.ImgOverlay>
-                        <Card.Text>{this.props.text}</Card.Text>
+                        <Card.Text className="text-center">{this.props.text}</Card.Text>
                     </Card.ImgOverlay>
                 </Card>
                 </a>

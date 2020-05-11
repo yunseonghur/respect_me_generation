@@ -39,6 +39,7 @@ class Quote extends Component {
         return (
             <div className="quote-section">
                 <blockquote className="blockquote mb-0">
+                    <div id="quoteSym">"</div>
                     <div className="quote">
                         {this.state.quoteText}
                     </div>

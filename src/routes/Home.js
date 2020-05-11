@@ -2,8 +2,8 @@ import React from 'react';
 import "./Home.css";
 import Quote from '../components/Quote';
 import HomeResourceEntry from '../components/HomeResourceEntry';
-import Board from '../components/Board';
 import ARTICLES from '../components/ResourceArticles';
+import MiniBoard from '../components/MiniBoard';
 
 class Home extends React.Component{
 
@@ -53,7 +53,11 @@ class Home extends React.Component{
             <div className="wrapper">
                 <Quote />
 
-                <Board />
+                <div className="card-section">
+                    <h2>COMMUNITY BOARD</h2>
+                    <p>What is your community talking about today?</p>
+                    <MiniBoard />
+                </div>
 
                 <div className="resource-section">
                     {this.getResourceEntries()}

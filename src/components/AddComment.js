@@ -16,7 +16,6 @@ class AddComment extends Component {
             newComment: '',
             visible: false
         }
-
         this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
     }
@@ -63,18 +62,6 @@ class AddComment extends Component {
     }
 
     writeComment(event) {
-        
-        console.log('write comment');
-        console.log(this.state.newComment);
-        console.log(this.state.userUID);
-        console.log(this.state.cardOwnerUID);
-        console.log(this.state.cardID);
-        
-        // dbRef.ref("Card/" + this.state.cardID + '/comments').push({
-        //     comment: this.state.newComment,
-        //     user: this.state.userUID
-        // });
-
         // we need card owner UID
         dbRef.ref("User/" + this.props.cardOwnerUID).child('cards/' + this.props.cardID+ '/comments').push({
             comment: this.state.newComment,
@@ -84,7 +71,6 @@ class AddComment extends Component {
 
     // what is being typed into form
     handleInput(event) {
-        console.log(this);
         this.setState({
             newComment: event.target.value,
         })
@@ -102,10 +88,7 @@ class AddComment extends Component {
                         text: comments[comment].comment
                     });
                 }
-            }else{
-                console.log("userUID is null!")
             }
-
         });
         return (commentDetails.map((comment)=> 
             <Comment 
@@ -116,12 +99,10 @@ class AddComment extends Component {
     }
     render(){
         return(
-            <div>
-            <Modal.Dialog>
+            <Modal show={this.props.show} animation={false} size='lg' aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header>
                   <Modal.Title>Comments</Modal.Title>
                 </Modal.Header>
-
                 <Modal.Body>
                   <div className='container'>
                       <Row>
@@ -147,34 +128,16 @@ class AddComment extends Component {
                                       </Button>
                                   </Form.Group>
                               </Form>
-
                           </Col>
                       </Row>
                   </div>
                 </Modal.Body>
-
                 <Modal.Footer>
-                  <Button variant="secondary" onClick={ () => {
-                    this.props.hideModal({ visible: false});
-                    console.log("close")
-    }               }>Close</Button>
+                    <Button variant="secondary" onClick={this.props.onHide}>Close</Button>
                 </Modal.Footer>
-              </Modal.Dialog>
-            </div>
+            </Modal>
         )
     }
 }
-
-// onClick={
-//     ()=>{
-//         this.setState({ visible: false});
-//         console.log("close")
-//     }
-// }
-
-// {id: 1, cardId:"1", comment: "Hello", user: "Irene"},
-// {id: 2, cardId:"1", comment: "Testing", user: "Gina"},
-// {id: 3, cardId:"1", comment: "You're doing great", user: "Yuni"},
-// {id: 4, cardId:"1", comment: "Good job", user: "Sherry"},
 
 export default AddComment;

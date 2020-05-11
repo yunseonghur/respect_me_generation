@@ -35,7 +35,8 @@ class Videos extends Component {
         const myWidget = window.cloudinary.createUploadWidget({
             cloudName: "respectmegen", 
             tags: ['project'],
-            uploadPreset: 'h5awwspl'}, (error, result) => { 
+            uploadPreset: 'h5awwspl',
+            showAdvancedOptions: true}, (error, result) => { 
               if (!error && result && result.event === "success") { 
                 console.log('Done! Here is the video info: ', result.info);
                 console.log("public_id: " + result.info.public_id);

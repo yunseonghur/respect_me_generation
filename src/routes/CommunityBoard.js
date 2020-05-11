@@ -38,10 +38,12 @@ class CommunityBoard extends React.Component{
 
     uploadHandler = () => {
         console.log("uploadhandler was clicked");
+
         const myWidget = window.cloudinary.createUploadWidget({
             cloudName: "respectmegen", 
             tags: ['project'],
-            uploadPreset: 'h5awwspl'}, (error, result) => { 
+            uploadPreset: 'h5awwspl',
+            showAdvancedOptions: true }, (error, result) => { 
               if (!error && result && result.event === "success") { 
                 console.log('Done! Here is the video info: ', result.info);
                 console.log("public_id: " + result.info.public_id);
@@ -64,10 +66,14 @@ class CommunityBoard extends React.Component{
 
               }
             }
-          )
+        )
         
         // todo: do not open widget if user not logged in!
-        myWidget.open();
+        if (this.state.userUID != null) {
+            myWidget.open();
+        } else {
+            alert("only users can upload videos!");
+        }
     }
 
     render() {

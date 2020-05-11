@@ -46,11 +46,37 @@ h2 {
     text-align: center;
 }
 
-@media only screen and (max-width: 768px){
-    .myWell {
-      margin: 0;
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .resource-section {
+        background-color: lightcoral;
     }
-    .myWell2 {
-      margin: 0;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .resource-section {
+        background-color: rgb(232, 240, 128);
     }
-  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .resource-section {
+        background-color: greenyellow;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .resource-section {
+        background-color: blue;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .resource-section {
+        background-color: purple;
+    }
+}

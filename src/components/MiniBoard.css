@@ -38,3 +38,7 @@
   margin-top: -100px;
   position: relative;
 }
+
+.card-section .btn{
+  font-size: 10pt;
+}

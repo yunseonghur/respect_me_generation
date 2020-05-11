@@ -1,34 +1,30 @@
-.resource-section, .card-section{
-    margin: 50px;
-    margin-bottom: 0px;
-}
-
 h2 {
     text-align: center;
 }
 
-.card-section .btn, .resource-section .btn {
-    float: right;
-    width: fit-content;
-    font-size: 25pt;
-    font-weight: 100;
-    color: black;
-}
-
-.card-section p {
-    text-align: center;
-    font-size: 10pt;
-    padding-top: 10px;
-    padding-bottom: 20px;
-}
-
 .resource-section {
     margin-top: 150px;
+    margin: 50px;
+    margin-bottom: 0px;
 }
 
 .resource-section .jumbotron-fluid {
     padding-bottom: 0px;
     padding-top: 0px;
+}
+
+.resource-section .jumbotron-fluid p {
+    font-size: 9pt;
+    margin: 0;
+    text-align: center;
+}
+
+.resource-section .btn {
+    float: right;
+    width: fit-content;
+    font-size: 25pt;
+    font-weight: 100;
+    color: black;
 }
 
 .entry {
@@ -40,13 +36,7 @@ h2 {
     width: 200px;
 }
 
-.resource-section .jumbotron-fluid p {
-    font-size: 9pt;
-    margin: 0;
-    text-align: center;
-}
-
-/* Extra small devices (phones, 600px and down) */
+/* Small devices (portrait tablets and large phones, 600px and down) */
 @media only screen and (max-width: 600px) {
     .resource-section {
         background-color: lightcoral;

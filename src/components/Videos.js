@@ -5,6 +5,11 @@ import fire from '../fire.js';
 
 const db = fire.database();
 
+/**
+ * !!! DEPRECIATED -- please make video-related changes on CommunityBoard !!!
+ * The upload functionality has been moved as a button onto the CommunityBoard page.
+ * File retained for reference only.
+ */
 class Videos extends Component {
 
     state ={

@@ -19,16 +19,14 @@ function CardModal(props) {
                     </Row>
                     <Row id="text-row">
                         <div id="tagResource">
+                        { props.tag != "all" ? <div>You selected #{props.tag}. Check out these articles!</div> : null}
                             {
                                 ARTICLES.map(ARTICLE => {
                                     if (ARTICLE.tag === props.tag){
                                         return (
                                             <div key={ARTICLE.tag}>
-                                                {ARTICLE.description}
                                                 <br />
-                                                {ARTICLE.title}
-                                                <br />
-                                                <a href={ARTICLE.link}>CLICK HERE!</a>
+                                                <a href={ARTICLE.link}>{ARTICLE.title}</a>
                                             </div>
                                         );
                                     }
@@ -42,7 +40,7 @@ function CardModal(props) {
                 <Container>
                     <Row>
                         <Col>
-                            <Button className="modal-btn" href="#cards">Go to Community Board</Button>
+                            <Button className="modal-btn" href="#communityBoard">Go to Community Board</Button>
                         </Col>
                     </Row>
                 </Container>
@@ -106,11 +104,6 @@ class CreateCard extends React.Component {
     // saves card information to firebase
     writeCardInfo(imgSrc, currentUser) {
         var key = this.db.ref().child('Card').push().key;
-        this.db.ref("Card/" + key).set({
-            imgOption: imgSrc,
-            text: this.state.text,
-            tag: this.state.tag
-        });
         this.db.ref("User/" + currentUser.uid).child('cards/' + key).set({
             imgOption: imgSrc,
             text: this.state.text,

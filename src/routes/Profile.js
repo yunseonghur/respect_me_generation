@@ -109,7 +109,7 @@ class Profile extends React.Component{
                             Your Videos
                         </Button>
                     </ButtonGroup>
-                    
+
                     <br /><br />
                     <h3>{tabLabel}</h3>
                     <br />

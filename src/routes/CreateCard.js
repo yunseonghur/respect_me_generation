@@ -19,16 +19,14 @@ function CardModal(props) {
                     </Row>
                     <Row id="text-row">
                         <div id="tagResource">
+                        { props.tag != "all" ? <div>You selected #{props.tag}. Check out these articles!</div> : null}
                             {
                                 ARTICLES.map(ARTICLE => {
                                     if (ARTICLE.tag === props.tag){
                                         return (
                                             <div key={ARTICLE.tag}>
-                                                {ARTICLE.description}
                                                 <br />
-                                                {ARTICLE.title}
-                                                <br />
-                                                <a href={ARTICLE.link}>CLICK HERE!</a>
+                                                <a href={ARTICLE.link}>{ARTICLE.title}</a>
                                             </div>
                                         );
                                     }

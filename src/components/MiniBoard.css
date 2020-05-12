@@ -12,9 +12,9 @@
   margin: 0 auto;
   z-index: 100;
   font-size: 18px;
-  color: white;
-  /* background-color: rgb(42, 170, 255); */
-  border: 1px solid white;
+  color: rgb(78, 78, 78);
+  border: 1px solid rgb(42, 170, 255);
+  border-radius: 10px;
 }
 
 .buttonContainer {

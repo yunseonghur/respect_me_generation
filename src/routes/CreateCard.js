@@ -104,11 +104,6 @@ class CreateCard extends React.Component {
     // saves card information to firebase
     writeCardInfo(imgSrc, currentUser) {
         var key = this.db.ref().child('Card').push().key;
-        this.db.ref("Card/" + key).set({
-            imgOption: imgSrc,
-            text: this.state.text,
-            tag: this.state.tag
-        });
         this.db.ref("User/" + currentUser.uid).child('cards/' + key).set({
             imgOption: imgSrc,
             text: this.state.text,

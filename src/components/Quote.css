@@ -15,11 +15,11 @@
 }
 
 .quote {
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .author {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .blockquote-footer {
@@ -31,4 +31,31 @@
   font-family: 'Passion One', cursive;
 }
 
+@media only screen and (max-width: 768px) {
+  .quote-section {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  .quote {
+    font-size: 16px;
+  }
+  .author {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .quote-section {
+    padding-left: 140px;
+    padding-right: 140px;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .quote-section {
+    padding-left: 300px;
+    padding-right: 300px;
+  }
+}
 

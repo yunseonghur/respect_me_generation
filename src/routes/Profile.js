@@ -132,7 +132,7 @@ class Profile extends React.Component{
                                     }}
                                 />)}
                                 {this.state.show ?
-                                <AddComment hideModal={this.hideModal} userUID={this.state.userUID} cardID={this.state.cardSelected}/>
+                                <AddComment hideModal={this.hideModal} cardOwnerUID={this.state.userUID} cardID={this.state.cardSelected}/>
                                 : null}
                             </CardDeck>
                         </div>

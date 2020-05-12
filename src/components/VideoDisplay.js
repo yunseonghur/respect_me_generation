@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { CloudinaryContext, Video } from 'cloudinary-react';
 import axios from 'axios';
+import '../components/VideoDisplay.css';
 
 class VideoDisplay extends Component {
 
@@ -31,8 +32,8 @@ class VideoDisplay extends Component {
                     {
                         // map 
                         videos.map((data, index) => (
-                            <div key={index}>
-                                    <Video publicId={data.public_id} width="350" controls></Video>
+                            <div className="videoElement" key={index}>
+                                    <Video publicId={data.public_id} width="380" height="245" controls></Video>
                             </div>
                         ))
                     }

@@ -118,9 +118,10 @@ class Cards extends React.Component{
                 ) : this.state.showCards ?
                     (
                     <Container>
-                        <CardDeck>
+                        <CardDeck className="row row-cols-sm-2 row-cols-md-3">
                         {Array.from(this.sortCards()).map((card)=> 
-                            <MyCard 
+                            <div>
+                            <MyCard
                                 key={card.id} 
                                 id={card.id} 
                                 background={card.background} 
@@ -128,10 +129,10 @@ class Cards extends React.Component{
                                 onClick={()=>{
                                     this.setState({ visible: true, cardSelected: card.id });
                                 }}
-                            />)}
+                            /> </div>)}
                             {this.state.visible ?
-                                <AddComment hideModal={this.hideModal} cardOwnerUID={this.getCardOwner()} cardID={this.state.cardSelected}/>
-                            : null}
+                                <AddComment show={this.state.visible} cardOwnerUID={this.getCardOwner()} cardID={this.state.cardSelected} onHide={() => this.setState({visible: false})}/>
+                             : null}
                         </CardDeck>
                     </Container>
                     ) : (

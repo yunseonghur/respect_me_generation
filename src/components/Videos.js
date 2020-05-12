@@ -5,6 +5,11 @@ import fire from '../fire.js';
 
 const db = fire.database();
 
+/**
+ * !!! DEPRECIATED -- please make video-related changes on CommunityBoard !!!
+ * The upload functionality has been moved as a button onto the CommunityBoard page.
+ * File retained for reference only.
+ */
 class Videos extends Component {
 
     state ={
@@ -30,7 +35,8 @@ class Videos extends Component {
         const myWidget = window.cloudinary.createUploadWidget({
             cloudName: "respectmegen", 
             tags: ['project'],
-            uploadPreset: 'h5awwspl'}, (error, result) => { 
+            uploadPreset: 'h5awwspl',
+            showAdvancedOptions: true}, (error, result) => { 
               if (!error && result && result.event === "success") { 
                 console.log('Done! Here is the video info: ', result.info);
                 console.log("public_id: " + result.info.public_id);

@@ -47,43 +47,12 @@
     text-align: center;
 }
 
-/* Small devices (portrait tablets and large phones, 600px and down) */
-/* @media only screen and (max-width: 600px) {
-    .resource-section {
-        background-color: lightcoral;
-    }
-} */
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-/* @media only screen and (min-width: 600px) {
-    .resource-section {
-        background-color: rgb(232, 240, 128);
-    }
-} */
-
 /* Medium devices (landscape tablets, 768px and down) */
 @media only screen and (max-width: 768px) {
-    .resource-section {
-        background-color: greenyellow;
-    }
     .card-section h2 {
         font-size: 16pt;
     }
     .card-section p {
         font-size: 10pt;
-    }
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-    .resource-section {
-        background-color: blue;
-    }
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-    .resource-section {
-        background-color: purple;
     }
 }

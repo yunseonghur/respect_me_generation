@@ -67,6 +67,20 @@ class AddComment extends Component {
             comment: this.state.newComment,
             user: this.state.username
         });
+        this.increasePoints(this.state.userUID);
+    }
+
+    increasePoints(currentUser){
+        console.log("increase points");
+        dbRef.ref('User/'+ currentUser).once('value')
+            .then(function(snapshot){
+                let points = snapshot.child('points').val()
+                points += 5
+                console.log(points)
+                dbRef.ref('User/' + currentUser).update({
+                    points
+            })
+        });
     }
 
     // what is being typed into form

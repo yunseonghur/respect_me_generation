@@ -138,7 +138,7 @@ class CreateCard extends React.Component {
         this.db.ref('User/'+currentUser.uid).once('value')
             .then(function(snapshot){
                 let points = snapshot.child('points').val()
-                points += 20
+                points += 10
                 console.log(points)
                 fire.database().ref('User/' + currentUser.uid).update({
                     points

@@ -77,6 +77,8 @@ class CommunityBoard extends React.Component{
                     db.ref('User/' + this.state.userUID).update(updates);
 
                     console.log("video " + result.info.public_id + "added to user " + this.state.userUID);
+
+                    this.increasePoints(this.state.userUID);
                 
                 } else if (this.state.userUID == null) {
                     console.log("Videos can only be uploaded by members.")
@@ -95,6 +97,19 @@ class CommunityBoard extends React.Component{
                 displayErrorMessage: true
             })
         }
+    }
+
+    increasePoints(currentUser){
+        console.log("increase points");
+        db.ref('User/'+ currentUser).once('value')
+            .then(function(snapshot){
+                let points = snapshot.child('points').val()
+                points += 20
+                console.log(points)
+                fire.database().ref('User/' + currentUser).update({
+                    points
+            })
+        });
     }
 
     render() {

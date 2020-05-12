@@ -96,7 +96,7 @@ class CreateCard extends React.Component {
                             <Container>
                                 <Row>
                                     <Col>
-                                        <Button className="modal-btn" href="#cards">Go to Community Board</Button>
+                                        <Button className="modal-btn" href="#communityBoard">Go to Community Board</Button>
                                     </Col>
                                     <Col>
                                         <Button className="modal-btn" variant="secondary" onClick={
@@ -118,6 +118,7 @@ class CreateCard extends React.Component {
         var currentUser = fire.auth().currentUser;
 
         if (currentUser != null) {
+            
             var imgRef = this.db.ref('Image');
             var imgSource = '';
             imgRef.on('value', snap => {
@@ -125,11 +126,25 @@ class CreateCard extends React.Component {
                 imgSource = imgInfo[this.state.imgOption]
                 this.setState({ imgSrc: imgInfo[this.state.imgOption]});
                 this.writeCardInfo(imgSource, currentUser);
+                this.increasePoints(currentUser);
             })
             this.setState({createdCard:true});
+
         } else {
             this.setState({logInModal:true});
         }
+    }
+
+    increasePoints(currentUser){
+        this.db.ref('User/'+currentUser.uid).once('value')
+            .then(function(snapshot){
+                let points = snapshot.child('points').val()
+                points += 20
+                console.log(points)
+                fire.database().ref('User/' + currentUser.uid).update({
+                    points
+            })
+        });
     }
 
     render() {

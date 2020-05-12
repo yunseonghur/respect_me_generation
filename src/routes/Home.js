@@ -129,7 +129,8 @@ class Home extends React.Component{
                 id: ARTICLE.id,
                 title: ARTICLE.title,
                 image: ARTICLE.image,
-                tag: ARTICLE.tag
+                tag: ARTICLE.tag,
+                link: ARTICLE.link
             });
             return null; 
         })

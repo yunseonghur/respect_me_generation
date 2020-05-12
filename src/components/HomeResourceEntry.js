@@ -6,10 +6,11 @@ import CardDeck from 'react-bootstrap/CardDeck';
 
 // Represent an entry consist of an image and a caption for each article
 const ResourceEntry = (props) => {
+    console.log(props.link);
     return (
         <div className="entry">
             <img src={props.image} alt={props.title} />
-            <p>{props.title}</p>
+            <p><a href={props.link}>{props.title}</a></p>
         </div>
     )
 }
@@ -31,7 +32,8 @@ class HomeResourceEntry extends React.Component{
                             <ResourceEntry 
                                 key={entry.id} 
                                 title={entry.title} 
-                                image={entry.image} />
+                                image={entry.image}
+                                link={entry.link} />
                         ))}
                         <Link to='/resources' className="btn btn-link">></Link>
                     </CardDeck>

@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Cards from './Cards';
 import VideoDisplay from "./VideoDisplay";
 
-import { useHistory, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 /**
  * A minified version of the community board

@@ -41,9 +41,9 @@ class Home extends React.Component{
         }
         return ( 
             <div>
-                <HomeResourceEntry tagName="study" resourcesEntries={studyEntries} /> 
-                <HomeResourceEntry tagName="health" resourcesEntries={healthEntries} /> 
-                <HomeResourceEntry tagName="relationship" resourcesEntries={relationshipEntries} /> 
+                <HomeResourceEntry key="study" tagName="study" resourcesEntries={studyEntries} /> 
+                <HomeResourceEntry key="health" tagName="health" resourcesEntries={healthEntries} /> 
+                <HomeResourceEntry key="relationship" tagName="relationship" resourcesEntries={relationshipEntries} /> 
             </div>
         );
     }

@@ -2,7 +2,6 @@ import React from 'react';
 import MyCard from './MyCard';
 import {CardDeck, Container} from 'react-bootstrap';
 import AddComment from './AddComment';
-import { Link } from 'react-router-dom';
 import fire from '../fire'
 
 const dbRef = fire.database().ref();
@@ -17,7 +16,6 @@ class Cards extends React.Component{
             showCards: true, 
             visible: false,
             cards: [],
-            cardSelected: "",
             tag: ""
         }
     }
@@ -67,7 +65,7 @@ class Cards extends React.Component{
             for (let user in users){
                 let cards = users[user].cards
                 for (let card in cards){
-                    if(card == this.state.cardSelected){
+                    if(card === this.state.cardSelected){
                         cardOwnerUID = user
                     }
                 }
@@ -84,7 +82,7 @@ class Cards extends React.Component{
         let cardCollected = [];
         for (let user in users){
             let cards = users[user].cards
-            if (this.state.tag != "all") {
+            if (this.state.tag !== "all") {
                 for (let card in cards){
                     if (cards[card].tag === this.state.tag) {
                         cardCollected.push({

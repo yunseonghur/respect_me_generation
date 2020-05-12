@@ -32,6 +32,7 @@ function CardModal(props) {
                                             </div>
                                         );
                                     }
+                                    return null
                                 })
                             }
                         </div>

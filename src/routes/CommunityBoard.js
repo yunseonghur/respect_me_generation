@@ -19,9 +19,9 @@ class CommunityBoard extends React.Component{
                 <Board></Board>
 
                 <Container>
-                    <Link tooltip="Upload a video"><Button onClick={this.uploadHandler} ><img src="https://img.icons8.com/material-outlined/24/000000/camcorder-pro.png"/></Button></Link>
-                    <Link href='#createCard' tooltip="Add a card"><img src="https://img.icons8.com/android/24/000000/note.png"/></Link>
-                    <Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png"/></Button>
+                    <Link tooltip="Upload a video"><Button onClick={this.uploadHandler} ><img src="https://img.icons8.com/material-outlined/24/000000/camcorder-pro.png" alt="Upload a video"/></Button></Link>
+                    <Link href='#createCard' tooltip="Add a card"><img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/></Link>
+                    <Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add"/></Button>
                 </Container>
             </div>
         )}

@@ -4,7 +4,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import Cards from './Cards';
 import VideoDisplay from "./VideoDisplay";
-
+import { Row, Col } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 
 /**
@@ -53,12 +53,29 @@ class MiniBoard extends Component {
                 <div className="toggleButtons">
 
                 <div className="tagGroup">
-                    <ButtonGroup>
+                    {/* <ButtonGroup>
                         <Button name="all" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">ALL</Button>
                         <Button name="study" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">study</Button>
                         <Button name="relationship" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">relationship</Button>
                         <Button name="health" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">health</Button>
-                    </ButtonGroup>
+                    </ButtonGroup> */}
+                                            <ButtonGroup>
+                        <Row>
+                            <Col>
+                                <Button name="all" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">ALL</Button>
+                            </Col>
+                            <Col>
+                                <Button name="study" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">study</Button>
+                            </Col>
+                            <Col>
+                                <Button name="relationship" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">relationship</Button>
+                            </Col>
+                            <Col>
+                                <Button name="health" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">health</Button>
+                            </Col>
+                        </Row>
+                        </ButtonGroup>
+
                 </div>
 
                 <ButtonGroup className="btnGroup"> 

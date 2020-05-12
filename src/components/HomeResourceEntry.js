@@ -6,7 +6,6 @@ import { Row, Col } from 'react-bootstrap';
 
 // Represent an entry consist of an image and a caption for each article
 const ResourceEntry = (props) => {
-    console.log(props.link);
     return (
         <div className="entry">
             <img src={props.image} alt={props.title} />

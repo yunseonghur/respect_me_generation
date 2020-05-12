@@ -42,3 +42,9 @@
 .card-section .btn{
   font-size: 10pt;
 }
+
+.tagGroup {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}

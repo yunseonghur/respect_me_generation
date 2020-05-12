@@ -53,13 +53,13 @@ class MiniBoard extends Component {
                 <div className="toggleButtons">
 
                 <div className="tagGroup">
-                    {/* <ButtonGroup>
+                    <ButtonGroup>
                         <Button name="all" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">ALL</Button>
                         <Button name="study" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">study</Button>
                         <Button name="relationship" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">relationship</Button>
                         <Button name="health" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">health</Button>
-                    </ButtonGroup> */}
-                                            <ButtonGroup>
+                    </ButtonGroup>
+                        {/* <ButtonGroup>
                         <Row>
                             <Col>
                                 <Button name="all" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">ALL</Button>
@@ -74,7 +74,7 @@ class MiniBoard extends Component {
                                 <Button name="health" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">health</Button>
                             </Col>
                         </Row>
-                        </ButtonGroup>
+                        </ButtonGroup> */}
 
                 </div>
 

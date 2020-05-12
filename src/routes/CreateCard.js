@@ -40,7 +40,7 @@ function CardModal(props) {
                 <Container>
                     <Row>
                         <Col>
-                            <Button className="modal-btn" href="#cards">Go to Community Board</Button>
+                            <Button className="modal-btn" href="#communityBoard">Go to Community Board</Button>
                         </Col>
                     </Row>
                 </Container>

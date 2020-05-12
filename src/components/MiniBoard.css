@@ -26,7 +26,7 @@
 .visibleBoard {
   position: relative;
   margin: 2em auto;
-  width: 70%;
+  width: 90%;
   max-height: 400px;
   overflow: hidden;
   transition: max-height .6s ease;

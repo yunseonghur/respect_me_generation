@@ -7,3 +7,9 @@
     font-family: 'Montserrat', sans-serif;
     opacity: 0.8;
 }
+
+.card {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}

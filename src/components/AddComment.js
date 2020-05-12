@@ -81,6 +81,23 @@ class AddComment extends Component {
                     points
             })
         });
+        this.checkBadge(this.state.userUID);
+    }
+
+    checkBadge(currentUser){
+        dbRef.ref('User/'+ currentUser).once('value')
+            .then(function(snapshot){
+                let points = snapshot.child('points').val()
+                let badge = snapshot.child('badge').val()
+                console.log(points);
+                console.log(badge);
+                if(points >= 100){
+                    dbRef.ref('User/' + currentUser).update({
+                        badge: 'advanced'
+                    });
+                };
+        });
+        
     }
 
     // what is being typed into form

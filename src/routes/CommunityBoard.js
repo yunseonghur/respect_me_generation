@@ -27,7 +27,7 @@ class CommunityBoard extends React.Component{
         displayErrorMessage: false
     };
 
-    getBadgePoints= () => {
+    getBadgePoints = () => {
         db.ref().child('User').on('value', snap => {
             const snapshot = snap.val();
             console.log(snapshot[this.state.userUID]['badge']);

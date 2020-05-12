@@ -144,6 +144,24 @@ class CreateCard extends React.Component {
                     points
             })
         });
+        this.checkBadge(currentUser);
+    }
+
+    checkBadge(currentUser){
+        this.db.ref('User/'+currentUser.uid).once('value')
+            .then(function(snapshot){
+                let points = snapshot.child('points').val()
+                let badge = snapshot.child('badge').val()
+                console.log(points);
+                console.log(badge);
+                if(points >= 100){
+                    fire.database().ref('User/' + currentUser.uid).update({
+                        badge: 'advanced'
+                    });
+                    console.log('If statement');
+                };
+        });
+        
     }
 
     render() {

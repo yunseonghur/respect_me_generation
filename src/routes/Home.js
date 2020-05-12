@@ -1,9 +1,6 @@
 import React from 'react';
 import "./Home.css";
 import fire from '../fire.js';
-// import MyCard from '../components/MyCard';
-// import CardDeck from 'react-bootstrap/CardDeck';
-// import { Link } from 'react-router-dom';
 import Quote from '../components/Quote';
 import HomeResourceEntry from '../components/HomeResourceEntry';
 import ARTICLES from '../components/ResourceArticles';

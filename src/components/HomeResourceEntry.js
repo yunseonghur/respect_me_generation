@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import CardDeck from 'react-bootstrap/CardDeck';
+import { Row, Col } from 'react-bootstrap';
 
 
 // Represent an entry consist of an image and a caption for each article
@@ -27,16 +27,19 @@ class HomeResourceEntry extends React.Component{
             <div>
                 <h3><b>#{this.props.tagName}</b></h3>
                 <Jumbotron fluid>
-                    <CardDeck>
+                    <Row>
+                        
                         {(this.state.entries.map((entry)=> 
+                            <Col>
                             <ResourceEntry 
                                 key={entry.id} 
                                 title={entry.title} 
                                 image={entry.image}
                                 link={entry.link} />
+                            </Col>
                         ))}
-                        <Link to='/resources' className="btn btn-link">></Link>
-                    </CardDeck>
+                            <Link to='/resources' className="btn btn-link">></Link>
+                    </Row>
                 </Jumbotron>
             </div>
         )

@@ -30,6 +30,7 @@ class Home extends React.Component{
         let healthEntries = []
         let relationshipEntries = []
         for (let entry in resources){
+            console.log(resources[entry])
             if (resources[entry].tag === "study"){
                 studyEntries.push(resources[entry])
             } else if (resources[entry].tag === "health"){

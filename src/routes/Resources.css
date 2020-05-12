@@ -3,7 +3,28 @@
   text-align: center;
 }
 
+.base h1 {
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
 .accordion {
-  width: 600px;
   margin: 0 auto;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.card-body img {
+  height: 150px;
+  width: 250px;
+  margin: 10px;
+}
+
+.entry {
+  display: inline-table;
+}
+
+.entry p {
+  font-size: 8pt;
+  text-align: center;
 }

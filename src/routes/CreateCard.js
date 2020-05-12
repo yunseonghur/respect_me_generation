@@ -15,7 +15,7 @@ function CardModal(props) {
             <Modal.Body>
                 <Container>
                     <Row>
-                        <MyCard id="1" background={props.imgsrc} text={props.text} />
+                        <MyCard background={props.imgsrc} text={props.text} />
                     </Row>
                     <Row id="text-row">
                         <div id="tagResource">
@@ -24,7 +24,7 @@ function CardModal(props) {
                                 ARTICLES.map(ARTICLE => {
                                     if (ARTICLE.tag === props.tag){
                                         return (
-                                            <div key={ARTICLE.tag}>
+                                            <div key={ARTICLE.id}>
                                                 <br />
                                                 <a href={ARTICLE.link}>{ARTICLE.title}</a>
                                             </div>
@@ -74,6 +74,7 @@ class CreateCard extends React.Component {
             imgSrc: '',
             logInModal: false,
             tag: 'all',
+            cardKey: ''
         };
         this.db = fire.database();
         this.handleImgChange = this.handleImgChange.bind(this);
@@ -110,6 +111,11 @@ class CreateCard extends React.Component {
             text: this.state.text,
             tag: this.state.tag
         });
+        this.setState({
+            cardKey: key,
+            createdCard: true
+        });
+        console.log(this.state.cardKey);
     }
 
     // finds src of the image selected by user
@@ -118,7 +124,6 @@ class CreateCard extends React.Component {
         var currentUser = fire.auth().currentUser;
 
         if (currentUser != null) {
-            
             var imgRef = this.db.ref('Image');
             var imgSource = '';
             imgRef.on('value', snap => {
@@ -128,7 +133,7 @@ class CreateCard extends React.Component {
                 this.writeCardInfo(imgSource, currentUser);
                 this.increasePoints(currentUser);
             })
-            this.setState({createdCard: true});
+            // this.setState({createdCard: true});
         } else {
             this.setState({logInModal: true});
         }
@@ -161,7 +166,6 @@ class CreateCard extends React.Component {
                     console.log('If statement');
                 };
         });
-        
     }
 
     render() {
@@ -215,17 +219,17 @@ class CreateCard extends React.Component {
                                     <Nav variant="pills" className="flex-row">
                                         <Col>
                                             <Nav.Item>
-                                                <Nav.Link eventKey="study" name="study" onClick={this.handleTagChange}>Study</Nav.Link>
+                                                <Nav.Link name="study" onClick={this.handleTagChange}>Study</Nav.Link>
                                             </Nav.Item>
                                         </Col>
                                         <Col>
                                             <Nav.Item>
-                                                <Nav.Link eventKey="relationship" name="relationship" onClick={this.handleTagChange}>Relationship</Nav.Link>
+                                                <Nav.Link name="relationship" onClick={this.handleTagChange}>Relationship</Nav.Link>
                                             </Nav.Item>
                                         </Col>
                                         <Col>
                                             <Nav.Item>
-                                                <Nav.Link eventKey="health" name="health" onClick={this.handleTagChange}>Health</Nav.Link>
+                                                <Nav.Link name="health" onClick={this.handleTagChange}>Health</Nav.Link>
                                             </Nav.Item>
                                         </Col>
                                     </Nav>
@@ -238,6 +242,7 @@ class CreateCard extends React.Component {
                     </div>
                 </form>
                 <CardModal
+                    id={this.cardKey}
                     imgsrc={this.state.imgSrc}
                     text={this.state.text}
                     tag={this.state.tag}

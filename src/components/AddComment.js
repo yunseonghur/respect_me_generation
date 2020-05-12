@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Modal, Button, Row, Col, Form} from 'react-bootstrap';
 import Comment from './Comment';
 import fire from '../fire';
+import MyCard from './MyCard';
 
 const dbRef = fire.database();
 
@@ -121,6 +122,7 @@ class AddComment extends Component {
                 }
             }
         });
+
         return (commentDetails.map((comment)=> 
             <Comment 
                 key={comment.key} 
@@ -128,14 +130,33 @@ class AddComment extends Component {
                 comment={comment.text} 
             />));
     }
+
+    displayCard() {
+        var imgOption;
+        var text;
+        dbRef.ref().child('User').on('value', snap => {
+            const userInfo = snap.val();
+            if(userInfo[this.props.cardOwnerUID]!=null){
+                imgOption = userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['imgOption'];
+                text = userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['text'];
+            }
+        });
+        return <MyCard id={this.props.cardID} background={imgOption} text={text}/>
+    }
+
     render(){
         return(
-            <Modal show={this.props.show} animation={false} size='lg' aria-labelledby="contained-modal-title-vcenter" centered>
+            <Modal show={this.props.show} animation={false} size='md' aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header>
                   <Modal.Title>Comments</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                   <div className='container'>
+                      <Row>
+                          <Col>
+                          {this.displayCard()}
+                          </Col>
+                      </Row>
                       <Row>
                           <Col>
                             {this.getComments()}

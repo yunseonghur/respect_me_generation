@@ -23,7 +23,7 @@ class MyCard extends Component {
 }
 
 MyCard.propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     background: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired
 }

@@ -7,7 +7,6 @@ import Image from 'react-bootstrap/Image';
 
 // Represent an entry consist of an image and a caption for each article
 export const ResourceImage = (props) => {
-    console.log(props.link);
     return (
         <div className="entry">
             <Image src={props.image} alt={props.title} rounded />

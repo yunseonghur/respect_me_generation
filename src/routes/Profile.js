@@ -50,15 +50,37 @@ class Profile extends React.Component{
         });
     }
 
+    /**
+     * counts the number of 
+     * cardCommentObj: a card comment object stored in user
+     */
+    countComments = (cardCommentObj) => {
+        // count comments under each card
+        let cardComment = cardCommentObj;
+        let commentNumber = 0;
+        if (cardComment != null) {
+            // count and increment commentNumber
+            for (let count in cardComment) {
+                commentNumber++;
+            }
+        }
+
+        return commentNumber;
+    }
+
     // Store the cards in an array and set a flag for loading to false
     getCardDetails(){
         let cards = this.state.cards;
         let cardDetails = [];
         for (let card in cards){
+
+            let commentNumber = this.countComments(cards[card].comments)
+
             cardDetails.push({
                 id: card,
                 background: cards[card].imgOption,
-                text: cards[card].text
+                text: cards[card].text,
+                numComments: commentNumber
             });
         }
         this.setState({
@@ -139,6 +161,7 @@ class Profile extends React.Component{
                                     id={myCard.id} 
                                     background={myCard.background} 
                                     text={myCard.text} 
+                                    commentCount={myCard.numComments}
                                     onClick={()=>{
                                         this.setState({ show: true, cardSelected: myCard.id });
                                     }}

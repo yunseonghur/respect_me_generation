@@ -24,7 +24,9 @@ class MiniBoard extends Component {
       }
 
     toCommBoard = () => {
-        this.props.history.push("/communityBoard");
+        this.props.history.push({
+            pathname: "/communityBoard"
+        });
     }
 
     // clicking once expands, another takes user to commBoard
@@ -59,6 +61,7 @@ class MiniBoard extends Component {
                         <Button name="relationship" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">relationship</Button>
                         <Button name="health" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">health</Button>
                     </ButtonGroup>
+
 
                 </div>
 

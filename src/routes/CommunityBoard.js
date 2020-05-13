@@ -10,8 +10,8 @@ import Toast from 'react-bootstrap/Toast'
 const db = fire.database();
 
 /**
- * The entire page containing the actual board.
- * Also includes the upload buttons.
+ * The entire page containing the Board component and handles posting
+ * cards and video via the big red (+) button.
  */
 class CommunityBoard extends React.Component{
 

@@ -6,6 +6,9 @@ import fire from '../fire'
 
 const dbRef = fire.database().ref();
 
+/**
+ * A layout displaying all cards in community.
+ */
 class Cards extends React.Component{
 
     constructor(props){

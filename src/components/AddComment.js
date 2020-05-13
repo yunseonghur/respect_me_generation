@@ -6,6 +6,7 @@ import MyCard from './MyCard';
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from './ReportModal';
+import './AddComment.css';
 
 const dbRef = fire.database();
 
@@ -156,13 +157,12 @@ class AddComment extends Component {
                 <Modal show={this.props.show} animation={false} onHide={this.props.onHide} size='md' aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header>
                     <Modal.Title>
-                        <div>Comments
-                            <FontAwesomeIcon id="reportIcon" onClick={this.iconClick}className="lightbulb" icon={faLightbulb} />
-                        </div>
+                        <span>Comments</span>
+                        <FontAwesomeIcon id="reportIcon" onClick={this.iconClick}className="lightbulb" icon={faLightbulb} />
                     </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <div className='container'>
+                        <div>
                             <Row>
                                 <Col>
                                 {this.displayCard()}
@@ -173,9 +173,10 @@ class AddComment extends Component {
                                 {this.getComments()}
                                 </Col>
                             </Row>
-                            <Row>
-                                <Col sm={6}>
-                                    <Form onSubmit={this.handleSubmit}>
+                            <br />
+                            <Form onSubmit={this.handleSubmit}>
+                                <Row>
+                                    <Col>
                                         <Form.Group controlId="Comments">
                                             <input
                                             type="text"
@@ -185,14 +186,18 @@ class AddComment extends Component {
                                             onChange={this.handleInput}
                                             />
                                         </Form.Group>
+                                    </Col>
+                                    <Col>
                                         <Form.Group>
+                                            
                                             <Button onClick={this.writeComment}>
                                                 Add Comment
                                             </Button>
+                                            
                                         </Form.Group>
-                                    </Form>
-                                </Col>
-                            </Row>
+                                    </Col>
+                                </Row>
+                            </Form>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>

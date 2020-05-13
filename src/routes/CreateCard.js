@@ -50,10 +50,14 @@ class CreateCard extends React.Component {
     writeCardInfo(imgSrc, currentUser) {
         if(this.state.text.length <= 75) {
             var key = this.db.ref().child('Card').push().key;
+            var date = Date.now();
+            date = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit', 
+                day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(date);
             this.db.ref("User/" + currentUser.uid).child('cards/' + key).set({
                 imgOption: imgSrc,
                 text: this.state.text,
-                tag: this.state.tag
+                tag: this.state.tag,
+                date: date
             });
             this.setState({
                 cardKey: key,

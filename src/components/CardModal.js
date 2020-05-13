@@ -10,11 +10,12 @@ class CardModal extends React.Component {
         return (
             <Modal
             size="md"
+            onHide={this.props.onHide}
             show={this.props.show}
             animation={false}
             aria-labelledby="contained-modal-title-vcenter"
             centered>
-                <Modal.Header>
+                <Modal.Header closeButton>
                     <Modal.Title>Your Card</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -42,17 +43,8 @@ class CardModal extends React.Component {
                         </Row>
                     </Container>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Container>
-                        <Row>
-                            <Col>
-                                <Button className="modal-btn" href="#communityBoard">Go to Community Board</Button>
-                            </Col>
-                            <Col>
-                                <Button className="modal-btn" onClick={this.props.onHide}>Close</Button>
-                            </Col>
-                        </Row>
-                    </Container>
+                <Modal.Footer centered>
+                    <Button className="modal-btn" href="#communityBoard">Go to Community Board</Button>
                 </Modal.Footer>
         </Modal>
         )

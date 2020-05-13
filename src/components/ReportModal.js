@@ -9,11 +9,11 @@ class ReportModal extends React.Component {
     
     // add card ownerUID and card id to firebase and the date reported
     report =()=> {
-        var today = Date.now();
-        today = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit', 
-        day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(today);
+        var date = Date.now();
+        date = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit', 
+                day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(date);
         this.db.ref("Reports/" + this.props.cardOwnerUID).child('cards/' + this.props.cardID).update({
-            date: today
+            date: date
         })
         this.props.onHide();
     }

@@ -1,8 +1,7 @@
 import React from 'react';
 import fire from '../fire';
-import MyCard from '../components/MyCard';
 import "../routes/CreateCard.css";
-import { Container, Nav, Row, Col, Tab, CardDeck, Card, Button, Modal } from 'react-bootstrap';
+import { Nav, Row, Col, Tab, CardDeck, Card, Button } from 'react-bootstrap';
 import TextLengthModal from '../components/TextLengthModal';
 import CardModal from '../components/CardModal';
 import LoginModal from '../components/LoginModal';

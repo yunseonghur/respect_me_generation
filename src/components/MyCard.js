@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 import './MyCard.css';
 import { faComments, faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -11,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
  */
 class MyCard extends Component {
 
-    render () {
+    render() {
         return (
             <div>
                 <a style={{ cursor: "pointer" }} onClick={this.props.onClick}>
@@ -23,7 +24,7 @@ class MyCard extends Component {
                             <FontAwesomeIcon icon={faComments} />
                             <p className="commentCount">16</p>
                             <FontAwesomeIcon className="heart" icon={faHeart} />
-                            <FontAwesomeIcon className="lightbulb" icon={faLightbulb} />
+                            {/* <FontAwesomeIcon onClick={this.iconClick()}className="lightbulb" icon={faLightbulb} /> */}
                         </Card.Text>
                     </Card.ImgOverlay>
                 </Card>

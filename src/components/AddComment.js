@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
-import {Modal, Button, Row, Col, Form} from 'react-bootstrap';
+import {Modal, Button, Row, Col, Form, Container} from 'react-bootstrap';
 import Comment from './Comment';
 import fire from '../fire';
 import MyCard from './MyCard';
+import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ReportModal from './ReportModal';
 
 const dbRef = fire.database();
 
@@ -15,7 +18,8 @@ class AddComment extends Component {
             username: "",
             comments: [],
             newComment: '',
-            visible: false
+            visible: false,
+            reportModal: false
         }
         this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -72,7 +76,6 @@ class AddComment extends Component {
     }
 
     increasePoints(currentUser){
-        console.log("increase points");
         dbRef.ref('User/'+ currentUser).once('value')
             .then(function(snapshot){
                 let points = snapshot.child('points').val()
@@ -90,8 +93,6 @@ class AddComment extends Component {
             .then(function(snapshot){
                 let points = snapshot.child('points').val()
                 let badge = snapshot.child('badge').val()
-                console.log(points);
-                console.log(badge);
                 if(points >= 100){
                     dbRef.ref('User/' + currentUser).update({
                         badge: 'advanced'
@@ -144,50 +145,65 @@ class AddComment extends Component {
         return <MyCard id={this.props.cardID} background={imgOption} text={text}/>
     }
 
+    iconClick = () => {
+        this.setState({reportModal: true});
+    }
+
     render(){
         return(
-            <Modal show={this.props.show} animation={false} size='md' aria-labelledby="contained-modal-title-vcenter" centered>
-                <Modal.Header>
-                  <Modal.Title>Comments</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <div className='container'>
-                      <Row>
-                          <Col>
-                          {this.displayCard()}
-                          </Col>
-                      </Row>
-                      <Row>
-                          <Col>
-                            {this.getComments()}
-                          </Col>
-                      </Row>
-                      <Row>
-                          <Col sm={6}>
-                              <Form onSubmit={this.handleSubmit}>
-                                  <Form.Group controlId="Comments">
-                                      <input
-                                        type="text"
-                                        className="Comments"                                    
-                                        placeholder="add your comment"
-                                        value={this.state.newComment}
-                                        onChange={this.handleInput}
-                                      />
-                                  </Form.Group>
-                                  <Form.Group>
-                                      <Button onClick={this.writeComment}>
-                                          Add Comment
-                                      </Button>
-                                  </Form.Group>
-                              </Form>
-                          </Col>
-                      </Row>
-                  </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={this.props.onHide}>Close</Button>
-                </Modal.Footer>
-            </Modal>
+            <div>
+                <Modal show={this.props.show} animation={false} onHide={this.props.onHide} size='md' aria-labelledby="contained-modal-title-vcenter" centered>
+                    <Modal.Header>
+                    <Modal.Title>
+                        <div>Comments
+                            <FontAwesomeIcon id="reportIcon" onClick={this.iconClick}className="lightbulb" icon={faLightbulb} />
+                        </div>
+                    </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className='container'>
+                            <Row>
+                                <Col>
+                                {this.displayCard()}
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                {this.getComments()}
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col sm={6}>
+                                    <Form onSubmit={this.handleSubmit}>
+                                        <Form.Group controlId="Comments">
+                                            <input
+                                            type="text"
+                                            className="Comments"                                    
+                                            placeholder="add your comment"
+                                            value={this.state.newComment}
+                                            onChange={this.handleInput}
+                                            />
+                                        </Form.Group>
+                                        <Form.Group>
+                                            <Button onClick={this.writeComment}>
+                                                Add Comment
+                                            </Button>
+                                        </Form.Group>
+                                    </Form>
+                                </Col>
+                            </Row>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.props.onHide}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
+                <ReportModal 
+                    show={this.state.reportModal} 
+                    onHide={()=> this.setState({reportModal: false})}
+                    cardID={this.props.cardID}
+                    cardOwnerUID={this.props.cardOwnerUID}/>
+            </div>
         )
     }
 }

@@ -15,17 +15,25 @@ const db = fire.database();
  */
 class CommunityBoard extends React.Component{
 
-    state = {
-        cards: [],
-        videos: [],
-        isLoading: true, // true if the server is still loading cards data
-        visible: true,  // true if cards are visible & false if videos are visible
-        show: false,
-        userUID: null,   // the current user
-        badge: "",
-        points: "",       // means user is not logged in
-        displayErrorMessage: false
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            cards: [],
+            videos: [],
+            isLoading: true, // true if the server is still loading cards data
+            visible: true,  // true if cards are visible & false if videos are visible
+            show: false,
+            userUID: null,   // the current user
+            badge: "",
+            points: "",       // means user is not logged in
+            displayErrorMessage: false
+        };
+        this.getCurrentUser();
+
+
+    }
+
+    
 
     getBadgePoints = () => {
         db.ref().child('User').on('value', snap => {
@@ -39,7 +47,21 @@ class CommunityBoard extends React.Component{
         });
     }
 
-    componentDidMount() {
+    // componentDidMount() {
+    //     // get references that DON'T change
+    //     fire.auth().onAuthStateChanged((user) => {
+    //         if (user) {
+    //             this.setState({
+    //                 userUID: user.uid,
+    //             })
+    //             console.log("Logged in. UID: " + this.state.userUID);
+    //         } else {
+    //             console.log("you're not logged in.")
+    //         }
+    //     })
+    // }
+
+    getCurrentUser() {
         // get references that DON'T change
         fire.auth().onAuthStateChanged((user) => {
             if (user) {
@@ -53,6 +75,10 @@ class CommunityBoard extends React.Component{
             }
         })
     }
+
+    // componentWillMount() {
+    //     this.getBadgePoints();
+    // }
 
     uploadHandler = () => {
         console.log("uploadhandler was clicked");

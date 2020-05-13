@@ -1,6 +1,5 @@
 import React from 'react';
 import "./Profile.css";
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import MyCard from '../components/MyCard';
 import AddComment from '../components/AddComment';
 import UserVideo from '../components/UserVideo';
@@ -111,12 +110,12 @@ class Profile extends React.Component{
                 </div>
                 <div className="container">
                     <ButtonGroup> 
-                        <Button variant="light" onClick={()=>{
+                        <Button variant="light" className="card-vid-tab" onClick={()=>{
                             this.setState({ visible: true});
                         }}>
                             Your Cards
                         </Button>
-                        <Button variant="light" onClick={()=>{
+                        <Button variant="light" className="card-vid-tab" onClick={()=>{
                             this.setState({ visible: false});
                         }}>
                             Your Videos

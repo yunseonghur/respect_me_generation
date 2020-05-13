@@ -182,8 +182,8 @@ class CreateCard extends React.Component {
                             </Tab.Container>
                         </div>
                     </div>
-                    <div className='container'>
-                        <Button onClick={this.handleSubmit} size="lg" block>Create!</Button>
+                    <div>
+                        <Button id="create-btn" onClick={this.handleSubmit} size="lg" block>Create!</Button>
                     </div>
                 </form>
                 <CardModal

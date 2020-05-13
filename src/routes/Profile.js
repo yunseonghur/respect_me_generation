@@ -81,7 +81,9 @@ class Profile extends React.Component{
                 id: card,
                 background: cards[card].imgOption,
                 text: cards[card].text,
-                numComments: commentNumber
+                numComments: commentNumber,
+                upvote: this.countUpvotes(cards[card].upvote),
+                downvote: this.countDownvotes(cards[card].downvote)
             });
         }
         this.setState({
@@ -99,6 +101,18 @@ class Profile extends React.Component{
             });
         }
         this.setState({ videos: videoArr });
+    }
+    countUpvotes = (upvoteObj) => {
+        if (upvoteObj != null) {
+            return upvoteObj;
+        }
+        return "0";
+    }
+    countDownvotes = (downvoteObj) => {
+        if (downvoteObj != null) {
+            return downvoteObj;
+        }
+        return "0";
     }
     // Get current user's name and uid if exist
     componentDidMount(){
@@ -164,6 +178,8 @@ class Profile extends React.Component{
                                         background={myCard.background} 
                                         text={myCard.text} 
                                         commentCount={myCard.numComments}
+                                        upvoteCount={myCard.upvote}
+                                        downvoteCount={myCard.downvote}
                                         onClick={()=>{
                                             this.setState({ show: true, cardSelected: myCard.id });
                                         }}

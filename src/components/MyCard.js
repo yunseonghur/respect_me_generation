@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import './MyCard.css';
-import { faComments, faLightbulb } from "@fortawesome/free-solid-svg-icons";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faComments, faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 /**
  * Represents a single card object.
  */
 class MyCard extends Component {
+
 
     render() {
         return (
@@ -22,8 +22,12 @@ class MyCard extends Component {
                         <Card.Text className="text-center">{this.props.text}</Card.Text>
                         <Card.Text className="text-bottom-left">
                             <FontAwesomeIcon icon={faComments} />
-                            <p className="commentCount">16</p>
-                            <FontAwesomeIcon className="heart" icon={faHeart} />
+                            {/* Sherry :D when you merge, pls change <p> tag to <span> to avoid warnings for the line below */}
+                            <span className="commentCount">16</span>
+                            <FontAwesomeIcon className="thumbs-up" icon={faThumbsUp} />
+                            <span className="upvoteCount">{this.props.upvoteCount}</span>
+                            <FontAwesomeIcon className="thumbs-down" icon={faThumbsDown} />
+                            <span className="downvoteCount">{this.props.downvoteCount}</span>
                             {/* <FontAwesomeIcon onClick={this.iconClick()}className="lightbulb" icon={faLightbulb} /> */}
                         </Card.Text>
                     </Card.ImgOverlay>

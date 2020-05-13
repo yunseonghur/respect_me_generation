@@ -16,7 +16,7 @@
     color: black;
 }
 
-.card-section p {
+#prompt {
     text-align: center;
     font-size: 12pt;
     padding-top: 10px;
@@ -47,13 +47,13 @@
     text-align: center;
 }
 
-/* .resource-section button {
+.resource-section button {
     display: inline-block;
 }
 
 .resource-section .jumbotron-fluid {
     display: inline-block;
-} */
+}
 
 /* Medium devices (landscape tablets, 768px and down) */
 @media only screen and (max-width: 768px) {

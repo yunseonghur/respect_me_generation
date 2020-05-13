@@ -79,7 +79,7 @@ class Home extends React.Component{
                 <Quote />
                 <div className="card-section">
                     <h2>COMMUNITY BOARD</h2>
-                    <p>What is your community talking about today?</p>
+                    <p id="prompt">What is your community talking about today?</p>
                     <MiniBoard />
                 </div>
 

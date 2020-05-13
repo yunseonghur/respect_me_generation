@@ -15,6 +15,7 @@ class ReportModal extends React.Component {
         this.db.ref("Reports/" + this.props.cardOwnerUID).child('cards/' + this.props.cardID).update({
             date: today
         })
+        this.props.onHide();
     }
 
     render() {

@@ -81,7 +81,7 @@ class AddComment extends Component {
                     points
             })
         });
-        this.checkBadge(this.state.userUID);
+        this.checkBadge(currentUser);
     }
 
     checkBadge(currentUser){
@@ -96,6 +96,7 @@ class AddComment extends Component {
                         badge: 'advanced'
                     });
                 };
+                console.log(badge);
         });
         
     }

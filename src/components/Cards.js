@@ -76,6 +76,24 @@ class Cards extends React.Component{
         });
         return cardOwnerUID
       };
+
+    /**
+     * counts the number of 
+     * cardCommentObj: a card comment object stored in user
+     */
+    countComments = (cardCommentObj) => {
+        // count comments under each card
+        let cardComment = cardCommentObj;
+        let commentNumber = 0;
+        if (cardComment != null) {
+            // count and increment commentNumber
+            for (let count in cardComment) {
+                commentNumber++;
+            }
+        }
+
+        return commentNumber;
+    }
     
     sortCards() {
         var users;
@@ -84,25 +102,34 @@ class Cards extends React.Component{
         });
         let cardCollected = [];
         for (let user in users){
+            
             let cards = users[user].cards
             if (this.state.tag !== "all") {
                 for (let card in cards){
+
+                    let commentNumber = this.countComments(cards[card].comments)
+
                     if (cards[card].tag === this.state.tag) {
                         cardCollected.push({
                             id: card,
                             background: cards[card].imgOption,
                             text: cards[card].text,
-                            comments: cards[card].comments
+                            comments: cards[card].comments,
+                            numComments: commentNumber
                         });
                     } 
                 }
             } else if (this.props.tag === "all") {
                 for (let card in cards){
+
+                    let commentNumber = this.countComments(cards[card].comments)
+
                     cardCollected.push({
                         id: card,
                         background: cards[card].imgOption,
                         text: cards[card].text,
-                        comments: cards[card].comments
+                        comments: cards[card].comments,
+                        numComments: commentNumber
                     });
                 }
             }
@@ -129,6 +156,7 @@ class Cards extends React.Component{
                                 id={card.id} 
                                 background={card.background} 
                                 text={card.text} 
+                                commentCount={card.numComments}
                                 onClick={()=>{
                                     this.setState({ visible: true, cardSelected: card.id });
                                 }}
@@ -149,3 +177,13 @@ class Cards extends React.Component{
 }
 
 export default Cards;
+
+// // count comments under each card
+                    // let cardComment = cards[card].comments;
+                    // let commentNumber = 0;
+                    // if (cardComment != null) {
+                    //     // count and increment commentNumber
+                    //     for (let count in cardComment) {
+                    //         commentNumber++;
+                    //     }
+                    // }

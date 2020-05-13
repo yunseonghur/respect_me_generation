@@ -6,6 +6,7 @@ import MyCard from './MyCard';
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from './ReportModal';
+import '../components/AddComment.css';
 
 const dbRef = fire.database();
 
@@ -157,7 +158,7 @@ class AddComment extends Component {
                     <Modal.Header>
                     <Modal.Title>
                         <div>Comments
-                            <FontAwesomeIcon id="reportIcon" onClick={this.iconClick}className="lightbulb" icon={faLightbulb} />
+                            <FontAwesomeIcon id="reportIcon" onClick={this.iconClick} className="lightbulb" icon={faLightbulb} />
                         </div>
                     </Modal.Title>
                     </Modal.Header>

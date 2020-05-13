@@ -1,54 +1,30 @@
 import React, { Component} from 'react';
 import "../routes/Resources.css";
 import Accordion from 'react-bootstrap/Accordion';
-// import fire from '../fire.js';
 import ResourceEntry from "../components/ResourceEntry";
 import ARTICLES from '../components/ResourceArticles';
+import { withRouter } from 'react-router-dom';
 
-
-// get reference to firebase
-// const db = fire.database();
 
 class Resources  extends Component{
-
-    // state = {
-    //     // titles: [],
-    //     // content: []
-    //     studyContents: [],
-    //     relationshipContents: [],
-    //     healthContents: []
-    // }
-
-    // getResources() {
-    //     let dbTitles = [];
-    //     let dbContent = [];
-
-    //     db.ref('Resources/').once('value', snap => {
-
-    //         snap.forEach(function(childSnapshot) {
-    //             var childKey = childSnapshot.key;
-    //             dbTitles.push(childKey);
-    //             console.log("title: " + childKey);
-    //             var childData = childSnapshot.val();
-    //             dbContent.push(childData);
-    //             console.log("text body: " + childData)
-    //         })
-
-    //         console.log(dbTitles);
-    //         console.log(dbContent);
-
-    //         this.setState({
-    //             titles: dbTitles,
-    //             content: dbContent
-    //         })
-    //     })
-    // }
 
     state = { 
         studyResources: [],
         healthResources: [],
         relationshipResources: []
     };
+
+    getContentClicked(){
+        if (this.props.location != null) {
+            if (this.props.location.state != null){
+                let categoryClicked = this.props.location.state.detail
+                return categoryClicked
+            } 
+        } else {
+            console.log("no default key passed in")
+            return "0"
+        }
+    }
 
     // Read resource entries from the given article list to display by tag
     getResourceEntries(){
@@ -79,27 +55,19 @@ class Resources  extends Component{
         }
         return ( 
             <div>
-                <ResourceEntry key="0" title="study" contents={studyEntries} eventKey="0" /> 
-                <ResourceEntry key="1" title="health" contents={healthEntries} eventKey="1" /> 
-                <ResourceEntry key="2" title="relationship" contents={relationshipEntries} eventKey="2" /> 
+                <ResourceEntry key="0" title="study" contents={studyEntries} eventKey="0" defaultActiveKey={this.state.categoryClicked} /> 
+                <ResourceEntry key="1" title="health" contents={healthEntries} eventKey="1" defaultActiveKey={this.state.categoryClicked} /> 
+                <ResourceEntry key="2" title="relationship" contents={relationshipEntries} eventKey="2" defaultActiveKey={this.state.categoryClicked} /> 
             </div>
         );
     }
 
     render() {
-
-        // const {titles, content} = this.state;
-
         return (
                 <div className="base">
                     <h1>RESOURCES</h1>
-                    
-                    <Accordion className="accordion">
-                        {/* {
-                            titles.map((data, index) => (
-                                <ResourceEntry key={index} title={data} contents={content[index]} eventKey={index} />
-                            ))
-                        } */}
+
+                    <Accordion className="accordion" defaultActiveKey={this.getContentClicked()}>
                         {this.getResourceEntries()}
                     </Accordion>
                 </div>
@@ -108,4 +76,4 @@ class Resources  extends Component{
 }
 
 
-export default Resources;
+export default withRouter(Resources);

@@ -47,6 +47,14 @@
     text-align: center;
 }
 
+/* .resource-section button {
+    display: inline-block;
+}
+
+.resource-section .jumbotron-fluid {
+    display: inline-block;
+} */
+
 /* Medium devices (landscape tablets, 768px and down) */
 @media only screen and (max-width: 768px) {
     .card-section h2 {

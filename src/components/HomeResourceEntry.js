@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import { Row, Col } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
@@ -7,7 +6,6 @@ import Image from 'react-bootstrap/Image';
 
 // Represent an entry consist of an image and a caption for each article
 export const ResourceImage = (props) => {
-    console.log(props.link);
     return (
         <div className="entry">
             <Image src={props.image} alt={props.title} rounded />
@@ -39,7 +37,6 @@ class HomeResourceEntry extends React.Component{
                                 link={entry.link} />
                             </Col>
                         ))}
-                            <Link to='/resources' className="btn btn-link">></Link>
                     </Row>
                 </Jumbotron>
             </div>

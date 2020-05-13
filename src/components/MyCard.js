@@ -24,7 +24,6 @@ class MyCard extends Component {
                             <FontAwesomeIcon icon={faComments} />
                             <p className="commentCount">16</p>
                             <FontAwesomeIcon className="heart" icon={faHeart} />
-                            {/* <FontAwesomeIcon onClick={this.iconClick()}className="lightbulb" icon={faLightbulb} /> */}
                         </Card.Text>
                     </Card.ImgOverlay>
                 </Card>

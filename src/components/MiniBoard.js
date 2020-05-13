@@ -18,7 +18,7 @@ class MiniBoard extends Component {
         this.state = {visible: true, isCollapsed: true, btnText: "See more", tag: "all", displayMode: "card"};
         this.toggleExpandHandler =this.toggleExpandHandler.bind(this);
         this.divStyle = {
-          maxHeight: "200px"
+          maxHeight: "400px"
         }  
       }
 
@@ -33,7 +33,7 @@ class MiniBoard extends Component {
         if (this.state.isCollapsed === true) {
             this.setState({isCollapsed: false, btnText: "View Full Board" })
             this.divStyle = {
-                maxHeight: "600px"
+                maxHeight: "700px"
             }
         } else {
             // redirect to full community board

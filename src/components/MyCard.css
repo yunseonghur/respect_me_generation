@@ -29,11 +29,6 @@
   right: 30px;
 }
 
-.lightbulb {
-  position: absolute;
-  right: 60px;
-}
-
 .commentCount {
   display: inline-block;
   margin-left: 10px;

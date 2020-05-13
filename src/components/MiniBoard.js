@@ -34,7 +34,7 @@ class MiniBoard extends Component {
         if (this.state.isCollapsed === true) {
             this.setState({isCollapsed: false, btnText: "View Full Board" })
             this.divStyle = {
-                maxHeight: "400px"
+                maxHeight: "600px"
             }
         } else {
             // redirect to full community board
@@ -61,8 +61,6 @@ class MiniBoard extends Component {
                         <Button name="relationship" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">relationship</Button>
                         <Button name="health" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">health</Button>
                     </ButtonGroup>
-
-
                 </div>
 
                 <ButtonGroup className="btnGroup"> 

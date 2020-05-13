@@ -3,67 +3,10 @@ import fire from '../fire';
 import MyCard from '../components/MyCard';
 import "../routes/CreateCard.css";
 import { Container, Nav, Row, Col, Tab, CardDeck, Card, Button, Modal } from 'react-bootstrap';
-import ARTICLES from '../components/ResourceArticles';
+import TextLengthModal from '../components/TextLengthModal';
+import CardModal from '../components/CardModal';
+import LoginModal from '../components/LoginModal';
 
-function CardModal(props) {
-    return (
-    <Modal
-        {...props} size="sm" aria-labelledby="contained-modal-title-vcenter" centered>
-            <Modal.Header closeButton>
-                <Modal.Title>Your Card</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Container>
-                    <Row>
-                        <MyCard background={props.imgsrc} text={props.text} />
-                    </Row>
-                    <Row id="text-row">
-                        <div id="tagResource">
-                        { props.tag !== "all" ? <div>You selected #{props.tag}. Check out these articles!</div> : null}
-                            {
-                                ARTICLES.map(ARTICLE => {
-                                    if (ARTICLE.tag === props.tag){
-                                        return (
-                                            <div key={ARTICLE.id}>
-                                                <br />
-                                                <a href={ARTICLE.link}>{ARTICLE.title}</a>
-                                            </div>
-                                        );
-                                    }
-                                    return null
-                                })
-                            }
-                        </div>
-                    </Row>
-                </Container>
-            </Modal.Body>
-            <Modal.Footer>
-                <Container>
-                    <Row>
-                        <Col>
-                            <Button className="modal-btn" href="#communityBoard">Go to Community Board</Button>
-                        </Col>
-                    </Row>
-                </Container>
-            </Modal.Footer>
-    </Modal>
-    );
-  };
-
-  function LogInModal(props) {
-    return (
-        <Modal {...props}
-        size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-            <Modal.Header closeButton>
-                <Modal.Title>Please Login</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                Please log in before you create a card.
-            </Modal.Body>
-            
-        </Modal>
-    )
-}; 
 class CreateCard extends React.Component {
     constructor(props) {
         super(props);
@@ -74,7 +17,8 @@ class CreateCard extends React.Component {
             imgSrc: '',
             logInModal: false,
             tag: 'all',
-            cardKey: ''
+            cardKey: '',
+            textLengthModal: false
         };
         this.db = fire.database();
         this.handleImgChange = this.handleImgChange.bind(this);
@@ -105,17 +49,21 @@ class CreateCard extends React.Component {
 
     // saves card information to firebase
     writeCardInfo(imgSrc, currentUser) {
-        var key = this.db.ref().child('Card').push().key;
-        this.db.ref("User/" + currentUser.uid).child('cards/' + key).set({
-            imgOption: imgSrc,
-            text: this.state.text,
-            tag: this.state.tag
-        });
-        this.setState({
-            cardKey: key,
-            createdCard: true
-        });
-        console.log(this.state.cardKey);
+        if(this.state.text.length <= 75) {
+            var key = this.db.ref().child('Card').push().key;
+            this.db.ref("User/" + currentUser.uid).child('cards/' + key).set({
+                imgOption: imgSrc,
+                text: this.state.text,
+                tag: this.state.tag
+            });
+            this.setState({
+                cardKey: key,
+                createdCard: true
+            });
+        } else {
+            this.setState({textLengthModal: true});
+        }
+        
     }
 
     // finds src of the image selected by user
@@ -133,7 +81,6 @@ class CreateCard extends React.Component {
                 this.writeCardInfo(imgSource, currentUser);
                 this.increasePoints(currentUser);
             })
-            // this.setState({createdCard: true});
         } else {
             this.setState({logInModal: true});
         }
@@ -163,7 +110,6 @@ class CreateCard extends React.Component {
                     fire.database().ref('User/' + currentUser.uid).update({
                         badge: 'advanced'
                     });
-                    console.log('If statement');
                 };
         });
     }
@@ -249,10 +195,14 @@ class CreateCard extends React.Component {
                     animation={false}
                     show={this.state.createdCard}
                     onHide={()=> this.setState({createdCard: false})} />
-                <LogInModal
+                <LoginModal
                     animation={false}
                     show={this.state.logInModal}
                     onHide={()=> this.setState({logInModal: false})} />
+                <TextLengthModal
+                    animation={false}
+                    show={this.state.textLengthModal}
+                    onHide={()=> this.setState({textLengthModal: false})} />
             </div>
         )
     }

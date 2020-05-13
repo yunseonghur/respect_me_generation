@@ -107,7 +107,9 @@ class Profile extends React.Component{
         return (
             <div>
                 <div className="header">
+                    <div className='border'>
                     <h2>{this.state.username} <img className='profile' src={profile}></img>{badgeIcon} <img className='img' src={pts}></img> x{this.state.points}</h2>
+                    </div>
                 </div>
                 <div className="container">
                     <ButtonGroup> 
@@ -164,6 +166,13 @@ class Profile extends React.Component{
         );
     }
 }
+//display: flex;
+//justify-content: center;
+//align-items: center;
 
+// border-style: solid;
+//     border-width: thick;
+//     border-color: black;
+//     border-radius: 100px;
 
 export default Profile;

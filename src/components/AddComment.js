@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {Modal, Button, Row, Col, Form, Container} from 'react-bootstrap';
+import {Modal, Button, Row, Col, Form } from 'react-bootstrap';
 import Comment from './Comment';
 import fire from '../fire';
 import MyCard from './MyCard';
-import { faFlag } from "@fortawesome/free-solid-svg-icons";
+import { faFlag, faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from './ReportModal';
 import './AddComment.css';
@@ -185,7 +185,7 @@ class AddComment extends Component {
                     <Modal.Header>
                     <Modal.Title>
                         <span>Comments</span>
-                        <FontAwesomeIcon id="reportIcon" onClick={this.iconClick}className="lightbulb" icon={faFlag} />
+                        <FontAwesomeIcon id="reportIcon" onClick={this.iconClick} className="lightbulb" icon={faFlag} />
                     </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -193,6 +193,12 @@ class AddComment extends Component {
                             <Row>
                                 <Col>
                                 {this.displayCard()}
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                <FontAwesomeIcon id="thumbsUpIcon" icon={faThumbsUp} />
+                                <FontAwesomeIcon id="thumbsDownIcon" icon={faThumbsDown} />
                                 </Col>
                             </Row>
                             <Row>

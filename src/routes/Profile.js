@@ -8,6 +8,8 @@ import CardDeck from 'react-bootstrap/CardDeck';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import fire from '../fire.js';
+import basicBadge from '../images/badge_flat.jpg';
+import advBadge from './adv_badge.png';
 
 const dbRef = fire.database().ref();
 
@@ -46,6 +48,7 @@ class Profile extends React.Component{
             this.getVideos();
         });
     }
+
     // Store the cards in an array and set a flag for loading to false
     getCardDetails(){
         let cards = this.state.cards;
@@ -90,13 +93,21 @@ class Profile extends React.Component{
     }
     render(){
         const tabLabel = this.state.visible? "Your Cards" : "Your Videos";
+
+        // determines which badge icon to use
+        let badgeIcon;
+        if(this.state.badge == 'basic'){
+            badgeIcon = <img src={basicBadge}></img>
+        } else {
+            badgeIcon = <img src={advBadge}></img>
+        };
+        
         return (
             <div>
-                <Jumbotron>
-                    <p>Hi {this.state.username}!</p>
-                    <span>badge: {this.state.badge}, </span>
-                    <span>points: {this.state.points}</span>
-                </Jumbotron>
+                <div className="header">
+                    <h2>{this.state.username} badge: {this.state.badge} points: {this.state.points}</h2>
+                    {badgeIcon}
+                </div>
                 <div className="container">
                     <ButtonGroup> 
                         <Button variant="light" onClick={()=>{

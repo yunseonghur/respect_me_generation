@@ -9,7 +9,9 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import fire from '../fire.js';
 import basicBadge from '../images/badge_flat.jpg';
-import advBadge from './adv_badge.png';
+import advBadge from '../images/adv_badge.png';
+import pts from '../images/points.png';
+import profile from '../images/profile.png';
 
 const dbRef = fire.database().ref();
 
@@ -97,16 +99,15 @@ class Profile extends React.Component{
         // determines which badge icon to use
         let badgeIcon;
         if(this.state.badge == 'basic'){
-            badgeIcon = <img src={basicBadge}></img>
+            badgeIcon = <img className='img' src={basicBadge}></img>
         } else {
-            badgeIcon = <img src={advBadge}></img>
+            badgeIcon = <img className='img' src={advBadge}></img>
         };
         
         return (
             <div>
                 <div className="header">
-                    <h2>{this.state.username} badge: {this.state.badge} points: {this.state.points}</h2>
-                    {badgeIcon}
+                    <h2>{this.state.username} <img className='profile' src={profile}></img>{badgeIcon} <img className='img' src={pts}></img> x {this.state.points}</h2>
                 </div>
                 <div className="container">
                     <ButtonGroup> 

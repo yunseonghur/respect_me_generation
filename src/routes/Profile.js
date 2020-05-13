@@ -107,7 +107,7 @@ class Profile extends React.Component{
         return (
             <div>
                 <div className="header">
-                    <h2>{this.state.username} <img className='profile' src={profile}></img>{badgeIcon} <img className='img' src={pts}></img> x{this.state.points}</h2>
+                    <h2>{this.state.username} <img className='profile' src={profile}></img>{badgeIcon} <img className='img' src={pts}></img> x {this.state.points}</h2>
                 </div>
                 <div className="container">
                     <ButtonGroup> 

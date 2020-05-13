@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import './MyCard.css';
 
+/**
+ * Represents a single card object.
+ */
 class MyCard extends Component {
 
     render () {

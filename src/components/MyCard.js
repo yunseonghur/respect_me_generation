@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import './MyCard.css';
-import { faComments } from "@fortawesome/free-solid-svg-icons";
+import { faComments, faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**
@@ -16,9 +17,14 @@ class MyCard extends Component {
                 <a style={{ cursor: "pointer" }} onClick={this.props.onClick}>
                 <Card>
                     <Card.Img className="card__img" src={this.props.background} alt="Card image" />
-                    <Card.ImgOverlay>
+                    <Card.ImgOverlay className="overlay">
                         <Card.Text className="text-center">{this.props.text}</Card.Text>
-                        <Card.Text className="text-bottom"><FontAwesomeIcon icon={faComments} /></Card.Text>
+                        <Card.Text className="text-bottom-left">
+                            <FontAwesomeIcon icon={faComments} />
+                            <p className="commentCount">16</p>
+                            <FontAwesomeIcon className="heart" icon={faHeart} />
+                            <FontAwesomeIcon className="lightbulb" icon={faLightbulb} />
+                        </Card.Text>
                     </Card.ImgOverlay>
                 </Card>
                 </a>

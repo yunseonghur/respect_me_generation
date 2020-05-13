@@ -7,6 +7,7 @@ import { faFlag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from './ReportModal';
 import './AddComment.css';
+import TextLengthModal from './TextLengthModal';
 
 const dbRef = fire.database();
 
@@ -20,7 +21,8 @@ class AddComment extends Component {
             comments: [],
             newComment: '',
             visible: false,
-            reportModal: false
+            reportModal: false,
+            textLengthModal: false
         }
         this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -56,12 +58,18 @@ class AddComment extends Component {
     }
 
     writeComment(event) {
-        // we need card owner UID
-        dbRef.ref("User/" + this.props.cardOwnerUID).child('cards/' + this.props.cardID+ '/comments').push({
-            comment: this.state.newComment,
-            user: this.state.username
-        });
-        this.increasePoints(this.state.userUID);
+        if (this.state.newComment.length <= 45) {
+            // we need card owner UID
+            dbRef.ref("User/" + this.props.cardOwnerUID).child('cards/' + this.props.cardID+ '/comments').push({
+                comment: this.state.newComment,
+                user: this.state.username
+            });
+            this.increasePoints(this.state.userUID);
+        } else {
+            this.setState({textLengthModal: true});
+        }
+        
+
     }
 
     increasePoints(currentUser){
@@ -236,6 +244,11 @@ class AddComment extends Component {
                     onHide={()=> this.setState({reportModal: false})}
                     cardID={this.props.cardID}
                     cardOwnerUID={this.props.cardOwnerUID}/>
+                <TextLengthModal
+                    show={this.state.textLengthModal} 
+                    onHide={()=> this.setState({textLengthModal: false})}
+                    textLength={45}/>
+
             </div>
         )
     }

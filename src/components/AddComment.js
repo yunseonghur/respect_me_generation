@@ -3,7 +3,7 @@ import {Modal, Button, Row, Col, Form, Container} from 'react-bootstrap';
 import Comment from './Comment';
 import fire from '../fire';
 import MyCard from './MyCard';
-import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import { faFlag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from './ReportModal';
 import './AddComment.css';
@@ -185,7 +185,7 @@ class AddComment extends Component {
                     <Modal.Header>
                     <Modal.Title>
                         <span>Comments</span>
-                        <FontAwesomeIcon id="reportIcon" onClick={this.iconClick}className="lightbulb" icon={faLightbulb} />
+                        <FontAwesomeIcon id="reportIcon" onClick={this.iconClick}className="lightbulb" icon={faFlag} />
                     </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>

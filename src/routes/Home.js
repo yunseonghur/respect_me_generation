@@ -4,6 +4,8 @@ import Quote from '../components/Quote';
 import HomeResourceEntry from '../components/HomeResourceEntry';
 import ARTICLES from '../components/ResourceArticles';
 import MiniBoard from '../components/MiniBoard';
+import Button from 'react-bootstrap/Button';
+import { withRouter } from 'react-router-dom';
 
 class Home extends React.Component{
 
@@ -12,6 +14,15 @@ class Home extends React.Component{
         healthResources: [],
         relationshipResources: []
     };
+
+    // Route to resources page with the selected category to display relavant contents
+    toCommBoard= (event) => {
+        let categoryClicked = event.target.name
+        this.props.history.push({
+            pathname: "/resources",
+            state: {detail: categoryClicked}
+        });
+    }
 
     // Read resource entries from the given article list to display by tag
     getResourceEntries(){
@@ -42,9 +53,12 @@ class Home extends React.Component{
         }
         return ( 
             <div>
+                <Button name="0" onClick={this.toCommBoard} variant="link">></Button>{' '}
                 <HomeResourceEntry key="study" tagName="study" resourcesEntries={studyEntries} /> 
+                <Button name="1" onClick={this.toCommBoard} variant="link">></Button>{' '}
                 <HomeResourceEntry key="health" tagName="health" resourcesEntries={healthEntries} /> 
-                <HomeResourceEntry key="relationship" tagName="relationship" resourcesEntries={relationshipEntries} /> 
+                <Button name="2" onClick={this.toCommBoard} variant="link">></Button>{' '}
+                <HomeResourceEntry key="relationship" tagName="relationship" resourcesEntries={relationshipEntries} />
             </div>
         );
     }
@@ -68,4 +82,4 @@ class Home extends React.Component{
     }
 }
 
-export default Home;
+export default withRouter(Home);

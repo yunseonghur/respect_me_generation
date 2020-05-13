@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import { Row, Col } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
@@ -38,7 +37,6 @@ class HomeResourceEntry extends React.Component{
                                 link={entry.link} />
                             </Col>
                         ))}
-                            <Link to='/resources' className="btn btn-link">></Link>
                     </Row>
                 </Jumbotron>
             </div>

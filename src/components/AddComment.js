@@ -207,7 +207,7 @@ class AddComment extends Component {
                                         <Form.Group controlId="Comments">
                                             <input
                                             type="text"
-                                            className="Comments"                                    
+                                            className="comments"                                    
                                             placeholder="add your comment"
                                             value={this.state.newComment}
                                             onChange={this.handleInput}

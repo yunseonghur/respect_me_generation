@@ -16,7 +16,7 @@ class Home extends React.Component{
         relationshipResources: []
     };
 
-    // Route to resources page with the selected category to display relavant contents
+    // Route to resources page with the selected category to display relevant contents
     toCommBoard= (event) => {
         let categoryClicked = event.target.name
         this.props.history.push({

@@ -22,7 +22,7 @@ class MyCard extends Component {
                         <Card.Text className="text-center">{this.props.text}</Card.Text>
                         <Card.Text className="text-bottom-left">
                             <FontAwesomeIcon icon={faComments} />
-                            <p className="commentCount">16</p>
+                                <p className="commentCount">{this.props.commentCount}</p>
                             <FontAwesomeIcon className="heart" icon={faHeart} />
                         </Card.Text>
                     </Card.ImgOverlay>

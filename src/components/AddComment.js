@@ -3,7 +3,7 @@ import {Modal, Button, Row, Col, Form, Container} from 'react-bootstrap';
 import Comment from './Comment';
 import fire from '../fire';
 import MyCard from './MyCard';
-import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import { faFlag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from './ReportModal';
 import './AddComment.css';
@@ -44,27 +44,15 @@ class AddComment extends Component {
                 id: card,
                 comment: cards[card].comments,
                 background: cards[card].imgOption,
-                text: cards[card].text
+                text: cards[card].text,
+                upvote: this.countUpvotes(cards[card].upvote),
+                downvote: this.countDownvotes(cards[card].downvote)
             });
         }
         this.setState({
             cards: cardDetails,  // re-set cards as an array
             isLoading: false
         });
-    }
-
-    componentDidMount(){
-        fire.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({
-                    username: user.displayName,
-                    userUID: user.uid
-                });
-                this.getUserInfo();
-            } else {
-                console.log("no current user");
-            }
-        })
     }
 
     writeComment(event) {
@@ -110,6 +98,7 @@ class AddComment extends Component {
             newComment: event.target.value,
         })
     }
+
     getComments(){
         let commentDetails = []
         dbRef.ref().child('User').on('value', snap => {
@@ -120,7 +109,7 @@ class AddComment extends Component {
                     commentDetails.push({
                         key: comment,
                         id: comments[comment].user,
-                        text: comments[comment].comment
+                        text: comments[comment].comment,
                     });
                 }
             }
@@ -135,20 +124,58 @@ class AddComment extends Component {
     }
 
     displayCard() {
-        var imgOption;
-        var text;
+        let imgOption;
+        let text;
+        let upvote;
+        let downvote;
         dbRef.ref().child('User').on('value', snap => {
             const userInfo = snap.val();
             if(userInfo[this.props.cardOwnerUID]!=null){
                 imgOption = userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['imgOption'];
                 text = userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['text'];
+                upvote = this.countUpvotes(userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['upvote']);
+                downvote = this.countDownvotes(userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['downvote']);
             }
         });
-        return <MyCard id={this.props.cardID} background={imgOption} text={text}/>
+        return <MyCard 
+                    key={this.props.cardID}
+                    id={this.props.cardID} 
+                    background={imgOption} 
+                    text={text}                                     
+                    upvoteCount={upvote}
+                    downvoteCount={downvote} />
     }
 
     iconClick = () => {
         this.setState({reportModal: true});
+    }
+
+    countUpvotes = (upvoteObj) => {
+        if (upvoteObj != null) {
+            return upvoteObj;
+        }
+        return "0";
+    }
+
+    countDownvotes = (downvoteObj) => {
+        if (downvoteObj != null) {
+            return downvoteObj;
+        }
+        return "0";
+    }
+
+    componentDidMount(){
+        fire.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({
+                    username: user.displayName,
+                    userUID: user.uid
+                });
+                this.getUserInfo();
+            } else {
+                console.log("no current user");
+            }
+        })
     }
 
     render(){
@@ -158,7 +185,7 @@ class AddComment extends Component {
                     <Modal.Header>
                     <Modal.Title>
                         <span>Comments</span>
-                        <FontAwesomeIcon id="reportIcon" onClick={this.iconClick}className="lightbulb" icon={faLightbulb} />
+                        <FontAwesomeIcon id="reportIcon" onClick={this.iconClick}className="lightbulb" icon={faFlag} />
                     </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>

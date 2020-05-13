@@ -24,14 +24,36 @@
   width: 100%;
 }
 
-.heart {
+/* .heart {
   position: absolute;
-  right: 30px;
+  right: 45px;
+} */
+
+.thumbs-up {
+  position: absolute;
+  right: 70px;
+}
+
+.thumbs-down {
+  position: absolute;
+  right: 35px;
 }
 
 .commentCount {
   display: inline-block;
   margin-left: 10px;
+}
+
+.upvoteCount {
+  display: inline-block;
+  position: absolute;
+  right: 55px;
+}
+
+.downvoteCount {
+  display: inline-block;
+  position: absolute;
+  right: 20px;
 }
 
 .overlay {

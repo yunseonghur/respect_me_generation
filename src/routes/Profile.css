@@ -12,9 +12,23 @@
     align-items: center;
 }
 
-.border {
-    border-style: solid;
+.pill {
+
+    z-index: 1;
+    border: 1px solid black;
     border-radius: 100px;
+    height: 70px;
+    width: 450px;
+    margin-bottom: 5%;
+
+}
+
+h2 {
+    position: absolute;
+    top: 25px;
+    right: 38%;
+    z-index: 10;
+    height: 50px;
 }
 
 .col h3 {

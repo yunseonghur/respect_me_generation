@@ -12,6 +12,7 @@ import basicBadge from '../images/badge_flat.jpg';
 import advBadge from '../images/adv_badge.png';
 import pts from '../images/points.png';
 import profile from '../images/profile.png';
+import Container from 'react-bootstrap/Container';
 
 const dbRef = fire.database().ref();
 
@@ -135,15 +136,20 @@ class Profile extends React.Component{
         // determines which badge icon to use
         let badgeIcon;
         if(this.state.badge == 'basic'){
-            badgeIcon = <img className='img' src={basicBadge}></img>
+            badgeIcon = <img className='img' src={basicBadge} alt='basic badge'></img>
         } else {
-            badgeIcon = <img className='img' src={advBadge}></img>
+            badgeIcon = <img className='img' src={advBadge} alt='advanced badge'></img>
         };
         
         return (
             <div>
                 <div className="header">
-                    <h2>{this.state.username} <img className='profile' src={profile}></img>{badgeIcon} <img className='img' src={pts}></img> x {this.state.points}</h2>
+                    <Container>
+                        <div className='pill'>
+                        <h2>{this.state.username} <img className='profile' src={profile}></img>{badgeIcon} <img className='img' src={pts}></img> x{this.state.points}</h2>
+                        </div>
+                    </Container>
+
                 </div>
                 <div className="container">
                     <ButtonGroup> 
@@ -205,6 +211,13 @@ class Profile extends React.Component{
         );
     }
 }
+//display: flex;
+//justify-content: center;
+//align-items: center;
 
+// border-style: solid;
+//     border-width: thick;
+//     border-color: black;
+//     border-radius: 100px;
 
 export default Profile;

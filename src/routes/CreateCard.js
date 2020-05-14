@@ -4,7 +4,6 @@ import "../routes/CreateCard.css";
 import { Nav, Row, Col, Tab, CardDeck, Card, Button } from 'react-bootstrap';
 import TextLengthModal from '../components/TextLengthModal';
 import CardModal from '../components/CardModal';
-import LoginModal from '../components/LoginModal';
 
 class CreateCard extends React.Component {
     constructor(props) {
@@ -83,8 +82,6 @@ class CreateCard extends React.Component {
                 this.writeCardInfo(imgSource, currentUser);
                 this.increasePoints(currentUser);
             })
-        } else {
-            this.setState({logInModal: true});
         }
     }
 
@@ -197,10 +194,6 @@ class CreateCard extends React.Component {
                     animation={false}
                     show={this.state.createdCard}
                     onHide={()=> this.setState({createdCard: false})} />
-                <LoginModal
-                    animation={false}
-                    show={this.state.logInModal}
-                    onHide={()=> this.setState({logInModal: false})} />
                 <TextLengthModal
                     animation={false}
                     show={this.state.textLengthModal}

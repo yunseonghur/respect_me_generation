@@ -3,7 +3,8 @@ import './CommunityBoard.css';
 import Board from '../components/Board';
 import { Container, Button, Link } from 'react-floating-action-button';
 import fire from '../fire.js';
-import VideoBadgeModal from '../components/VideoBadgeModal'
+import VideoBadgeModal from '../components/VideoBadgeModal';
+import LoginModal from '../components/LoginModal';
 
 
 // firebase needed to relate current user with upload
@@ -26,7 +27,8 @@ class CommunityBoard extends React.Component{
             userUID: null,   // the current user
             badge: "",
             points: "",       // means user is not logged in
-            displayErrorMessage: false
+            displayErrorMessage: false,
+            displayLoginModal: false
         };
         this.getCurrentUser();
 
@@ -74,6 +76,16 @@ class CommunityBoard extends React.Component{
                 console.log("you're not logged in.")
             }
         })
+    }
+
+    goToCreateCard = () =>{
+        if (this.state.userUID != null) {
+            this.props.history.push("/createCard");
+        } else {
+            this.setState({
+                displayLoginModal: true
+            })
+        }
     }
 
     // componentWillMount() {
@@ -149,10 +161,14 @@ class CommunityBoard extends React.Component{
                             <img src="https://img.icons8.com/material-outlined/24/000000/camcorder-pro.png" alt="Upload a video"/>
                         </Button>
                     </Link>
-                    <Link href='#createCard' tooltip="Add a card"><img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/></Link>
+                    {/* <Link href='#createCard' tooltip="Add a card"><img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/></Link> */}
+                    <Button onClick={this.goToCreateCard}>
+                        <img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/>
+                    </Button>
                     <Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add"/></Button>
                 </Container>
                 <VideoBadgeModal show={this.state.displayErrorMessage} onHide={()=> this.setState({displayErrorMessage: false})} />
+                <LoginModal show={this.state.displayLoginModal} onHide={()=> this.setState({displayLoginModal: false})} />
             </div>
         )}
 }

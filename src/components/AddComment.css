@@ -3,3 +3,24 @@
     right: 0;
     margin-right: 20px;
 }
+.comments {
+  width: 200px;
+  height: 30px;
+  border-radius: 5px;
+  padding: 7px;
+  border: 1px solid rgba(0, 0, 0, 0.274);
+}
+
+#thumbsUpIcon {
+    position: absolute;
+    left: 0;
+    margin-left: 130px;
+    color: lightskyblue;
+}
+
+#thumbsDownIcon {
+    position: absolute;
+    left: 0;
+    margin-left: 150px;
+    color: lightsalmon;
+}

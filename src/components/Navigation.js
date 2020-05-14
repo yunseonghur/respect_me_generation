@@ -60,16 +60,16 @@ class Navigation extends Component {
 
     render() {
         return( 
-            <div>
+            <div className="navWrapper">
                 <Navbar expand="md">
                     <Navbar.Brand href="/" id="brand">Respect Me<br/>Generation</Navbar.Brand>
                     <Navbar.Toggle id="navBtb" aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ml-auto">
-                            { this.state.user ? <Nav.Link href="#profile"><FontAwesomeIcon icon={faUser} /></Nav.Link> : null}
-                            <Nav.Link href="#communityBoard"><FontAwesomeIcon icon={faBullhorn} /></Nav.Link>
-                            <Nav.Link href="#resources"><FontAwesomeIcon icon={faLightbulb} /></Nav.Link>
-                            { this.state.user ? <Nav.Link href="#logout">Log Out</Nav.Link> : <Nav.Link href='#login'>Log In</Nav.Link>}
+                            { this.state.user ? <Nav.Link href="#profile"><FontAwesomeIcon className="navItem" icon={faUser} /></Nav.Link> : null}
+                            <Nav.Link href="#communityBoard"><FontAwesomeIcon className="navItem" icon={faBullhorn} /></Nav.Link>
+                            <Nav.Link href="#resources"><FontAwesomeIcon className="navItem" icon={faLightbulb} /></Nav.Link>
+                            { this.state.user ? <Nav.Link className="navItem" href="#logout">Log Out</Nav.Link> : <Nav.Link className="navItem" href='#login'>Log In</Nav.Link>}
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

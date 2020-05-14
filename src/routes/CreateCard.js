@@ -204,7 +204,8 @@ class CreateCard extends React.Component {
                 <TextLengthModal
                     animation={false}
                     show={this.state.textLengthModal}
-                    onHide={()=> this.setState({textLengthModal: false})} />
+                    onHide={()=> this.setState({textLengthModal: false})}
+                    textLength={75} />
             </div>
         )
     }

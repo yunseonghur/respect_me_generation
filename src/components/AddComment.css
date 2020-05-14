@@ -10,3 +10,17 @@
   padding: 7px;
   border: 1px solid rgba(0, 0, 0, 0.274);
 }
+
+#thumbsUpIcon {
+    position: absolute;
+    left: 0;
+    margin-left: 130px;
+    color: lightskyblue;
+}
+
+#thumbsDownIcon {
+    position: absolute;
+    left: 0;
+    margin-left: 150px;
+    color: lightsalmon;
+}

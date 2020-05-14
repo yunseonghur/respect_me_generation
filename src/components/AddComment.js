@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import {Modal, Button, Row, Col, Form, Container} from 'react-bootstrap';
+import {Modal, Button, Row, Col, Form } from 'react-bootstrap';
 import Comment from './Comment';
 import fire from '../fire';
 import MyCard from './MyCard';
-import { faFlag } from "@fortawesome/free-solid-svg-icons";
+import { faFlag, faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from './ReportModal';
 import './AddComment.css';
+import TextLengthModal from './TextLengthModal';
 
 const dbRef = fire.database();
 
@@ -20,7 +21,8 @@ class AddComment extends Component {
             comments: [],
             newComment: '',
             visible: false,
-            reportModal: false
+            reportModal: false,
+            textLengthModal: false
         }
         this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -56,12 +58,18 @@ class AddComment extends Component {
     }
 
     writeComment(event) {
-        // we need card owner UID
-        dbRef.ref("User/" + this.props.cardOwnerUID).child('cards/' + this.props.cardID+ '/comments').push({
-            comment: this.state.newComment,
-            user: this.state.username
-        });
-        this.increasePoints(this.state.userUID);
+        if (this.state.newComment.length <= 45) {
+            // we need card owner UID
+            dbRef.ref("User/" + this.props.cardOwnerUID).child('cards/' + this.props.cardID+ '/comments').push({
+                comment: this.state.newComment,
+                user: this.state.username
+            });
+            this.increasePoints(this.state.userUID);
+        } else {
+            this.setState({textLengthModal: true});
+        }
+        
+
     }
 
     increasePoints(currentUser){
@@ -150,6 +158,46 @@ class AddComment extends Component {
         this.setState({reportModal: true});
     }
 
+    upvoteClicked = () => {
+        let cardOwnerUID = this.props.cardOwnerUID
+        let cardID = this.props.cardID
+        let upvote
+        dbRef.ref('User/' + cardOwnerUID).once('value')
+            .then(function(snapshot){
+                let card = snapshot.child('cards/' + cardID).val()
+                if (card['upvote'] != null) {
+                    upvote = card['upvote']
+                    upvote += 1
+                } else {
+                    upvote = 1;
+                }
+                dbRef.ref('User/' + cardOwnerUID).child('cards/' + cardID).update({
+                    upvote
+                })
+            console.log(upvote)
+        });
+    };
+
+    downvoteClicked = () => {
+        let cardOwnerUID = this.props.cardOwnerUID
+        let cardID = this.props.cardID
+        let downvote
+        dbRef.ref('User/' + cardOwnerUID).once('value')
+            .then(function(snapshot){
+                let card = snapshot.child('cards/' + cardID).val()
+                if (card['downvote'] != null) {
+                    downvote = card['downvote']
+                    downvote += 1
+                } else {
+                    downvote = 1;
+                }
+                dbRef.ref('User/' + cardOwnerUID).child('cards/' + cardID).update({
+                    downvote
+                })
+            console.log(downvote)
+        });
+    };
+
     countUpvotes = (upvoteObj) => {
         if (upvoteObj != null) {
             return upvoteObj;
@@ -185,7 +233,7 @@ class AddComment extends Component {
                     <Modal.Header>
                     <Modal.Title>
                         <span>Comments</span>
-                        <FontAwesomeIcon id="reportIcon" onClick={this.iconClick}className="lightbulb" icon={faFlag} />
+                        <FontAwesomeIcon id="reportIcon" onClick={this.iconClick} className="lightbulb" icon={faFlag} />
                     </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -193,6 +241,13 @@ class AddComment extends Component {
                             <Row>
                                 <Col>
                                 {this.displayCard()}
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <FontAwesomeIcon id="thumbsUpIcon" icon={faThumbsUp} onClick={this.upvoteClicked} />
+                                    <FontAwesomeIcon id="thumbsDownIcon" icon={faThumbsDown} onClick={this.downvoteClicked} />
+                                    <br />
                                 </Col>
                             </Row>
                             <Row>
@@ -236,6 +291,11 @@ class AddComment extends Component {
                     onHide={()=> this.setState({reportModal: false})}
                     cardID={this.props.cardID}
                     cardOwnerUID={this.props.cardOwnerUID}/>
+                <TextLengthModal
+                    show={this.state.textLengthModal} 
+                    onHide={()=> this.setState({textLengthModal: false})}
+                    textLength={45}/>
+
             </div>
         )
     }

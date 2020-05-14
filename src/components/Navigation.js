@@ -7,13 +7,15 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faBullhorn } from "@fortawesome/free-solid-svg-icons";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import LogOutModal from "./LogOutModal";
 
 
 class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: {}
+            user: {},
+            logOutModal: false
         };
         this.db = fire.database();
         this.authListener = this.authListener.bind(this);
@@ -69,10 +71,13 @@ class Navigation extends Component {
                             { this.state.user ? <Nav.Link href="#profile"><FontAwesomeIcon className="navItem" icon={faUser} /></Nav.Link> : null}
                             <Nav.Link href="#communityBoard"><FontAwesomeIcon className="navItem" icon={faBullhorn} /></Nav.Link>
                             <Nav.Link href="#resources"><FontAwesomeIcon className="navItem" icon={faLightbulb} /></Nav.Link>
-                            { this.state.user ? <Nav.Link className="navItem" href="#logout">Log Out</Nav.Link> : <Nav.Link className="navItem" href='#login'>Log In</Nav.Link>}
+                            { this.state.user ?
+                                <Nav.Link className="navItem" onClick={()=>this.setState({logOutModal: true})} >Log Out</Nav.Link>
+                                : <Nav.Link className="navItem" href='#login'>Log In</Nav.Link>}
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
+                <LogOutModal show={this.state.logOutModal} onHide={()=> this.setState({logOutModal: false})}/>
             </div>
         )
     }

@@ -6,7 +6,7 @@ class Logout extends Component {
     logOut = () => {
         fire.auth().signOut().then(function() {
             console.log("Successfully Signed out");
-            window.location=<Home />;
+
         }).catch(function(error) {
             console.log("Sign out ERROR");
         })

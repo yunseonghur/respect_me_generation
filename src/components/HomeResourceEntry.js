@@ -32,7 +32,6 @@ class HomeResourceEntry extends React.Component{
                     <Row>
                         <Col>
                         {(this.state.entries.map((entry)=> 
-
                             <ResourceImage 
                                 key={entry.id} 
                                 title={entry.title} 

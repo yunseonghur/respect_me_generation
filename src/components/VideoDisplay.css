@@ -1,4 +1,5 @@
 .videoElement {
+  max-width: 400px;
   display: inline-block;
   margin: 10px;
 }

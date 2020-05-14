@@ -12,6 +12,7 @@ import basicBadge from '../images/badge_flat.jpg';
 import advBadge from '../images/adv_badge.png';
 import pts from '../images/points.png';
 import profile from '../images/profile.png';
+import Container from 'react-bootstrap/Container';
 
 const dbRef = fire.database().ref();
 
@@ -107,9 +108,12 @@ class Profile extends React.Component{
         return (
             <div>
                 <div className="header">
-                    <div className='pill'>
-                    <h2>{this.state.username} <img className='profile' src={profile}></img>{badgeIcon} <img className='img' src={pts}></img> x{this.state.points}</h2>
-                    </div>
+                    <Container>
+                        <div className='pill'>
+                        <h2>{this.state.username} <img className='profile' src={profile}></img>{badgeIcon} <img className='img' src={pts}></img> x{this.state.points}</h2>
+                        </div>
+                    </Container>
+
                 </div>
                 <div className="container">
                     <ButtonGroup> 

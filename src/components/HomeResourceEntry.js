@@ -30,15 +30,16 @@ class HomeResourceEntry extends React.Component{
             <div>
                 <Jumbotron fluid>
                     <Row>
+                        <Col>
                         {(this.state.entries.map((entry)=> 
-                            <Col>
+
                             <ResourceImage 
                                 key={entry.id} 
                                 title={entry.title} 
                                 image={entry.image}
                                 link={entry.link} />
-                            </Col>
                         ))}
+                        </Col>
                     </Row>
                 </Jumbotron>
             </div>

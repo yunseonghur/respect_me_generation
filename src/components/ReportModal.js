@@ -3,6 +3,9 @@ import { Modal, Button } from 'react-bootstrap';
 import fire from '../fire';
 import './ReportModal.css';
 
+/**
+ * Component that appears when user clicks on the flag to report a post on the card modal.
+ */
 class ReportModal extends React.Component {
 
     db = fire.database();

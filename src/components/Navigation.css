@@ -21,10 +21,19 @@ button.navbar-toggler {
 .navItem {
   font-size: 16pt;
   margin-right: 15px;
-  margin-top: 30px;
+  /* margin-top: 30px; */
   color: black !important;
 }
 
 .navWrapper {
   margin-top: 10px;
+}
+
+.nav-link {
+  text-align: right;
+  background: white;
+}
+
+.navbar-collapse  {
+  border: none;
 }

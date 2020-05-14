@@ -27,15 +27,18 @@ class Cards extends React.Component{
         let cardCollected = [];
         for (let user in users){
             let cards = users[user].cards
+
             for (let card in cards){
                 cardCollected.push({
                     id: card,
                     background: cards[card].imgOption,
                     text: cards[card].text,
-                    comments: cards[card].comments
+                    comments: cards[card].comments,
+                    timestamp: cards[card].timestamp
                 });
             }
         }
+        
         this.setState({ 
             cards: cardCollected,
             isLoading: false
@@ -95,7 +98,8 @@ class Cards extends React.Component{
         return commentNumber;
     }
     
-    sortCards() {
+    // sorts cards by tag
+    sortByTag() {
         var users;
         dbRef.child('User').on('value', snap => {
             users = snap.val();
@@ -104,9 +108,9 @@ class Cards extends React.Component{
         for (let user in users){
             
             let cards = users[user].cards
+
             if (this.state.tag !== "all") {
                 for (let card in cards){
-
                     let commentNumber = this.countComments(cards[card].comments)
 
                     if (cards[card].tag === this.state.tag) {
@@ -116,6 +120,7 @@ class Cards extends React.Component{
                             text: cards[card].text,
                             comments: cards[card].comments,
                             numComments: commentNumber,
+                            timestamp: cards[card].timestamp,
                             upvote: this.countUpvotes(cards[card].upvote),
                             downvote: this.countDownvotes(cards[card].downvote)
                         });
@@ -132,6 +137,7 @@ class Cards extends React.Component{
                         text: cards[card].text,
                         comments: cards[card].comments,
                         numComments: commentNumber,
+                        timestamp: cards[card].timestamp,
                         upvote: this.countUpvotes(cards[card].upvote),
                         downvote: this.countDownvotes(cards[card].downvote)
                     });
@@ -139,6 +145,15 @@ class Cards extends React.Component{
             }
 
         }
+        this.sortByTimestamp(cardCollected);
+        return cardCollected;
+    }
+
+    // cards collected are sorted by timestamp after cars are sorted by tag
+    sortByTimestamp(cardCollected){
+        cardCollected.sort(function (a, b){
+            return b.timestamp - a.timestamp;
+        })
         return cardCollected;
     }
 
@@ -167,7 +182,7 @@ class Cards extends React.Component{
                     (
                     <Container>
                         <CardDeck className="row row-cols-sm-2 row-cols-md-3">
-                        {Array.from(this.sortCards()).map((card)=> 
+                        {Array.from(this.sortByTag()).map((card)=> 
                             <div>
                             <MyCard
                                 key={card.id} 
@@ -197,13 +212,3 @@ class Cards extends React.Component{
 }
 
 export default Cards;
-
-// // count comments under each card
-                    // let cardComment = cards[card].comments;
-                    // let commentNumber = 0;
-                    // if (cardComment != null) {
-                    //     // count and increment commentNumber
-                    //     for (let count in cardComment) {
-                    //         commentNumber++;
-                    //     }
-                    // }

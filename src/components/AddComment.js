@@ -150,6 +150,46 @@ class AddComment extends Component {
         this.setState({reportModal: true});
     }
 
+    upvoteClicked = () => {
+        let cardOwnerUID = this.props.cardOwnerUID
+        let cardID = this.props.cardID
+        let upvote
+        dbRef.ref('User/' + cardOwnerUID).once('value')
+            .then(function(snapshot){
+                let card = snapshot.child('cards/' + cardID).val()
+                if (card['upvote'] != null) {
+                    upvote = card['upvote']
+                    upvote += 1
+                } else {
+                    upvote = 1;
+                }
+                dbRef.ref('User/' + cardOwnerUID).child('cards/' + cardID).update({
+                    upvote
+                })
+            console.log(upvote)
+        });
+    };
+
+    downvoteClicked = () => {
+        let cardOwnerUID = this.props.cardOwnerUID
+        let cardID = this.props.cardID
+        let downvote
+        dbRef.ref('User/' + cardOwnerUID).once('value')
+            .then(function(snapshot){
+                let card = snapshot.child('cards/' + cardID).val()
+                if (card['downvote'] != null) {
+                    downvote = card['downvote']
+                    downvote += 1
+                } else {
+                    downvote = 1;
+                }
+                dbRef.ref('User/' + cardOwnerUID).child('cards/' + cardID).update({
+                    downvote
+                })
+            console.log(downvote)
+        });
+    };
+
     countUpvotes = (upvoteObj) => {
         if (upvoteObj != null) {
             return upvoteObj;
@@ -197,8 +237,9 @@ class AddComment extends Component {
                             </Row>
                             <Row>
                                 <Col>
-                                <FontAwesomeIcon id="thumbsUpIcon" icon={faThumbsUp} />
-                                <FontAwesomeIcon id="thumbsDownIcon" icon={faThumbsDown} />
+                                    <FontAwesomeIcon id="thumbsUpIcon" icon={faThumbsUp} onClick={this.upvoteClicked} />
+                                    <FontAwesomeIcon id="thumbsDownIcon" icon={faThumbsDown} onClick={this.downvoteClicked} />
+                                    <br />
                                 </Col>
                             </Row>
                             <Row>

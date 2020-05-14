@@ -5,9 +5,15 @@
 }
 
 #thumbsUpIcon {
-
+    position: absolute;
+    left: 0;
+    margin-left: 130px;
+    color: lightskyblue;
 }
 
 #thumbsDownIcon {
-
+    position: absolute;
+    left: 0;
+    margin-left: 150px;
+    color: lightsalmon;
 }

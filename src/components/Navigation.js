@@ -63,7 +63,7 @@ class Navigation extends Component {
     render() {
         return( 
             <div className="navWrapper">
-                <Navbar expand="md">
+                <Navbar expand="sm">
                     <Navbar.Brand href="/" id="brand">Respect Me<br/>Generation</Navbar.Brand>
                     <Navbar.Toggle id="navBtb" aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">

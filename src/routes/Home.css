@@ -55,7 +55,7 @@
     display: inline-block;
 }
 
-/* Medium devices (landscape tablets, 768px and down) */
+/* Medium devices (landscape tablets, 768px and down)
 @media only screen and (max-width: 768px) {
     .card-section h2 {
         font-size: 16pt;
@@ -63,4 +63,4 @@
     .card-section p {
         font-size: 10pt;
     }
-}
+} */

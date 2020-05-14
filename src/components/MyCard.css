@@ -22,33 +22,94 @@
   bottom: 0;
   color: white;
   width: 100%;
+  text-align: center;
+}
+
+/* .commentCount {
+  display: inline-block;
+  margin-right: 8px;
 }
 
 .thumbs-up {
-  position: absolute;
-  right: 85px;
+  display: inline-block;
+  margin-right: 3px;
 }
 
 .thumbs-down {
-  position: absolute;
-  right: 40px;
+  display: inline-block;
+  margin-right: 3px;
 }
 
-.commentCount {
+.bubble {
   display: inline-block;
-  margin-left: 10px;
+  margin-right: 8px;
 }
 
 .upvoteCount {
   display: inline-block;
-  position: absolute;
-  right: 65px;
+  margin-right: 8px;
 }
 
 .downvoteCount {
   display: inline-block;
-  position: absolute;
-  right: 20px;
+  margin-right: 8px;
+} */
+
+/* 
+.thumbs-up {
+  display: inline-block;
+  margin-left: 50px;
+  margin-right: 3px;
+}
+
+.thumbs-down {
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.commentCount {
+  display: inline-block;
+}
+
+.upvoteCount {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.downvoteCount {
+  display: inline-block;
+  margin-right: 8px;
+} */
+
+.commentCount {
+  display: inline-block;
+  margin-left: -10px;
+  margin-right: 8px;
+}
+
+.upvoteCount {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.downvoteCount {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.bubble {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.thumbs-up {
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.thumbs-down {
+  display: inline-block;
+  margin-right: 3px;
 }
 
 .overlay {

@@ -11,16 +11,22 @@
   border: 1px solid rgba(0, 0, 0, 0.274);
 }
 
+#feedback {
+    position: absolute;
+    left: 0;
+    margin-left: 100px;
+}
+
 #thumbsUpIcon {
     position: absolute;
     left: 0;
-    margin-left: 130px;
+    margin-left: 230px;
     color: lightskyblue;
 }
 
 #thumbsDownIcon {
     position: absolute;
     left: 0;
-    margin-left: 150px;
+    margin-left: 250px;
     color: lightsalmon;
 }

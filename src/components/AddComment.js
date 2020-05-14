@@ -68,8 +68,6 @@ class AddComment extends Component {
         } else {
             this.setState({textLengthModal: true});
         }
-        
-
     }
 
     increasePoints(currentUser){
@@ -158,6 +156,27 @@ class AddComment extends Component {
         this.setState({reportModal: true});
     }
 
+    verifyUserClick(voteType){
+        console.log(voteType)
+    }
+
+    recordUser(cardOwnerUID, cardID){
+        console.log("recordUser, cardOwnerUID: "+cardOwnerUID)
+
+        dbRef.ref("User/" + cardOwnerUID).child('cards/' + cardID+ '/votes').push({
+            vote: this.state.userUID
+        });
+
+        // dbRef.ref('User/'+ cardOwnerUID).once('value')
+        // .then(function(snapshot){
+        //     let card = snapshot.child('cards/' + cardID).val()
+        //     console.log(card)
+        //     // dbRef.ref('User/' + currentUser).update({
+        //     //     points
+        //     // })
+        // });
+    }
+
     upvoteClicked = () => {
         let cardOwnerUID = this.props.cardOwnerUID
         let cardID = this.props.cardID
@@ -174,8 +193,9 @@ class AddComment extends Component {
                 dbRef.ref('User/' + cardOwnerUID).child('cards/' + cardID).update({
                     upvote
                 })
-            console.log(upvote)
         });
+        // record userUID to keep track of the user's upvote
+        this.recordUser(cardOwnerUID, cardID)
     };
 
     downvoteClicked = () => {
@@ -194,8 +214,9 @@ class AddComment extends Component {
                 dbRef.ref('User/' + cardOwnerUID).child('cards/' + cardID).update({
                     downvote
                 })
-            console.log(downvote)
         });
+        // record userUID to keep track of the user's upvote
+        this.recordUser(cardOwnerUID, cardID)
     };
 
     countUpvotes = (upvoteObj) => {
@@ -245,9 +266,10 @@ class AddComment extends Component {
                             </Row>
                             <Row>
                                 <Col>
+                                    <p id="feedback">Do you like this post?</p>
                                     <FontAwesomeIcon id="thumbsUpIcon" icon={faThumbsUp} onClick={this.upvoteClicked} />
                                     <FontAwesomeIcon id="thumbsDownIcon" icon={faThumbsDown} onClick={this.downvoteClicked} />
-                                    <br />
+                                    <br /><br />
                                 </Col>
                             </Row>
                             <Row>

@@ -3,7 +3,7 @@ import MyCard from './MyCard';
 import {CardDeck, Container} from 'react-bootstrap';
 import AddComment from './AddComment';
 import fire from '../fire'
-
+import './Cards.css';
 const dbRef = fire.database().ref();
 
 /**

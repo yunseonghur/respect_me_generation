@@ -152,8 +152,8 @@ class CreateCard extends React.Component {
                     </div>
                     <div id="enterText">
                         <p className="instruction">2. Enter Text</p>
-                        <div id="textField" className='jumbotron'>
-                            <textarea name='text' onChange={this.handleTxtChange} />
+                        <div className='jumbotron'>
+                            <textarea name='text' id="text-field" onChange={this.handleTxtChange} />
                         </div>
                     </div>
                     <div id="selectTag">
@@ -167,7 +167,7 @@ class CreateCard extends React.Component {
                                                 <Nav.Link name="study" onClick={this.handleTagChange}>Study</Nav.Link>
                                             </Nav.Item>
                                         </Col>
-                                        <Col>
+                                        <Col> 
                                             <Nav.Item>
                                                 <Nav.Link name="relationship" onClick={this.handleTagChange}>Relationship</Nav.Link>
                                             </Nav.Item>

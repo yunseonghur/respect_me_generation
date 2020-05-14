@@ -52,15 +52,19 @@ class MiniBoard extends Component {
         return (
             <div>
                 <div className="toggleButtons">
-
-                <div className="tagGroup">
+                {
+                this.state.visible ? 
+                    <div className="tagGroup">
                     <ButtonGroup>
                         <Button name="all" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">ALL</Button>
                         <Button name="study" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">study</Button>
                         <Button name="relationship" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">relationship</Button>
                         <Button name="health" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">health</Button>
                     </ButtonGroup>
-                </div>
+                    </div>
+                    : <div><br/><br/><br/></div>
+                }
+                
 
                 <ButtonGroup className="btnGroup"> 
                     <Button variant="light" onClick={()=>{

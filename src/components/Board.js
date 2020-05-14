@@ -64,15 +64,18 @@ class Board extends React.Component{
             <div className="text-center">
                 <h2>COMMUNITY BOARD</h2>
                 <h5>What is your community talking about today?</h5>
-
-                <div className="tagGroup">
-                    <ButtonGroup>
-                        <Button name="all" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">ALL</Button>
-                        <Button name="study" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">study</Button>
-                        <Button name="relationship" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">relationship</Button>
-                        <Button name="health" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">health</Button>
-                    </ButtonGroup>
-                </div>
+                {
+                    this.state.visible ? 
+                    <div className="tagGroup">
+                        <ButtonGroup>
+                            <Button name="all" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">ALL</Button>
+                            <Button name="study" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">study</Button>
+                            <Button name="relationship" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">relationship</Button>
+                            <Button name="health" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">health</Button>
+                        </ButtonGroup>
+                    </div>
+                    : <div><br/><br/><br/></div>
+                }
 
                 <ButtonGroup> 
                     <Button variant="light" onClick={()=>{

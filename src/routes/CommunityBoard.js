@@ -3,7 +3,7 @@ import './CommunityBoard.css';
 import Board from '../components/Board';
 import { Container, Button, Link } from 'react-floating-action-button';
 import fire from '../fire.js';
-import Toast from 'react-bootstrap/Toast'
+import VideoBadgeModal from '../components/VideoBadgeModal'
 
 
 // firebase needed to relate current user with upload
@@ -142,17 +142,7 @@ class CommunityBoard extends React.Component{
 
         return (
             <div>
-                <Toast onClose={() => {this.setState({displayErrorMessage: false})}} show={this.state.displayErrorMessage} delay={3000}>
-                    <Toast.Header>
-                        <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
-                        <strong className="mr-auto">Action not permitted.</strong>
-                    </Toast.Header>
-                    <Toast.Body>Only users with a 'advanced' badge may post.</Toast.Body>
-                    <Toast.Body>Post more to level up!</Toast.Body>
-                </Toast>
-                
                 <Board />
-
                 <Container>
                     <Link tooltip="Upload a video">
                         <Button onClick={this.uploadHandler} disabled>
@@ -162,6 +152,7 @@ class CommunityBoard extends React.Component{
                     <Link href='#createCard' tooltip="Add a card"><img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/></Link>
                     <Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add"/></Button>
                 </Container>
+                <VideoBadgeModal show={this.state.displayErrorMessage} onHide={()=> this.setState({displayErrorMessage: false})} />
             </div>
         )}
 }

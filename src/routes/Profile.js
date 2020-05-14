@@ -12,7 +12,6 @@ import basicBadge from '../images/badge_flat.jpg';
 import advBadge from '../images/adv_badge.png';
 import pts from '../images/points.png';
 import profile from '../images/profile.png';
-import Container from 'react-bootstrap/Container';
 
 const dbRef = fire.database().ref();
 

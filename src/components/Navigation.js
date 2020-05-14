@@ -8,6 +8,7 @@ import { faBullhorn } from "@fortawesome/free-solid-svg-icons";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LogOutModal from "./LogOutModal";
+import ReactTooltip from 'react-tooltip';
 
 
 class Navigation extends Component {
@@ -15,7 +16,7 @@ class Navigation extends Component {
         super(props);
         this.state = {
             user: {},
-            logOutModal: false
+            logOutModal: false,
         };
         this.db = fire.database();
         this.authListener = this.authListener.bind(this);
@@ -61,19 +62,21 @@ class Navigation extends Component {
     }
 
     render() {
-        return( 
+        return(
+            
             <div className="navWrapper">
                 <Navbar expand="sm">
                     <Navbar.Brand href="/" id="brand">Respect Me<br/>Generation</Navbar.Brand>
                     <Navbar.Toggle id="navBtb" aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ml-auto">
-                            { this.state.user ? <Nav.Link href="#profile"><FontAwesomeIcon className="navItem" icon={faUser} /></Nav.Link> : null}
-                            <Nav.Link href="#communityBoard"><FontAwesomeIcon className="navItem" icon={faBullhorn} /></Nav.Link>
-                            <Nav.Link href="#resources"><FontAwesomeIcon className="navItem" icon={faLightbulb} /></Nav.Link>
+                            { this.state.user ? <a data-for='main' data-tip='Profile'><Nav.Link href="#profile"><FontAwesomeIcon className="navItem" icon={faUser} /></Nav.Link></a> : null}
+                            <a data-for='main' data-tip='Community Board'><Nav.Link href="#communityBoard"><FontAwesomeIcon className="navItem" icon={faBullhorn} /></Nav.Link></a>
+                            <a data-for='main' data-tip='Resources'><Nav.Link href="#resources"><FontAwesomeIcon className="navItem" icon={faLightbulb} /></Nav.Link></a>
                             { this.state.user ?
                                 <Nav.Link className="navItem" onClick={()=>this.setState({logOutModal: true})} >Log Out</Nav.Link>
                                 : <Nav.Link className="navItem" href='#login'>Log In</Nav.Link>}
+                            <ReactTooltip id='main' place='bottom' type='dark' effect='float' />
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
@@ -82,6 +85,14 @@ class Navigation extends Component {
         )
     }
 }
+
+{/* <Link tooltip="Upload a video">
+    <Button onClick={this.uploadHandler} disabled>
+        <img src="https://img.icons8.com/material-outlined/24/000000/camcorder-pro.png" alt="Upload a video"/>
+    </Button>
+</Link>
+<Link href='#createCard' tooltip="Add a card"><img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/></Link>
+<Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add"/></Button> */}
 
 export default Navigation;
 

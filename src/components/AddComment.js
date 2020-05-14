@@ -22,7 +22,8 @@ class AddComment extends Component {
             newComment: '',
             visible: false,
             reportModal: false,
-            textLengthModal: false
+            textLengthModal: false,
+            isValid: false
         }
         this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -156,30 +157,47 @@ class AddComment extends Component {
         this.setState({reportModal: true});
     }
 
-    verifyUserClick(voteType){
-        console.log(voteType)
-    }
-
-    recordUser(cardOwnerUID, cardID){
-        console.log("recordUser, cardOwnerUID: "+cardOwnerUID)
-
-        dbRef.ref("User/" + cardOwnerUID).child('cards/' + cardID+ '/votes').push({
-            vote: this.state.userUID
+    // Check if the user has voted for this card
+    verifyVote = (cardOwnerUID, cardID) => {
+        let userUID = this.state.userUID
+        dbRef.ref('User/' + cardOwnerUID).once('value')
+        .then(function(snapshot){
+            let isValid
+            let card = snapshot.child('cards/' + cardID).val()
+            // if someone has voted, check if it's the same user
+            if (card['votes'] != null) {
+                for (let vote in card['votes']) {
+                    for (let user in card['votes'][vote]) {
+                        // if the user has voted, return isValid as false
+                        if (card['votes'][vote][user] === userUID) { isValid = false }
+                        // if the user hasn't voted yet for this card, return isValid as true
+                        else { isValid = true }
+                    }
+                }
+            // if no one votes yet, allow the user to upvote or downvote
+            } else {
+                isValid = true
+            }
+            return isValid
         });
-
-        // dbRef.ref('User/'+ cardOwnerUID).once('value')
-        // .then(function(snapshot){
-        //     let card = snapshot.child('cards/' + cardID).val()
-        //     console.log(card)
-        //     // dbRef.ref('User/' + currentUser).update({
-        //     //     points
-        //     // })
-        // });
+        return "2"
     }
 
+    // Save user uid to prevent second vote from the same user for same card
+    recordUser(cardOwnerUID, cardID){
+        let userUID = this.state.userUID
+        dbRef.ref("User/" + cardOwnerUID).child('cards/' + cardID+ '/votes').push({
+            userUID
+        });
+    }
+
+    // Increase count of upvote if the vote is valid
     upvoteClicked = () => {
         let cardOwnerUID = this.props.cardOwnerUID
         let cardID = this.props.cardID
+        console.log("isValid: "+this.verifyVote(cardOwnerUID, cardID))
+        // this.verifyVote(cardOwnerUID, cardID) ? console.log("true") :  console.log("false")
+        // isValid === "true" ? console.log("true") :  console.log("false")
         let upvote
         dbRef.ref('User/' + cardOwnerUID).once('value')
             .then(function(snapshot){
@@ -198,9 +216,11 @@ class AddComment extends Component {
         this.recordUser(cardOwnerUID, cardID)
     };
 
+    // Increase count of downvote if the vote is valid
     downvoteClicked = () => {
         let cardOwnerUID = this.props.cardOwnerUID
         let cardID = this.props.cardID
+        // this.verifyVote(cardOwnerUID, cardID)
         let downvote
         dbRef.ref('User/' + cardOwnerUID).once('value')
             .then(function(snapshot){
@@ -219,6 +239,7 @@ class AddComment extends Component {
         this.recordUser(cardOwnerUID, cardID)
     };
 
+    // Return count of upvote
     countUpvotes = (upvoteObj) => {
         if (upvoteObj != null) {
             return upvoteObj;
@@ -226,6 +247,7 @@ class AddComment extends Component {
         return "0";
     }
 
+    // Return count of downvote
     countDownvotes = (downvoteObj) => {
         if (downvoteObj != null) {
             return downvoteObj;

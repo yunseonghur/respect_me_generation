@@ -2,10 +2,6 @@
     width: 30px;
 }
 
-.profile {
-    width: 100px;
-}
-
 .header {
     display: flex;
     justify-content: center;
@@ -33,9 +29,15 @@ div h2 {
     margin-left: auto;
     margin-right: auto;
 }
+
 .profile {
     position: relative; 
     top: -10px;
+    width: 100px;
+}
+
+.MuiTooltip-tooltip {
+    size: 100px;
 }
 
 .col h3 {

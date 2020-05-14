@@ -37,6 +37,7 @@ class Login extends Component {
     render() {
         return (
             <div className="login">
+                <br /><br /><br /><br /><br /><br /><br /><br />
                 <div id='firebaseui-auth-container' />
             </div>
         )

@@ -184,7 +184,7 @@ class Cards extends React.Component{
                     <Container>
                         <CardDeck className="row row-cols-sm-2 row-cols-md-3">
                         {Array.from(this.sortByTag()).map((card)=> 
-                            <div>
+                            <div key={card.id}>
                             <MyCard
                                 key={card.id} 
                                 id={card.id} 

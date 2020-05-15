@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from './ReportModal';
 import './AddComment.css';
 import TextLengthModal from './TextLengthModal';
+import LoginModal from './LoginModal';
 
 const dbRef = fire.database();
 
@@ -16,6 +17,7 @@ class AddComment extends Component {
     constructor(props){
         super(props);
         this.state = {
+            loginModal: false,
             userUID: "",
             username: "",
             comments: [],
@@ -58,15 +60,20 @@ class AddComment extends Component {
     }
 
     writeComment(event) {
-        if (this.state.newComment.length <= 45) {
-            // we need card owner UID
-            dbRef.ref("User/" + this.props.cardOwnerUID).child('cards/' + this.props.cardID+ '/comments').push({
-                comment: this.state.newComment,
-                user: this.state.username
-            });
-            this.increasePoints(this.state.userUID);
+        
+        if(this.state.userUID != ''){
+            if (this.state.newComment.length <= 45) {
+                // we need card owner UID
+                dbRef.ref("User/" + this.props.cardOwnerUID).child('cards/' + this.props.cardID+ '/comments').push({
+                    comment: this.state.newComment,
+                    user: this.state.username
+                });
+                this.increasePoints(this.state.userUID);
+            } else {
+                this.setState({textLengthModal: true});
+            }
         } else {
-            this.setState({textLengthModal: true});
+            this.setState({ loginModal: true })
         }
         
 
@@ -295,6 +302,7 @@ class AddComment extends Component {
                     show={this.state.textLengthModal} 
                     onHide={()=> this.setState({textLengthModal: false})}
                     textLength={45}/>
+                <LoginModal show={this.state.loginModal} onHide={()=> this.setState({loginModal: false})} />
 
             </div>
         )

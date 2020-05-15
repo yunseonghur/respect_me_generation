@@ -13,7 +13,6 @@ class CreateCard extends React.Component {
             text: '',
             createdCard: false,
             imgSrc: '',
-            logInModal: false,
             tag: 'all',
             cardKey: '',
             textLengthModal: false

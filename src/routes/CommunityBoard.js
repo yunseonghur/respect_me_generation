@@ -3,6 +3,7 @@ import './CommunityBoard.css';
 import Board from '../components/Board';
 import { Container, Button, Link } from 'react-floating-action-button';
 import fire from '../fire.js';
+import Toast from 'react-bootstrap/Toast';
 import VideoBadgeModal from '../components/VideoBadgeModal';
 import LoginModal from '../components/LoginModal';
 
@@ -161,10 +162,11 @@ class CommunityBoard extends React.Component{
                             <img src="https://img.icons8.com/material-outlined/24/000000/camcorder-pro.png" alt="Upload a video"/>
                         </Button>
                     </Link>
-                    {/* <Link href='#createCard' tooltip="Add a card"><img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/></Link> */}
-                    <Button onClick={this.goToCreateCard}>
-                        <img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/>
-                    </Button>
+                    <Link tooltip="Add a card" >
+                        <Button onClick={this.goToCreateCard} disabled>
+                            <img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/>
+                        </Button>
+                    </Link>
                     <Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add"/></Button>
                 </Container>
                 <VideoBadgeModal show={this.state.displayErrorMessage} onHide={()=> this.setState({displayErrorMessage: false})} />

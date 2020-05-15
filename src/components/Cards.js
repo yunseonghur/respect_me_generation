@@ -3,11 +3,12 @@ import MyCard from './MyCard';
 import {CardDeck, Container} from 'react-bootstrap';
 import AddComment from './AddComment';
 import fire from '../fire'
-
+import './Cards.css';
+import loading from '../images/loading.gif';
 const dbRef = fire.database().ref();
 
 /**
- * A layout displaying all cards in community.
+ * A layout displaying cards from all users.
  */
 class Cards extends React.Component{
 
@@ -176,7 +177,7 @@ class Cards extends React.Component{
             <div>
                 {this.state.isLoading ? (
                     <div className="loader">
-                    <span className="loader__text">Loading...</span>
+                    <span className="loader__text"><br/><br/><br/><img src={loading}/></span>
                     </div>
                 ) : this.state.showCards ?
                     (
@@ -212,3 +213,5 @@ class Cards extends React.Component{
 }
 
 export default Cards;
+
+//assets https://loading.io/

@@ -1,3 +1,7 @@
+.cardWrapper {
+  margin: 5px;
+}
+
 .card-text {
     font-size: 12pt;
     font-family: 'Montserrat', sans-serif;
@@ -81,9 +85,12 @@
   margin-right: 8px;
 } */
 
+.iconItem {
+  margin: 5px;
+}
+
 .commentCount {
   display: inline-block;
-  margin-left: -10px;
   margin-right: 8px;
 }
 

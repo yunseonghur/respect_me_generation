@@ -14,25 +14,19 @@ class MyCard extends Component {
 
     render() {
         return (
-            <div>
+            <div className="cardWrapper">
                 <a style={{ cursor: "pointer" }} onClick={this.props.onClick}>
                 <Card>
                     <Card.Img className="card__img" src={this.props.background} alt="Card image" />
                     <Card.ImgOverlay className="overlay">
                         <Card.Text className="text-center">{this.props.text}</Card.Text>
                         <Card.Text className="text-bottom-left">
-                            <div className="commentCount">
-                                <FontAwesomeIcon className="bubble" icon={faComments} />
-                                <span>{this.props.commentCount}</span>
-                            </div>
-                            <div className="upvoteCount">
-                                <FontAwesomeIcon className="thumbs-up" icon={faThumbsUp} />
-                                <span>{this.props.upvoteCount}</span>
-                            </div>
-                            <div className="downvoteCount">
-                                <FontAwesomeIcon className="thumbs-down" icon={faThumbsDown} />
-                                <span>{this.props.downvoteCount}</span>
-                            </div>
+                            <FontAwesomeIcon icon={faComments} />
+                            <span className="commentCount iconItem">{this.props.commentCount}</span>
+                            <FontAwesomeIcon className="thumbs-up" icon={faThumbsUp} />
+                            <span className="upvoteCount iconItem">{this.props.upvoteCount}</span>
+                            <FontAwesomeIcon className="thumbs-down" icon={faThumbsDown} />
+                            <span className="downvoteCount iconItem">{this.props.downvoteCount}</span>
                         </Card.Text>
                     </Card.ImgOverlay>
                 </Card>

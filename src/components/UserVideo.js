@@ -3,9 +3,9 @@ import { CloudinaryContext, Video } from 'cloudinary-react';
 
 const UserVideo = (props) => {
     return (
-        <div style={{display: "inline-block", margin: "10px"}}>
+        <div style={{display: "inline-block", margin: "10px", maxWidth: "400px"}}>
             <CloudinaryContext cloudName="respectmegen">
-                {<Video publicId={props.videoId} width="380" height="245" controls></Video>}
+                {<Video publicId={props.videoId} width="100%" height="100%" fluid controls></Video>}
             </CloudinaryContext>
         </div>
     );

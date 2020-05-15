@@ -4,7 +4,6 @@ import "../routes/CreateCard.css";
 import { Nav, Row, Col, Tab, CardDeck, Card, Button } from 'react-bootstrap';
 import TextLengthModal from '../components/TextLengthModal';
 import CardModal from '../components/CardModal';
-import LoginModal from '../components/LoginModal';
 
 class CreateCard extends React.Component {
     constructor(props) {
@@ -83,8 +82,6 @@ class CreateCard extends React.Component {
                 this.writeCardInfo(imgSource, currentUser);
                 this.increasePoints(currentUser);
             })
-        } else {
-            this.setState({logInModal: true});
         }
     }
 
@@ -155,8 +152,8 @@ class CreateCard extends React.Component {
                     </div>
                     <div id="enterText">
                         <p className="instruction">2. Enter Text</p>
-                        <div id="textField" className='jumbotron'>
-                            <textarea name='text' onChange={this.handleTxtChange} />
+                        <div className='jumbotron'>
+                            <textarea name='text' id="text-field" onChange={this.handleTxtChange} />
                         </div>
                     </div>
                     <div id="selectTag">
@@ -170,7 +167,7 @@ class CreateCard extends React.Component {
                                                 <Nav.Link name="study" onClick={this.handleTagChange}>Study</Nav.Link>
                                             </Nav.Item>
                                         </Col>
-                                        <Col>
+                                        <Col> 
                                             <Nav.Item>
                                                 <Nav.Link name="relationship" onClick={this.handleTagChange}>Relationship</Nav.Link>
                                             </Nav.Item>
@@ -197,10 +194,6 @@ class CreateCard extends React.Component {
                     animation={false}
                     show={this.state.createdCard}
                     onHide={()=> this.setState({createdCard: false})} />
-                <LoginModal
-                    animation={false}
-                    show={this.state.logInModal}
-                    onHide={()=> this.setState({logInModal: false})} />
                 <TextLengthModal
                     animation={false}
                     show={this.state.textLengthModal}

@@ -158,29 +158,36 @@ class AddComment extends Component {
     }
 
     // Check if the user has voted for this card
-    verifyVote = (cardOwnerUID, cardID) => {
+    verifyVote=(cardOwnerUID, cardID)=>{
         let userUID = this.state.userUID
         dbRef.ref('User/' + cardOwnerUID).once('value')
         .then(function(snapshot){
-            let isValid
+            // let isValid
             let card = snapshot.child('cards/' + cardID).val()
             // if someone has voted, check if it's the same user
             if (card['votes'] != null) {
                 for (let vote in card['votes']) {
                     for (let user in card['votes'][vote]) {
                         // if the user has voted, return isValid as false
-                        if (card['votes'][vote][user] === userUID) { isValid = false }
+                        if (card['votes'][vote][user] === userUID) { 
+                            this.setState({ isValid: false});
+                        }
                         // if the user hasn't voted yet for this card, return isValid as true
-                        else { isValid = true }
+                        else { 
+                            console.log("user can like")
+                           this.setState({ isValid: true})
+                        }
                     }
                 }
             // if no one votes yet, allow the user to upvote or downvote
             } else {
-                isValid = true
+                // isValid = true
+                console.log("user can like")
+                this.setState({ isValid: true });
             }
-            return isValid
+            // return isValid
         });
-        return "2"
+        return this.state.isValid;
     }
 
     // Save user uid to prevent second vote from the same user for same card
@@ -192,10 +199,10 @@ class AddComment extends Component {
     }
 
     // Increase count of upvote if the vote is valid
-    upvoteClicked = () => {
+    upvoteClicked=()=>{
         let cardOwnerUID = this.props.cardOwnerUID
         let cardID = this.props.cardID
-        console.log("isValid: "+this.verifyVote(cardOwnerUID, cardID))
+        console.log("isValid: "+ this.verifyVote(cardOwnerUID, cardID));
         // this.verifyVote(cardOwnerUID, cardID) ? console.log("true") :  console.log("false")
         // isValid === "true" ? console.log("true") :  console.log("false")
         let upvote
@@ -220,7 +227,7 @@ class AddComment extends Component {
     downvoteClicked = () => {
         let cardOwnerUID = this.props.cardOwnerUID
         let cardID = this.props.cardID
-        // this.verifyVote(cardOwnerUID, cardID)
+        this.verifyVote(cardOwnerUID, cardID)
         let downvote
         dbRef.ref('User/' + cardOwnerUID).once('value')
             .then(function(snapshot){

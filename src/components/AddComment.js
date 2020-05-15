@@ -26,12 +26,8 @@ class AddComment extends Component {
             reportModal: false,
             textLengthModal: false,
             isValid: false,
-<<<<<<< HEAD
             showVoteError: false
 
-=======
-            displayLoginModal: false
->>>>>>> 73ea3972f3095fa4b951dcb014a5142c74d517f3
         }
         this.getCurrentUser();
         this.writeComment = this.writeComment.bind(this);
@@ -247,13 +243,9 @@ class AddComment extends Component {
             });
         // record userUID to keep track of the user's upvote
         this.recordUser(cardOwnerUID, cardID)
-<<<<<<< HEAD
         } else {
             this.setState({showVoteError: true});
         }
-=======
-        } 
->>>>>>> 73ea3972f3095fa4b951dcb014a5142c74d517f3
     };
 
     // Increase count of downvote if the vote is valid
@@ -278,13 +270,9 @@ class AddComment extends Component {
         });
         // record userUID to keep track of the user's upvote
         this.recordUser(cardOwnerUID, cardID)
-<<<<<<< HEAD
         } else {
             this.setState({showVoteError: true});
         }
-=======
-        } 
->>>>>>> 73ea3972f3095fa4b951dcb014a5142c74d517f3
     };
 
     // Return count of upvote

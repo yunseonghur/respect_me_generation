@@ -14,17 +14,41 @@
   padding-right: 100px;
 }
 
-.card-body img {
+.entry {
+  display: inline-table;
+}
+
+.card-entry img {
   height: 150px;
   width: 250px;
   margin: 10px;
 }
 
-.entry {
-  display: inline-table;
-}
-
 .entry p {
   font-size: 8pt;
   text-align: center;
+}
+
+/* Small devices (landscape tablets, 500px and down) */
+@media only screen and (max-width: 500px) {
+  .accordion {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  .entry {
+    display: inline;
+  }
+  .entry img {
+    height: 130px;
+    width: 200px;
+    align-items: center;
+  }
+}
+
+/* specifically for Iphon5/SE */
+@media only screen and (max-width: 320px) {
+  .entry img {
+    height: 100px;
+    width: 170px;
+  }
 }

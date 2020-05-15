@@ -63,9 +63,7 @@ class Profile extends React.Component{
         let commentNumber = 0;
         if (cardComment != null) {
             // count and increment commentNumber
-            for (let count in cardComment) {
-                commentNumber++;
-            }
+            commentNumber++;
         }
 
         return commentNumber;
@@ -136,7 +134,7 @@ class Profile extends React.Component{
 
         // determines which badge icon to use
         let badgeIcon;
-        if(this.state.badge == 'basic'){
+        if(this.state.badge === 'basic'){
             badgeIcon = <img className='img' src={basicBadge} alt='Basic Badge'></img>
         } else {
             badgeIcon = <img className='img' src={advBadge} alt='Advanced Badge'></img>

@@ -94,9 +94,8 @@ class Cards extends React.Component{
         let commentNumber = 0;
         if (cardComment != null) {
             // count and increment commentNumber
-            for (let count in cardComment) {
-                commentNumber++;
-            }
+            commentNumber++;
+
         }
 
         return commentNumber;

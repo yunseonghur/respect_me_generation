@@ -63,11 +63,8 @@ class Navigation extends Component {
     render() {
         return( 
             <div className="navWrapper">
-                
-                <Nav>
-                    <Nav.Link style={{display: "inline-block"}} href="/" id="brand">RESPECT ME GENERATION</Nav.Link>
-                </Nav>
-                <Nav style={{float: "right"}} pullRight>
+                <Nav.Link style={{display: "inline-block"}} href="/" id="brand">RESPECT ME GENERATION</Nav.Link>
+                <Nav style={{float: "right", marginRight: "10px"}} pullRight>
                     { this.state.user ? <Nav.Link href="#profile"><FontAwesomeIcon className="navItem" icon={faUser} /></Nav.Link> : null}
                     <Nav.Link href="#communityBoard"><FontAwesomeIcon className="navItem" icon={faBullhorn} /></Nav.Link>
                     <Nav.Link href="#resources"><FontAwesomeIcon className="navItem" icon={faLightbulb} /></Nav.Link>

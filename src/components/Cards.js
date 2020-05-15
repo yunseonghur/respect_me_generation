@@ -52,6 +52,10 @@ class Cards extends React.Component{
         });
     }
 
+    // componentWillUnmount(){
+    //     this.mounted = false;
+    // }
+
     cardClicked = () => {
         this.setState({visible: true})
       };
@@ -197,8 +201,8 @@ class Cards extends React.Component{
                                 }}
                             /> </div>)}
                             {this.state.visible ?
-                                <AddComment show={this.state.visible} cardOwnerUID={this.getCardOwner()} cardID={this.state.cardSelected} onHide={() => this.setState({visible: false})}/>
-                             : null}
+                            <AddComment show={this.state.visible} cardOwnerUID={this.getCardOwner()} cardID={this.state.cardSelected} onHide={() => this.setState({visible: false})}/>
+                            : null}
                         </CardDeck>
                     </Container>
                     ) : (

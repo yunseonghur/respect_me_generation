@@ -22,11 +22,11 @@ class MyCard extends Component {
                         <Card.Text className="text-center">{this.props.text}</Card.Text>
                         <Card.Text className="text-bottom-left">
                             <FontAwesomeIcon icon={faComments} />
-                            <span className="commentCount">{this.props.commentCount}</span>
+                            <span className="commentCount iconItem">{this.props.commentCount}</span>
                             <FontAwesomeIcon className="thumbs-up" icon={faThumbsUp} />
-                            <span className="upvoteCount">{this.props.upvoteCount}</span>
+                            <span className="upvoteCount iconItem">{this.props.upvoteCount}</span>
                             <FontAwesomeIcon className="thumbs-down" icon={faThumbsDown} />
-                            <span className="downvoteCount">{this.props.downvoteCount}</span>
+                            <span className="downvoteCount iconItem">{this.props.downvoteCount}</span>
                         </Card.Text>
                     </Card.ImgOverlay>
                 </Card>

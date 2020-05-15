@@ -8,7 +8,7 @@ import loading from '../images/loading.gif';
 const dbRef = fire.database().ref();
 
 /**
- * A layout displaying all cards in community.
+ * A layout displaying cards from all users.
  */
 class Cards extends React.Component{
 

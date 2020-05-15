@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from './ReportModal';
 import './AddComment.css';
 import TextLengthModal from './TextLengthModal';
+import LoginModal from '../components/LoginModal';
+
 
 const dbRef = fire.database();
 
@@ -23,10 +25,27 @@ class AddComment extends Component {
             visible: false,
             reportModal: false,
             textLengthModal: false,
-            isValid: false
+            isValid: false,
+            displayLoginModal: false
         }
+        this.getCurrentUser();
         this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
+    }
+
+    getCurrentUser(){
+        fire.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({
+                    username: user.displayName,
+                    userUID: user.uid
+                });
+                console.log("Logged in. name: " + this.state.username);
+                this.getUserInfo();
+            } else {
+                console.log("you're not logged in.")
+            }
+        })
     }
 
     getUserInfo(){
@@ -160,10 +179,17 @@ class AddComment extends Component {
     // Check if the user has voted for this card
     verifyVote = async (cardOwnerUID, cardID) => {
         let userUID = this.state.userUID
-        let card;
+        // if the user is not logged in
+        if(userUID === ""){ 
+            this.setState({ 
+                isValid: false,
+                displayLoginModal: true
+            }); 
+            return ;
+        }
         await dbRef.ref('User/' + cardOwnerUID).once('value')
         .then((snapshot) => {
-            card = snapshot.child('cards/' + cardID).val();
+            let card = snapshot.child('cards/' + cardID).val();
             if (card['votes'] != null) {
                 for (let vote in card['votes']) {
                     for (let user in card['votes'][vote]) {
@@ -216,9 +242,7 @@ class AddComment extends Component {
             });
         // record userUID to keep track of the user's upvote
         this.recordUser(cardOwnerUID, cardID)
-        } else {
-            console.log("SORRY you have been voted for this card.")
-        }
+        } 
     };
 
     // Increase count of downvote if the vote is valid
@@ -243,9 +267,7 @@ class AddComment extends Component {
         });
         // record userUID to keep track of the user's upvote
         this.recordUser(cardOwnerUID, cardID)
-        } else {
-            console.log("SORRY you have been voted for this card.")
-        }
+        } 
     };
 
     // Return count of upvote
@@ -262,20 +284,6 @@ class AddComment extends Component {
             return downvoteObj;
         }
         return "0";
-    }
-
-    componentDidMount(){
-        fire.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({
-                    username: user.displayName,
-                    userUID: user.uid
-                });
-                this.getUserInfo();
-            } else {
-                console.log("no current user");
-            }
-        })
     }
 
     render(){
@@ -300,6 +308,7 @@ class AddComment extends Component {
                                     <p id="feedback">Do you like this post?</p>
                                     <FontAwesomeIcon id="thumbsUpIcon" icon={faThumbsUp} onClick={this.upvoteClicked} />
                                     <FontAwesomeIcon id="thumbsDownIcon" icon={faThumbsDown} onClick={this.downvoteClicked} />
+                                    <LoginModal show={this.state.displayLoginModal} onHide={()=> this.setState({displayLoginModal: false})} />
                                     <br /><br />
                                 </Col>
                             </Row>

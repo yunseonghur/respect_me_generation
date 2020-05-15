@@ -96,7 +96,6 @@ class AddComment extends Component {
         dbRef.ref('User/'+ currentUser).once('value')
             .then(function(snapshot){
                 let points = snapshot.child('points').val()
-                let badge = snapshot.child('badge').val()
                 if(points >= 100){
                     dbRef.ref('User/' + currentUser).update({
                         badge: 'advanced'

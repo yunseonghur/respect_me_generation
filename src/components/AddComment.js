@@ -64,7 +64,7 @@ class AddComment extends Component {
 
     writeComment(event) {
         
-        if(this.state.userUID != ''){
+        if(this.state.userUID !== ''){
             if (this.state.newComment.length <= 45) {
                 // we need card owner UID
                 dbRef.ref("User/" + this.props.cardOwnerUID).child('cards/' + this.props.cardID+ '/comments').push({

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './MyCard.css';
 import { faComments, faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +16,7 @@ class MyCard extends Component {
     render() {
         return (
             <div className="cardWrapper">
-                <a style={{ cursor: "pointer" }} onClick={this.props.onClick}>
+                <Button variant='light' onClick={this.props.onClick}>
                 <Card>
                     <Card.Img className="card__img" src={this.props.background} alt="Card image" />
                     <Card.ImgOverlay className="overlay">
@@ -30,7 +31,7 @@ class MyCard extends Component {
                         </Card.Text>
                     </Card.ImgOverlay>
                 </Card>
-                </a>
+                </Button>
             </div>
         )
 

@@ -1,3 +1,9 @@
+.loginnav {
+    display: inline-block;
+    font-size: 15pt;
+    margin-right: 5px;
+    color: black;
+  }
 
 .modal-footer {
     display: block;

@@ -3,7 +3,8 @@ import './CommunityBoard.css';
 import Board from '../components/Board';
 import { Container, Button, Link } from 'react-floating-action-button';
 import fire from '../fire.js';
-import Toast from 'react-bootstrap/Toast'
+import Toast from 'react-bootstrap/Toast';
+import LoginModal from '../components/LoginModal';
 
 
 // firebase needed to relate current user with upload
@@ -18,6 +19,7 @@ class CommunityBoard extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
+            logInModal: false,
             cards: [],
             videos: [],
             isLoading: true, // true if the server is still loading cards data
@@ -125,6 +127,17 @@ class CommunityBoard extends React.Component{
         }
     }
 
+    checkAuth(event){
+        event.preventDefault();
+        var currentUser = fire.auth().currentUser;
+
+        if (currentUser != null) {
+            this.history.pushState(null, 'createcard')
+        } else {
+            this.setState({logInModal: true});
+        }
+    }
+
     increasePoints(currentUser){
         console.log("increase points");
         db.ref('User/'+ currentUser).once('value')
@@ -159,7 +172,11 @@ class CommunityBoard extends React.Component{
                             <img src="https://img.icons8.com/material-outlined/24/000000/camcorder-pro.png" alt="Upload a video"/>
                         </Button>
                     </Link>
-                    <Link href='#createCard' tooltip="Add a card"><img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/></Link>
+                    <Link tooltip="Add a card" >
+                        <Button onClick={this.checkAuth} disabled>
+                            <img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/>
+                        </Button>
+                    </Link>
                     <Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add"/></Button>
                 </Container>
             </div>

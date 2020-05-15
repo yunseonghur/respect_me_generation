@@ -31,8 +31,6 @@ class CommunityBoard extends React.Component{
             displayLoginModal: false
         };
         this.getCurrentUser();
-
-
     }
 
     getBadgePoints = () => {
@@ -90,8 +88,8 @@ class CommunityBoard extends React.Component{
                     var key = db.ref().child('videos').push().key;
 
                     var updates = {};
-                    updates['/videos/' + key] = result.info.public_id;
 
+                    updates['/videos/' + key] = result.info.public_id;
                     db.ref('User/' + this.state.userUID).update(updates);
 
                     console.log("video " + result.info.public_id + "added to user " + this.state.userUID);
@@ -131,10 +129,11 @@ class CommunityBoard extends React.Component{
     }
 
     render() {
-
         return (
             <div>
                 <Board />
+
+                {/* the red (+) button */}
                 <Container>
                     <Link tooltip="Upload a video">
                         <Button onClick={this.uploadHandler} disabled>

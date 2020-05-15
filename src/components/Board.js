@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './Board.css';
 import Cards from './Cards';
 import VideoDisplay from "./VideoDisplay";
@@ -6,12 +6,11 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import fire from '../fire.js';
 
-
 /**
  * Component that handles toggling display of cards and videos.
  * Actual data is being displayed by Card and VideoDisplay components.
  */
-class Board extends React.Component{
+class Board extends Component{
 
     constructor(props) {
         super(props)
@@ -68,6 +67,7 @@ class Board extends React.Component{
     render() {
         return (
             <div className="text-center">
+                <div className="toggleButtons">
                 <h2>COMMUNITY BOARD</h2>
                 <h5>What is your community talking about today?</h5>
                 {
@@ -83,11 +83,16 @@ class Board extends React.Component{
                     : <div><br/><br/><br/></div>
                 }
 
-                <ButtonGroup> 
-                    <Button variant="light" onClick={this.toggleOpenCards}>Cards</Button>
-                    <Button variant="light" onClick={this.toggleOpenVideos}>Videos</Button>
-                </ButtonGroup>
-                { this.state.cardVisible ? <Cards tag={this.state.tag} />: <VideoDisplay />}
+                    <ButtonGroup> 
+                        <Button variant="light" onClick={this.toggleOpenCards}>Cards</Button>
+                        <Button variant="light" onClick={this.toggleOpenVideos}>Videos</Button>
+                    </ButtonGroup>
+                </div>
+
+                <div>
+                    { this.state.cardVisible ? <Cards tag={this.state.tag} />: <VideoDisplay />}
+                </div>
+
             </div>
         )}
 }

@@ -88,19 +88,6 @@ class MiniBoard extends Component {
                     </div>
                     : <div><br/><br/><br/></div>
                 }
-                
-
-                {/* <ButtonGroup className="btnGroup"> 
-                    <Button variant="light" onClick={()=>{
-                        this.setState({ visible: true});
-                    }}>
-                        Cards
-                    </Button>
-                    <Button variant="light" onClick={()=>{
-                        this.setState({ visible: false});
-                    }}>
-                        Videos
-                    </Button> */}
                     <ButtonGroup> 
                         <Button variant="light" onClick={this.toggleOpenCards}>Cards</Button>
                         <Button variant="light" onClick={this.toggleOpenVideos}>Videos</Button>
@@ -117,8 +104,7 @@ class MiniBoard extends Component {
                     </div>
                 </div>
             </div>
-        )
-    }
+        )}
 
 }
 

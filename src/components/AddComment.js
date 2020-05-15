@@ -23,7 +23,9 @@ class AddComment extends Component {
             visible: false,
             reportModal: false,
             textLengthModal: false,
-            isValid: false
+            isValid: false,
+            showVoteError: false
+
         }
         this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -217,7 +219,7 @@ class AddComment extends Component {
         // record userUID to keep track of the user's upvote
         this.recordUser(cardOwnerUID, cardID)
         } else {
-            console.log("SORRY you have been voted for this card.")
+            this.setState({showVoteError: true});
         }
     };
 
@@ -244,7 +246,7 @@ class AddComment extends Component {
         // record userUID to keep track of the user's upvote
         this.recordUser(cardOwnerUID, cardID)
         } else {
-            console.log("SORRY you have been voted for this card.")
+            this.setState({showVoteError: true});
         }
     };
 
@@ -302,6 +304,13 @@ class AddComment extends Component {
                                     <FontAwesomeIcon id="thumbsDownIcon" icon={faThumbsDown} onClick={this.downvoteClicked} />
                                     <br /><br />
                                 </Col>
+                            </Row>
+                            <Row >
+                                {this.state.showVoteError?
+                                    <div id="voteErrorMsg">You already voted!<br/><br/></div>
+                                    : null
+                                }
+                                <br /><br/>
                             </Row>
                             <Row>
                                 <Col>

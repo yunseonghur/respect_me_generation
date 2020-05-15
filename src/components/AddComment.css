@@ -30,3 +30,9 @@
     margin-left: 250px;
     color: lightsalmon;
 }
+
+#voteErrorMsg {
+    position: absolute;
+    left: 0;
+    margin-left: 120px;
+}

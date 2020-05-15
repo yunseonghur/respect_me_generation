@@ -26,31 +26,11 @@ class AddComment extends Component {
             reportModal: false,
             textLengthModal: false,
             isValid: false,
-<<<<<<< HEAD
-            showVoteError: false
-
-=======
+            showVoteError: false,
             displayLoginModal: false
->>>>>>> 73ea3972f3095fa4b951dcb014a5142c74d517f3
         }
-        this.getCurrentUser();
         this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
-    }
-
-    getCurrentUser(){
-        fire.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({
-                    username: user.displayName,
-                    userUID: user.uid
-                });
-                console.log("Logged in. name: " + this.state.username);
-                this.getUserInfo();
-            } else {
-                console.log("you're not logged in.")
-            }
-        })
     }
 
     getUserInfo(){
@@ -181,15 +161,21 @@ class AddComment extends Component {
         this.setState({ reportModal: true });
     }
 
-    // Check if the user has voted for this card
-    verifyVote = async (cardOwnerUID, cardID) => {
-        let userUID = this.state.userUID
-        // if the user is not logged in
+    verifyUser = (userUID) => {
         if(userUID === ""){ 
             this.setState({ 
                 isValid: false,
                 displayLoginModal: true
             }); 
+            console.log("please login")
+        }
+    }
+
+    // Check if the user has voted for this card
+    verifyVote = async (cardOwnerUID, cardID) => {
+        let userUID = this.state.userUID
+        await this.verifyUser(userUID)
+        if (this.state.displayLoginModal){
             return ;
         }
         await dbRef.ref('User/' + cardOwnerUID).once('value')
@@ -247,13 +233,11 @@ class AddComment extends Component {
             });
         // record userUID to keep track of the user's upvote
         this.recordUser(cardOwnerUID, cardID)
-<<<<<<< HEAD
         } else {
-            this.setState({showVoteError: true});
+            if (!this.state.displayLoginModal){
+                this.setState({showVoteError: true});
+            }
         }
-=======
-        } 
->>>>>>> 73ea3972f3095fa4b951dcb014a5142c74d517f3
     };
 
     // Increase count of downvote if the vote is valid
@@ -278,13 +262,11 @@ class AddComment extends Component {
         });
         // record userUID to keep track of the user's upvote
         this.recordUser(cardOwnerUID, cardID)
-<<<<<<< HEAD
         } else {
-            this.setState({showVoteError: true});
+            if (!this.state.displayLoginModal){
+                this.setState({showVoteError: true});
+            }
         }
-=======
-        } 
->>>>>>> 73ea3972f3095fa4b951dcb014a5142c74d517f3
     };
 
     // Return count of upvote
@@ -301,6 +283,21 @@ class AddComment extends Component {
             return downvoteObj;
         }
         return "0";
+    }
+
+    componentDidMount(){
+        fire.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({
+                    username: user.displayName,
+                    userUID: user.uid
+                });
+                console.log("Logged in. name: " + this.state.username);
+                this.getUserInfo();
+            } else {
+                console.log("you're not logged in.")
+            }
+        })
     }
 
     render(){

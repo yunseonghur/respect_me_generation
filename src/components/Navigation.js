@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import fire from '../fire';
-import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import '../components/Navigation.css';
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -86,10 +85,10 @@ class Navigation extends Component {
 export default Navigation;
 
 // <img src="https://img.icons8.com/material-outlined/24/000000/person-male.png" alt="Profile"/>
-{/* <Link tooltip="Upload a video">
+/* <Link tooltip="Upload a video">
     <Button onClick={this.uploadHandler} disabled>
         <img src="https://img.icons8.com/material-outlined/24/000000/camcorder-pro.png" alt="Upload a video"/>
     </Button>
 </Link>
 <Link href='#createCard' tooltip="Add a card"><img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/></Link>
-<Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add"/></Button> */}
+<Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add"/></Button> */

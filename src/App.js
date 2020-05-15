@@ -5,7 +5,6 @@ import CommunityBoard from "./routes/CommunityBoard";
 import Resources from "./routes/Resources";
 import Profile from "./routes/Profile";
 import Login from "./routes/Login";
-import Logout from "./routes/Logout";
 import Navigation from "./components/Navigation";
 import CreateCard from "./routes/CreateCard";
 

@@ -6,7 +6,6 @@ import ARTICLES from '../components/ResourceArticles';
 import MiniBoard from '../components/MiniBoard';
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
-import { Row, Col, Jumbotron } from 'react-bootstrap';
 import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

@@ -3,7 +3,6 @@ import './CommunityBoard.css';
 import Board from '../components/Board';
 import { Container, Button, Link } from 'react-floating-action-button';
 import fire from '../fire.js';
-import Toast from 'react-bootstrap/Toast';
 import VideoBadgeModal from '../components/VideoBadgeModal';
 import LoginModal from '../components/LoginModal';
 

@@ -6,7 +6,6 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import fire from '../fire.js';
 
-const db = fire.database();
 
 /**
  * Component that handles toggling display of cards and videos.

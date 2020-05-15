@@ -176,7 +176,7 @@ class Cards extends React.Component{
             <div>
                 {this.state.isLoading ? (
                     <div className="loader">
-                    <span className="loader__text"><br/><br/><br/><img src={loading}/></span>
+                    <span className="loader__text"><br/><br/><br/><img src={loading} alt="loading"/></span>
                     </div>
                 ) : this.state.showCards ?
                     (

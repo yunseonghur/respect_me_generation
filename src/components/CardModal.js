@@ -1,7 +1,7 @@
 import React from 'react';
 import ARTICLES from '../components/ResourceArticles';
 import MyCard from '../components/MyCard';
-import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
+import { Container, Row, Button, Modal } from 'react-bootstrap';
 import "./CardModal.css";
 
 class CardModal extends React.Component {

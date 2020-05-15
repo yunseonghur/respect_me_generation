@@ -70,7 +70,7 @@ class Navigation extends Component {
                     <Nav.Link href="#resources"><FontAwesomeIcon className="navItem" icon={faLightbulb} /></Nav.Link>
                     { this.state.user ?
                         <Nav.Link style={{fontSize: "10pt", fontWeight: "600", border: "1px solid black", borderRadius: "15px"}} className="navItem" onClick={()=>this.setState({logOutModal: true})} >LOGOUT</Nav.Link>
-                        : <Nav.Link className="navItem" href='#login'>LOGIN</Nav.Link>}
+                        : <Nav.Link style={{fontSize: "10pt", fontWeight: "600", border: "1px solid black", borderRadius: "15px"}} className="navItem" href='#login'>LOGIN</Nav.Link>}
                 </Nav>
                 <LogOutModal show={this.state.logOutModal} onHide={()=> this.setState({logOutModal: false})}/>
             </div>

@@ -13,16 +13,12 @@ class Quote extends Component {
     getQuotes() {
         axios.get('https://quotes.rest/qod?category=inspire&language=en')
           .then(res => {
-            console.log(res.data.contents);
 
             let quoteObject = res.data.contents.quotes[0];
-            console.log("object: " + quoteObject);
 
             let text = quoteObject.quote;
-            console.log("text: " + text);
 
             let author = quoteObject.author;
-            console.log("author: " + author);
 
             this.setState({ 
                 quoteText: text,

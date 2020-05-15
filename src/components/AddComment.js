@@ -64,7 +64,7 @@ class AddComment extends Component {
 
     writeComment(event) {
         
-        if(this.state.userUID != ''){
+        if(this.state.userUID !== ''){
             if (this.state.newComment.length <= 45) {
                 // we need card owner UID
                 dbRef.ref("User/" + this.props.cardOwnerUID).child('cards/' + this.props.cardID+ '/comments').push({
@@ -85,7 +85,6 @@ class AddComment extends Component {
             .then(function(snapshot){
                 let points = snapshot.child('points').val()
                 points += 5
-                console.log(points)
                 dbRef.ref('User/' + currentUser).update({
                     points
             })
@@ -103,7 +102,6 @@ class AddComment extends Component {
                         badge: 'advanced'
                     });
                 };
-                console.log(badge);
         });
         
     }
@@ -172,7 +170,6 @@ class AddComment extends Component {
                 isValid: false,
                 displayLoginModal: true
             }); 
-            console.log("please login")
         }
     }
 
@@ -297,10 +294,7 @@ class AddComment extends Component {
                     username: user.displayName,
                     userUID: user.uid
                 });
-                console.log("Logged in. name: " + this.state.username);
                 this.getUserInfo();
-            } else {
-                console.log("you're not logged in.")
             }
         })
     }

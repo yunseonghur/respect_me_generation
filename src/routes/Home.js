@@ -49,8 +49,6 @@ class Home extends React.Component{
         for (let entry in resources) {
             if (resources[entry].tag === tag){
                 entries.push(resources[entry]);
-            } else {
-                console.log("Cannot find the tag");
             }
         }
 

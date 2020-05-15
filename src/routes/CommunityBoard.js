@@ -40,7 +40,6 @@ class CommunityBoard extends React.Component{
     getBadgePoints = () => {
         db.ref().child('User').on('value', snap => {
             const snapshot = snap.val();
-            console.log(snapshot[this.state.userUID]['badge']);
             this.setState({
                 badge: snapshot[this.state.userUID]['badge'],
                 points: snapshot[this.state.userUID]['points']
@@ -70,10 +69,7 @@ class CommunityBoard extends React.Component{
                 this.setState({
                     userUID: user.uid,
                 })
-                console.log("Logged in. UID: " + this.state.userUID);
                 this.getBadgePoints();
-            } else {
-                console.log("you're not logged in.")
             }
         })
     }

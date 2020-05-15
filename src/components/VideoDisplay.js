@@ -12,7 +12,6 @@ class VideoDisplay extends Component {
     getVideos() {
         axios.get('https://res.cloudinary.com/respectmegen/video/list/project.json')
           .then(res => {
-            console.log(res.data.resources);
             this.setState({ videos: res.data.resources});
     });
     }

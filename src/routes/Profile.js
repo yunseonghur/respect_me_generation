@@ -125,9 +125,6 @@ class Profile extends React.Component{
                     userUID: user.uid
                 });
                 this.getUserInfo();
-                console.log("current badge: " + this.state.badge);
-            } else {
-                console.log("no current user");
             }
         })
     }

@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Jumbotron from 'react-bootstrap/Jumbotron';
-import { Row, Col } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
+import '../components/HomeResourceEntry.css';
 
 
 /**
@@ -13,7 +12,7 @@ export const ResourceImage = (props) => {
     return (
         <div className="entry">
             <Image src={props.image} alt={props.title} rounded />
-            <p><a href={props.link} target="blank">{props.title}</a></p>
+            <p style={{textAlign: "left"}}><a className="resourceTitle" href={props.link} target="blank">{props.title}</a></p>
         </div>
     )
 }

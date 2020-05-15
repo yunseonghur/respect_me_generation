@@ -7,6 +7,8 @@ import MiniBoard from '../components/MiniBoard';
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 import { Row, Col, Jumbotron } from 'react-bootstrap';
+import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Home extends React.Component{
 
@@ -55,8 +57,8 @@ class Home extends React.Component{
 
         return (
             <div>
-                <h3>{tag}</h3>
-                <Button name="0" onClick={this.toCommBoard} variant="link">></Button>{' '}
+                <h2>#{tag}</h2>
+                <Button name="0" onClick={this.toCommBoard} variant="link"><FontAwesomeIcon className="navItem" icon={faArrowCircleRight} /></Button>
                 <HomeResourceEntry key={tag} tagName={tag} resourcesEntries={entries} /> 
             </div>
         )

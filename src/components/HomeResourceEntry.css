@@ -1,0 +1,17 @@
+.resourceTitle {
+  color: black;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.entry {
+  display: inline-block;
+  margin: 10px;
+  width: 200px;
+}
+
+.entry img {
+  height: 130px;
+  width: 200px;
+}

@@ -19,7 +19,7 @@ var uiConfig = {
       }
     },
     // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-    signInFlow: 'popup',
+    // signInFlow: 'popup',
     signInSuccessUrl: { Home },
     signInOptions: [
       // Leave the lines as is for the providers you want to offer your users.
@@ -27,7 +27,7 @@ var uiConfig = {
     ]
   };
 
-const fireui= function (elementId) {
+const fireui = function (elementId) {
     ui.start(elementId, uiConfig)
 }
 

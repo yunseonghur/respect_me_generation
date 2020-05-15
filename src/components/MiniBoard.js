@@ -16,7 +16,7 @@ class MiniBoard extends Component {
     constructor(props) {
         super(props)
         this.state = {visible: true, isCollapsed: true, btnText: "See more", tag: "all", displayMode: "card"};
-        this.toggleExpandHandler =this.toggleExpandHandler.bind(this);
+        this.toggleExpandHandler = this.toggleExpandHandler.bind(this);
         this.divStyle = {
           maxHeight: "400px"
         }  

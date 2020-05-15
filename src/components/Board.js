@@ -13,14 +13,30 @@ import fire from '../fire.js';
  */
 class Board extends React.Component{
 
-    state ={
-        userUID: null,
-        isLoading: true, // true if the server is still loading cards data
-        visible: true,  // true if cards are visible & false if videos are visible
-        show: false, // false if modal is hidden
-        tag: "all", // selected tag to sort
-        displayMode: "card"
+    constructor(props) {
+        super(props)
+        this.state = {
+            userUID: null,
+            isLoading: true, // true if the server is still loading cards data
+            // visible: true,  // true if cards are visible & false if videos are visible
+            show: false, // false if modal is hidden
+            tag: "all", // selected tag to sort
+            displayMode: "card",
+            videoVisible: false,
+            cardVisible: true   // starts out showing cards
+        }
+        this.toggleOpenCards = this.toggleOpenCards.bind(this);
+        this.toggleOpenVideos = this.toggleOpenVideos.bind(this);
     }
+
+    // state ={
+    //     userUID: null,
+    //     isLoading: true, // true if the server is still loading cards data
+    //     visible: true,  // true if cards are visible & false if videos are visible
+    //     show: false, // false if modal is hidden
+    //     tag: "all", // selected tag to sort
+    //     displayMode: "card"
+    // }
 
     componentDidMount() {
         // get references that DON'T change
@@ -45,15 +61,32 @@ class Board extends React.Component{
 
     display = () => {
         if (this.state.tag === "study") {
-            if (this.state.visible) {
+            if (this.state.cardVisible) {
                 return <Cards tag={this.state.tag}/>
             }
             // return <Cards tag={this.state.tag} />
         } else if (this.state.tag === "relationship") {
-            if (this.state.visible) {
+            if (this.state.cardVisible) {
                 return <Cards tag={this.state.tag}/>
             }
             // return <Cards tag={this.state.tag} />
+        }
+    }
+
+    // toggles between the video and card categories
+    toggleOpenCards = () => {
+        if (this.state.cardVisible === false) {
+            this.setState({cardVisible: true, videoVisible: false})
+        } else {
+            console.log("cards already opened.")
+        }
+    }
+    
+    toggleOpenVideos = () => {
+        if (this.state.videoVisible === false) {
+            this.setState({videoVisible: true, cardVisible: false})
+        } else {
+            console.log("videos already opened.")
         }
     }
 
@@ -64,7 +97,7 @@ class Board extends React.Component{
                 <h2>COMMUNITY BOARD</h2>
                 <h5>What is your community talking about today?</h5>
                 {
-                    this.state.visible ? 
+                    this.state.cardVisible ? 
                     <div className="tagGroup">
                         <ButtonGroup>
                             <Button name="all" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">ALL</Button>
@@ -77,18 +110,10 @@ class Board extends React.Component{
                 }
 
                 <ButtonGroup> 
-                    <Button variant="light" onClick={()=>{
-                        this.setState({ visible: true});
-                    }}>
-                        Cards
-                    </Button>
-                    <Button variant="light" onClick={()=>{
-                        this.setState({ visible: false});
-                    }}>
-                        Videos
-                    </Button>
+                    <Button variant="light" onClick={this.toggleOpenCards}>Cards</Button>
+                    <Button variant="light" onClick={this.toggleOpenVideos}>Videos</Button>
                 </ButtonGroup>
-                { this.state.visible ? <Cards tag={this.state.tag} />: <VideoDisplay />}
+                { this.state.cardVisible ? <Cards tag={this.state.tag} />: <VideoDisplay />}
             </div>
         )}
 }

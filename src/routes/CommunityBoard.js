@@ -35,8 +35,6 @@ class CommunityBoard extends React.Component{
 
     }
 
-    
-
     getBadgePoints = () => {
         db.ref().child('User').on('value', snap => {
             const snapshot = snap.val();
@@ -48,20 +46,6 @@ class CommunityBoard extends React.Component{
             // console.log(this.state.badge);
         });
     }
-
-    // componentDidMount() {
-    //     // get references that DON'T change
-    //     fire.auth().onAuthStateChanged((user) => {
-    //         if (user) {
-    //             this.setState({
-    //                 userUID: user.uid,
-    //             })
-    //             console.log("Logged in. UID: " + this.state.userUID);
-    //         } else {
-    //             console.log("you're not logged in.")
-    //         }
-    //     })
-    // }
 
     getCurrentUser() {
         // get references that DON'T change
@@ -87,10 +71,6 @@ class CommunityBoard extends React.Component{
             })
         }
     }
-
-    // componentWillMount() {
-    //     this.getBadgePoints();
-    // }
 
     uploadHandler = () => {
         console.log("uploadhandler was clicked");
@@ -175,3 +155,18 @@ class CommunityBoard extends React.Component{
 }
 
 export default CommunityBoard;
+
+
+    // componentDidMount() {
+    //     // get references that DON'T change
+    //     fire.auth().onAuthStateChanged((user) => {
+    //         if (user) {
+    //             this.setState({
+    //                 userUID: user.uid,
+    //             })
+    //             console.log("Logged in. UID: " + this.state.userUID);
+    //         } else {
+    //             console.log("you're not logged in.")
+    //         }
+    //     })
+    // }

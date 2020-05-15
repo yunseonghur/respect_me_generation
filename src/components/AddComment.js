@@ -160,34 +160,68 @@ class AddComment extends Component {
     // Check if the user has voted for this card
     verifyVote=(cardOwnerUID, cardID)=>{
         let userUID = this.state.userUID
+        let card;
         dbRef.ref('User/' + cardOwnerUID).once('value')
-        .then(function(snapshot){
-            // let isValid
-            let card = snapshot.child('cards/' + cardID).val()
-            // if someone has voted, check if it's the same user
+        .then((snapshot) => {
+            card = snapshot.child('cards/' + cardID).val();
             if (card['votes'] != null) {
                 for (let vote in card['votes']) {
                     for (let user in card['votes'][vote]) {
+                        console.log("print vote", card['votes'][vote]);
                         // if the user has voted, return isValid as false
                         if (card['votes'][vote][user] === userUID) { 
+                            console.log("FOUND");
                             this.setState({ isValid: false});
                         }
                         // if the user hasn't voted yet for this card, return isValid as true
                         else { 
-                            console.log("user can like")
+                            console.log("FIRST VOTE user can like")
                            this.setState({ isValid: true})
                         }
                     }
                 }
-            // if no one votes yet, allow the user to upvote or downvote
             } else {
                 // isValid = true
-                console.log("user can like")
+                console.log("NO VOTES user can like")
                 this.setState({ isValid: true });
+                console.log("in else", this.state.isValid);
             }
-            // return isValid
-        });
+        }
+        );
+        console.log("return", this.state.isValid);
         return this.state.isValid;
+
+        // dbRef.ref('User/' + cardOwnerUID).once('value')
+        // .then(function(snapshot){
+        //     // let isValid
+        //     let card = snapshot.child('cards/' + cardID).val()
+        //     // if someone has voted, check if it's the same user
+        //     console.log(card['votes']);
+        //     if (card['votes'] != null) {
+        //         for (let vote in card['votes']) {
+        //             console.log(vote);
+        //             for (let user in card['votes'][vote]) {
+        //                 console.log(user);
+        //                 // if the user has voted, return isValid as false
+        //                 if (card['votes'][vote][user] === userUID) { 
+        //                     // this.setState({ isValid: false});
+        //                 }
+        //                 // if the user hasn't voted yet for this card, return isValid as true
+        //                 else { 
+        //                     console.log("user can like")
+        //                 //    this.setState({ isValid: true})
+        //                 }
+        //             }
+        //         }
+        //     // if no one votes yet, allow the user to upvote or downvote
+        //     } else {
+        //         // isValid = true
+        //         console.log("user can like")
+        //         this.setState({ isValid: true });
+        //     }
+        //     // return isValid
+        // });
+        // return this.state.isValid;
     }
 
     // Save user uid to prevent second vote from the same user for same card
@@ -202,10 +236,11 @@ class AddComment extends Component {
     upvoteClicked=()=>{
         let cardOwnerUID = this.props.cardOwnerUID
         let cardID = this.props.cardID
-        console.log("isValid: "+ this.verifyVote(cardOwnerUID, cardID));
+        // console.log("isValid: "+ this.verifyVote(cardOwnerUID, cardID));
         // this.verifyVote(cardOwnerUID, cardID) ? console.log("true") :  console.log("false")
         // isValid === "true" ? console.log("true") :  console.log("false")
-        let upvote
+        if (this.verifyVote(cardOwnerUID, cardID)) {
+            let upvote
         dbRef.ref('User/' + cardOwnerUID).once('value')
             .then(function(snapshot){
                 let card = snapshot.child('cards/' + cardID).val()
@@ -221,15 +256,19 @@ class AddComment extends Component {
         });
         // record userUID to keep track of the user's upvote
         this.recordUser(cardOwnerUID, cardID)
+
+        }
+        
     };
 
     // Increase count of downvote if the vote is valid
     downvoteClicked = () => {
         let cardOwnerUID = this.props.cardOwnerUID
         let cardID = this.props.cardID
-        this.verifyVote(cardOwnerUID, cardID)
+        
         let downvote
-        dbRef.ref('User/' + cardOwnerUID).once('value')
+        if (this.verifyVote(cardOwnerUID, cardID)) {
+            dbRef.ref('User/' + cardOwnerUID).once('value')
             .then(function(snapshot){
                 let card = snapshot.child('cards/' + cardID).val()
                 if (card['downvote'] != null) {
@@ -244,6 +283,9 @@ class AddComment extends Component {
         });
         // record userUID to keep track of the user's upvote
         this.recordUser(cardOwnerUID, cardID)
+
+        }
+
     };
 
     // Return count of upvote

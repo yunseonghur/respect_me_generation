@@ -6,7 +6,7 @@ import { ResourceImage } from './HomeResourceEntry';
 
 
 /**
- * Represents a resource page entry. 
+ * Represents a accordion fold on the Resources ROUTE. 
  * 
  * props:
  * - title = title of the accordion fold

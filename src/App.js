@@ -18,7 +18,6 @@ function App() {
     <Route path="/resources" component={Resources} />
     <Route path="/profile" component={Profile} />
     <Route path="/login" component={Login} />
-    <Route path="/logout" component={Logout} />
     <Route path="/createCard" component={CreateCard} />
   </HashRouter>
   );

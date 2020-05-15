@@ -33,7 +33,7 @@ class VideoDisplay extends Component {
                         // map 
                         videos.map((data, index) => (
                             <div className="videoElement" key={index}>
-                                    <Video publicId={data.public_id} width="380" height="245" controls></Video>
+                                    <Video publicId={data.public_id} width="100%" height="100%" fluid controls></Video>
                             </div>
                         ))
                     }

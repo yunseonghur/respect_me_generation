@@ -5,12 +5,15 @@ import { Row, Col } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 
 
-// Represent an entry consist of an image and a caption for each article
+/**
+ * Represent an entry consist of an image and a caption for each article
+ * @param {*} props 
+ */
 export const ResourceImage = (props) => {
     return (
         <div className="entry">
             <Image src={props.image} alt={props.title} rounded />
-            <p><a href={props.link}>{props.title}</a></p>
+            <p><a href={props.link} target="blank">{props.title}</a></p>
         </div>
     )
 }

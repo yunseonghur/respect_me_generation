@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import fire from '../fire'
 import * as firebaseui from 'firebaseui'
+import Home from '../routes/Home';
 import '../routes/Login.css';
 
 // firebase login authentication UI
@@ -18,7 +20,7 @@ var uiConfig = {
     },
     // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
     signInFlow: 'popup',
-    signInSuccessUrl: '/',
+    signInSuccessUrl: { Home },
     signInOptions: [
       // Leave the lines as is for the providers you want to offer your users.
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -37,7 +39,6 @@ class Login extends Component {
     render() {
         return (
             <div className="login">
-                <br /><br /><br /><br /><br /><br /><br /><br />
                 <div id='firebaseui-auth-container' />
             </div>
         )

@@ -33,9 +33,6 @@ class Board extends Component{
                 this.setState({
                     userUID: user.uid,
                 })
-                console.log("Logged in. UID: " + this.state.userUID);
-            } else {
-                console.log("you're not logged in.")
             }
         })
     }

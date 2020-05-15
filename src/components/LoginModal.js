@@ -16,7 +16,7 @@ class LoginAlertModal extends React.Component {
                     <Modal.Title>Please Login</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Please log in before you create a card.<br/>
+                    Please log in before contributing to the community!<br/>
                     <Nav.Link style={{fontSize: "10pt", fontWeight: "600", border: "1px solid black", borderRadius: "15px"}} 
                         className="loginnav" href='#/login'>Login</Nav.Link>
                 </Modal.Body>

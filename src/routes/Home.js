@@ -56,9 +56,9 @@ class Home extends React.Component{
         }
 
         return (
-            <div>
-                <h2>#{tag}</h2>
-                <Button name="0" onClick={this.toCommBoard} variant="link"><FontAwesomeIcon className="navItem" icon={faArrowCircleRight} /></Button>
+            <div className="resourceEntryWrapper">
+                <h1 className="tagTitle">#{tag}</h1>
+                <Button className="moreButton" name="0" onClick={this.toCommBoard} variant="link"><FontAwesomeIcon className="navItem" icon={faArrowCircleRight} /></Button>
                 <HomeResourceEntry key={tag} tagName={tag} resourcesEntries={entries} /> 
             </div>
         )

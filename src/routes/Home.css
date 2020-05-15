@@ -8,6 +8,16 @@
     font-size: 20pt;
 }
 
+.resource-section {
+  margin-bottom: 50px;
+}
+
+.tagTitle {
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 20px;
+}
+
 .card-section .btn, .resource-section .btn {
     float: right;
     width: fit-content;
@@ -31,8 +41,17 @@
     display: inline-block;
 }
 
-.resource-section .jumbotron-fluid {
-    display: inline-block;
+.resourceEntryWrapper {
+  margin-bottom: 50px;
+  border-bottom: 2px solid black;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.moreButton {
+  font-size: 12px;
 }
 
 /* ! moved to HomeResourceEntry.css */

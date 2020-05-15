@@ -153,7 +153,7 @@ class Profile extends React.Component{
                             {this.state.username} 
                             <img className='profile' src={profile} alt='Profile Pic'></img>
                             <a data-for='proftt' data-tip={this.state.badge}>{badgeIcon}</a>
-                            <a data-for='proftt' data-tip='Your Points'><img className='img' src={pts} alt='Points'></img></a> x{this.state.points}
+                            <a data-for='proftt' data-tip='Your Points'><img className='img' src={pts} alt='Points'></img> x{this.state.points}</a>
                             <ReactTooltip id="proftt" place='bottom' type='warning' effect='float' />
                         </h2>
                         </div>

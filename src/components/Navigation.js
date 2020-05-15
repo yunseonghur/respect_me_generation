@@ -70,9 +70,9 @@ class Navigation extends Component {
                     <Navbar.Toggle id="navBtb" aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ml-auto">
-                            { this.state.user ? <a data-for='main' data-tip='Profile'><Nav.Link href="#profile"><FontAwesomeIcon className="navItem" icon={faUser} /></Nav.Link></a> : null}
-                            <a data-for='main' data-tip='Community Board'><Nav.Link href="#communityBoard"><FontAwesomeIcon className="navItem" icon={faBullhorn} /></Nav.Link></a>
-                            <a data-for='main' data-tip='Resources'><Nav.Link href="#resources"><FontAwesomeIcon className="navItem" icon={faLightbulb} /></Nav.Link></a>
+                            { this.state.user ? <span data-for='main' data-tip='Profile'><Nav.Link href="#profile"><FontAwesomeIcon className="navItem" icon={faUser} /></Nav.Link></span> : null}
+                            <span data-for='main' data-tip='Community Board'><Nav.Link href="#communityBoard"><FontAwesomeIcon className="navItem" icon={faBullhorn} /></Nav.Link></span>
+                            <span data-for='main' data-tip='Resources'><Nav.Link href="#resources"><FontAwesomeIcon className="navItem" icon={faLightbulb} /></Nav.Link></span>
                             { this.state.user ?
                                 <Nav.Link className="navItem" onClick={()=>this.setState({logOutModal: true})} >Log Out</Nav.Link>
                                 : <Nav.Link className="navItem" href='#login'>Log In</Nav.Link>}

@@ -4,6 +4,7 @@ import Board from '../components/Board';
 import { Container, Button, Link } from 'react-floating-action-button';
 import fire from '../fire.js';
 import Toast from 'react-bootstrap/Toast';
+import VideoBadgeModal from '../components/VideoBadgeModal';
 import LoginModal from '../components/LoginModal';
 
 
@@ -28,7 +29,8 @@ class CommunityBoard extends React.Component{
             userUID: null,   // the current user
             badge: "",
             points: "",       // means user is not logged in
-            displayErrorMessage: false
+            displayErrorMessage: false,
+            displayLoginModal: false
         };
         this.getCurrentUser();
 
@@ -76,6 +78,16 @@ class CommunityBoard extends React.Component{
                 console.log("you're not logged in.")
             }
         })
+    }
+
+    goToCreateCard = () =>{
+        if (this.state.userUID != null) {
+            this.props.history.push("/createCard");
+        } else {
+            this.setState({
+                displayLoginModal: true
+            })
+        }
     }
 
     // componentWillMount() {
@@ -127,17 +139,6 @@ class CommunityBoard extends React.Component{
         }
     }
 
-    checkAuth(event){
-        event.preventDefault();
-        var currentUser = fire.auth().currentUser;
-
-        if (currentUser != null) {
-            this.history.pushState(null, 'createcard')
-        } else {
-            this.setState({logInModal: true});
-        }
-    }
-
     increasePoints(currentUser){
         console.log("increase points");
         db.ref('User/'+ currentUser).once('value')
@@ -155,17 +156,7 @@ class CommunityBoard extends React.Component{
 
         return (
             <div>
-                <Toast onClose={() => {this.setState({displayErrorMessage: false})}} show={this.state.displayErrorMessage} delay={3000}>
-                    <Toast.Header>
-                        <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
-                        <strong className="mr-auto">Action not permitted.</strong>
-                    </Toast.Header>
-                    <Toast.Body>Only users with a 'advanced' badge may post.</Toast.Body>
-                    <Toast.Body>Post more to level up!</Toast.Body>
-                </Toast>
-                
                 <Board />
-
                 <Container>
                     <Link tooltip="Upload a video">
                         <Button onClick={this.uploadHandler} disabled>
@@ -173,12 +164,14 @@ class CommunityBoard extends React.Component{
                         </Button>
                     </Link>
                     <Link tooltip="Add a card" >
-                        <Button onClick={this.checkAuth} disabled>
+                        <Button onClick={this.goToCreateCard} disabled>
                             <img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/>
                         </Button>
                     </Link>
                     <Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add"/></Button>
                 </Container>
+                <VideoBadgeModal show={this.state.displayErrorMessage} onHide={()=> this.setState({displayErrorMessage: false})} />
+                <LoginModal show={this.state.displayLoginModal} onHide={()=> this.setState({displayLoginModal: false})} />
             </div>
         )}
 }

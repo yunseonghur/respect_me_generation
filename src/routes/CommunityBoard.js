@@ -20,7 +20,6 @@ class CommunityBoard extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            logInModal: false,
             cards: [],
             videos: [],
             isLoading: true, // true if the server is still loading cards data

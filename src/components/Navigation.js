@@ -67,7 +67,7 @@ class Navigation extends Component {
             <div className="navWrapper">
                 <Nav.Link style={{display: "inline-block"}} href="/" id="brand">RESPECT ME GENERATION</Nav.Link>
                 <Nav style={{float: "right", marginRight: "10px"}} pullRight>
-                    { this.state.user ? <Nav.Link href="#profile"><FontAwesomeIcon className="navItem" icon={faUser} /></Nav.Link> : null}
+                    { this.state.user ? <span data-for='main' data-tip='Profile'><Nav.Link href="#profile"><FontAwesomeIcon className="navItem" icon={faUser} /></Nav.Link></span> : null}
                     <span data-for='main' data-tip='Community Board'><Nav.Link href="#communityBoard"><FontAwesomeIcon className="navItem" icon={faBullhorn} /></Nav.Link></span>
                     <span data-for='main' data-tip='Resources'><Nav.Link href="#resources"><FontAwesomeIcon className="navItem" icon={faLightbulb} /></Nav.Link></span>
                     { this.state.user ?

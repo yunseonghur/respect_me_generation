@@ -12,6 +12,8 @@ import basicBadge from '../images/badge_flat.jpg';
 import advBadge from '../images/adv_badge.png';
 import pts from '../images/points.png';
 import profile from '../images/profile.png';
+import ReactTooltip from 'react-tooltip';
+
 
 const dbRef = fire.database().ref();
 
@@ -26,7 +28,7 @@ class Profile extends React.Component{
         isLoading: true, // true if the server is still loading cards data
         visible: true,  // true if cards are visible & false if videos are visible
         show: false, // false if modal is hiden
-        cardSelected: ""
+        cardSelected: "",
     };
     // Set a flag for modal to true to appear
     showModal = () => {
@@ -135,18 +137,27 @@ class Profile extends React.Component{
         // determines which badge icon to use
         let badgeIcon;
         if(this.state.badge == 'basic'){
-            badgeIcon = <img className='img' src={basicBadge} alt='basic badge'></img>
+            badgeIcon = <img className='img' src={basicBadge} alt='Basic Badge'></img>
         } else {
-            badgeIcon = <img className='img' src={advBadge} alt='advanced badge'></img>
+            badgeIcon = <img className='img' src={advBadge} alt='Advanced Badge'></img>
         };
         
         return (
+            
             <div>
                 <div className="header">
                     <Container>
+                    
                         <div className='pill'>
-                        <h2>{this.state.username} <img className='profile' src={profile}></img>{badgeIcon} <img className='img' src={pts}></img> x{this.state.points}</h2>
+                        <h2>
+                            {this.state.username} 
+                            <img className='profile' src={profile} alt='Profile Pic'></img>
+                            <a data-for='proftt' data-tip={this.state.badge}>{badgeIcon}</a>
+                            <a data-for='proftt' data-tip='Your Points'><img className='img' src={pts} alt='Points'></img> x{this.state.points}</a>
+                            <ReactTooltip id="proftt" place='bottom' type='warning' effect='float' />
+                        </h2>
                         </div>
+                        
                     </Container>
 
                 </div>

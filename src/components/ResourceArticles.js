@@ -5,7 +5,7 @@ const ARTICLES = [
         title: "Exam Preparation: Ten Study Tips",
         description: "You selected #STUDY, you might be interested in this article!",
         link: "https://www.topuniversities.com/student-info/health-and-support/exam-preparation-ten-study-tips",
-        image: "https://i.ibb.co/KDCDnbG/Screen-Shot-2020-05-09-at-7-18-43-PM.png"
+        image: "https://i.ibb.co/4sT5CJX/study1.jpg"
     },
     {   
         id: "s2",
@@ -13,7 +13,7 @@ const ARTICLES = [
         title: "Studying 101: Study Smarter Not Harder",
         description: "You selected #STUDY, you might be interested in this article!",
         link: "https://learningcenter.unc.edu/tips-and-tools/studying-101-study-smarter-not-harder/",
-        image: "https://i.ibb.co/1zBMBW0/Screen-Shot-2020-05-09-at-7-16-59-PM.png"
+        image: "https://i.ibb.co/WKv099g/study2.jpg"
     },
     {   
         id: "s3",
@@ -21,7 +21,7 @@ const ARTICLES = [
         title: "Tips for effective, efficient studying",
         description: "You selected #STUDY, you might be interested in this article!",
         link: "https://www.khanacademy.org/test-prep/sat/new-sat-tips-planning/new-sat-how-to-prep/a/tips-for-effective-efficient-studying",
-        image: "https://i.ibb.co/C0XvzZy/Screen-Shot-2020-05-09-at-7-21-53-PM.png"
+        image: "https://i.ibb.co/dG4DhGr/study3.png"
     },
     {   
         id: "s4",
@@ -29,7 +29,7 @@ const ARTICLES = [
         title: "BEST Memorisation Techniques For Exams",
         description: "You selected #STUDY, you might be interested in this article!",
         link: "https://examstudyexpert.com/memorisation-techniques-for-exams/",
-        image: "https://i0.wp.com/examstudyexpert.com/wp-content/uploads/2019/02/Man-in-graduation-cap.jpg?w=1355&ssl=1"
+        image: "https://i.ibb.co/cwxdmBh/study4.jpg"
     },
     {
         id: "r1",

@@ -8,6 +8,16 @@
     font-size: 20pt;
 }
 
+.resource-section {
+  margin-bottom: 50px;
+}
+
+.tagTitle {
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 20px;
+}
+
 .card-section .btn, .resource-section .btn {
     float: right;
     width: fit-content;
@@ -27,33 +37,36 @@
     margin-top: 150px;
 }
 
-.resource-section .jumbotron-fluid {
-    padding-bottom: 0px;
-    padding-top: 0px;
-}
-
-.entry {
-    margin: 10px;
-}
-
-.entry img {
-    height: 150px;
-    width: 200px;
-}
-
-.resource-section .jumbotron-fluid p {
-    font-size: 9pt;
-    margin: 0;
-    text-align: center;
-}
-
 .resource-section button {
     display: inline-block;
 }
 
-.resource-section .jumbotron-fluid {
-    display: inline-block;
+.resourceEntryWrapper {
+  /* border-bottom: 2px solid black; */
+  padding-top: 20px;
+  padding-bottom: 30px;
+  max-width: 1080px;
+  margin: 0 auto;
 }
+
+.moreButton {
+  font-size: 12px;
+}
+
+/* ! moved to HomeResourceEntry.css */
+/* .entry {
+    margin: 10px;
+}
+
+.entry img {
+    height: 130px;
+    width: 200px;
+} */
+
+/* .resourceTitle {
+  color: black;
+  font-size: 12px;
+} */
 
 /* Medium devices (landscape tablets, 768px and down)
 @media only screen and (max-width: 768px) {

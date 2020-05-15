@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Jumbotron from 'react-bootstrap/Jumbotron';
-import { Row, Col } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
+import '../components/HomeResourceEntry.css';
 
 
 /**
@@ -12,8 +11,8 @@ import Image from 'react-bootstrap/Image';
 export const ResourceImage = (props) => {
     return (
         <div className="entry">
-            <Image src={props.image} alt={props.title} rounded />
-            <p><a href={props.link} target="blank">{props.title}</a></p>
+                <Image src={props.image} alt={props.title} rounded />
+            <p style={{textAlign: "left",  marginTop: "10px"}}><a className="resourceTitle" href={props.link} target="blank">{props.title}</a></p>
         </div>
     )
 }
@@ -28,19 +27,13 @@ class HomeResourceEntry extends React.Component{
     render(){
         return (
             <div>
-                <Jumbotron fluid>
-                    <Row>
-                        {(this.state.entries.map((entry)=> 
-                            <Col>
-                            <ResourceImage 
-                                key={entry.id} 
-                                title={entry.title} 
-                                image={entry.image}
-                                link={entry.link} />
-                            </Col>
-                        ))}
-                    </Row>
-                </Jumbotron>
+                {(this.state.entries.map((entry)=> 
+                    <ResourceImage 
+                        key={entry.id} 
+                        title={entry.title} 
+                        image={entry.image}
+                        link={entry.link} />
+                ))}
             </div>
         )
     }

@@ -63,7 +63,9 @@ class Profile extends React.Component{
         let commentNumber = 0;
         if (cardComment != null) {
             // count and increment commentNumber
-            commentNumber++;
+            for (let count in cardComment) {
+                commentNumber++;
+            }
         }
 
         return commentNumber;

@@ -28,19 +28,13 @@ class HomeResourceEntry extends React.Component{
     render(){
         return (
             <div>
-                <Jumbotron fluid>
-                    <Row>
-                        <Col>
-                        {(this.state.entries.map((entry)=> 
-                            <ResourceImage 
-                                key={entry.id} 
-                                title={entry.title} 
-                                image={entry.image}
-                                link={entry.link} />
-                        ))}
-                        </Col>
-                    </Row>
-                </Jumbotron>
+                {(this.state.entries.map((entry)=> 
+                    <ResourceImage 
+                        key={entry.id} 
+                        title={entry.title} 
+                        image={entry.image}
+                        link={entry.link} />
+                ))}
             </div>
         )
     }

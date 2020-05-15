@@ -27,11 +27,6 @@
     margin-top: 150px;
 }
 
-.resource-section .jumbotron-fluid {
-    padding-bottom: 0px;
-    padding-top: 0px;
-}
-
 .entry {
     margin: 10px;
 }
@@ -39,12 +34,6 @@
 .entry img {
     height: 135px;
     width: 185px;
-}
-
-.resource-section .jumbotron-fluid p {
-    font-size: 9pt;
-    margin: 0;
-    text-align: center;
 }
 
 .resource-section button {

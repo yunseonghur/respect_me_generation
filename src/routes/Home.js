@@ -55,20 +55,20 @@ class Home extends React.Component{
         return ( 
             <div>
                 <h3>#study</h3>
-                <Jumbotron>
+                
                     <Button name="0" onClick={this.toCommBoard} variant="link">></Button>{' '}
                     <HomeResourceEntry key="study" tagName="study" resourcesEntries={studyEntries} /> 
-                </Jumbotron>
+            
                 <h3>#health</h3>
-                <Jumbotron>
+                
                     <Button name="1" onClick={this.toCommBoard} variant="link">></Button>{' '}
                     <HomeResourceEntry key="health" tagName="health" resourcesEntries={healthEntries} /> 
-                </Jumbotron>
+                
                 <h3>#relationship</h3>
-                <Jumbotron>
+                
                     <Button name="2" onClick={this.toCommBoard} variant="link">></Button>{' '}
                     <HomeResourceEntry key="relationship" tagName="relationship" resourcesEntries={relationshipEntries} />
-                </Jumbotron>
+            
             </div>
         );
     }

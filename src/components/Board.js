@@ -18,25 +18,14 @@ class Board extends React.Component{
         this.state = {
             userUID: null,
             isLoading: true, // true if the server is still loading cards data
-            // visible: true,  // true if cards are visible & false if videos are visible
             show: false, // false if modal is hidden
             tag: "all", // selected tag to sort
-            displayMode: "card",
             videoVisible: false,
             cardVisible: true   // starts out showing cards
         }
         this.toggleOpenCards = this.toggleOpenCards.bind(this);
         this.toggleOpenVideos = this.toggleOpenVideos.bind(this);
     }
-
-    // state ={
-    //     userUID: null,
-    //     isLoading: true, // true if the server is still loading cards data
-    //     visible: true,  // true if cards are visible & false if videos are visible
-    //     show: false, // false if modal is hidden
-    //     tag: "all", // selected tag to sort
-    //     displayMode: "card"
-    // }
 
     componentDidMount() {
         // get references that DON'T change
@@ -59,20 +48,6 @@ class Board extends React.Component{
         })
     }
 
-    display = () => {
-        if (this.state.tag === "study") {
-            if (this.state.cardVisible) {
-                return <Cards tag={this.state.tag}/>
-            }
-            // return <Cards tag={this.state.tag} />
-        } else if (this.state.tag === "relationship") {
-            if (this.state.cardVisible) {
-                return <Cards tag={this.state.tag}/>
-            }
-            // return <Cards tag={this.state.tag} />
-        }
-    }
-
     // toggles between the video and card categories
     toggleOpenCards = () => {
         if (this.state.cardVisible === false) {
@@ -90,7 +65,6 @@ class Board extends React.Component{
         }
     }
 
-    // TODO: Replace hardcoded tags (line14~)
     render() {
         return (
             <div className="text-center">
@@ -119,3 +93,28 @@ class Board extends React.Component{
 }
 
 export default Board;
+
+ // state ={
+    //     userUID: null,
+    //     isLoading: true, // true if the server is still loading cards data
+    //     visible: true,  // true if cards are visible & false if videos are visible
+    //     show: false, // false if modal is hidden
+    //     tag: "all", // selected tag to sort
+    //     displayMode: "card"
+    // }
+
+// display = () => {
+    //     if (this.state.tag === "study") {
+    //         if (this.state.cardVisible) {
+    //             return <Cards tag={this.state.tag}/>
+    //         }
+    //         // return <Cards tag={this.state.tag} />
+    //     } else if (this.state.tag === "relationship") {
+    //         if (this.state.cardVisible) {
+    //             return <Cards tag={this.state.tag}/>
+    //         }
+    //         // return <Cards tag={this.state.tag} />
+    //     }
+    // }
+
+    // visible: true,  // true if cards are visible & false if videos are visible

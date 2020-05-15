@@ -50,6 +50,7 @@ class Home extends React.Component{
             if (resources[entry].tag === tag){
                 entries.push(resources[entry]);
             } else {
+                // will also print out if not ARTICLES haven't been loaded
                 console.log("Cannot find the tag");
             }
         }

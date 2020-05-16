@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from './ReportModal';
 import './AddComment.css';
 import TextLengthModal from './TextLengthModal';
+import EmptyTextModal from './EmptyTextModal';
 import LoginModal from './LoginModal';
 
 const dbRef = fire.database();
@@ -27,7 +28,8 @@ class AddComment extends Component {
             textLengthModal: false,
             isValid: false,
             showVoteError: false,
-            displayLoginModal: false
+            displayLoginModal: false,
+            emptyTextModal: false
         }
         this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -64,18 +66,19 @@ class AddComment extends Component {
     }
 
     writeComment(event) {
-        console.log(this.state.newComment)
         if(this.state.userUID !== ''){
-            if (this.state.newComment.length <= 45) {
-                // we need card owner UID
+            // if the length of the comment is no more than 45 characters
+            if (this.state.newComment.length <= 45 && this.state.newComment.length > 0) {
                 dbRef.ref("User/" + this.props.cardOwnerUID).child('cards/' + this.props.cardID+ '/comments').push({
                     comment: this.state.newComment,
                     user: this.state.username
                 });
                 this.increasePoints(this.state.userUID);
                 this.setState({ newComment: '' });
-                console.log(this.state.newComment)
-
+                // if the comment is an empty text
+            } else if (this.state.newComment.length == 0) {
+                this.setState({ emptyTextModal: true });
+                // if the length of the comment is more than 45 characters
             } else {
                 this.setState({ textLengthModal: true });
             }
@@ -391,13 +394,16 @@ class AddComment extends Component {
                 </Modal>
                 <ReportModal 
                     show={this.state.reportModal} 
-                    onHide={()=> this.setState({reportModal: false})}
+                    onHide={()=> this.setState({ reportModal: false })}
                     cardID={this.props.cardID}
                     cardOwnerUID={this.props.cardOwnerUID}/>
                 <TextLengthModal
                     show={this.state.textLengthModal} 
-                    onHide={()=> this.setState({textLengthModal: false})}
+                    onHide={()=> this.setState({ textLengthModal: false })}
                     textLength={45}/>
+                <EmptyTextModal
+                    show={this.state.emptyTextModal} 
+                    onHide={()=> this.setState({ emptyTextModal: false })} />
                 <LoginModal show={this.state.loginModal} onHide={()=> this.setState({loginModal: false})} />
 
             </div>

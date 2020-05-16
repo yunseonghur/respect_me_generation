@@ -104,9 +104,13 @@ class CommunityBoard extends React.Component{
         console.log("current badge: " + this.state.badge + "\ncurrent points: " + this.state.points);
         if (this.state.userUID != null && this.state.badge === "advanced") {
             myWidget.open();
-        } else {
+        } else if (this.state.userUID != null && this.state.badge === "basic"){
             this.setState({
                 displayErrorMessage: true
+            })
+        } else if (this.state.userUID === null) {
+            this.setState({
+                displayLoginModal: true
             })
         }
     }

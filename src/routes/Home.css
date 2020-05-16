@@ -9,6 +9,7 @@
 }
 
 .tagTitle {
+  display: inline-block;
   margin-bottom: 20px;
   font-weight: 600;
   font-size: 20px;
@@ -42,12 +43,13 @@
   /* border-bottom: 2px solid black; */
   padding-top: 20px;
   padding-bottom: 30px;
-  max-width: 1080px;
+  max-width: 970px;
   margin: 0 auto;
 }
 
 .moreButton {
   font-size: 12px;
+  border: none;
 }
 
 @media only screen and (max-width: 600px) {

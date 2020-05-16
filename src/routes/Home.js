@@ -30,7 +30,7 @@ class Home extends React.Component{
      * Gets resource entry based on tag.
      * @param {the type of post} tag 
      */
-    getResourceEntry(tag) {
+    getResourceEntry(tag, eventKey) {
         let resources = [];
 
         ARTICLES.map(ARTICLE => {
@@ -55,7 +55,9 @@ class Home extends React.Component{
         return (
             <div className="resourceEntryWrapper">
                 <h1 className="tagTitle">#{tag}</h1>
-                <Button className="moreButton" name="0" onClick={this.toResource} variant="link"><FontAwesomeIcon className="navItem" icon={faArrowCircleRight} /></Button>
+                <button className="moreButton" onClick={this.toResource}>
+                    <FontAwesomeIcon className="navItem" icon={faArrowCircleRight} />
+                </button>
                 <HomeResourceEntry key={tag} tagName={tag} resourcesEntries={entries} /> 
             </div>
         )
@@ -72,9 +74,9 @@ class Home extends React.Component{
                 </div>
 
                 <div className="resource-section">
-                    {this.getResourceEntry("study")}
-                    {this.getResourceEntry("health")}
-                    {this.getResourceEntry("relationship")}
+                    {this.getResourceEntry("study", 0)}
+                    {this.getResourceEntry("health", 1)}
+                    {this.getResourceEntry("relationship", 2)}
                 </div>
             </div>
         );

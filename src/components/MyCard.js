@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './MyCard.css';
 import { faComments, faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";

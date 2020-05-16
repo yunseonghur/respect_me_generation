@@ -10,7 +10,6 @@ import Container from 'react-bootstrap/Container';
 import fire from '../fire.js';
 import basicBadge from '../images/badge_flat.jpg';
 import advBadge from '../images/adv_badge.png';
-import pts from '../images/points.png';
 import profile from '../images/profile.png';
 import ReactTooltip from 'react-tooltip';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

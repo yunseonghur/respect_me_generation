@@ -3,7 +3,7 @@ import {Modal, Button, Row, Col, Form } from 'react-bootstrap';
 import Comment from './Comment';
 import fire from '../fire';
 import MyCard from './MyCard';
-import { faFlag, faComments, faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+import { faFlag, faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from './ReportModal';
 import './AddComment.css';
@@ -76,7 +76,7 @@ class AddComment extends Component {
                 this.increasePoints(this.state.userUID);
                 this.setState({ newComment: '' });
                 // if the comment is an empty text
-            } else if (this.state.newComment.length == 0) {
+            } else if (this.state.newComment.length === 0) {
                 this.setState({ emptyTextModal: true });
                 // if the length of the comment is more than 45 characters
             } else {

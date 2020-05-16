@@ -4,7 +4,6 @@ import Quote from '../components/Quote';
 import HomeResourceEntry from '../components/HomeResourceEntry';
 import ARTICLES from '../components/ResourceArticles';
 import MiniBoard from '../components/MiniBoard';
-import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

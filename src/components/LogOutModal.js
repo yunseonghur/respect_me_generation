@@ -9,7 +9,9 @@ class LogoutModal extends React.Component {
     }
     logOut() {
         fire.auth().signOut().then(function() {
-            window.location.reload(false);
+            // window.location.reload(false);
+            window.location.href="/";
+
         }).catch(function(error) {
             console.log("Sign out ERROR");
         })

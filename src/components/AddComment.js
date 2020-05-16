@@ -376,10 +376,10 @@ class AddComment extends Component {
                     onHide={()=> this.setState({reportModal: false})}
                     cardID={this.props.cardID}
                     cardOwnerUID={this.props.cardOwnerUID}/>
-                <TextLengthModal
+                {/* <TextLengthModal
                     show={this.state.textLengthModal} 
                     onHide={()=> this.setState({textLengthModal: false})}
-                    textLength={45}/>
+                    textLength={45}/> */}
                 <LoginModal show={this.state.loginModal} onHide={()=> this.setState({loginModal: false})} />
 
             </div>

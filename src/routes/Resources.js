@@ -65,7 +65,7 @@ class Resources  extends Component{
     render() {
         return (
                 <div className="base">
-                    <h1>RESOURCES</h1>
+                    <h2>RESOURCES</h2>
 
                     <Accordion className="accordion" defaultActiveKey={this.getContentClicked()}>
                         {this.getResourceEntries()}

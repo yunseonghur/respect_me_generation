@@ -8,7 +8,7 @@
     align-items: center;
 }
 
-.pill {
+/* .pill {
 
     z-index: 1;
     border: 1px solid black;
@@ -21,6 +21,25 @@
     margin-left: auto;
     margin-right: auto;
 
+} */
+.pill {
+
+    z-index: 1;
+    border: 1px solid black;
+    border-radius: 100px;
+    height: 70px;
+    width: max-content;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 80px;
+}
+
+.pill h2 {
+    padding: 0;
+    display: block;
+    margin-left: 40px;
+    margin-right: 40px;
+    width: fit-content;
 }
 
 div h2 {

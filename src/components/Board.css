@@ -18,5 +18,17 @@
 }
 
 .text-center {
-  margin-bottom: 180px;
+    margin-top: 70px;
+    margin-bottom: 180px;
+}
+
+.text-center h2 {
+    margin-bottom: 5px;
+    font-size: 2.5rem;
+}
+
+.text-center h5 {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
 }

@@ -150,7 +150,7 @@ class Profile extends React.Component{
                     
                         <div className='pill'>
                         <h2>
-                            {this.state.username} 
+                            <span>{this.state.username}</span>
                             <img className='profile' src={profile} alt='Profile Pic'></img>
                             <a data-for='proftt' data-tip={this.state.badge}>{badgeIcon}</a>
                             <a data-for='proftt' data-tip='Your Points'><img className='img' src={pts} alt='Points'></img> x{this.state.points}</a>

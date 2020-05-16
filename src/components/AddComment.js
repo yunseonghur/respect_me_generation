@@ -314,7 +314,7 @@ class AddComment extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <div>
-                            <Row>
+                            <Row> 
                                 <Col>
                                 {this.displayCard()}
                                 </Col>

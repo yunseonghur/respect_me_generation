@@ -1,4 +1,4 @@
-.cardWrapper {
+#cardWrapper {
   margin: 5px;
 }
 
@@ -121,4 +121,23 @@
 
 .overlay {
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+@media only screen and (max-width: 375px) {
+  #cardWrapper {
+    width: fit-content;
+    margin-left: 65px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  #cardWrapper {
+    margin-left: 55px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  #cardWrapper {
+    margin-left: 35px;
+  }
 }

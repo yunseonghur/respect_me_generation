@@ -125,9 +125,6 @@ class Profile extends React.Component{
                     userUID: user.uid
                 });
                 this.getUserInfo();
-                console.log("current badge: " + this.state.badge);
-            } else {
-                console.log("no current user");
             }
         })
     }
@@ -136,7 +133,7 @@ class Profile extends React.Component{
 
         // determines which badge icon to use
         let badgeIcon;
-        if(this.state.badge == 'basic'){
+        if(this.state.badge === 'basic'){
             badgeIcon = <img className='img' src={basicBadge} alt='Basic Badge'></img>
         } else {
             badgeIcon = <img className='img' src={advBadge} alt='Advanced Badge'></img>

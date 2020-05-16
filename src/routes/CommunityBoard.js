@@ -31,16 +31,11 @@ class CommunityBoard extends React.Component{
             displayLoginModal: false
         };
         this.getCurrentUser();
-
-
     }
-
-    
 
     getBadgePoints = () => {
         db.ref().child('User').on('value', snap => {
             const snapshot = snap.val();
-            console.log(snapshot[this.state.userUID]['badge']);
             this.setState({
                 badge: snapshot[this.state.userUID]['badge'],
                 points: snapshot[this.state.userUID]['points']
@@ -49,20 +44,6 @@ class CommunityBoard extends React.Component{
         });
     }
 
-    // componentDidMount() {
-    //     // get references that DON'T change
-    //     fire.auth().onAuthStateChanged((user) => {
-    //         if (user) {
-    //             this.setState({
-    //                 userUID: user.uid,
-    //             })
-    //             console.log("Logged in. UID: " + this.state.userUID);
-    //         } else {
-    //             console.log("you're not logged in.")
-    //         }
-    //     })
-    // }
-
     getCurrentUser() {
         // get references that DON'T change
         fire.auth().onAuthStateChanged((user) => {
@@ -70,10 +51,7 @@ class CommunityBoard extends React.Component{
                 this.setState({
                     userUID: user.uid,
                 })
-                console.log("Logged in. UID: " + this.state.userUID);
                 this.getBadgePoints();
-            } else {
-                console.log("you're not logged in.")
             }
         })
     }
@@ -87,10 +65,6 @@ class CommunityBoard extends React.Component{
             })
         }
     }
-
-    // componentWillMount() {
-    //     this.getBadgePoints();
-    // }
 
     uploadHandler = () => {
         console.log("uploadhandler was clicked");
@@ -110,8 +84,8 @@ class CommunityBoard extends React.Component{
                     var key = db.ref().child('videos').push().key;
 
                     var updates = {};
-                    updates['/videos/' + key] = result.info.public_id;
 
+                    updates['/videos/' + key] = result.info.public_id;
                     db.ref('User/' + this.state.userUID).update(updates);
 
                     console.log("video " + result.info.public_id + "added to user " + this.state.userUID);
@@ -151,10 +125,11 @@ class CommunityBoard extends React.Component{
     }
 
     render() {
-
         return (
             <div>
                 <Board />
+
+                {/* the red (+) button */}
                 <Container>
                     <Link tooltip="Upload a video">
                         <Button onClick={this.uploadHandler} disabled>
@@ -175,3 +150,18 @@ class CommunityBoard extends React.Component{
 }
 
 export default CommunityBoard;
+
+
+    // componentDidMount() {
+    //     // get references that DON'T change
+    //     fire.auth().onAuthStateChanged((user) => {
+    //         if (user) {
+    //             this.setState({
+    //                 userUID: user.uid,
+    //             })
+    //             console.log("Logged in. UID: " + this.state.userUID);
+    //         } else {
+    //             console.log("you're not logged in.")
+    //         }
+    //     })
+    // }

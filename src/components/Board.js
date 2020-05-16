@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './Board.css';
 import Cards from './Cards';
 import VideoDisplay from "./VideoDisplay";
@@ -6,20 +6,24 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import fire from '../fire.js';
 
-
 /**
  * Component that handles toggling display of cards and videos.
  * Actual data is being displayed by Card and VideoDisplay components.
  */
-class Board extends React.Component{
+class Board extends Component{
 
-    state ={
-        userUID: null,
-        isLoading: true, // true if the server is still loading cards data
-        visible: true,  // true if cards are visible & false if videos are visible
-        show: false, // false if modal is hidden
-        tag: "all", // selected tag to sort
-        displayMode: "card"
+    constructor(props) {
+        super(props)
+        this.state = {
+            userUID: null,
+            isLoading: true, // true if the server is still loading cards data
+            show: false, // false if modal is hidden
+            tag: "all", // selected tag to sort
+            videoVisible: false,
+            cardVisible: true   // starts out showing cards
+        }
+        this.toggleOpenCards = this.toggleOpenCards.bind(this);
+        this.toggleOpenVideos = this.toggleOpenVideos.bind(this);
     }
 
     componentDidMount() {
@@ -29,9 +33,6 @@ class Board extends React.Component{
                 this.setState({
                     userUID: user.uid,
                 })
-                console.log("Logged in. UID: " + this.state.userUID);
-            } else {
-                console.log("you're not logged in.")
             }
         })
     }
@@ -43,28 +44,31 @@ class Board extends React.Component{
         })
     }
 
-    display = () => {
-        if (this.state.tag === "study") {
-            if (this.state.visible) {
-                return <Cards tag={this.state.tag}/>
-            }
-            // return <Cards tag={this.state.tag} />
-        } else if (this.state.tag === "relationship") {
-            if (this.state.visible) {
-                return <Cards tag={this.state.tag}/>
-            }
-            // return <Cards tag={this.state.tag} />
+    // toggles between the video and card categories
+    toggleOpenCards = () => {
+        if (this.state.cardVisible === false) {
+            this.setState({cardVisible: true, videoVisible: false})
+        } else {
+            console.log("cards already opened.")
+        }
+    }
+    
+    toggleOpenVideos = () => {
+        if (this.state.videoVisible === false) {
+            this.setState({videoVisible: true, cardVisible: false})
+        } else {
+            console.log("videos already opened.")
         }
     }
 
-    // TODO: Replace hardcoded tags (line14~)
     render() {
         return (
             <div className="text-center">
+                <div className="toggleButtons">
                 <h2>COMMUNITY BOARD</h2>
                 <h5>What is your community talking about today?</h5>
                 {
-                    this.state.visible ? 
+                    this.state.cardVisible ? 
                     <div className="tagGroup">
                         <ButtonGroup>
                             <Button name="all" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">ALL</Button>
@@ -76,21 +80,43 @@ class Board extends React.Component{
                     : <div><br/><br/><br/></div>
                 }
 
-                <ButtonGroup> 
-                    <Button variant="light" onClick={()=>{
-                        this.setState({ visible: true});
-                    }}>
-                        Cards
-                    </Button>
-                    <Button variant="light" onClick={()=>{
-                        this.setState({ visible: false});
-                    }}>
-                        Videos
-                    </Button>
-                </ButtonGroup>
-                { this.state.visible ? <Cards tag={this.state.tag} />: <VideoDisplay />}
+                    <ButtonGroup> 
+                        <Button variant="light" onClick={this.toggleOpenCards}>Cards</Button>
+                        <Button variant="light" onClick={this.toggleOpenVideos}>Videos</Button>
+                    </ButtonGroup>
+                </div>
+
+                <div>
+                    { this.state.cardVisible ? <Cards tag={this.state.tag} />: <VideoDisplay />}
+                </div>
+
             </div>
         )}
 }
 
 export default Board;
+
+ // state ={
+    //     userUID: null,
+    //     isLoading: true, // true if the server is still loading cards data
+    //     visible: true,  // true if cards are visible & false if videos are visible
+    //     show: false, // false if modal is hidden
+    //     tag: "all", // selected tag to sort
+    //     displayMode: "card"
+    // }
+
+// display = () => {
+    //     if (this.state.tag === "study") {
+    //         if (this.state.cardVisible) {
+    //             return <Cards tag={this.state.tag}/>
+    //         }
+    //         // return <Cards tag={this.state.tag} />
+    //     } else if (this.state.tag === "relationship") {
+    //         if (this.state.cardVisible) {
+    //             return <Cards tag={this.state.tag}/>
+    //         }
+    //         // return <Cards tag={this.state.tag} />
+    //     }
+    // }
+
+    // visible: true,  // true if cards are visible & false if videos are visible

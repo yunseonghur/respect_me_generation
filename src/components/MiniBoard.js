@@ -15,8 +15,15 @@ class MiniBoard extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {visible: true, isCollapsed: true, btnText: "See more", tag: "all", displayMode: "card"};
-        this.toggleExpandHandler =this.toggleExpandHandler.bind(this);
+        this.state = {
+            // visible: true, 
+            videoVisible: false,
+            cardVisible: true,   // starts out showing cards
+            isCollapsed: true, 
+            btnText: "See more", 
+            tag: "all", 
+            displayMode: "card"};
+        this.toggleExpandHandler = this.toggleExpandHandler.bind(this);
         this.divStyle = {
           maxHeight: "400px"
         }  
@@ -48,12 +55,29 @@ class MiniBoard extends Component {
         })
     }
 
+    // toggles between the video and card categories
+    toggleOpenCards = () => {
+        if (this.state.cardVisible === false) {
+            this.setState({cardVisible: true, videoVisible: false})
+        } else {
+            console.log("cards already opened.")
+        }
+    }
+    
+    toggleOpenVideos = () => {
+        if (this.state.videoVisible === false) {
+            this.setState({videoVisible: true, cardVisible: false})
+        } else {
+            console.log("videos already opened.")
+        }
+    }
+
     render() {
         return (
             <div>
                 <div className="toggleButtons">
                 {
-                this.state.visible ? 
+                this.state.cardVisible ? 
                     <div className="tagGroup">
                     <ButtonGroup>
                         <Button name="all" onClick={this.handleTag} variant="outline-primary" className="rounded-pill">ALL</Button>
@@ -64,25 +88,15 @@ class MiniBoard extends Component {
                     </div>
                     : <div><br/><br/><br/></div>
                 }
-                
-
-                <ButtonGroup className="btnGroup"> 
-                    <Button variant="light" onClick={()=>{
-                        this.setState({ visible: true});
-                    }}>
-                        Cards
-                    </Button>
-                    <Button variant="light" onClick={()=>{
-                        this.setState({ visible: false});
-                    }}>
-                        Videos
-                    </Button>
-                </ButtonGroup>
+                    <ButtonGroup> 
+                        <Button variant="light" onClick={this.toggleOpenCards}>Cards</Button>
+                        <Button variant="light" onClick={this.toggleOpenVideos}>Videos</Button>
+                    </ButtonGroup>
                 </div>
                 
                 <div className="visibleBoardWrapper">
                     <div style={this.divStyle} className="visibleBoard">
-                        { this.state.visible ? <Cards tag={this.state.tag} /> : <VideoDisplay /> }
+                        { this.state.cardVisible ? <Cards tag={this.state.tag} /> : <VideoDisplay /> }
                     </div>
                     <div className="fade" style={{opacity: "1"}}></div>
                     <div className="buttonContainer">
@@ -90,8 +104,7 @@ class MiniBoard extends Component {
                     </div>
                 </div>
             </div>
-        )
-    }
+        )}
 
 }
 

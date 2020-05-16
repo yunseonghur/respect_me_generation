@@ -23,7 +23,6 @@
 
 } */
 .pill {
-
     z-index: 1;
     border: 1px solid black;
     border-radius: 100px;
@@ -34,7 +33,16 @@
     margin-bottom: 80px;
 }
 
-.pill h2 {
+#points-text {
+    font-size: 10pt;
+}
+
+#coin-icon {
+    font-size: large;
+    color: gold;
+}
+
+.pill h3 {
     padding: 0;
     display: block;
     margin-left: 40px;

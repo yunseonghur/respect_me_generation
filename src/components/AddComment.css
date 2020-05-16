@@ -36,3 +36,15 @@
     left: 0;
     margin-left: 120px;
 }
+
+@media only screen and (max-width: 320px) {
+    .comments {
+      width: 174px;
+    }
+    #inputCol {
+        padding-right: 0;
+    }
+    #addButtonCol {
+        padding-left: 0;
+    }
+  }

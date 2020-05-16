@@ -3,7 +3,6 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import fire from '../fire'
 import * as firebaseui from 'firebaseui'
-import Home from '../routes/Home';
 import '../routes/Login.css';
 
 // firebase login authentication UI

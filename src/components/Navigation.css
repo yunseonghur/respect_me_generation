@@ -38,3 +38,17 @@
   display: inline-block !important;
   text-align: right;
 } */
+
+@media only screen and (min-width: 768px) {
+  #brand {
+    font-size: 13pt;
+    width: 150px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  #brand {
+    font-size: 16pt;
+    width: 160px;
+  }
+}

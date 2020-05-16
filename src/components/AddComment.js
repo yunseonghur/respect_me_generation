@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from './ReportModal';
 import './AddComment.css';
 import TextLengthModal from './TextLengthModal';
+import EmptyTextModal from './EmptyTextModal';
 import LoginModal from './LoginModal';
 
 const dbRef = fire.database();
@@ -27,7 +28,8 @@ class AddComment extends Component {
             textLengthModal: false,
             isValid: false,
             showVoteError: false,
-            displayLoginModal: false
+            displayLoginModal: false,
+            emptyTextModal: false
         }
         this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -52,6 +54,7 @@ class AddComment extends Component {
                 comment: cards[card].comments,
                 background: cards[card].imgOption,
                 text: cards[card].text,
+                numComments: this.countComments(cards[card].comments),
                 upvote: this.countUpvotes(cards[card].upvote),
                 downvote: this.countDownvotes(cards[card].downvote)
             });
@@ -63,17 +66,21 @@ class AddComment extends Component {
     }
 
     writeComment(event) {
-        
         if(this.state.userUID !== ''){
-            if (this.state.newComment.length <= 45) {
-                // we need card owner UID
+            // if the length of the comment is no more than 45 characters
+            if (this.state.newComment.length <= 45 && this.state.newComment.length > 0) {
                 dbRef.ref("User/" + this.props.cardOwnerUID).child('cards/' + this.props.cardID+ '/comments').push({
                     comment: this.state.newComment,
                     user: this.state.username
                 });
                 this.increasePoints(this.state.userUID);
+                this.setState({ newComment: '' });
+                // if the comment is an empty text
+            } else if (this.state.newComment.length === 0) {
+                this.setState({ emptyTextModal: true });
+                // if the length of the comment is more than 45 characters
             } else {
-                this.setState({textLengthModal: true});
+                this.setState({ textLengthModal: true });
             }
         } else {
             this.setState({ loginModal: true })
@@ -139,6 +146,7 @@ class AddComment extends Component {
     displayCard() {
         let imgOption;
         let text;
+        let numComments;
         let upvote;
         let downvote;
         dbRef.ref().child('User').on('value', snap => {
@@ -146,6 +154,7 @@ class AddComment extends Component {
             if(userInfo[this.props.cardOwnerUID]!=null){
                 imgOption = userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['imgOption'];
                 text = userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['text'];
+                numComments = this.countComments(userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['comments']);
                 upvote = this.countUpvotes(userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['upvote']);
                 downvote = this.countDownvotes(userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['downvote']);
             }
@@ -154,7 +163,8 @@ class AddComment extends Component {
                     key={this.props.cardID}
                     id={this.props.cardID} 
                     background={imgOption} 
-                    text={text}                                     
+                    text={text}             
+                    commentCount={numComments}                        
                     upvoteCount={upvote}
                     downvoteCount={downvote} />
     }
@@ -270,6 +280,23 @@ class AddComment extends Component {
         }
     };
 
+    /**
+     * counts the number of 
+     * cardCommentObj: a card comment object stored in user
+     */
+    countComments = (cardCommentObj) => {
+        // count comments under each card
+        let cardComment = cardCommentObj;
+        let commentNumber = 0;
+        if (cardComment != null) {
+            // count and increment commentNumber
+            for (let count in cardComment) {
+                commentNumber++;
+            }
+        }
+        return commentNumber;
+    }
+
     // Return count of upvote
     countUpvotes = (upvoteObj) => {
         if (upvoteObj != null) {
@@ -297,10 +324,6 @@ class AddComment extends Component {
             }
         })
     }
-
-    // componentWillUnmount(){
-    //     this.mounted = false;
-    // }
 
     render(){
         return(
@@ -354,7 +377,7 @@ class AddComment extends Component {
                                             />
                                         </Form.Group>
                                     </Col>
-                                    <Col id="addButtonCol">
+                                    <Col>
                                         <Form.Group>
                                             <Button onClick={this.writeComment}>
                                                 Add Comment
@@ -371,13 +394,16 @@ class AddComment extends Component {
                 </Modal>
                 <ReportModal 
                     show={this.state.reportModal} 
-                    onHide={()=> this.setState({reportModal: false})}
+                    onHide={()=> this.setState({ reportModal: false })}
                     cardID={this.props.cardID}
                     cardOwnerUID={this.props.cardOwnerUID}/>
-                {/* <TextLengthModal
+                <TextLengthModal
                     show={this.state.textLengthModal} 
-                    onHide={()=> this.setState({textLengthModal: false})}
-                    textLength={45}/> */}
+                    onHide={()=> this.setState({ textLengthModal: false })}
+                    textLength={45}/>
+                <EmptyTextModal
+                    show={this.state.emptyTextModal} 
+                    onHide={()=> this.setState({ emptyTextModal: false })} />
                 <LoginModal show={this.state.loginModal} onHide={()=> this.setState({loginModal: false})} />
 
             </div>

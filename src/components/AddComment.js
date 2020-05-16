@@ -3,7 +3,7 @@ import {Modal, Button, Row, Col, Form } from 'react-bootstrap';
 import Comment from './Comment';
 import fire from '../fire';
 import MyCard from './MyCard';
-import { faFlag, faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+import { faFlag, faComments, faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from './ReportModal';
 import './AddComment.css';
@@ -52,6 +52,7 @@ class AddComment extends Component {
                 comment: cards[card].comments,
                 background: cards[card].imgOption,
                 text: cards[card].text,
+                numComments: this.countComments(cards[card].comments),
                 upvote: this.countUpvotes(cards[card].upvote),
                 downvote: this.countDownvotes(cards[card].downvote)
             });
@@ -139,6 +140,7 @@ class AddComment extends Component {
     displayCard() {
         let imgOption;
         let text;
+        let numComments;
         let upvote;
         let downvote;
         dbRef.ref().child('User').on('value', snap => {
@@ -146,6 +148,7 @@ class AddComment extends Component {
             if(userInfo[this.props.cardOwnerUID]!=null){
                 imgOption = userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['imgOption'];
                 text = userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['text'];
+                numComments = this.countComments(userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['comments']);
                 upvote = this.countUpvotes(userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['upvote']);
                 downvote = this.countDownvotes(userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['downvote']);
             }
@@ -154,7 +157,8 @@ class AddComment extends Component {
                     key={this.props.cardID}
                     id={this.props.cardID} 
                     background={imgOption} 
-                    text={text}                                     
+                    text={text}             
+                    commentCount={numComments}                        
                     upvoteCount={upvote}
                     downvoteCount={downvote} />
     }
@@ -270,6 +274,23 @@ class AddComment extends Component {
         }
     };
 
+    /**
+     * counts the number of 
+     * cardCommentObj: a card comment object stored in user
+     */
+    countComments = (cardCommentObj) => {
+        // count comments under each card
+        let cardComment = cardCommentObj;
+        let commentNumber = 0;
+        if (cardComment != null) {
+            // count and increment commentNumber
+            for (let count in cardComment) {
+                commentNumber++;
+            }
+        }
+        return commentNumber;
+    }
+
     // Return count of upvote
     countUpvotes = (upvoteObj) => {
         if (upvoteObj != null) {
@@ -297,10 +318,6 @@ class AddComment extends Component {
             }
         })
     }
-
-    // componentWillUnmount(){
-    //     this.mounted = false;
-    // }
 
     render(){
         return(
@@ -354,7 +371,7 @@ class AddComment extends Component {
                                             />
                                         </Form.Group>
                                     </Col>
-                                    <Col id="addButtonCol">
+                                    <Col>
                                         <Form.Group>
                                             <Button onClick={this.writeComment}>
                                                 Add Comment

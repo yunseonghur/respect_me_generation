@@ -314,7 +314,7 @@ class AddComment extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <div>
-                            <Row>
+                            <Row> 
                                 <Col>
                                 {this.displayCard()}
                                 </Col>
@@ -343,7 +343,7 @@ class AddComment extends Component {
                             <br />
                             <Form onSubmit={this.handleSubmit}>
                                 <Row>
-                                    <Col>
+                                    <Col id="inputCol">
                                         <Form.Group controlId="Comments">
                                             <input
                                             type="text"
@@ -354,13 +354,11 @@ class AddComment extends Component {
                                             />
                                         </Form.Group>
                                     </Col>
-                                    <Col>
+                                    <Col id="addButtonCol">
                                         <Form.Group>
-                                            
                                             <Button onClick={this.writeComment}>
                                                 Add Comment
                                             </Button>
-                                            
                                         </Form.Group>
                                     </Col>
                                 </Row>
@@ -376,10 +374,10 @@ class AddComment extends Component {
                     onHide={()=> this.setState({reportModal: false})}
                     cardID={this.props.cardID}
                     cardOwnerUID={this.props.cardOwnerUID}/>
-                <TextLengthModal
+                {/* <TextLengthModal
                     show={this.state.textLengthModal} 
                     onHide={()=> this.setState({textLengthModal: false})}
-                    textLength={45}/>
+                    textLength={45}/> */}
                 <LoginModal show={this.state.loginModal} onHide={()=> this.setState({loginModal: false})} />
 
             </div>

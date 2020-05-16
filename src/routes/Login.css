@@ -3,6 +3,10 @@
     content: "Sign in with Google";
 }
 
+.firebaseui-idp-list {
+    padding-left: 0;
+}
+
 .firebaseui-idp-icon{
     height: 30px;
     width: 30px;
@@ -33,4 +37,11 @@ li {
 
 .firebaseui-idp-text-short {
   display: none;
+}
+
+@media only screen and (max-width: 400px) {
+    .firebaseui-idp-button {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
 }

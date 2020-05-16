@@ -8,10 +8,6 @@
     font-size: 20pt;
 }
 
-.resource-section {
-  margin-bottom: 50px;
-}
-
 .tagTitle {
   margin-bottom: 20px;
   font-weight: 600;
@@ -35,6 +31,7 @@
 
 .resource-section {
     margin-top: 150px;
+    margin-bottom: 50px;
 }
 
 .resource-section button {
@@ -51,6 +48,12 @@
 
 .moreButton {
   font-size: 12px;
+}
+
+@media only screen and (max-width: 600px) {
+    .resource-section {
+        margin-top: 80px;
+    }
 }
 
 /* ! moved to HomeResourceEntry.css */

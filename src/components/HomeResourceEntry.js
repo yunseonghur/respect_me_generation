@@ -10,8 +10,10 @@ import '../components/HomeResourceEntry.css';
 export const ResourceImage = (props) => {
     return (
         <div className="entry">
+            <a className="resourceTitle" href={props.link} target="blank">
                 <Image src={props.image} alt={props.title} rounded />
-            <p style={{textAlign: "left",  marginTop: "10px"}}><a className="resourceTitle" href={props.link} target="blank">{props.title}</a></p>
+                <p style={{textAlign: "left",  marginTop: "10px"}}>{props.title}</p>
+            </a>
         </div>
     )
 }

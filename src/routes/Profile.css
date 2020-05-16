@@ -9,18 +9,31 @@
 }
 
 .pill {
-
     z-index: 1;
     border: 1px solid black;
     border-radius: 100px;
     height: 70px;
-    width: 450px;
-    margin-top: 5%;
-    margin-bottom: 10%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    width: max-content;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 80px;
+}
 
+#points-text {
+    font-size: 10pt;
+}
+
+#coin-icon {
+    font-size: large;
+    color: gold;
+}
+
+.pill h3 {
+    padding: 0;
+    display: block;
+    margin-left: 40px;
+    margin-right: 40px;
+    width: fit-content;
 }
 
 div h2 {
@@ -60,6 +73,6 @@ div h2 {
 } 
 
 .container .btn {
-    background-color: #f8f9fa;
+    background-color: white;
     color: black;
   }

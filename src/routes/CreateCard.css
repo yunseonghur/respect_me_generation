@@ -72,3 +72,7 @@ button.close {
     background-color: #007bff;
     color: white;
 }
+
+.instruction {
+    margin-top: 70px;
+}

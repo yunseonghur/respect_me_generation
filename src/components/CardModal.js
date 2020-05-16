@@ -32,7 +32,7 @@ class CardModal extends React.Component {
                                             return (
                                                 <div key={ARTICLE.id}>
                                                     <br />
-                                                    <a href={ARTICLE.link}>{ARTICLE.title}</a>
+                                                    <a href={ARTICLE.link} target="blank">{ARTICLE.title}</a>
                                                 </div>
                                             );
                                         }

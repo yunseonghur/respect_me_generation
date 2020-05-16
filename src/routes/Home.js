@@ -18,7 +18,7 @@ class Home extends React.Component{
     };
 
     // Route to resources page with the selected category to display relevant contents
-    toCommBoard= (event) => {
+    toResource = (event) => {
         let categoryClicked = event.target.name
         this.props.history.push({
             pathname: "/resources",
@@ -55,7 +55,7 @@ class Home extends React.Component{
         return (
             <div className="resourceEntryWrapper">
                 <h1 className="tagTitle">#{tag}</h1>
-                <Button className="moreButton" name="0" onClick={this.toCommBoard} variant="link"><FontAwesomeIcon className="navItem" icon={faArrowCircleRight} /></Button>
+                <Button className="moreButton" name="0" onClick={this.toResource} variant="link"><FontAwesomeIcon className="navItem" icon={faArrowCircleRight} /></Button>
                 <HomeResourceEntry key={tag} tagName={tag} resourcesEntries={entries} /> 
             </div>
         )
@@ -116,17 +116,17 @@ export default withRouter(Home);
     //         <div>
     //             <h3>#study</h3>
                 
-    //                 <Button name="0" onClick={this.toCommBoard} variant="link">></Button>{' '}
+    //                 <Button name="0" onClick={this.toResource} variant="link">></Button>{' '}
     //                 <HomeResourceEntry key="study" tagName="study" resourcesEntries={studyEntries} /> 
             
     //             <h3>#health</h3>
                 
-    //                 <Button name="1" onClick={this.toCommBoard} variant="link">></Button>{' '}
+    //                 <Button name="1" onClick={this.toResource} variant="link">></Button>{' '}
     //                 <HomeResourceEntry key="health" tagName="health" resourcesEntries={healthEntries} /> 
                 
     //             <h3>#relationship</h3>
                 
-    //                 <Button name="2" onClick={this.toCommBoard} variant="link">></Button>{' '}
+    //                 <Button name="2" onClick={this.toResource} variant="link">></Button>{' '}
     //                 <HomeResourceEntry key="relationship" tagName="relationship" resourcesEntries={relationshipEntries} />
             
     //         </div>

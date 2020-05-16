@@ -13,6 +13,8 @@ import advBadge from '../images/adv_badge.png';
 import pts from '../images/points.png';
 import profile from '../images/profile.png';
 import ReactTooltip from 'react-tooltip';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoins } from "@fortawesome/free-solid-svg-icons";
 
 
 const dbRef = fire.database().ref();
@@ -146,13 +148,13 @@ class Profile extends React.Component{
                     <Container>
                     
                         <div className='pill'>
-                        <h2>
-                            {this.state.username} 
+                        <h3>
+                            <span>{this.state.username}</span>
                             <img className='profile' src={profile} alt='Profile Pic'></img>
                             <a data-for='proftt' data-tip={this.state.badge}>{badgeIcon}</a>
-                            <a data-for='proftt' data-tip='Your Points'><img className='img' src={pts} alt='Points'></img> x{this.state.points}</a>
+                            <a id="points-text" data-for='proftt' data-tip='Your Points'><FontAwesomeIcon id="coin-icon" icon={faCoins}/> x{this.state.points}</a>
                             <ReactTooltip id="proftt" place='bottom' type='warning' effect='float' />
-                        </h2>
+                        </h3>
                         </div>
                         
                     </Container>

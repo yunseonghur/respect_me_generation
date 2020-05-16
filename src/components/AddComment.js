@@ -64,7 +64,7 @@ class AddComment extends Component {
     }
 
     writeComment(event) {
-        
+        console.log(this.state.newComment)
         if(this.state.userUID !== ''){
             if (this.state.newComment.length <= 45) {
                 // we need card owner UID
@@ -73,8 +73,11 @@ class AddComment extends Component {
                     user: this.state.username
                 });
                 this.increasePoints(this.state.userUID);
+                this.setState({ newComment: '' });
+                console.log(this.state.newComment)
+
             } else {
-                this.setState({textLengthModal: true});
+                this.setState({ textLengthModal: true });
             }
         } else {
             this.setState({ loginModal: true })

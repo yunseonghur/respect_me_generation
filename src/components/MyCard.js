@@ -18,7 +18,7 @@ class MyCard extends Component {
                 <Card onClick={this.props.onClick}>
                     <Card.Img className="card__img" src={this.props.background} alt="Card image" />
                     <Card.ImgOverlay className="overlay">
-                        <Card.Text className="text-center">{this.props.text}</Card.Text>
+                        <Card.Text>{this.props.text}</Card.Text>
                         <Card.Text className="text-bottom-left">
                             <FontAwesomeIcon icon={faComments} />
                             <span className="commentCount iconItem">{this.props.commentCount}</span>

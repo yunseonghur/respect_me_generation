@@ -15,7 +15,7 @@ export const ResourceImage = (props) => {
         <div className="entry">
             <a className="resourceTitle" href={props.link} target="blank">
                 <Image src={props.image} alt={props.title} rounded />
-                <p style={{textAlign: "left",  marginTop: "10px"}}>{props.title}</p>
+                <p style={{textAlign: "left",  marginTop: "10px", fontSize: "14px"}}>{props.title}</p>
             </a>
         </div>
     )
@@ -23,8 +23,7 @@ export const ResourceImage = (props) => {
 
 /**
  * @param {string} tag the resource entry category (e.g. "study")
- * @param {int} eventKey the number indicating which accordion section is current open 
- *                       (see React-Boostrap Accordion)
+ * @param {int} eventKey the number indicating which accordion section is current open (see React-Boostrap Accordion)
  */
 class HomeResourceEntry extends React.Component{
     state = {
@@ -79,22 +78,21 @@ class HomeResourceEntry extends React.Component{
     render(){
         return (
             <div>
-                {this.state.entries.map((entry)=> 
-
-                    <div className="resourceEntryWrapper">
+                <div className="resourceEntryWrapper">
+                    <div>
                         <h1 className="tagTitle">#{this.props.tag}</h1>
                         <button name={this.props.eventKey} className="moreButton" onClick={this.toResource}>
                             <FontAwesomeIcon className="navItem" icon={faArrowCircleRight} />
                         </button>
-
+                    </div>
+                    {this.state.entries.map((entry)=> 
                         <ResourceImage 
                             key={entry.id} 
                             title={entry.title} 
                             image={entry.image}
                             link={entry.link} />
-                    </div>
-
-                )}
+                    )}
+                </div>
             </div>
         )
     }

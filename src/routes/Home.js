@@ -10,60 +10,6 @@ import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Home extends React.Component{
-
-    state = { 
-        studyResources: [],
-        healthResources: [],
-        relationshipResources: []
-    };
-
-    // Route to resources page with the selected category to display relevant contents
-    toResource = (event) => {
-        let categoryClicked = event.target.name
-        this.props.history.push({
-            pathname: "/resources",
-            state: {detail: categoryClicked}
-        });
-    }
-
-    /**
-     * Gets resource entry based on tag.
-     * @param {the type of post} tag 
-     */
-    getResourceEntry(tag, eventKey) {
-        let resources = [];
-
-        ARTICLES.map(ARTICLE => {
-            resources.push({
-                id: ARTICLE.id,
-                title: ARTICLE.title,
-                image: ARTICLE.image,
-                tag: ARTICLE.tag,
-                link: ARTICLE.link
-            });
-            return null; 
-        })
-
-        let entries = [];
-
-        for (let entry in resources) {
-            if (resources[entry].tag === tag){
-                entries.push(resources[entry]);
-            } else {
-                console.log("no such tag found in articles.");
-            }
-        }
-
-        return (
-            <div className="resourceEntryWrapper">
-                <h1 className="tagTitle">#{tag}</h1>
-                <button className="moreButton" onClick={this.toResource}>
-                    <FontAwesomeIcon className="navItem" icon={faArrowCircleRight} />
-                </button>
-                <HomeResourceEntry key={tag} tagName={tag} resourcesEntries={entries} /> 
-            </div>
-        )
-    }
     
     render(){
         return (
@@ -76,11 +22,9 @@ class Home extends React.Component{
                 </div>
 
                 <div className="resource-section">
-
-                    {/* THIS IS WRONG. SHOULD BE COMPONENTS INSTEAD. */}
-                    {/* I should have a component, and pass in a TAG and a KEY as a prop. */}
                     <HomeResourceEntry tag="study" eventKey="0" />
-                    
+                    <HomeResourceEntry tag="health" eventKey="1" />
+                    <HomeResourceEntry tag="relationship" eventKey="2" />
                 </div>
             </div>
         );
@@ -137,4 +81,53 @@ export default withRouter(Home);
             
     //         </div>
     //     );
+    // }
+
+    // ---------------------------
+        // Route to resources page with the selected category to display relevant contents
+    // toResource = (event) => {
+    //     let categoryClicked = event.target.name
+    //     this.props.history.push({
+    //         pathname: "/resources",
+    //         state: {detail: categoryClicked}
+    //     });
+    // }
+
+    // /**
+    //  * Gets resource entry based on tag.
+    //  * @param {the type of post} tag 
+    //  */
+    // getResourceEntry(tag, eventKey) {
+    //     let resources = [];
+
+    //     ARTICLES.map(ARTICLE => {
+    //         resources.push({
+    //             id: ARTICLE.id,
+    //             title: ARTICLE.title,
+    //             image: ARTICLE.image,
+    //             tag: ARTICLE.tag,
+    //             link: ARTICLE.link
+    //         });
+    //         return null; 
+    //     })
+
+    //     let entries = [];
+
+    //     for (let entry in resources) {
+    //         if (resources[entry].tag === tag){
+    //             entries.push(resources[entry]);
+    //         } else {
+    //             console.log("no such tag found in articles.");
+    //         }
+    //     }
+
+    //     return (
+    //         <div className="resourceEntryWrapper">
+    //             <h1 className="tagTitle">#{tag}</h1>
+    //             <button className="moreButton" onClick={this.toResource}>
+    //                 <FontAwesomeIcon className="navItem" icon={faArrowCircleRight} />
+    //             </button>
+    //             <HomeResourceEntry key={tag} tagName={tag} resourcesEntries={entries} /> 
+    //         </div>
+    //     )
     // }

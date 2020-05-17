@@ -9,14 +9,12 @@ import { withRouter } from 'react-router-dom';
 /**
  * A minified version of the community board
  * which doesn't show all videos.
- * 
  */
 class MiniBoard extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            // visible: true, 
             videoVisible: false,
             cardVisible: true,   // starts out showing cards
             isCollapsed: true, 
@@ -29,13 +27,18 @@ class MiniBoard extends Component {
         }  
       }
 
+    /**
+     * Redirects user to CommunityBoard.js
+     */
     toCommBoard = () => {
         this.props.history.push({
             pathname: "/communityBoard"
         });
     }
 
-    // clicking once expands, another takes user to commBoard
+    /**
+     * clicking once expands, another takes user to commBoard
+    */ 
     toggleExpandHandler = () => {
         if (this.state.isCollapsed === true) {
             this.setState({isCollapsed: false, btnText: "View Full Board" })
@@ -48,6 +51,9 @@ class MiniBoard extends Component {
         }
     }
 
+    /**
+     * Event handler for tag selection
+     */
     handleTag = (event) => {
         event.preventDefault();
         this.setState({
@@ -55,7 +61,9 @@ class MiniBoard extends Component {
         })
     }
 
-    // toggles between the video and card categories
+    /**
+    * toggles between the video and card categories
+    */ 
     toggleOpenCards = () => {
         if (this.state.cardVisible === false) {
             this.setState({cardVisible: true, videoVisible: false})
@@ -64,6 +72,9 @@ class MiniBoard extends Component {
         }
     }
     
+    /**
+    * toggles between the video and card categories
+    */ 
     toggleOpenVideos = () => {
         if (this.state.videoVisible === false) {
             this.setState({videoVisible: true, cardVisible: false})

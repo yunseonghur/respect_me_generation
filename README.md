@@ -4,16 +4,16 @@ The Respect Me Generation web app is a safe space meant for adolescents to learn
 ## Setup Instructions
 For development, make sure Node.js is installed on your environment.
 
-###Install
-`$ git clone https://github.com/yunseonghur/respect_me_generation.git`
-`$ cd respect_me_generation`
+### Install
+`$ git clone https://github.com/yunseonghur/respect_me_generation.git`<br/>
+`$ cd respect_me_generation`<br/>
 `$ npm install`
 
-###Start & Watch
+### Start & Watch
 `$ npm start`
 
-###Build for Production
+### Build for Production
 `$ npm run build`
 
-###Host
+### Host
 `$ firebase deploy`

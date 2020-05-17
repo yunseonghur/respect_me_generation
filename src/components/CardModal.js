@@ -4,6 +4,10 @@ import MyCard from '../components/MyCard';
 import { Container, Row, Button, Modal } from 'react-bootstrap';
 import "./CardModal.css";
 
+/**
+ * A modal that is displayed when a card is created.
+ * Called in CreateCard.js file
+ */
 class CardModal extends React.Component {
 
     render() {

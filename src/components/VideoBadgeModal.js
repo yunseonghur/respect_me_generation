@@ -2,6 +2,11 @@ import React from 'react';
 import advBadge from '../images/adv_badge.png';
 import {Modal, Container} from 'react-bootstrap';
 
+/**
+ * Dislayed when user has 'basic' badge and attempts
+ * to upload a video.
+ * Called in CommunityBoard.js
+ */
 class VideoBadgeModal extends React.Component {
 
     render() {

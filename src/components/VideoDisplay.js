@@ -3,6 +3,10 @@ import { CloudinaryContext, Video } from 'cloudinary-react';
 import axios from 'axios';
 import '../components/VideoDisplay.css';
 
+/**
+ * Gets all videos from Cloudinary API
+ * Called in MiniBoard.js
+ */
 class VideoDisplay extends Component {
 
     state = {

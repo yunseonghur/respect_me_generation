@@ -1,3 +1,7 @@
+/**
+ * Array of resource article information
+ */
+
 const ARTICLES = [
     {   
         id: "s1",

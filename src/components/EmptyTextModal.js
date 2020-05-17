@@ -1,7 +1,10 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 
-
+/**
+ * Displayed when a comment is empty.
+ * Called in AddComment.js
+ */
 class EmptyTextModal extends React.Component {
     render(){
         return (

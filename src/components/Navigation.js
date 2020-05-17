@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import fire from '../fire';
+import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import '../components/Navigation.css';
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -9,7 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LogOutModal from "./LogOutModal";
 import ReactTooltip from 'react-tooltip';
 
-
+/**
+ * Navigation bar
+ */
 class Navigation extends Component {
     constructor(props) {
         super(props);
@@ -26,6 +29,12 @@ class Navigation extends Component {
         this.authListener();
     }
 
+    /**
+     * Save user information to Firebase
+     * @param {*} userId 
+     * @param {*} name 
+     * @param {*} email 
+     */
     writeUserData(userId, name, email) {
         this.db.ref('User/' + userId).update({
             name: name,
@@ -33,6 +42,10 @@ class Navigation extends Component {
         })
     }
 
+    /**
+     * Adds points and assign badge to first time users
+     * @param {*} userId 
+     */
     addUserData(userId){
         this.db.ref('User/'+userId).once('value')
         .then(function(snapshot){
@@ -46,6 +59,9 @@ class Navigation extends Component {
         });
     }
 
+    /**
+     * Authentication listener
+     */
     authListener() {
         fire.auth().onAuthStateChanged((user) => {
             if (user) {
@@ -62,10 +78,9 @@ class Navigation extends Component {
 
     render() {
         return(
-            
             <div className="navWrapper">
                 <Nav.Link style={{display: "inline-block"}} href="/" id="brand">RESPECT ME GENERATION</Nav.Link>
-                <Nav style={{float: "right", marginRight: "10px"}}>
+                <Nav style={{float: "right", marginRight: "10px"}} pullRight>
                     { this.state.user ? <span data-for='main' data-tip='Profile'><Nav.Link href="#profile"><FontAwesomeIcon className="navItem" icon={faUser} /></Nav.Link></span> : null}
                     <span data-for='main' data-tip='Community Board'><Nav.Link href="#communityBoard"><FontAwesomeIcon className="navItem" icon={faBullhorn} /></Nav.Link></span>
                     <span data-for='main' data-tip='Resources'><Nav.Link href="#resources"><FontAwesomeIcon className="navItem" icon={faLightbulb} /></Nav.Link></span>
@@ -85,10 +100,10 @@ class Navigation extends Component {
 export default Navigation;
 
 // <img src="https://img.icons8.com/material-outlined/24/000000/person-male.png" alt="Profile"/>
-/* <Link tooltip="Upload a video">
+{/* <Link tooltip="Upload a video">
     <Button onClick={this.uploadHandler} disabled>
         <img src="https://img.icons8.com/material-outlined/24/000000/camcorder-pro.png" alt="Upload a video"/>
     </Button>
 </Link>
 <Link href='#createCard' tooltip="Add a card"><img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/></Link>
-<Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add"/></Button> */
+<Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add"/></Button> */}

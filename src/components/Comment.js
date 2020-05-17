@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import '../components/Comment.css';
 
 /**
- * Displays the commenter and comment
+ * Displays the commenter and comment.
+ * Called in AddComment.js
  */
 class Comment extends Component{
 

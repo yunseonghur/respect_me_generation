@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import '../components/Quote.css';
 import axios from 'axios';
 
-
+/**
+ * Quote API that is called in Home.js
+ */
 class Quote extends Component {
 
     state = {
@@ -10,6 +12,9 @@ class Quote extends Component {
         quoteAuthor: ""
     }
 
+    /**
+     * Gets daily quote
+     */
     getQuotes() {
         axios.get('https://quotes.rest/qod?category=inspire&language=en')
           .then(res => {

@@ -9,6 +9,7 @@ import fire from '../fire.js';
 /**
  * Component that handles toggling display of cards and videos.
  * Actual data is being displayed by Card and VideoDisplay components.
+ * Called in CommunityBoard.js
  */
 class Board extends Component{
 

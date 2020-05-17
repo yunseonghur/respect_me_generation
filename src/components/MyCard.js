@@ -8,9 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**
  * Represents a single card object.
+ * Called in CardModal.js, Cards.js, AddComment.js, Profile.js
  */
 class MyCard extends Component {
-
 
     render() {
         return (

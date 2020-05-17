@@ -1,6 +1,11 @@
 import React from 'react';
 import { CloudinaryContext, Video } from 'cloudinary-react';
 
+/**
+ * Displays videos of current user.
+ * Called in Profile.js
+ * @param {*} props 
+ */
 const UserVideo = (props) => {
     return (
         <div style={{display: "inline-block", margin: "10px", maxWidth: "400px"}}>

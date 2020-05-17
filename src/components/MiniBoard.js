@@ -9,6 +9,7 @@ import { withRouter } from 'react-router-dom';
 /**
  * A minified version of the community board
  * which doesn't show all videos.
+ * Called in Home.js
  */
 class MiniBoard extends Component {
 

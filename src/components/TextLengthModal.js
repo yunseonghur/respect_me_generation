@@ -1,6 +1,10 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 
+/**
+ * Displayed when text is too long.
+ * Called in CreateCard.js and AddComment.js
+ */
 class TextLengthModal extends React.Component {
 
     render(){

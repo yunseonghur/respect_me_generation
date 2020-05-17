@@ -5,12 +5,15 @@ import './ReportModal.css';
 
 /**
  * Component that appears when user clicks on the flag to report a post on the card modal.
+ * Called in CreateCard.js
  */
 class ReportModal extends React.Component {
 
     db = fire.database();
     
-    // add card ownerUID and card id to firebase and the date reported
+    /**
+     * add card ownerUID and card id to firebase and the date reported
+    */
     report =()=> {
         var date = Date.now();
         date = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit', 

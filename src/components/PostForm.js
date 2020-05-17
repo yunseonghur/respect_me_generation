@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+/**
+ * 
+ */
 class PostForm extends Component {
 
-    // a constructor!!
     constructor(props) {
       super(props)
     

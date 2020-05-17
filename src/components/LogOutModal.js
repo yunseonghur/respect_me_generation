@@ -2,6 +2,10 @@ import React from 'react';
 import { Modal, Button} from 'react-bootstrap';
 import fire from '../fire';
 
+/**
+ * Displayed when user clicks Log Out button.
+ * Called in Navigation.js
+ */
 class LogoutModal extends React.Component {
     constructor(props) {
         super(props);

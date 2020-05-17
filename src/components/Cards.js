@@ -23,6 +23,10 @@ class Cards extends React.Component{
         }
     }
 
+    /**
+     * Grabs all users' cards from firebase
+     * @param {*} users 
+     */
     getCards(users){
         let cardCollected = [];
         for (let user in users){
@@ -38,7 +42,6 @@ class Cards extends React.Component{
                 });
             }
         }
-        
         this.setState({ 
             cards: cardCollected,
             isLoading: false
@@ -52,22 +55,27 @@ class Cards extends React.Component{
         });
     }
 
-    // componentWillUnmount(){
-    //     this.mounted = false;
-    // }
-
-    cardClicked = () => {
-        this.setState({visible: true})
-      };
-    
-    hideModal = () => {
-        this.setState({visible: false})
-    }
-
     static getDerivedStateFromProps(props, state) {
         return {tag: props.tag}
     }
 
+    /**
+     * Visible state setter when card is clicked
+     */
+    cardClicked = () => {
+        this.setState({visible: true})
+      };
+    
+    /**
+     * Visible state setter when card is closed
+     */
+    hideModal = () => {
+        this.setState({visible: false})
+    }
+
+    /**
+     * Returns the Google UID of card owner
+     */
     getCardOwner = () => {
         let cardOwnerUID;
         dbRef.child('User').on('value', snap => {
@@ -102,7 +110,9 @@ class Cards extends React.Component{
         return commentNumber;
     }
     
-    // sorts cards by tag
+    /**
+     * Sorts cards by tag
+     */ 
     sortByTag() {
         var users;
         dbRef.child('User').on('value', snap => {
@@ -153,7 +163,9 @@ class Cards extends React.Component{
         return cardCollected;
     }
 
-    // cards collected are sorted by timestamp after cars are sorted by tag
+    /**
+     * cards collected are sorted by timestamp after cars are sorted by tag
+     */ 
     sortByTimestamp(cardCollected){
         cardCollected.sort(function (a, b){
             return b.timestamp - a.timestamp;
@@ -161,6 +173,9 @@ class Cards extends React.Component{
         return cardCollected;
     }
 
+    /**
+     * Counts number of upvotes
+     */
     countUpvotes = (upvoteObj) => {
         if (upvoteObj != null) {
             return upvoteObj;
@@ -168,6 +183,9 @@ class Cards extends React.Component{
         return "0";
     }
 
+    /**
+     * Counts number of downvotes
+     */
     countDownvotes = (downvoteObj) => {
         if (downvoteObj != null) {
             return downvoteObj;

@@ -37,6 +37,9 @@ class Board extends Component{
         })
     }
 
+    /**
+     * Event handler for tag selection
+     */
     handleTag = (event) => {
         event.preventDefault();
         this.setState({
@@ -44,7 +47,9 @@ class Board extends Component{
         })
     }
 
-    // toggles between the video and card categories
+    /**
+     * toggles between the video and card categories
+     */
     toggleOpenCards = () => {
         if (this.state.cardVisible === false) {
             this.setState({cardVisible: true, videoVisible: false})
@@ -53,6 +58,9 @@ class Board extends Component{
         }
     }
     
+    /**
+     * toggles between the video and card categories
+     */
     toggleOpenVideos = () => {
         if (this.state.videoVisible === false) {
             this.setState({videoVisible: true, cardVisible: false})
@@ -79,13 +87,11 @@ class Board extends Component{
                     </div>
                     : <div><br/><br/><br/></div>
                 }
-
                     <ButtonGroup> 
                         <Button variant="light" onClick={this.toggleOpenCards}>Cards</Button>
                         <Button variant="light" onClick={this.toggleOpenVideos}>Videos</Button>
                     </ButtonGroup>
                 </div>
-
                 <div>
                     { this.state.cardVisible ? <Cards tag={this.state.tag} />: <VideoDisplay />}
                 </div>

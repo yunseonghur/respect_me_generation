@@ -7,7 +7,7 @@ For development, make sure Node.js is installed on your environment.
 Install
 `$ git clone https://github.com/yunseonghur/respect_me_generation.git
 $ cd respect_me_generation
-$ npm install`
+$ npm install` '\n'
 
 Start & Watch
 `$ npm start`

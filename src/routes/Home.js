@@ -49,6 +49,8 @@ class Home extends React.Component{
         for (let entry in resources) {
             if (resources[entry].tag === tag){
                 entries.push(resources[entry]);
+            } else {
+                console.log("no such tag found in articles.");
             }
         }
 
@@ -74,9 +76,11 @@ class Home extends React.Component{
                 </div>
 
                 <div className="resource-section">
-                    {this.getResourceEntry("study", 0)}
-                    {this.getResourceEntry("health", 1)}
-                    {this.getResourceEntry("relationship", 2)}
+
+                    {/* THIS IS WRONG. SHOULD BE COMPONENTS INSTEAD. */}
+                    {/* I should have a component, and pass in a TAG and a KEY as a prop. */}
+                    <HomeResourceEntry tag="study" eventKey="0" />
+                    
                 </div>
             </div>
         );

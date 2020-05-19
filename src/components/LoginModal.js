@@ -2,6 +2,10 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 
+/**
+ * Displayed when user has to login.
+ * Called in CommunityBoard.js
+ */
 class LoginAlertModal extends React.Component {
     render() {
         return (

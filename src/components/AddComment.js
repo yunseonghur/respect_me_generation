@@ -16,6 +16,7 @@ const dbRef = fire.database();
 /**
  * A modal when user clicks on a card. Users can add comments,
  * upvote or downvote, and report a card.
+ * Called in Cards.js
  */
 class AddComment extends Component {
 

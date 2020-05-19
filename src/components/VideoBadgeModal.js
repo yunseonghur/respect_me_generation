@@ -5,7 +5,7 @@ import {Modal, Container} from 'react-bootstrap';
 /**
  * Dislayed when user has 'basic' badge and attempts
  * to upload a video.
- * Called in CommunityBoard.js
+ * Called in CommunityBoard.js, 
  */
 class VideoBadgeModal extends React.Component {
 

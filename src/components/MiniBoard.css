@@ -32,12 +32,12 @@
   transition: max-height .6s ease;
 }
 
-.fade {
-  background-image: linear-gradient(to bottom, rgba(255,0,0,0), rgb(255, 255, 255));
+/* .fade {
+  background-image: linear-gradient(to bottom, rgba(255,0,0,0), rgb(255, 255, 255)) !important;
   height: 100px;
   margin-top: -100px;
   position: relative;
-}
+} */
 
 .card-section .btn{
   font-size: 10pt;

@@ -87,6 +87,10 @@ class CreateCard extends Component {
         }
     }
 
+    /**
+     * Gives welcome points to user.
+     * @param {firebaseUser} currentUser 
+     */
     increasePoints(currentUser){
         this.db.ref('User/'+currentUser.uid).once('value')
             .then(function(snapshot){
@@ -100,6 +104,10 @@ class CreateCard extends Component {
         this.checkBadge(currentUser);
     }
 
+    /**
+     * Check user's points to determine if the badge needs to be upgraded.
+     * @param {firebaseUser} currentUser 
+     */
     checkBadge(currentUser){
         this.db.ref('User/'+currentUser.uid).once('value')
             .then(function(snapshot){

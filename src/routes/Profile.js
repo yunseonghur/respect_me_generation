@@ -165,8 +165,6 @@ class Profile extends Component{
 
     render() {
 
-        // const tabLabel = this.state.cardVisible? "Cards" : "Videos";
-
         // determines which badge icon to use
         let badgeIcon;
         if(this.state.badge === 'basic'){

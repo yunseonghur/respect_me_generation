@@ -38,7 +38,7 @@ class MiniBoard extends Component {
     }
 
     /**
-     * clicking once expands, another takes user to commBoard
+     * Clicking once expands, another takes user to commBoard
     */ 
     toggleExpandHandler = () => {
         if (this.state.isCollapsed === true) {
@@ -63,7 +63,7 @@ class MiniBoard extends Component {
     }
 
     /**
-    * toggles between the video and card categories
+    * Toggles between the video and card categories
     */ 
     toggleOpenCards = () => {
         if (this.state.cardVisible === false) {
@@ -74,7 +74,7 @@ class MiniBoard extends Component {
     }
     
     /**
-    * toggles between the video and card categories
+    * Toggles between the video and card categories
     */ 
     toggleOpenVideos = () => {
         if (this.state.videoVisible === false) {

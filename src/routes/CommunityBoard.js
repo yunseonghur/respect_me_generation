@@ -89,16 +89,11 @@ class CommunityBoard extends Component{
                 if (this.state.userUID != null) {
                     // store the id into the current user:
                     var key = db.ref().child('videos').push().key;
-
                     var updates = {};
-
                     updates['/videos/' + key] = result.info.public_id;
                     db.ref('User/' + this.state.userUID).update(updates);
-
                     console.log("video " + result.info.public_id + "added to user " + this.state.userUID);
-
                     this.increasePoints(this.state.userUID);
-                
                 } else if (this.state.userUID == null) {
                     console.log("Videos can only be uploaded by members.")
                 }

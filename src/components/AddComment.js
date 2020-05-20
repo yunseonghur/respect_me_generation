@@ -17,7 +17,7 @@ const dbRef = fire.database();
  * A modal component that opens when a card is clicked.
  * Displays the current card along with comments and upvote/downvote.
  * 
- * @param {firebaseUser} cardOwnerUID the firebase user.uid of the current user
+ * @param {firebaseUser} cardOwnerUID the firebase user.uid of the selected card
  * @param {string} cardID the unique key each card is stored in the database 
  * @param {boolean} show is true when card is clicked and the addComment modal is showing
  * @param {boolean} onHide is true when modal is closed 
@@ -276,18 +276,15 @@ class AddComment extends Component {
                     for (let user in card['votes'][vote]) {
                         // if the user has voted, return isValid as false
                         if (card['votes'][vote][user] === userUID) { 
-                            console.log("FOUND: user cannot like/dislike");
                             this.setState({ isValid: false });
                         }
                         // if the user hasn't voted yet for this card, return isValid as true
                         else { 
-                            console.log("FIRST VOTE: user can like/dislike")
                            this.setState({ isValid: true })
                         }
                     }
                 }
             } else {
-                console.log("NO VOTES: user can like/dislike")
                 this.setState({ isValid: true });
             }
         }
@@ -295,7 +292,7 @@ class AddComment extends Component {
 
     /**
      * Save user uid to prevent second vote from the same user for same card.
-     * @param {firebaseUser} cardOwnerUID the firebase user.uid of the current user
+     * @param {firebaseUser} cardOwnerUID the firebase user.uid of the selected card
      * @param {string} cardID the unique key each card is stored in the database 
      */
     recordUser(cardOwnerUID, cardID){

@@ -8,7 +8,9 @@ import { withRouter } from 'react-router-dom';
 
 /**
  * Represent an entry consist of an image and a caption for each article
- * @param {*} props 
+ * @param {string} link link to the article
+ * @param {string} image image displayed with article
+ * @param {string} title subtitle of the article, displayed under image
  */
 export const ResourceImage = (props) => {
     return (

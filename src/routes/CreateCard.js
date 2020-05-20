@@ -5,6 +5,9 @@ import { Nav, Row, Col, Tab, CardDeck, Card, Button } from 'react-bootstrap';
 import TextLengthModal from '../components/TextLengthModal';
 import CardModal from '../components/CardModal';
 
+/**
+ * Lets logged in users create a card post displayed as a MyCard component.
+ */
 class CreateCard extends React.Component {
     constructor(props) {
         super(props);

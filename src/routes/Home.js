@@ -6,6 +6,11 @@ import MiniBoard from '../components/MiniBoard';
 
 /**
  * This route is the first page users see.
+ * 
+ * Houses 3 main component parts: 
+ * - Quote
+ * - MiniBoard
+ * - HomeResourceEntry(s)
  */
 class Home extends React.Component{
     

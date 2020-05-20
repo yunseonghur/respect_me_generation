@@ -11,8 +11,8 @@ import LoginModal from '../components/LoginModal';
 const db = fire.database();
 
 /**
- * The entire page containing the Board component and handles posting
- * cards and video via the big red (+) button.
+ * The route which hosts the main Board.js component and handles posting
+ * cards and video via the big upload (+) button.
  */
 class CommunityBoard extends React.Component{
 
@@ -24,15 +24,19 @@ class CommunityBoard extends React.Component{
             isLoading: true, // true if the server is still loading cards data
             visible: true,  // true if cards are visible & false if videos are visible
             show: false,
-            userUID: null,   // the current user
+            userUID: null,  // the current user
             badge: "",
-            points: "",       // means user is not logged in
-            displayErrorMessage: false,
-            displayLoginModal: false
+            points: "",       
+            displayErrorMessage: false, // if user does not have 'advanced' badge, cannot post video
+            displayLoginModal: false    // if user isn't logged in, cannot create cards
         };
         this.getCurrentUser();
     }
 
+    /**
+     * Gets the current users badge level and points,
+     * because they need to be checked later for allowing functionalities.
+     */
     getBadgePoints = () => {
         db.ref().child('User').on('value', snap => {
             const snapshot = snap.val();
@@ -40,7 +44,6 @@ class CommunityBoard extends React.Component{
                 badge: snapshot[this.state.userUID]['badge'],
                 points: snapshot[this.state.userUID]['points']
             });
-            // console.log(this.state.badge);
         });
     }
 
@@ -66,14 +69,18 @@ class CommunityBoard extends React.Component{
         }
     }
 
+    /**
+     * Uploads a video via the Cloudinary widget.
+     * All uploads are currently tagged as project, so that 
+     * all videos uploaded public_id can be retrieved via get in VideoDisplay.
+     */
     uploadHandler = () => {
-        console.log("uploadhandler was clicked");
 
+        // requires the Cloudinary import on index.html 
         const myWidget = window.cloudinary.createUploadWidget({
             cloudName: "respectmegen", 
             tags: ['project'],
-            uploadPreset: 'h5awwspl',
-            showAdvancedOptions: true }, (error, result) => { 
+            uploadPreset: 'h5awwspl' }, (error, result) => { 
               if (!error && result && result.event === "success") { 
                 console.log('Done! Here is the video info: ', result.info);
                 console.log("public_id: " + result.info.public_id);
@@ -100,7 +107,7 @@ class CommunityBoard extends React.Component{
             }
         )
         
-        // only users with 100+ points can upload videos
+        // only users with 100+ points ("advanced badge") can upload videos
         console.log("current badge: " + this.state.badge + "\ncurrent points: " + this.state.points);
         if (this.state.userUID != null && this.state.badge === "advanced") {
             myWidget.open();
@@ -115,7 +122,11 @@ class CommunityBoard extends React.Component{
         }
     }
 
-    increasePoints(currentUser){
+    /**
+     * Gives points to user for creating a card post.
+     * @param {firebaseUser} currentUser 
+     */
+    increasePoints(currentUser) {
         console.log("increase points");
         db.ref('User/'+ currentUser).once('value')
             .then(function(snapshot){
@@ -133,7 +144,7 @@ class CommunityBoard extends React.Component{
             <div>
                 <Board />
 
-                {/* the red (+) button */}
+                {/* the (+) button */}
                 <Container>
                     <Link tooltip="Upload a video">
                         <Button onClick={this.uploadHandler} disabled>
@@ -154,18 +165,3 @@ class CommunityBoard extends React.Component{
 }
 
 export default CommunityBoard;
-
-
-    // componentDidMount() {
-    //     // get references that DON'T change
-    //     fire.auth().onAuthStateChanged((user) => {
-    //         if (user) {
-    //             this.setState({
-    //                 userUID: user.uid,
-    //             })
-    //             console.log("Logged in. UID: " + this.state.userUID);
-    //         } else {
-    //             console.log("you're not logged in.")
-    //         }
-    //     })
-    // }

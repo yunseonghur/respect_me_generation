@@ -5,6 +5,10 @@ import fire from '../fire'
 import * as firebaseui from 'firebaseui'
 import '../routes/Login.css';
 
+/**
+ * This component lets users login via their Google account.
+ */
+
 // firebase login authentication UI
 const ui = new firebaseui.auth.AuthUI(fire.auth());
 

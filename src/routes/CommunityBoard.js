@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './CommunityBoard.css';
 import Board from '../components/Board';
 import { Container, Button, Link } from 'react-floating-action-button';
@@ -14,7 +14,7 @@ const db = fire.database();
  * The route which hosts the main Board.js component and handles posting
  * cards and video via the big upload (+) button.
  */
-class CommunityBoard extends React.Component{
+class CommunityBoard extends Component{
 
     constructor(props) {
         super(props);

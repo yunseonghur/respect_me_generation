@@ -5,8 +5,11 @@ import ResourceEntry from "../components/ResourceEntry";
 import ARTICLES from '../components/ResourceArticles';
 import { withRouter } from 'react-router-dom';
 
-
-class Resources  extends Component{
+/**
+ * The resource page is a React-Bootstrap accordion Component.
+ * We decided to refactor each accordion 'fold' into its own component: ResourceEntry.
+ */
+class Resources extends Component{
 
     state = { 
         studyResources: [],
@@ -26,49 +29,15 @@ class Resources  extends Component{
         }
     }
 
-    // Read resource entries from the given article list to display by tag
-    getResourceEntries(){
-        var resources = []
-        ARTICLES.map(ARTICLE => {
-            resources.push({
-                id: ARTICLE.id,
-                title: ARTICLE.title,
-                image: ARTICLE.image,
-                tag: ARTICLE.tag,
-                link: ARTICLE.link
-            });
-            return null; 
-        })
-        let studyEntries = []
-        let healthEntries = []
-        let relationshipEntries = []
-        for (let entry in resources){
-            if (resources[entry].tag === "study"){
-                studyEntries.push(resources[entry])
-            } else if (resources[entry].tag === "health"){
-                healthEntries.push(resources[entry])
-            } else if (resources[entry].tag === "relationship"){
-                relationshipEntries.push(resources[entry])
-            } else {
-                console.log("Cannot find the tag")
-            }
-        }
-        return ( 
-            <div>
-                <ResourceEntry key="0" title="study" contents={studyEntries} eventKey="0" defaultActiveKey={this.state.categoryClicked} /> 
-                <ResourceEntry key="1" title="health" contents={healthEntries} eventKey="1" defaultActiveKey={this.state.categoryClicked} /> 
-                <ResourceEntry key="2" title="relationship" contents={relationshipEntries} eventKey="2" defaultActiveKey={this.state.categoryClicked} /> 
-            </div>
-        );
-    }
-
     render() {
         return (
                 <div className="base">
                     <h2>RESOURCES</h2>
 
                     <Accordion className="accordion" defaultActiveKey={this.getContentClicked()}>
-                        {this.getResourceEntries()}
+                        <ResourceEntry tag="study" eventKey="0" defaultActiveKey={this.state.categoryClicked} /> 
+                        <ResourceEntry tag="health" eventKey="1" defaultActiveKey={this.state.categoryClicked} /> 
+                        <ResourceEntry tag="relationship" eventKey="2" defaultActiveKey={this.state.categoryClicked} /> 
                     </Accordion>
                 </div>
         );
@@ -77,3 +46,39 @@ class Resources  extends Component{
 
 
 export default withRouter(Resources);
+
+// Read resource entries from the given article list to display by tag
+    // getResourceEntries(){
+    //     var resources = []
+    //     ARTICLES.map(ARTICLE => {
+    //         resources.push({
+    //             id: ARTICLE.id,
+    //             title: ARTICLE.title,
+    //             image: ARTICLE.image,
+    //             tag: ARTICLE.tag,
+    //             link: ARTICLE.link
+    //         });
+    //         return null; 
+    //     })
+    //     let studyEntries = []
+    //     let healthEntries = []
+    //     let relationshipEntries = []
+    //     for (let entry in resources){
+    //         if (resources[entry].tag === "study"){
+    //             studyEntries.push(resources[entry])
+    //         } else if (resources[entry].tag === "health"){
+    //             healthEntries.push(resources[entry])
+    //         } else if (resources[entry].tag === "relationship"){
+    //             relationshipEntries.push(resources[entry])
+    //         } else {
+    //             console.log("Cannot find the tag")
+    //         }
+    //     }
+    //     return ( 
+    //         <div>
+    //             <ResourceEntry key="0" title="study" contents={studyEntries} eventKey="0" defaultActiveKey={this.state.categoryClicked} /> 
+    //             <ResourceEntry key="1" title="health" contents={healthEntries} eventKey="1" defaultActiveKey={this.state.categoryClicked} /> 
+    //             <ResourceEntry key="2" title="relationship" contents={relationshipEntries} eventKey="2" defaultActiveKey={this.state.categoryClicked} /> 
+    //         </div>
+    //     );
+    // }

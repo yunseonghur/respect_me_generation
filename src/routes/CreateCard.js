@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import fire from '../fire';
 import "../routes/CreateCard.css";
 import { Nav, Row, Col, Tab, CardDeck, Card, Button } from 'react-bootstrap';
@@ -8,7 +8,7 @@ import CardModal from '../components/CardModal';
 /**
  * Lets logged in users create a card post displayed as a MyCard component.
  */
-class CreateCard extends React.Component {
+class CreateCard extends Component {
     constructor(props) {
         super(props);
         this.state = {

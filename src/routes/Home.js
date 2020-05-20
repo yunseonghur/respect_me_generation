@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import "./Home.css";
 import Quote from '../components/Quote';
 import HomeResourceEntry from '../components/HomeResourceEntry';
@@ -12,7 +12,7 @@ import MiniBoard from '../components/MiniBoard';
  * - MiniBoard
  * - HomeResourceEntry(s)
  */
-class Home extends React.Component{
+class Home extends Component{
     
     render(){
         return (

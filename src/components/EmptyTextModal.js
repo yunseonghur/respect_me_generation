@@ -4,6 +4,9 @@ import { Modal } from 'react-bootstrap';
 /**
  * Displayed when a comment is empty.
  * Called in AddComment.js
+ * 
+ * @param {boolean} show indicating whether modal is open showing
+ * @param {function} onHide what to do when closing modal
  */
 class EmptyTextModal extends React.Component {
     render(){

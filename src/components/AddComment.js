@@ -14,8 +14,13 @@ import LoginModal from './LoginModal';
 const dbRef = fire.database();
 
 /**
- * A modal when user clicks on a card. Users can add comments,
- * upvote or downvote, and report a card.
+ * A modal component that opens when a card is clicked.
+ * Displays the current card along with comments and upvote/downvote.
+ * 
+ * @param {firebaseUser} cardOwnerUID the firebase user.uid of the current user
+ * @param {string} cardID the unique key each card is stored in the database 
+ * @param {boolean} show is true when card is clicked and the addComment modal is showing
+ * @param {boolean} onHide is true when modal is closed 
  */
 class AddComment extends Component {
 
@@ -35,6 +40,18 @@ class AddComment extends Component {
         }
         this.writeComment = this.writeComment.bind(this);
         this.handleInput = this.handleInput.bind(this);
+    }
+
+    componentDidMount(){
+        fire.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({
+                    username: user.displayName,
+                    userUID: user.uid
+                });
+                this.getUserInfo();
+            }
+        })
     }
 
     /**
@@ -75,11 +92,10 @@ class AddComment extends Component {
     }
 
     /**
-     * Saves new comment to firebase. Text must be less than 35 characters
-     * and cannot be empty.
-     * @param {*} event 
+     * Saves new comment to firebase. 
+     * Text must be less than 35 characters and cannot be empty.
      */
-    writeComment(event) {
+    writeComment() {
         if(this.state.userUID !== ''){
             // if the length of the comment is no more than 35 characters
             if (this.state.newComment.length <= 35 && this.state.newComment.length > 0) {
@@ -103,7 +119,7 @@ class AddComment extends Component {
 
     /**
      * Users gain 5 points when commenting
-     * @param {*} currentUser 
+     * @param {firebaseUser} currentUser the currently logged in user.
      */
     increasePoints(currentUser){
         dbRef.ref('User/'+ currentUser).once('value')
@@ -119,7 +135,7 @@ class AddComment extends Component {
 
     /**
      * User gets an 'advanced' badge when they reach 100 points
-     * @param {*} currentUser 
+     * @param {firebaseUser} currentUser the currently logged in user. 
      */
     checkBadge(currentUser){
         dbRef.ref('User/'+ currentUser).once('value')
@@ -135,8 +151,9 @@ class AddComment extends Component {
     }
 
     /**
-     *  What is being typed into form
-     * */
+     * Handles the input comment text on submit.
+     * @param {event} event
+     */
     handleInput(event) {
         this.setState({
             newComment: event.target.value,
@@ -144,7 +161,7 @@ class AddComment extends Component {
     }
 
     /**
-     * Grabs a list of comments associated with the selecte card
+     * Grabs a list of comments associated with the selected card
      * and displays to the modal
      */
     getComments(){
@@ -169,6 +186,28 @@ class AddComment extends Component {
                 user={comment.id} 
                 comment={comment.text} 
             />));
+    }
+
+    /**
+     * Return count of upVote
+     * @param {int} upVotes
+     * */ 
+    countUpvotes = (upVotes) => {
+        if (upVotes != null) {
+            return upVotes;
+        }
+            return "0";
+    }
+
+    /**
+     * Return count of downVote
+     * @param {int} downVotes
+     */
+    countDownvotes = (downVotes) => {
+        if (downVotes != null) {
+            return downVotes;
+        }
+            return "0";
     }
 
     /**
@@ -208,7 +247,8 @@ class AddComment extends Component {
     }
 
     /**
-     * Check if user is logged in
+     * Check if user is logged in.
+     * @param {firebaseUser} currentUser the currently logged in user.
      */
     verifyUser = (userUID) => {
         if(userUID === ""){ 
@@ -254,7 +294,9 @@ class AddComment extends Component {
     );}
 
     /**
-     * Save user uid to prevent second vote from the same user for same card
+     * Save user uid to prevent second vote from the same user for same card.
+     * @param {firebaseUser} cardOwnerUID the firebase user.uid of the current user
+     * @param {string} cardID the unique key each card is stored in the database 
      */
     recordUser(cardOwnerUID, cardID){
         let userUID = this.state.userUID
@@ -326,8 +368,8 @@ class AddComment extends Component {
     };
 
     /**
-     * counts the number of 
-     * cardCommentObj: a card comment object stored in user
+     * counts the number of comments a user has.
+     * @param {Comment} cardCommentObj a card comment object stored in user
      */
     countComments = (cardCommentObj) => {
         // count comments under each card
@@ -340,38 +382,6 @@ class AddComment extends Component {
             }
         }
         return commentNumber;
-    }
-
-    /**
-     * Return count of upvote
-     *  */ 
-    countUpvotes = (upvoteObj) => {
-        if (upvoteObj != null) {
-            return upvoteObj;
-        }
-        return "0";
-    }
-
-    /**
-     * Return count of downvote
-     */
-    countDownvotes = (downvoteObj) => {
-        if (downvoteObj != null) {
-            return downvoteObj;
-        }
-        return "0";
-    }
-
-    componentDidMount(){
-        fire.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({
-                    username: user.displayName,
-                    userUID: user.uid
-                });
-                this.getUserInfo();
-            }
-        })
     }
 
     render(){

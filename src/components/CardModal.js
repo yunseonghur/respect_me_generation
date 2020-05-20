@@ -5,8 +5,14 @@ import { Container, Row, Button, Modal } from 'react-bootstrap';
 import "./CardModal.css";
 
 /**
- * A modal that is displayed when a card is created.
- * Called in CreateCard.js file
+ * A modal that is displayed when a card is created, and suggests relevant resources.
+ * Called in CreateCard.js file.
+ * 
+ * @param {function} onHide what should happen when modal is closed.
+ * @param {boolean} show indicates whether this modal is currently showing.
+ * @param {string} imgsrc chosen image for card
+ * @param {string} text input for card
+ * @param {string} tag chosen for card
  */
 class CardModal extends React.Component {
 

@@ -8,11 +8,6 @@ import ARTICLES from '../components/ResourceArticles';
 /**
  * Represents a accordion fold on the Resources ROUTE. 
  * 
- * props:
- * - title = title of the accordion fold
- * - contents = content that appears after fold is opened
- * - eventKey = if this entry starts OPEN, match this num with the defaultActiveKey 
- * 
  * @param {*} tag 
  * @param {*} eventKey decides which fold is opened after click
  * @param {*} defaultActiveKey decides which fold is opened at FIRST

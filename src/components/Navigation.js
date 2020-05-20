@@ -31,9 +31,9 @@ class Navigation extends Component {
 
     /**
      * Save user information to Firebase
-     * @param {*} userId 
-     * @param {*} name 
-     * @param {*} email 
+     * @param {firebaseUser.uid} userId 
+     * @param {firebaseUser.name} name 
+     * @param {string} email 
      */
     writeUserData(userId, name, email) {
         this.db.ref('User/' + userId).update({
@@ -44,7 +44,7 @@ class Navigation extends Component {
 
     /**
      * Adds points and assign badge to first time users
-     * @param {*} userId 
+     * @param {firebaseUser.uid} userId 
      */
     addUserData(userId){
         this.db.ref('User/'+userId).once('value')
@@ -98,12 +98,3 @@ class Navigation extends Component {
 }
 
 export default Navigation;
-
-// <img src="https://img.icons8.com/material-outlined/24/000000/person-male.png" alt="Profile"/>
-{/* <Link tooltip="Upload a video">
-    <Button onClick={this.uploadHandler} disabled>
-        <img src="https://img.icons8.com/material-outlined/24/000000/camcorder-pro.png" alt="Upload a video"/>
-    </Button>
-</Link>
-<Link href='#createCard' tooltip="Add a card"><img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/></Link>
-<Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add"/></Button> */}

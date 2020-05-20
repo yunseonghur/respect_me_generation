@@ -5,7 +5,10 @@ import {Modal, Container} from 'react-bootstrap';
 /**
  * Dislayed when user has 'basic' badge and attempts
  * to upload a video.
- * Called in CommunityBoard.js, 
+ * Called in CommunityBoard.js
+ * 
+ * @param {boolean} show indicating whether modal is open showing
+ * @param {function} onHide what to do when closing modal
  */
 class VideoBadgeModal extends React.Component {
 

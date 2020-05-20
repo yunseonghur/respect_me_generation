@@ -5,12 +5,16 @@ import fire from '../fire';
 /**
  * Displayed when user clicks Log Out button.
  * Called in Navigation.js
+ * 
+ * @param {boolean} show indicating whether modal is open showing
+ * @param {function} onHide what to do when closing modal
  */
 class LogoutModal extends React.Component {
     constructor(props) {
         super(props);
         this.logOut = this.logOut.bind(this);
     }
+
     logOut() {
         fire.auth().signOut().then(function() {
             window.location.href="/";
@@ -19,6 +23,7 @@ class LogoutModal extends React.Component {
             console.log("Sign out ERROR");
         })
     }
+    
     render() {
         return (
             <Modal

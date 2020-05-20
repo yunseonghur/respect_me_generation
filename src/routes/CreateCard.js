@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import fire from '../fire';
 import "../routes/CreateCard.css";
 import { Nav, Row, Col, Tab, CardDeck, Card, Button } from 'react-bootstrap';
 import TextLengthModal from '../components/TextLengthModal';
 import CardModal from '../components/CardModal';
 
-class CreateCard extends React.Component {
+/**
+ * Lets logged in users create a card post displayed as a MyCard component.
+ */
+class CreateCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -84,6 +87,10 @@ class CreateCard extends React.Component {
         }
     }
 
+    /**
+     * Gives welcome points to user.
+     * @param {firebaseUser} currentUser 
+     */
     increasePoints(currentUser){
         this.db.ref('User/'+currentUser.uid).once('value')
             .then(function(snapshot){
@@ -97,6 +104,10 @@ class CreateCard extends React.Component {
         this.checkBadge(currentUser);
     }
 
+    /**
+     * Check user's points to determine if the badge needs to be upgraded.
+     * @param {firebaseUser} currentUser 
+     */
     checkBadge(currentUser){
         this.db.ref('User/'+currentUser.uid).once('value')
             .then(function(snapshot){

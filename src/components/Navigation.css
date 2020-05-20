@@ -1,6 +1,5 @@
 .ml-auto {
   font-size: 13pt;
-  /* background-color: green; */
 }
 
 #brand {
@@ -33,11 +32,6 @@
 .navbar-collapse  {
   border: none;
 }
-
-/* .iconGroup {
-  display: inline-block !important;
-  text-align: right;
-} */
 
 @media only screen and (min-width: 768px) {
   #brand {

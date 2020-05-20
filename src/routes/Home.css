@@ -49,36 +49,3 @@
         margin-top: 80px;
     }
 }
-
-/* ! moved to HomeResourceEntry.css */
-/* .entry {
-    margin: 10px;
-}
-
-.entry img {
-    height: 130px;
-    width: 200px;
-} */
-
-/* .resourceTitle {
-  color: black;
-  font-size: 12px;
-} */
-
-/* Medium devices (landscape tablets, 768px and down)
-@media only screen and (max-width: 768px) {
-    .card-section h2 {
-        font-size: 16pt;
-    }
-    .card-section p {
-        font-size: 10pt;
-    }
-} */
-
-/* .resourceTitle {
-  color: black;
-  font-size: 20px;
-  font-weight: 700;
-  text-align: left;
-  line-height: 1.3em;
-} */

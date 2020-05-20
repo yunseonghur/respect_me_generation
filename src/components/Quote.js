@@ -4,6 +4,7 @@ import axios from 'axios';
 
 /**
  * Quote API that is called in Home.js
+ * API: https://quotes.rest/
  */
 class Quote extends Component {
 
@@ -20,9 +21,7 @@ class Quote extends Component {
           .then(res => {
 
             let quoteObject = res.data.contents.quotes[0];
-
             let text = quoteObject.quote;
-
             let author = quoteObject.author;
 
             this.setState({ 

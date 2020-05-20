@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import "./Profile.css";
 import MyCard from '../components/MyCard';
 import AddComment from '../components/AddComment';
@@ -18,7 +18,11 @@ import { faCoins } from "@fortawesome/free-solid-svg-icons";
 
 const dbRef = fire.database().ref();
 
-class Profile extends React.Component{
+/**
+ * The user profile page where they can view (and in the future edit/delete)
+ * their own posts, along with checking their current points and badge.
+ */
+class Profile extends Component{
     state = {
         userUID: "",
         username: "",
@@ -27,18 +31,25 @@ class Profile extends React.Component{
         cards: [],
         videos: [],
         isLoading: true, // true if the server is still loading cards data
-        visible: true,  // true if cards are visible & false if videos are visible
-        show: false, // false if modal is hiden
+        show: false, // false if modal is hidden
         cardSelected: "",
+        videoVisible: false,
+        cardVisible: true   // starts out showing cards
     };
-    // Set a flag for modal to true to appear
-    showModal = () => {
-        this.setState({show: true})
+
+    // Get current user's name and uid if exist
+    componentDidMount(){
+        fire.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({
+                    username: user.displayName,
+                    userUID: user.uid
+                });
+                this.getUserInfo();
+            }
+        })
     }
-    // Set a flag for modal to false to be hidden
-    hideModal = () => {
-        this.setState({show: false})
-    }
+
     // Get current user's info: badge, points, cards, and videos
     getUserInfo(){
         dbRef.child('User').on('value', snap => {
@@ -54,9 +65,18 @@ class Profile extends React.Component{
         });
     }
 
+    // Set a flag for modal to true to appear
+    showModal = () => {
+        this.setState({show: true})
+    }
+    // Set a flag for modal to false to be hidden
+    hideModal = () => {
+        this.setState({show: false})
+    }
+
     /**
-     * counts the number of 
-     * cardCommentObj: a card comment object stored in user
+     * Counts the number of comments user has received.
+     * @param {Comment} cardCommentObj a card's comment stored in the user
      */
     countComments = (cardCommentObj) => {
         // count comments under each card
@@ -72,8 +92,10 @@ class Profile extends React.Component{
         return commentNumber;
     }
 
-    // Store the cards in an array and set a flag for loading to false
-    getCardDetails(){
+    /**
+     * Loads in the details needed to make populate each Card component.
+     */
+    getCardDetails() {
         let cards = this.state.cards;
         let cardDetails = [];
         for (let card in cards){
@@ -94,6 +116,21 @@ class Profile extends React.Component{
             isLoading: false
         });
     }
+
+    countUpvotes = (upvoteObj) => {
+        if (upvoteObj != null) {
+            return upvoteObj;
+        }
+        return "0";
+    }
+
+    countDownvotes = (downvoteObj) => {
+        if (downvoteObj != null) {
+            return downvoteObj;
+        }
+        return "0";
+    }
+
     // Store the current user's videos in an array instead of in json format
     getVideos(){
         let videos = this.state.videos;
@@ -105,32 +142,28 @@ class Profile extends React.Component{
         }
         this.setState({ videos: videoArr });
     }
-    countUpvotes = (upvoteObj) => {
-        if (upvoteObj != null) {
-            return upvoteObj;
+
+    /**
+     * toggles between the video and card categories
+     */
+    toggleOpenCards = () => {
+        if (this.state.cardVisible === false) {
+            this.setState({cardVisible: true, videoVisible: false})
+        } else {
+            console.log("cards already opened.")
         }
-        return "0";
     }
-    countDownvotes = (downvoteObj) => {
-        if (downvoteObj != null) {
-            return downvoteObj;
+    
+    toggleOpenVideos = () => {
+        if (this.state.videoVisible === false) {
+            this.setState({videoVisible: true, cardVisible: false})
+        } else {
+            console.log("videos already opened.")
         }
-        return "0";
     }
-    // Get current user's name and uid if exist
-    componentDidMount(){
-        fire.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({
-                    username: user.displayName,
-                    userUID: user.uid
-                });
-                this.getUserInfo();
-            }
-        })
-    }
-    render(){
-        const tabLabel = this.state.visible? "Your Cards" : "Your Videos";
+
+
+    render() {
 
         // determines which badge icon to use
         let badgeIcon;
@@ -143,9 +176,9 @@ class Profile extends React.Component{
         return (
             
             <div>
+                {/* header section with the profile picture and points. */}
                 <div className="header">
                     <Container>
-                    
                         <div className='pill'>
                         <h3>
                             <span>{this.state.username}</span>
@@ -155,77 +188,55 @@ class Profile extends React.Component{
                             <ReactTooltip id="proftt" place='bottom' type='warning' effect='float' />
                         </h3>
                         </div>
-                        
                     </Container>
-
                 </div>
+
+                {/* section holding user's cards or videos */}
                 <div className="container">
                     <ButtonGroup> 
-                        <Button variant="light" className="card-vid-tab" onClick={()=>{
-                            this.setState({ visible: true});
-                        }}>
-                            Your Cards
-                        </Button>
-                        <Button variant="light" className="card-vid-tab" onClick={()=>{
-                            this.setState({ visible: false});
-                        }}>
-                            Your Videos
-                        </Button>
+                            <Button variant="light" onClick={this.toggleOpenCards}>Cards</Button>
+                            <Button variant="light" onClick={this.toggleOpenVideos}>Videos</Button>
                     </ButtonGroup>
-
-                    <br /><br />
-                    <h3>{tabLabel}</h3>
-                    <br />
                     {this.state.isLoading ? (
                         <div className="loader">
                         <span className="loader__text">Loading...</span>
                         </div>
-                    ) : this.state.visible ?
-                        (
+                    ) : this.state.cardVisible ? (
                         <div className="cards">
                             <Container>
                                 <CardDeck className="row row-cols-sm-2 row-cols-md-3">
-                                    {Array.from(this.state.cards).map((myCard)=> 
-                                    <MyCard 
-                                        key={myCard.id} 
-                                        id={myCard.id} 
-                                        background={myCard.background} 
-                                        text={myCard.text} 
-                                        commentCount={myCard.numComments}
-                                        upvoteCount={myCard.upvote}
-                                        downvoteCount={myCard.downvote}
-                                        onClick={()=>{
-                                            this.setState({ show: true, cardSelected: myCard.id });
-                                        }}
-                                    />)}
+                                    {
+                                    Array.from(this.state.cards).map((myCard)=> 
+                                        <MyCard 
+                                            key={myCard.id} 
+                                            id={myCard.id} 
+                                            background={myCard.background} 
+                                            text={myCard.text} 
+                                            commentCount={myCard.numComments}
+                                            upvoteCount={myCard.upvote}
+                                            downvoteCount={myCard.downvote}
+                                            onClick={()=>{this.setState({ show: true, cardSelected: myCard.id })}}/>)
+                                    }
+
                                     {this.state.show ?
-                                        <AddComment show={this.state.show} cardOwnerUID={this.state.userUID} cardID={this.state.cardSelected} onHide={() => this.setState({show: false})}/>
-                                    : null}
+                                        <AddComment 
+                                            show={this.state.show} 
+                                            cardOwnerUID={this.state.userUID} 
+                                            cardID={this.state.cardSelected} 
+                                            onHide={() => this.setState({show: false})}/> : null}
                                 </CardDeck>
                             </Container>
                         </div>
-                        ) : (
-                        <div className="videos">
+                        ) : (<div className="videos">
                                 {Array.from(this.state.videos).map((myVideo)=> 
-                                <UserVideo 
-                                    key={myVideo.id} 
-                                    videoId={myVideo.id}
-                                />)}
-                        </div>)
+                                    <UserVideo key={myVideo.id} videoId={myVideo.id}/>)}
+                            </div>
+                            )
                     }
                 </div>
-                
-            </div>
+            </div>  // closing root node
         );
-    }
+    }   // closing render function
 }
-//display: flex;
-//justify-content: center;
-//align-items: center;
-
-// border-style: solid;
-//     border-width: thick;
-//     border-color: black;
-//     border-radius: 100px;
 
 export default Profile;

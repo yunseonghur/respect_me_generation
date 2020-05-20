@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Modal } from 'react-bootstrap';
 
 /**
  * Displayed when text is too long.
  * Called in CreateCard.js and AddComment.js
+ * 
+ * @param {boolean} show indicating whether modal is open showing
+ * @param {function} onHide what to do when closing modal
  */
-class TextLengthModal extends React.Component {
+class TextLengthModal extends Component {
 
     render(){
         return (

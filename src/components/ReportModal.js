@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import fire from '../fire';
 import './ReportModal.css';
@@ -6,15 +6,18 @@ import './ReportModal.css';
 /**
  * Component that appears when user clicks on the flag to report a post on the card modal.
  * Called in CreateCard.js
+ * 
+ * @param {boolean} show indicating whether modal is open showing
+ * @param {function} onHide what to do when closing modal
  */
-class ReportModal extends React.Component {
+class ReportModal extends Component {
 
     db = fire.database();
     
     /**
      * add card ownerUID and card id to firebase and the date reported
     */
-    report =()=> {
+    report = () => {
         var date = Date.now();
         date = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit', 
                 day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(date);

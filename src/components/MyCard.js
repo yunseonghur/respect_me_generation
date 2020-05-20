@@ -9,6 +9,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 /**
  * Represents a single card object.
  * Called in CardModal.js, Cards.js, AddComment.js, Profile.js
+ * 
+ * @param {function} onClick should show the AddComment modal
+ * @param {string} background
+ * @param {int} commentCount
+ * @param {int} upvoteCount
+ * @param {int} downvoteCount
  */
 class MyCard extends Component {
 

@@ -26,7 +26,7 @@ class Cards extends React.Component{
 
     /**
      * Grabs all users' cards from firebase
-     * @param {*} users 
+     * @param {firebaseUser} users 
      */
     getCards(users){
         let cardCollected = [];
@@ -94,8 +94,8 @@ class Cards extends React.Component{
       };
 
     /**
-     * counts the number of 
-     * cardCommentObj: a card comment object stored in user
+     * counts the number of comments a user has.
+     * @param {Comment} cardCommentObj a card comment object stored in user
      */
     countComments = (cardCommentObj) => {
         // count comments under each card
@@ -165,7 +165,8 @@ class Cards extends React.Component{
     }
 
     /**
-     * cards collected are sorted by timestamp after cars are sorted by tag
+     * Sorts cards from users by timestamp
+     * @param {array} cardCollected a list of all cards from iterating through all users
      */ 
     sortByTimestamp(cardCollected){
         cardCollected.sort(function (a, b){
@@ -175,23 +176,25 @@ class Cards extends React.Component{
     }
 
     /**
-     * Counts number of upvotes
-     */
-    countUpvotes = (upvoteObj) => {
-        if (upvoteObj != null) {
-            return upvoteObj;
+     * Return count of upVote
+     * @param {int} upVotes
+     * */ 
+    countUpvotes = (upVotes) => {
+        if (upVotes != null) {
+            return upVotes;
         }
-        return "0";
+            return "0";
     }
 
     /**
-     * Counts number of downvotes
+     * Return count of downVote
+     * @param {int} downVotes
      */
-    countDownvotes = (downvoteObj) => {
-        if (downvoteObj != null) {
-            return downvoteObj;
+    countDownvotes = (downVotes) => {
+        if (downVotes != null) {
+            return downVotes;
         }
-        return "0";
+            return "0";
     }
 
     render() {

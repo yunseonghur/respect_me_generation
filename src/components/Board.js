@@ -28,7 +28,6 @@ class Board extends Component{
     }
 
     componentDidMount() {
-        // get references that DON'T change
         fire.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.setState({
@@ -102,28 +101,3 @@ class Board extends Component{
 }
 
 export default Board;
-
- // state ={
-    //     userUID: null,
-    //     isLoading: true, // true if the server is still loading cards data
-    //     visible: true,  // true if cards are visible & false if videos are visible
-    //     show: false, // false if modal is hidden
-    //     tag: "all", // selected tag to sort
-    //     displayMode: "card"
-    // }
-
-// display = () => {
-    //     if (this.state.tag === "study") {
-    //         if (this.state.cardVisible) {
-    //             return <Cards tag={this.state.tag}/>
-    //         }
-    //         // return <Cards tag={this.state.tag} />
-    //     } else if (this.state.tag === "relationship") {
-    //         if (this.state.cardVisible) {
-    //             return <Cards tag={this.state.tag}/>
-    //         }
-    //         // return <Cards tag={this.state.tag} />
-    //     }
-    // }
-
-    // visible: true,  // true if cards are visible & false if videos are visible

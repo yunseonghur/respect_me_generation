@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Modal } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 
 /**
- * Displayed when user has to login.
- * Called in CommunityBoard.js
+ * Shows when non-users want to access user-only functionality.
+ * 
+ * @param {boolean} show indicating whether modal is open showing
+ * @param {function} onHide what to do when closing modal
  */
-class LoginAlertModal extends React.Component {
+class LoginAlertModal extends Component {
     render() {
         return (
             <Modal

@@ -243,7 +243,12 @@ class AddComment extends Component {
      * Displays report modal on button click
      */
     reportClick = () => {
-        this.setState({ reportModal: true });
+        if (this.state.userUID === ""){
+            this.setState({ loginModal: true });
+        } else {
+            this.setState({ reportModal: true });
+        }
+
     }
 
     /**
@@ -450,7 +455,7 @@ class AddComment extends Component {
                 </Modal>
                 <ReportModal 
                     show={this.state.reportModal} 
-                    onHide={()=> this.setState({ reportModal: false })}
+                    onHide={()=> this.setState({ reportModal: false, loginModal: false })}
                     cardID={this.props.cardID}
                     cardOwnerUID={this.props.cardOwnerUID}/>
                 <TextLengthModal

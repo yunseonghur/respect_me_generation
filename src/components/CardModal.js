@@ -24,7 +24,7 @@ class CardModal extends React.Component {
             show={this.props.show}
             animation={false}
             aria-labelledby="contained-modal-title-vcenter"
-            centered>
+            centered="true">
                 <Modal.Header closeButton>
                     <Modal.Title>Your Card</Modal.Title>
                 </Modal.Header>
@@ -53,7 +53,7 @@ class CardModal extends React.Component {
                         </Row>
                     </Container>
                 </Modal.Body>
-                <Modal.Footer centered>
+                <Modal.Footer centered="true">
                     <Button className="modal-btn" href="#communityBoard">Go to Community Board</Button>
                 </Modal.Footer>
         </Modal>

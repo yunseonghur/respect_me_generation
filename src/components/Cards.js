@@ -137,7 +137,6 @@ class Cards extends React.Component{
                             numComments: commentNumber,
                             timestamp: cards[card].timestamp,
                             upvote: this.countUpvotes(cards[card].upvote),
-                            downvote: this.countDownvotes(cards[card].downvote)
                         });
                     } 
                 }
@@ -154,7 +153,6 @@ class Cards extends React.Component{
                         numComments: commentNumber,
                         timestamp: cards[card].timestamp,
                         upvote: this.countUpvotes(cards[card].upvote),
-                        downvote: this.countDownvotes(cards[card].downvote)
                     });
                 }
             }
@@ -186,17 +184,6 @@ class Cards extends React.Component{
             return "0";
     }
 
-    /**
-     * Return count of downVote
-     * @param {int} downVotes
-     */
-    countDownvotes = (downVotes) => {
-        if (downVotes != null) {
-            return downVotes;
-        }
-            return "0";
-    }
-
     render() {
         return (
             <div>
@@ -217,7 +204,6 @@ class Cards extends React.Component{
                                 text={card.text} 
                                 commentCount={card.numComments}
                                 upvoteCount={card.upvote}
-                                downvoteCount={card.downvote}
                                 onClick={()=>{
                                     this.setState({ visible: true, cardSelected: card.id });
                                 }}

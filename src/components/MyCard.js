@@ -14,7 +14,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
  * @param {string} background
  * @param {int} commentCount
  * @param {int} upvoteCount
- * @param {int} downvoteCount
  */
 class MyCard extends Component {
 
@@ -30,8 +29,6 @@ class MyCard extends Component {
                             <span className="commentCount iconItem">{this.props.commentCount}</span>
                             <FontAwesomeIcon className="thumbs-up" icon={faThumbsUp} />
                             <span className="upvoteCount iconItem">{this.props.upvoteCount}</span>
-                            <FontAwesomeIcon className="thumbs-down" icon={faThumbsDown} />
-                            <span className="downvoteCount iconItem">{this.props.downvoteCount}</span>
                         </Card.Text>
                     </Card.ImgOverlay>
                 </Card>

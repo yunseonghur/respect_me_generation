@@ -82,7 +82,6 @@ class AddComment extends Component {
                 text: cards[card].text,
                 numComments: this.countComments(cards[card].comments),
                 upvote: this.countUpvotes(cards[card].upvote),
-                downvote: this.countDownvotes(cards[card].downvote)
             });
         }
         this.setState({
@@ -200,17 +199,6 @@ class AddComment extends Component {
     }
 
     /**
-     * Return count of downVote
-     * @param {int} downVotes
-     */
-    countDownvotes = (downVotes) => {
-        if (downVotes != null) {
-            return downVotes;
-        }
-            return "0";
-    }
-
-    /**
      * Displays the card selected
      */
     displayCard() {
@@ -218,7 +206,7 @@ class AddComment extends Component {
         let text;
         let numComments;
         let upvote;
-        let downvote;
+
         dbRef.ref().child('User').on('value', snap => {
             const userInfo = snap.val();
             if(userInfo[this.props.cardOwnerUID]!=null){
@@ -226,7 +214,6 @@ class AddComment extends Component {
                 text = userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['text'];
                 numComments = this.countComments(userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['comments']);
                 upvote = this.countUpvotes(userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['upvote']);
-                downvote = this.countDownvotes(userInfo[this.props.cardOwnerUID]['cards'][this.props.cardID]['downvote']);
             }
         });
         return <MyCard 
@@ -236,7 +223,7 @@ class AddComment extends Component {
                     text={text}             
                     commentCount={numComments}                        
                     upvoteCount={upvote}
-                    downvoteCount={downvote} />
+                 />
     }
 
     /**
@@ -339,37 +326,6 @@ class AddComment extends Component {
     };
 
     /**
-     * Increase count of downvote if the vote is valid
-     */
-    downvoteClicked = async () => {
-        let cardOwnerUID = this.props.cardOwnerUID
-        let cardID = this.props.cardID
-        await this.verifyVote(cardOwnerUID, cardID)
-        if (this.state.isValid) {
-            let downvote
-            dbRef.ref('User/' + cardOwnerUID).once('value')
-            .then(function(snapshot){
-                let card = snapshot.child('cards/' + cardID).val()
-                if (card['downvote'] != null) {
-                    downvote = card['downvote']
-                    downvote += 1
-                } else {
-                    downvote = 1;
-                }
-                dbRef.ref('User/' + cardOwnerUID).child('cards/' + cardID).update({
-                    downvote
-                })
-        });
-        // record userUID to keep track of the user's upvote
-        this.recordUser(cardOwnerUID, cardID)
-        } else {
-            if (!this.state.loginModal){
-                this.setState({showVoteError: true});
-            }
-        }
-    };
-
-    /**
      * counts the number of comments a user has.
      * @param {Comment} cardCommentObj a card comment object stored in user
      */
@@ -407,7 +363,6 @@ class AddComment extends Component {
                                 <Col>
                                     <p id="feedback">Do you like this post?</p>
                                     <FontAwesomeIcon id="thumbsUpIcon" icon={faThumbsUp} onClick={this.upvoteClicked} />
-                                    <FontAwesomeIcon id="thumbsDownIcon" icon={faThumbsDown} onClick={this.downvoteClicked} />
                                     <LoginModal show={this.state.loginModal} onHide={()=> this.setState({loginModal: false})} />
                                     <br /><br />
                                 </Col>

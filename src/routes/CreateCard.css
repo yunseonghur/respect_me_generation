@@ -1,47 +1,41 @@
-.card{
-    width: 200px;
-    height: 200px;
+.createcard_wrapper {
+  text-align: center;
+  margin: 30px; 
 }
 
-.card-img{
-    width: 200px;
-    height: 200px;
+.createcard_text--field {
+  width: 90%;
+  height: 150px;
 }
 
-.jumbotron {
-    text-align: center;
+.createcard_title {
+  font-size: 15pt;
+}
+
+.createcard_img, .createcard_text, .createcard_tags {
+    background-color: #eaeaea;
+    margin: 10px;
+    padding: 20px;
+}
+
+.createcard_button--submit {
+  background-color: #007bff;
+  color: white;
+}
+
+.card {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
 }
 
 .card-deck {
     text-align: center;
 }
 
-#text-field {
-    width: 90%;
-    height: 150px;
-}
-
-.container {
-    text-align: center; 
-}
-
-.instruction {
-    font-size: 15pt;
-}
-
-.cardImage {
-    width: 200px;
-    height: 200px;
-}
-
-#tag-row{
-    display: block;
-}
-
 .nav-pills .nav-link:hover{
     background-color: gray;
 }
-
 
 .nav-pills .nav-link {
     background-color: lightgray;
@@ -49,30 +43,12 @@
     text-align: center;
 }
 
-p {
-    text-align: left;
-}
-
 button.close {
     width: 40px;
 }
 
-.modal-btn {
-    width: 200px;
-    margin: 2px;
-}
-
-.modal-body {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#create-btn {
-    background-color: #007bff;
-    color: white;
-}
-
-.instruction {
-    margin-top: 70px;
-}
+/* .cardImage {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+} */

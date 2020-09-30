@@ -6,8 +6,6 @@ import fire from '../fire.js';
 import VideoBadgeModal from '../components/VideoBadgeModal';
 import LoginModal from '../components/LoginModal';
 
-
-// firebase needed to relate current user with upload
 const db = fire.database();
 
 /**
@@ -153,6 +151,7 @@ class CommunityBoard extends Component{
                     </Link>
                     <Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add"/></Button>
                 </Container>
+
                 <VideoBadgeModal show={this.state.displayErrorMessage} onHide={()=> this.setState({displayErrorMessage: false})} />
                 <LoginModal show={this.state.displayLoginModal} onHide={()=> this.setState({displayLoginModal: false})} />
             </div>

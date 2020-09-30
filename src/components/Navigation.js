@@ -77,7 +77,7 @@ class Navigation extends Component {
     return(
       <div className="navigation">
         <Nav.Link className="navigation__brand" href="/">RESPECT ME GENERATION</Nav.Link>
-        <Nav className="navigation__list" pullRight>
+        <Nav className="navigation__list">
           { this.state.user ? <span data-for='main' data-tip='Profile'><Nav.Link href="#profile"><FontAwesomeIcon className="navigation__item" icon={faUser} /></Nav.Link></span> : null}
           <span data-for='main' data-tip='Community Board'><Nav.Link href="#communityBoard"><FontAwesomeIcon className="navigation__item" icon={faBullhorn} /></Nav.Link></span>
           <span data-for='main' data-tip='Resources'><Nav.Link href="#resources"><FontAwesomeIcon className="navigation__item" icon={faLightbulb} /></Nav.Link></span>

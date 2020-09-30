@@ -1,4 +1,5 @@
 import React from 'react';
+import "./UserVideo.css";
 import { CloudinaryContext, Video } from 'cloudinary-react';
 
 /**
@@ -9,13 +10,13 @@ import { CloudinaryContext, Video } from 'cloudinary-react';
  * using the Cloudinary component. Stored in User under 'video'. 
  */
 const UserVideo = (props) => {
-    return (
-        <div style={{display: "inline-block", margin: "10px", maxWidth: "400px"}}>
-            <CloudinaryContext cloudName="respectmegen">
-                {<Video publicId={props.videoId} width="100%" height="100%" controls></Video>}
-            </CloudinaryContext>
-        </div>
-    );
+  return (
+    <div className="user-video">
+      <CloudinaryContext cloudName="respectmegen">
+        {<Video publicId={props.videoId} width="100%" height="100%" controls></Video>}
+      </CloudinaryContext>
+    </div>
+  );
 }
 
 export default UserVideo;

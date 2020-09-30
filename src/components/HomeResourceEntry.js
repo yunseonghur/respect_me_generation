@@ -1,27 +1,11 @@
 import React from 'react';
-import Image from 'react-bootstrap/Image';
 import '../components/HomeResourceEntry.css';
+import ResourceImage from '../components/ResourceImage';
 import ARTICLES from '../components/ResourceArticles';
 import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { withRouter } from 'react-router-dom';
 
-/**
- * Represent an entry consist of an image and a caption for each article
- * @param {string} link link to the article
- * @param {string} image image displayed with article
- * @param {string} title subtitle of the article, displayed under image
- */
-export const ResourceImage = (props) => {
-    return (
-        <div className="entry">
-            <a className="resourceTitle" href={props.link} target="blank">
-                <Image src={props.image} alt={props.title} rounded />
-                <p style={{textAlign: "left",  marginTop: "10px", fontSize: "14px"}}>{props.title}</p>
-            </a>
-        </div>
-    )
-}
 
 /**
  * @param {string} tag the resource entry category (e.g. "study")

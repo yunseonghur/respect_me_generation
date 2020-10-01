@@ -1,4 +1,4 @@
-.board__togglebuttons--btn {
+.board__toggle-buttons--btn {
   margin: 5px 5px;
   border-radius: 500px;
 }
@@ -20,6 +20,6 @@
   margin-bottom: 10px;
 }
 
-.board__togglebuttons {
+.board__toggle-buttons {
   margin-bottom: 15px;
 }

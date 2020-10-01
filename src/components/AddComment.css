@@ -1,7 +1,7 @@
-#reportIcon {
-    position: absolute;
-    right: 0;
-    margin-right: 20px;
+.add-comment__modal__header__title--report {
+  position: absolute;
+  right: 0;
+  margin-right: 20px;
 }
 .comments {
   width: 200px;
@@ -11,37 +11,37 @@
   border: 1px solid rgba(0, 0, 0, 0.274);
 }
 
-#feedback {
-    position: absolute;
-    left: 0;
-    margin-left: 100px;
+.add-comment__modal__body--prompt {
+  position: absolute;
+  left: 0;
+  margin-left: 100px;
 }
 
-#thumbsUpIcon {
-    position: absolute;
-    left: 0;
-    margin-left: 230px;
-    color: lightskyblue;
+.add-comment__modal__body--upvote {
+  position: absolute;
+  left: 0;
+  margin-left: 230px;
+  color: lightskyblue;
 }
 
-#thumbsDownIcon {
-    position: absolute;
-    left: 0;
-    margin-left: 250px;
-    color: lightsalmon;
+.add-comment__modal__body--downvote {
+  position: absolute;
+  left: 0;
+  margin-left: 250px;
+  color: lightsalmon;
 }
 
-#voteErrorMsg {
-    position: absolute;
-    left: 0;
-    margin-left: 120px;
+.add-comment__modal__body--error {
+  position: absolute;
+  left: 0;
+  margin-left: 120px;
 }
 
 @media only screen and (max-width: 320px) {
-    .comments {
-      width: 174px;
-    }
-    #inputCol {
-        padding-right: 0;
-    }
+  .add-comment__modal__body__form__input-col--comments {
+    width: 174px;
   }
+  .add-comment__modal__body__form__input-col {
+    padding-right: 0;
+  }
+}

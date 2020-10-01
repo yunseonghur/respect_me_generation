@@ -23,11 +23,21 @@ class MyCard extends Component {
           <Card.Img className="mycard__card--img" src={this.props.background} alt="Card image" />
           <Card.ImgOverlay className="mycard__card__overlay">
             <Card.Text className="mycard__card__overlay--text">{this.props.text}</Card.Text>
-            <Card.Text className="mycard__card__overlay--textbottom">
-              <FontAwesomeIcon icon={faComments} />
-              <span className="commentCount iconItem">{this.props.commentCount}</span>
-              <FontAwesomeIcon className="thumbs-up" icon={faThumbsUp} />
-              <span className="upvoteCount iconItem">{this.props.upvoteCount}</span>
+            <Card.Text className="mycard__card__overlay__text-bottom">
+              <FontAwesomeIcon
+                icon={faComments}
+                className="mycard__card__overlay__text-bottom--comment"
+              />
+              <span className="mycard__card__overlay__text-bottom--comment-count mycard__card__overlay__text=bottom--icon-item">
+                {this.props.commentCount}
+              </span>
+              <FontAwesomeIcon
+                className="mycard__card__overlay__text-bottom--upvote"
+                icon={faThumbsUp}
+              />
+              <span className="mycard__card__overlay__text-bottom--upvote-count mycard__card__overlay__text-bottom--icon-item">
+                {this.props.upvoteCount}
+              </span>
             </Card.Text>
           </Card.ImgOverlay>
         </Card>

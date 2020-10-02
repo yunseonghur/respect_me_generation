@@ -13,7 +13,7 @@ class TextLengthModal extends Component {
   render(){
     return (
       <Modal 
-      className="text-length-modal" // tlm
+      className="tlm"
       aria-labelledby="contained-modal-title-vcenter" 
       show={this.props.show} 
       onHide={this.props.onHide} 

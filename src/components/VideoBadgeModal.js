@@ -16,7 +16,7 @@ class VideoBadgeModal extends React.Component {
   render() {
     return (
       <Modal
-      className="video-badge-modal" // vbm
+      className="vbm"
       aria-labelledby="contained-modal-title-vcenter" 
       animation={false}
       show={this.props.show}

@@ -207,7 +207,7 @@ class Cards extends React.Component {
             </span>
           </div>
         ) : this.state.showCards ? (
-          <CardDeck className="cards__carddeck row">
+          <CardDeck className="cards__card-deck row">
             {Array.from(this.sortByTag()).map((card) => (
               <div key={card.id}>
                 <MyCard

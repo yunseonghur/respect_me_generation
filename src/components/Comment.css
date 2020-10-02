@@ -1,4 +1,4 @@
-.commentWrapper {
+.comment {
   padding: 10px;
   border: 1px solid rgba(0, 0, 0, 0.089);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.089);
@@ -6,10 +6,7 @@
   width: 280px;
 }
 
-.bottomBorder {
+.comment__bottom-border {
   border-bottom: 1px solid rgba(0, 0, 0, 0.096);
   margin-bottom: 10px;
 }
-
-
-

@@ -27,20 +27,21 @@ class LogoutModal extends React.Component {
     render() {
         return (
             <Modal
+            className="logout-modal"
             show={this.props.show}
             onHide={this.props.onHide}
             animation={false}
             size="sm" 
             aria-labelledby="contained-modal-title-vcenter" 
             centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>Log Out</Modal.Title>
+                <Modal.Header className="logout-modal__header" closeButton>
+                    <Modal.Title className="logout-modal__header--title">Log Out</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="logout-modal__body">
                     Are you sure you want to log out?
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={this.logOut}>Log Out</Button>
+                <Modal.Footer className="logout-modal__footer">
+                    <Button className="logout-modal__footer--button" onClick={this.logOut}>Log Out</Button>
                 </Modal.Footer>
             </Modal>
         )

@@ -1,5 +1,10 @@
-#footer {
+.report-modal__footer {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.report-modal__footer-button {
+    width: 200px;
+    margin: 2px;
 }

@@ -76,13 +76,13 @@ class Board extends Component {
           <h5 className="board__header--prompt">What is your community talking about today?</h5>
         </div>
         {this.state.cardVisible ? (
-          <div className="board__togglebuttons">
+          <div className="board__toggle-buttons">
             <ButtonGroup>
               <Button
                 name="all"
                 onClick={this.handleTag}
                 variant="outline-primary"
-                className="rounded-pill board__togglebuttons--btn"
+                className="rounded-pill board__toggle-buttons--btn"
               >
                 ALL
               </Button>
@@ -90,7 +90,7 @@ class Board extends Component {
                 name="study"
                 onClick={this.handleTag}
                 variant="outline-primary"
-                className="rounded-pill board__togglebuttons--btn"
+                className="rounded-pill board__toggle-buttons--btn"
               >
                 study
               </Button>
@@ -98,7 +98,7 @@ class Board extends Component {
                 name="relationship"
                 onClick={this.handleTag}
                 variant="outline-primary"
-                className="rounded-pill board__togglebuttons--btn"
+                className="rounded-pill board__toggle-buttons--btn"
               >
                 relationship
               </Button>
@@ -106,7 +106,7 @@ class Board extends Component {
                 name="health"
                 onClick={this.handleTag}
                 variant="outline-primary"
-                className="rounded-pill board__togglebuttons--btn"
+                className="rounded-pill board__toggle-buttons--btn"
               >
                 health
               </Button>
@@ -121,7 +121,7 @@ class Board extends Component {
         )}
         <ButtonGroup>
           <Button
-            className="board__togglebuttons--btn"
+            className="board__toggle-buttons--btn"
             variant="light"
             onClick={this.toggleOpenCards}
           >

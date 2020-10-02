@@ -1,19 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
 
-.resourceImgOverlay {
-  background-color: black;
+.hre { 
+  padding-top: 20px;
+  padding-bottom: 30px;
+  max-width: 970px;
+  margin: 0 auto;
 }
 
-.tagTitle {
+.hre__title {
   display: inline-block;
   margin-bottom: 20px;
   font-weight: 600;
   font-size: 20px;
 }
 
-.resourceEntryWrapper {
-  padding-top: 20px;
-  padding-bottom: 30px;
-  max-width: 970px;
-  margin: 0 auto;
+.hre__btn--more{
+  font-size: 12px;
+  border: none;
 }

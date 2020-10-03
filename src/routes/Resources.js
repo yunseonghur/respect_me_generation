@@ -34,10 +34,10 @@ class Resources extends Component{
 
     render() {
         return (
-                <div className="base">
+                <div className="resources_wrapper">
                     <h2>RESOURCES</h2>
 
-                    <Accordion className="accordion" defaultActiveKey={this.getContentClicked()}>
+                    <Accordion className="resources_accordion" defaultActiveKey={this.getContentClicked()}>
                         <ResourceEntry tag="study" eventKey="0" defaultActiveKey={this.state.categoryClicked} /> 
                         <ResourceEntry tag="health" eventKey="1" defaultActiveKey={this.state.categoryClicked} /> 
                         <ResourceEntry tag="relationship" eventKey="2" defaultActiveKey={this.state.categoryClicked} /> 

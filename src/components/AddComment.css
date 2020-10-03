@@ -1,3 +1,8 @@
+.add-comment__modal__header__title--trash {
+  position: absolute;
+  left: 0;
+  margin-left: 20px;
+}
 .add-comment__modal__header__title--report {
   position: absolute;
   right: 0;

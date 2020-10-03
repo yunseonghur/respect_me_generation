@@ -16,15 +16,15 @@ class Home extends Component{
     
     render(){
         return (
-            <div className="wrapper">
+            <div className="home_wrapper">
                 <Quote />
-                <div className="card-section">
-                    <h2>COMMUNITY BOARD</h2>
-                    <p id="prompt">What is your community talking about today?</p>
+                <div className="home_card-section">
+                    <h2 className="home_board--title">COMMUNITY BOARD</h2>
+                    <p className="home_card-section--prompt">What is your community talking about today?</p>
                     <MiniBoard />
                 </div>
 
-                <div className="resource-section">
+                <div className="home_resource-section">
                     <HomeResourceEntry tag="study" eventKey="0" />
                     <HomeResourceEntry tag="health" eventKey="1" />
                     <HomeResourceEntry tag="relationship" eventKey="2" />

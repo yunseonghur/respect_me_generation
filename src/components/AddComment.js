@@ -3,7 +3,7 @@ import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 import Comment from "./Comment";
 import fire from "../fire";
 import MyCard from "./MyCard";
-import { faFlag, faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+import { faFlag, faThumbsUp, faThumbsDown, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from "./ReportModal";
 import "./AddComment.css";
@@ -36,6 +36,7 @@ class AddComment extends Component {
       isValid: false, // becomes true when user can vote
       showVoteError: false, // displays a message that they can't vote when true
       emptyTextModal: false, // displays EmptyTextModal when true
+      showTrash: false,
     };
     this.writeComment = this.writeComment.bind(this);
     this.handleInput = this.handleInput.bind(this);
@@ -315,6 +316,14 @@ class AddComment extends Component {
         }
       });
   };
+  deleteCard = () => {
+    dbRef
+      .ref("User/" + this.props.cardOwnerUID)
+      .child("cards/" + this.props.cardID)
+      .remove();
+    this.props.onHide();
+    window.location.reload();
+  };
 
   /**
    * Save user uid to prevent second vote from the same user for same card.
@@ -434,6 +443,14 @@ class AddComment extends Component {
         >
           <Modal.Header className="add-comment__modal__header">
             <Modal.Title className="add-comment__modal__header__title">
+              {this.props.cardOwnerUID === this.state.userUID ? (
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={this.deleteCard}
+                  className="lightbulb add-comment__modal__header__title--trash"
+                />
+              ) : null}
+
               <span>Comments</span>
               <FontAwesomeIcon
                 onClick={this.reportClick}

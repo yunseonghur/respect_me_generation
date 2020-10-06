@@ -1,0 +1,43 @@
+.resource-image {
+  display: inline-table;
+  margin-right: 20px;
+  padding-right: 20px;
+  border-right: 1px solid rgba(221, 221, 221, 0.685);
+  width: 200px;
+  height: 200px;
+}
+
+.resource-image__img {
+  height: 130px;
+  width: 200px;
+  align-items: center;
+}
+
+.resource-image__title {
+  text-align: left;
+  margin-top: 10px; 
+  font-size: 14px;
+  color: black;
+  font-weight: 700;
+  line-height: 1em;
+}
+
+.resource-image__title:hover {
+  color: rgb(126, 126, 126);
+  text-decoration: none;
+}
+
+/* Small devices (landscape tablets, 500px and down) */
+@media only screen and (max-width: 500px) {
+  .resource-image {
+    display: inline;
+  }
+}
+
+/* specifically for Iphon5/SE */
+@media only screen and (max-width: 320px) {
+  .resource-image__img {
+    height: 100px;
+    width: 170px;
+  }
+}

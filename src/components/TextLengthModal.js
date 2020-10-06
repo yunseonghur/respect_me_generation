@@ -10,20 +10,27 @@ import { Modal } from 'react-bootstrap';
  */
 class TextLengthModal extends Component {
 
-    render(){
-        return (
-            <Modal show={this.props.show} onHide={this.props.onHide} animation={false} size='sm' aria-labelledby="contained-modal-title-vcenter" centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>Text is too long</Modal.Title>
-                </Modal.Header>
-                    <Modal.Body>
-                        <div className='container'>
-                            Text has to be less than {this.props.textLength} characters.
-                        </div>
-                    </Modal.Body>
-            </Modal>
-        )
-    }
+  render(){
+    return (
+      <Modal 
+      className="tlm"
+      aria-labelledby="contained-modal-title-vcenter" 
+      show={this.props.show} 
+      onHide={this.props.onHide} 
+      animation={false} 
+      size="sm" 
+      centered>
+        <Modal.Header className="tlm__header" closeButton>
+          <Modal.Title className="tlm__header--title">Text is too long</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className='tlm__body'>
+          <div className='tlm__body--warning-text'>
+            Text has to be less than {this.props.textLength} characters.
+          </div>
+        </Modal.Body>
+      </Modal>
+    )
+  }
 };
 
 export default TextLengthModal;

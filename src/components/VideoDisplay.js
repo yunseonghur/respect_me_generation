@@ -9,43 +9,44 @@ import '../components/VideoDisplay.css';
  * Called in MiniBoard.js
  */
 class VideoDisplay extends Component {
+  state = {
+    videos: []
+  }
 
-    state = {
-        videos: []
-    }
-
-    getVideos() {
-        axios.get('https://res.cloudinary.com/respectmegen/video/list/project.json')
-          .then(res => {
-            this.setState({ videos: res.data.resources});
+  getVideos() {
+    axios.get('https://res.cloudinary.com/respectmegen/video/list/project.json')
+      .then(res => {
+        this.setState({ videos: res.data.resources});
     });
-    }
+  }
 
-    componentDidMount() {
-        this.getVideos();
-    }
+  componentDidMount() {
+    this.getVideos();
+  }
 
-    render() {
+  render() {
+    // update video state
+    const {videos} = this.state;
 
-        // update video state
-        const {videos} = this.state;
-
-        return (
-            <div>
-                <CloudinaryContext cloudName="respectmegen">
-                    {
-                        // map 
-                        videos.map((data, index) => (
-                            <div className="videoElement" key={index}>
-                                <Video publicId={data.public_id} width="100%" height="100%" controls></Video>
-                            </div>
-                        ))
-                    }
-                </CloudinaryContext>
-            </div>
-        );
-    }
-
+    return (
+      <div className="video-display">
+        <CloudinaryContext cloudName="respectmegen">
+          {
+            // map 
+            videos.map((data, index) => (
+              <div className="video-display__element" key={index}>
+                <Video 
+                publicId={data.public_id} 
+                width="100%" 
+                height="100%" 
+                controls />
+              </div>
+            ))
+          }
+        </CloudinaryContext>
+      </div>
+    );
+  }
 }
 
 export default VideoDisplay;

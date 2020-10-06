@@ -3,28 +3,30 @@
 }
 
 .card-text {
-    font-size: 12pt;
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
+  font-size: 12pt;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
 }
 
-.card {
-    display: block !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.12), 0 3px 6px rgba(0,0,0,0.18);
-    border: none !important;
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    color: white;
-} 
-
-.card:hover {
-  box-shadow: 0 10px 24px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
+.mycard__card {
+  /* display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important; */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.18);
+  /* border: none !important; */
+  margin: 25px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  color: white;
 }
 
-.text-bottom-left {
+.mycard__card :hover {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25), 0 7px 7px rgba(0, 0, 0, 0.22);
+}
+
+.mycard__card__overlay__text-bottom {
   position: absolute;
   bottom: 0;
+  left: 0;
   color: white;
   width: 100%;
   text-align: center;
@@ -34,44 +36,34 @@
   margin-top: 0 !important;
 }
 
-.iconItem {
+.mycard__card__overlay__text-bottom--icon-item {
   margin: 5px;
 }
 
-.commentCount {
+.mycard__card__overlay__text-bottom--comment-count {
   display: inline-block;
   margin-right: 8px;
 }
 
-.upvoteCount {
+.mycard__card__overlay__text-bottom--upvote-count {
   display: inline-block;
   margin-right: 8px;
 }
 
-.downvoteCount {
+.mycard__card__overlay__text-bottom--comment {
   display: inline-block;
   margin-right: 8px;
 }
 
-.bubble {
-  display: inline-block;
-  margin-right: 8px;
-}
-
-.thumbs-up {
+.mycard__card__overlay__text-bottom--upvote {
   display: inline-block;
   margin-right: 3px;
 }
 
-.thumbs-down {
-  display: inline-block;
-  margin-right: 3px;
-}
-
-.overlay {
+.mycard__card__overlay {
   background-color: rgba(0, 0, 0, 0.3);
 }
-
+/* 
 @media only screen and (max-width: 375px) {
   #cardWrapper {
     width: fit-content;
@@ -89,4 +81,4 @@
   #cardWrapper {
     margin-left: 35px;
   }
-}
+} */

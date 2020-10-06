@@ -71,7 +71,7 @@ const ARTICLES = [
         tag: "health",
         title: "Maintaining a Healthy Lifestyle",
         link: "https://www.foundationforpn.org/living-well/lifestyle/",
-        image: "http://www.healthylivingandu.com/wp-content/uploads/2019/01/Healthy_Living.png"
+        image: "https://i.ibb.co/Wcr9PPQ/health2.png"
     },
     {
         id: "h3",

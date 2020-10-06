@@ -11,12 +11,12 @@ import { Modal } from 'react-bootstrap';
 class EmptyTextModal extends React.Component {
     render(){
         return (
-            <Modal show={this.props.show} onHide={this.props.onHide} animation={false} size='sm' aria-labelledby="contained-modal-title-vcenter" centered>
-            <Modal.Header closeButton>
-                <Modal.Title>Text is empty</Modal.Title>
+            <Modal className="etm-modal" show={this.props.show} onHide={this.props.onHide} animation={false} size='sm' aria-labelledby="contained-modal-title-vcenter" centered>
+            <Modal.Header className="etm-modal__header" closeButton>
+                <Modal.Title className="etm-modal__title">Text is empty</Modal.Title>
             </Modal.Header>
-                <Modal.Body>
-                    <div className='container'>
+                <Modal.Body className="etm-modal__body">
+                    <div className='etm-modal__body--container'>
                         Comment cannot be an empty text.
                     </div>
                 </Modal.Body>

@@ -30,20 +30,21 @@ class ReportModal extends Component {
     render() {
         return (
             <Modal
+            className="report-modal"
             show={this.props.show}
             animation={false}
             onHide={this.props.onHide}
             size="sm" 
             aria-labelledby="contained-modal-title-vcenter" 
             centered>
-                <Modal.Header closeButton>
+                <Modal.Header className="report-modal__header" closeButton>
                     <Modal.Title>Report</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="report-modal__body">
                     Is this card inappropriate?
                 </Modal.Body>
-                <Modal.Footer id="footer">
-                    <Button variant="danger" className="modal-btn" onClick={this.report}>Report</Button>
+                <Modal.Footer className="report-modal__footer">
+                    <Button className="report-modal__footer--button" variant="danger" onClick={this.report}>Report</Button>
                 </Modal.Footer>
             </Modal>
         )

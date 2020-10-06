@@ -1,19 +1,21 @@
 
-.base {
+.resources_wrapper {
   text-align: center;
 }
 
-.base h2 {
+.resources_wrapper>h2 {
   margin-top: 70px;
   margin-bottom: 70px;
   font-size: 2.5rem;
 }
 
-.accordion {
+.resources_accordion {
   margin: 0 auto;
   padding-left: 100px;
   padding-right: 100px;
 }
+
+/* styling another component */
 
 .entry {
   display: inline-table;
@@ -32,7 +34,7 @@
 
 /* Small devices (landscape tablets, 500px and down) */
 @media only screen and (max-width: 500px) {
-  .accordion {
+  .resources_accordion {
     padding-left: 50px;
     padding-right: 50px;
   }

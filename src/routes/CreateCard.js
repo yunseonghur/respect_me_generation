@@ -125,53 +125,74 @@ class CreateCard extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="createcard_wrapper">
                 <form onSubmit={this.handleSubmit}>
-                    <div id='selectImg'>
-                        <p className="instruction">1. Select Image</p>
-                        <div className='jumbotron'>
-                            <CardDeck>
-                                <div className='container'>
-                                    <label>
-                                        <div className="imgOption">
-                                            <Card>
-                                                <Card.Img className="cardImage" src={"https://i.pinimg.com/564x/aa/b8/49/aab84958979e408935c1b472deacda43.jpg"}/>
-                                            </Card>
-                                            <input type="radio" value="1" checked={this.state.imgOption === "1"} onChange={this.handleImgChange} />
-                                        </div>
-                                    </label>
-                                    <label>
-                                        <div className="imgOption">
-                                            <Card>
-                                                <Card.Img className="cardImage" src={"https://i.pinimg.com/564x/73/96/bd/7396bd1cbf9e8ef8c73be0476290fd95.jpg"}/>
-                                            </Card>
-                                            <input type="radio" value="2" checked={this.state.imgOption === "2"} onChange={this.handleImgChange} />
-                                        </div>
-                                    </label>
-                                    <label>
-                                        <div className="imgOption">
-                                            <Card>
-                                                <Card.Img className="cardImage" src={"https://i.pinimg.com/564x/40/39/5c/40395c9d7cd4263ce1eb1d9eae47b920.jpg"}/>
-                                            </Card>
-                                            <input type="radio" value="3" checked={this.state.imgOption === "3"} onChange={this.handleImgChange} />
-                                        </div>
-                                    </label>
-                                </div>
-                            </CardDeck>
-                        </div>
+                    <div className='createcard_img'>
+                        <p className="createcard_title">1. Select Image</p>
+                        <CardDeck>
+                            <div className="createcard_img--opt">
+                                <label>
+                                <Card>
+                                    <Card.Img 
+                                        className="cardImage" 
+                                        src={"https://i.pinimg.com/564x/aa/b8/49/aab84958979e408935c1b472deacda43.jpg"}
+                                    />
+                                </Card>
+                                <input 
+                                        type="radio" 
+                                        value="1" 
+                                        checked={this.state.imgOption === "1"} 
+                                        onChange={this.handleImgChange} 
+                                    />
+                                </label>
+                            </div>
+                            <div className="createcard_img--opt">
+                                <label>
+                                <Card>
+                                    <Card.Img 
+                                        className="cardImage" 
+                                        src={"https://i.pinimg.com/564x/73/96/bd/7396bd1cbf9e8ef8c73be0476290fd95.jpg"}
+                                    />
+                                </Card>
+                                <input 
+                                        type="radio" 
+                                        value="2" 
+                                        checked={this.state.imgOption === "2"} 
+                                        onChange={this.handleImgChange} 
+                                    />
+                                </label>
+                            </div>
+                            <div className="createcard_img--opt">
+                                <label>
+                                <Card>
+                                    <Card.Img 
+                                        className="cardImage" 
+                                        src={"https://i.pinimg.com/564x/40/39/5c/40395c9d7cd4263ce1eb1d9eae47b920.jpg"}
+                                    />
+                                </Card>
+                                <input 
+                                        type="radio" 
+                                        value="3" 
+                                        checked={this.state.imgOption === "3"} 
+                                        onChange={this.handleImgChange} 
+                                    />
+                                </label>
+                            </div>
+                        </CardDeck>
                     </div>
-                    <div id="enterText">
-                        <p className="instruction">2. Enter Text</p>
-                        <div className='jumbotron'>
-                            <textarea name='text' id="text-field" onChange={this.handleTxtChange} />
-                        </div>
+                    <div className="createcard_text">
+                        <p className="createcard_title">2. Enter Text</p>
+                        <textarea 
+                            name='text' 
+                            class="createcard_text--field" 
+                            onChange={this.handleTxtChange} 
+                        />    
                     </div>
-                    <div id="selectTag">
-                        <p className="instruction">3. Select a Tag</p>
-                        <div className="jumbotron">
-                            <Tab.Container id="center-tab">
-                                <Row id="tag-row">
-                                    <Nav variant="pills" className="flex-row">
+                    <div className="createcard_tags">
+                        <p className="createcard_title">3. Select a Tag</p>
+                            <Tab.Container>
+                                <Row>
+                                    <Nav variant="pills">
                                         <Col>
                                             <Nav.Item>
                                                 <Nav.Link name="study" onClick={this.handleTagChange}>Study</Nav.Link>
@@ -190,11 +211,8 @@ class CreateCard extends Component {
                                     </Nav>
                                 </Row>
                             </Tab.Container>
-                        </div>
                     </div>
-                    <div>
-                        <Button id="create-btn" onClick={this.handleSubmit} size="lg" block>Create!</Button>
-                    </div>
+                    <Button className="createcard_button--submit" onClick={this.handleSubmit} size="lg">Create card!</Button>
                 </form>
                 <CardModal
                     id={this.cardKey}
@@ -203,12 +221,14 @@ class CreateCard extends Component {
                     tag={this.state.tag}
                     animation={false}
                     show={this.state.createdCard}
-                    onHide={()=> this.setState({createdCard: false})} />
+                    onHide={()=> this.setState({createdCard: false})} 
+                />
                 <TextLengthModal
                     animation={false}
                     show={this.state.textLengthModal}
                     onHide={()=> this.setState({textLengthModal: false})}
-                    textLength={75} />
+                    textLength={75} 
+                />
             </div>
         )
     }

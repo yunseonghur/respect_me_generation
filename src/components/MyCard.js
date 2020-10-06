@@ -13,7 +13,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
  * @param {string} background
  * @param {int} commentCount
  * @param {int} upvoteCount
- * @param {int} downvoteCount
  */
 class MyCard extends Component {
   render() {

@@ -129,7 +129,7 @@ class Board extends Component {
           </Button>
           <Button
             variant="light"
-            className="board__togglebuttons--btn"
+            className="board__toggle-buttons--btn"
             onClick={this.toggleOpenVideos}
           >
             Videos

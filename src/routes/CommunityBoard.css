@@ -1,13 +1,4 @@
-div h2 {
-    padding: 50px;
-}
-
-.tagGroup {
-    margin-bottom: 20px;
-    margin-left: 200px;
-    margin-right: 200px;
-}
-
+/* library specific classes */
 .fab-item button {
     width: 54px;
     height: 43px;
@@ -15,11 +6,22 @@ div h2 {
     padding: 0;
 }
 
-.toast {
+.modal-btn {
+  width: 200px;
+  margin: 2px;
+}
+
+.modal-body {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* .toast {
   display: inline-block;
   color: black;
   margin: 10px;
   z-index: 100;
   right: 0;
   position: absolute;
-}
+} */

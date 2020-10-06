@@ -177,28 +177,24 @@ class Profile extends Component{
             
             <div>
                 {/* header section with the profile picture and points. */}
-                <div className="header">
-                    <Container>
-                        <div className='pill'>
-                        <h3>
-                            <span>{this.state.username}</span>
-                            <img className='profile' src={profile} alt='Profile Pic'></img>
-                            <a data-for='proftt' data-tip={this.state.badge}>{badgeIcon}</a>
-                            <a id="points-text" data-for='proftt' data-tip='Your Points'><FontAwesomeIcon id="coin-icon" icon={faCoins}/> x{this.state.points}</a>
-                            <ReactTooltip id="proftt" place='bottom' type='warning' effect='float' />
-                        </h3>
-                        </div>
-                    </Container>
+                <div className="profile_header">
+                    <span>{this.state.username}</span>
+                    <img className='profile_header--image' src={profile} alt='Profile Pic'></img>
+                    <a data-for='proftt' data-tip={this.state.badge}>{badgeIcon}</a>
+                    <a className="profile_header--points" data-for='proftt' data-tip='Your Points'>
+                        <FontAwesomeIcon class="profile_header--coin" icon={faCoins}/> x{this.state.points}
+                    </a>
+                    <ReactTooltip id="proftt" place='bottom' type='warning' effect='float' />
                 </div>
 
                 {/* section holding user's cards or videos */}
-                <div className="container">
-                    <ButtonGroup> 
-                            <Button variant="light" onClick={this.toggleOpenCards}>Cards</Button>
-                            <Button variant="light" onClick={this.toggleOpenVideos}>Videos</Button>
+                <div className="profile_post">
+                    <ButtonGroup className="profile_post--toggle-buttons"> 
+                        <Button variant="light" onClick={this.toggleOpenCards}>Cards</Button>
+                        <Button variant="light" onClick={this.toggleOpenVideos}>Videos</Button>
                     </ButtonGroup>
                     {this.state.isLoading ? (
-                        <div className="loader">
+                        <div className="profile_post--loader">
                         <span className="loader__text">Loading...</span>
                         </div>
                     ) : this.state.cardVisible ? (

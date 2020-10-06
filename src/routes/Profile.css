@@ -1,63 +1,30 @@
-.img {
-    width: 30px;
-}
-
-.header {
+.profile_header {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.pill {
-    z-index: 1;
-    border: 1px solid black;
-    border-radius: 100px;
-    height: 70px;
-    width: max-content;
-    margin: auto;
-    margin-top: 50px;
-    margin-bottom: 80px;
+.profile_header--image {
+  position: relative; 
+  top: -10px;
+  width: 100px;
 }
 
-#points-text {
-    font-size: 10pt;
+.profile_header>span {
+  font-size: 12pt;
+  margin-right: 20px;
 }
 
-#coin-icon {
+.profile_header--points {
+    font-size: 12pt;
+}
+
+.profile_header--coin {
     font-size: large;
     color: gold;
 }
 
-.pill h3 {
-    padding: 0;
-    display: block;
-    margin-left: 40px;
-    margin-right: 40px;
-    width: fit-content;
-}
-
-div h2 {
-    padding: 0;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.profile {
-    position: relative; 
-    top: -10px;
-    width: 100px;
-}
-
-.MuiTooltip-tooltip {
-    size: 100px;
-}
-
-.col h3 {
-    text-align: center;
-}
-
-.loader {
+.profile_post--loader {
     width: 100%;
     height: 100%;
     display: flex;
@@ -66,13 +33,55 @@ div h2 {
     font-weight: 300;
 }
 
+.profile_post {
+  text-align: center;
+  background-color: white;
+  color: black;
+}
+
+/* library dependent names */
+.img {
+  width: 30px;
+}
+
+.MuiTooltip-tooltip {
+  size: 100px;
+}
+
+/* this goes in board? */
 .card-deck {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 } 
 
-.container .btn {
-    background-color: white;
-    color: black;
-  }
+
+  /* .pill {
+    z-index: 1;
+    border: 1px solid black;
+    border-radius: 100px;
+    height: 70px;
+    width: max-content;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 80px;
+} */
+
+/* .pill h3 {
+    padding: 0;
+    display: block;
+    margin-left: 40px;
+    margin-right: 40px;
+    width: fit-content;
+} */
+
+/* div h2 {
+    padding: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+} */
+
+/* .col h3 {
+    text-align: center;
+} */

@@ -191,7 +191,6 @@ class AddComment extends Component {
           }
         }
       });
-
     return commentDetails.map((comment) => (
       <Comment key={comment.key} user={comment.id} comment={comment.text} />
     ));

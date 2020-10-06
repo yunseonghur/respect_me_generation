@@ -107,7 +107,6 @@ class Cards extends React.Component {
         commentNumber++;
       }
     }
-
     return commentNumber;
   };
 

@@ -28,6 +28,8 @@ class MiniBoard extends Component {
     };
   }
 
+  tags = ["study", "relationship", "health"];
+
   /**
    * Redirects user to CommunityBoard.js
    */
@@ -86,7 +88,7 @@ class MiniBoard extends Component {
 
   subscribe = (e) => {
     e.stopPropagation();
-    console.log("SUBSCRIBED");
+    console.log("subscribe");
   };
 
   render() {
@@ -102,41 +104,22 @@ class MiniBoard extends Component {
                   onClick={this.handleTag}
                   variant="outline-primary"
                 >
-                  <span className="mini-board__btn__tag--tag-name">ALL</span>
+                  ALL
                 </Button>
-                <Button
-                  name="study"
-                  className="rounded-pill mini-board__btn__tag"
-                  onClick={this.handleTag}
-                  variant="outline-primary"
-                >
-                  <spam className="mini-board__btn__tag--tag-name">study</spam>
-                  <a onClick={this.subscribe} className="mini-board__btn__tag--subscribe">
-                    +
-                  </a>
-                </Button>
-                <Button
-                  name="relationship"
-                  className="rounded-pill mini-board__btn__tag"
-                  onClick={this.handleTag}
-                  variant="outline-primary"
-                >
-                  <spam className="mini-board__btn__tag--tag-name">relationship</spam>
-                  <a onClick={this.subscribe} className="mini-board__btn__tag--subscribe">
-                    +
-                  </a>
-                </Button>
-                <Button
-                  name="health"
-                  className="rounded-pill mini-board__btn__tag"
-                  onClick={this.handleTag}
-                  variant="outline-primary"
-                >
-                  <spam className="mini-board__btn__tag--tag-name">health</spam>
-                  <a onClick={this.subscribe} className="mini-board__btn__tag--subscribe">
-                    +
-                  </a>
-                </Button>
+                {this.tags.map((tag) => (
+                  <Button
+                    key={tag}
+                    name={tag}
+                    className="rounded-pill mini-board__btn__tag"
+                    onClick={this.handleTag}
+                    variant="outline-primary"
+                  >
+                    {tag}
+                    <a onClick={this.subscribe} className="mini-board__btn__tag--subscribe">
+                      +
+                    </a>
+                  </Button>
+                ))}
               </ButtonGroup>
             </div>
           ) : (

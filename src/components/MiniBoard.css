@@ -9,7 +9,21 @@
   margin-bottom: 20px;
 }
 
-.mini-board__btn--tag, .miniboard__btn--type {
+.mini-board__btn__tag--subscribe {
+  display: none;
+}
+
+.mini-board__btn__tag {
+  margin: 10px;
+}
+
+.mini-board__btn__tag:hover .mini-board__btn__tag--subscribe {
+  display: unset;
+  padding-left: 10px;
+}
+
+.mini-board__btn--tag,
+.miniboard__btn--type {
   font-size: 10pt !important;
   margin-left: 10px !important;
 }
@@ -25,7 +39,7 @@
   width: 90%;
   max-height: 400px;
   overflow: hidden;
-  transition: max-height .6s ease;
+  transition: max-height 0.6s ease;
 }
 
 /* .mini-board__btn-container {

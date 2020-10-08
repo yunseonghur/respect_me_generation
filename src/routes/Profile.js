@@ -9,7 +9,6 @@ import fire from '../fire.js';
 import basicBadge from '../images/badge_flat.jpg';
 import advBadge from '../images/adv_badge.png';
 import profile from '../images/profile.png';
-import challengeImage from '../images/challenge_image.png';
 import ReactTooltip from 'react-tooltip';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
@@ -234,12 +233,20 @@ class Profile extends Component{
                         </div>
                     </TabPanel>
                     <TabPanel tabId="challenges">
-                        <ChallengeEntry
-                            image={challengeImage}
-                            title="Catching some more zZZ's"
-                            details="Sleep is important for immune function and helps you tackle a new day!"
-                            status="accepted"
-                        />
+                        <div className="profile_challenges">
+                            <h2 className="profile_challenges--title">Active Challenges</h2>
+                            <ChallengeEntry
+                                title="Catching some more zZZ's"
+                                details="Sleep is important for immune function and helps you tackle a new day!"
+                                status="accepted"
+                            />
+                            <h2 className="profile_challenges--title">Completed Challenges</h2>
+                            <ChallengeEntry
+                                title="Foods of Success"
+                                details="Eat at least 4 of your five a day."
+                                status="completed"
+                            />
+                        </div>
                     </TabPanel><TabPanel tabId="badges">
                         <p>Tab 4 content</p>
                     </TabPanel>

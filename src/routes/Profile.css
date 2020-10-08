@@ -42,6 +42,20 @@
   margin-top: 20px;
 }
 
+.profile_badges-grid {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: auto auto auto auto;
+  grid-auto-rows: 1fr;
+}
+
+.profile_badges-grid>div {
+  padding: 10px;
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+  border: 1px solid black;
+}
+
 .profile_post--loader {
     width: 100%;
     height: 100%;

@@ -4,16 +4,18 @@ import MyCard from '../components/MyCard';
 import AddComment from '../components/AddComment';
 import UserVideo from '../components/UserVideo';
 import CardDeck from 'react-bootstrap/CardDeck';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Container from 'react-bootstrap/Container';
 import fire from '../fire.js';
 import basicBadge from '../images/badge_flat.jpg';
 import advBadge from '../images/adv_badge.png';
 import profile from '../images/profile.png';
+import challengeImage from '../images/challenge_image.png';
 import ReactTooltip from 'react-tooltip';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
+import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
+import 'react-web-tabs/dist/react-web-tabs.css';
+import ChallengeEntry from '../components/ChallengeEntry';
 
 
 const dbRef = fire.database().ref();
@@ -187,17 +189,18 @@ class Profile extends Component{
                     <ReactTooltip id="proftt" place='bottom' type='warning' effect='float' />
                 </div>
 
-                {/* section holding user's cards or videos */}
-                <div className="profile_post">
-                    <ButtonGroup className="profile_post--toggle-buttons"> 
-                        <Button variant="light" onClick={this.toggleOpenCards}>Cards</Button>
-                        <Button variant="light" onClick={this.toggleOpenVideos}>Videos</Button>
-                    </ButtonGroup>
-                    {this.state.isLoading ? (
-                        <div className="profile_post--loader">
-                        <span className="loader__text">Loading...</span>
-                        </div>
-                    ) : this.state.cardVisible ? (
+                <Tabs
+                    className="profile_tabs"
+                    defaultTab="cards"
+                    onChange={(tabId) => { console.log(tabId) }}
+                >
+                    <TabList>
+                        <Tab tabFor="cards">Cards</Tab>
+                        <Tab tabFor="videos">Videos</Tab>
+                        <Tab tabFor="challenges">Challenges</Tab>
+                        <Tab tabFor="badges">Badges</Tab>
+                    </TabList>
+                    <TabPanel tabId="cards">
                         <div className="cards">
                             <Container>
                                 <CardDeck className="row row-cols-sm-2 row-cols-md-3">
@@ -223,13 +226,24 @@ class Profile extends Component{
                                 </CardDeck>
                             </Container>
                         </div>
-                        ) : (<div className="videos">
+                    </TabPanel>
+                    <TabPanel tabId="videos">
+                        <div className="videos">
                                 {Array.from(this.state.videos).map((myVideo)=> 
                                     <UserVideo key={myVideo.id} videoId={myVideo.id}/>)}
-                            </div>
-                            )
-                    }
-                </div>
+                        </div>
+                    </TabPanel>
+                    <TabPanel tabId="challenges">
+                        <ChallengeEntry
+                            image={challengeImage}
+                            title="Catching some more zZZ's"
+                            details="Sleep is important for immune function and helps you tackle a new day!"
+                            status="accepted"
+                        />
+                    </TabPanel><TabPanel tabId="badges">
+                        <p>Tab 4 content</p>
+                    </TabPanel>
+                </Tabs>
             </div>  // closing root node
         );
     }   // closing render function

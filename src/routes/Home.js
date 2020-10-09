@@ -4,6 +4,8 @@ import Quote from '../components/Quote';
 import HomeResourceEntry from '../components/HomeResourceEntry';
 import MiniBoard from '../components/MiniBoard';
 
+import RMGBot from '../components/RMGBot';
+
 /**
  * This route is the first page users see.
  * 
@@ -29,6 +31,8 @@ class Home extends Component{
                     <HomeResourceEntry tag="health" eventKey="1" />
                     <HomeResourceEntry tag="relationship" eventKey="2" />
                 </div>
+
+                <RMGBot/>
             </div>
         );
     }

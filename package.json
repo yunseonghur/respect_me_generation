@@ -21,6 +21,7 @@
     "googleapis": "^49.0.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
+    "react-chatbot-kit": "^1.1.0",
     "react-dom": "^16.13.1",
     "react-floating-action-button": "^1.0.5",
     "react-photo-gallery": "^8.0.0",

@@ -229,7 +229,7 @@ class Profile extends Component{
                     </TabPanel>
                     <TabPanel tabId="videos">
                         <div className="videos">
-                                { this.state.cards !== undefined ?
+                                { this.state.videos !== undefined ?
                                 Array.from(this.state.videos).map((myVideo)=> 
                                     <UserVideo key={myVideo.id} videoId={myVideo.id}/>)
                                 : []

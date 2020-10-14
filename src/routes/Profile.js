@@ -203,17 +203,18 @@ class Profile extends Component{
                         <div className="cards">
                             <Container>
                                 <CardDeck className="row row-cols-sm-2 row-cols-md-3">
-                                    {
-                                    Array.from(this.state.cards).map((myCard)=> 
-                                        <MyCard 
-                                            key={myCard.id} 
-                                            id={myCard.id} 
-                                            background={myCard.background} 
-                                            text={myCard.text} 
-                                            commentCount={myCard.numComments}
-                                            upvoteCount={myCard.upvote}
-                                            downvoteCount={myCard.downvote}
-                                            onClick={()=>{this.setState({ show: true, cardSelected: myCard.id })}}/>)
+                                    { this.state.cards !== undefined ?
+                                        Array.from(this.state.cards).map((myCard)=> 
+                                            <MyCard 
+                                                key={myCard.id} 
+                                                id={myCard.id} 
+                                                background={myCard.background} 
+                                                text={myCard.text} 
+                                                commentCount={myCard.numComments}
+                                                upvoteCount={myCard.upvote}
+                                                downvoteCount={myCard.downvote}
+                                                onClick={()=>{this.setState({ show: true, cardSelected: myCard.id })}}/>)
+                                        : []
                                     }
 
                                     {this.state.show ?
@@ -228,8 +229,11 @@ class Profile extends Component{
                     </TabPanel>
                     <TabPanel tabId="videos">
                         <div className="videos">
-                                {Array.from(this.state.videos).map((myVideo)=> 
-                                    <UserVideo key={myVideo.id} videoId={myVideo.id}/>)}
+                                { this.state.cards !== undefined ?
+                                Array.from(this.state.videos).map((myVideo)=> 
+                                    <UserVideo key={myVideo.id} videoId={myVideo.id}/>)
+                                : []
+                                }
                         </div>
                     </TabPanel>
                     <TabPanel tabId="challenges">

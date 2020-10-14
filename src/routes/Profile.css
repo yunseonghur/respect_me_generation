@@ -50,9 +50,10 @@
 }
 
 .profile_badges-grid>div {
+  display: block;
   padding: 10px;
-  grid-row: 1 / 1;
-  grid-column: 1 / 1;
+  grid-row: span 1;
+  grid-column: span 1;
   border: 1px solid black;
 }
 

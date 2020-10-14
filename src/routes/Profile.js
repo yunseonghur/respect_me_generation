@@ -4,8 +4,6 @@ import MyCard from '../components/MyCard';
 import AddComment from '../components/AddComment';
 import UserVideo from '../components/UserVideo';
 import CardDeck from 'react-bootstrap/CardDeck';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Container from 'react-bootstrap/Container';
 import fire from '../fire.js';
 import basicBadge from '../images/badge_flat.jpg';
@@ -14,6 +12,9 @@ import profile from '../images/profile.png';
 import ReactTooltip from 'react-tooltip';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
+import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
+import 'react-web-tabs/dist/react-web-tabs.css';
+import ChallengeEntry from '../components/ChallengeEntry';
 
 
 const dbRef = fire.database().ref();
@@ -187,17 +188,18 @@ class Profile extends Component{
                     <ReactTooltip id="proftt" place='bottom' type='warning' effect='float' />
                 </div>
 
-                {/* section holding user's cards or videos */}
-                <div className="profile_post">
-                    <ButtonGroup className="profile_post--toggle-buttons"> 
-                        <Button variant="light" onClick={this.toggleOpenCards}>Cards</Button>
-                        <Button variant="light" onClick={this.toggleOpenVideos}>Videos</Button>
-                    </ButtonGroup>
-                    {this.state.isLoading ? (
-                        <div className="profile_post--loader">
-                        <span className="loader__text">Loading...</span>
-                        </div>
-                    ) : this.state.cardVisible ? (
+                <Tabs
+                    className="profile_tabs"
+                    defaultTab="cards"
+                    onChange={(tabId) => { console.log(tabId) }}
+                >
+                    <TabList>
+                        <Tab tabFor="cards">Cards</Tab>
+                        <Tab tabFor="videos">Videos</Tab>
+                        <Tab tabFor="challenges">Challenges</Tab>
+                        <Tab tabFor="badges">Badges</Tab>
+                    </TabList>
+                    <TabPanel tabId="cards">
                         <div className="cards">
                             <Container>
                                 <CardDeck className="row row-cols-sm-2 row-cols-md-3">
@@ -223,13 +225,41 @@ class Profile extends Component{
                                 </CardDeck>
                             </Container>
                         </div>
-                        ) : (<div className="videos">
+                    </TabPanel>
+                    <TabPanel tabId="videos">
+                        <div className="videos">
                                 {Array.from(this.state.videos).map((myVideo)=> 
                                     <UserVideo key={myVideo.id} videoId={myVideo.id}/>)}
-                            </div>
-                            )
-                    }
-                </div>
+                        </div>
+                    </TabPanel>
+                    <TabPanel tabId="challenges">
+                        <div className="profile_challenges">
+                            <h2 className="profile_challenges--title">Active Challenges</h2>
+                            <ChallengeEntry
+                                title="Catching some more zZZ's"
+                                details="Sleep is important for immune function and helps you tackle a new day!"
+                                status="accepted"
+                            />
+                            <h2 className="profile_challenges--title">Completed Challenges</h2>
+                            <ChallengeEntry
+                                title="Foods of Success"
+                                details="Eat at least 4 of your five a day."
+                                status="completed"
+                            />
+                        </div>
+                    </TabPanel><TabPanel tabId="badges">
+                        <div className="profile_badges-grid">
+                            <div>1</div>
+                            <div>2</div>
+                            <div>3</div>
+                            <div>4</div>
+                            <div>5</div>
+                            <div>6</div>
+                            <div>7</div>
+                            <div>8</div>
+                        </div>
+                    </TabPanel>
+                </Tabs>
             </div>  // closing root node
         );
     }   // closing render function

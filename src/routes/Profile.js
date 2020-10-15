@@ -148,45 +148,48 @@ class Profile extends Component{
     }
 
     // Store the current user's completed challenges in an array instead of json format
-    getCompletedChallenges() {
+    async getCompletedChallenges() {
         let completedChallenges = this.state.completedChallenges;
         let completedChallengesArr = [];
 
         for (let challenge in completedChallenges){
-            // let title = this.lookupChallengesTitle(challenge);
+            let title = await this.lookupChallengesTitle(challenge);
+            console.log("Try to find " + title);
             completedChallengesArr.push({
                 id: challenge,
                 endTime: completedChallenges[challenge].endTime,
                 startTime: completedChallenges[challenge].startTime,
-                title: "title"
+                title: title
             })
         }
         this.setState({completedChallenges: completedChallengesArr});
     }
 
-    // lookupChallengesTitle(challengeID) {
-    //     let entriesRef = dbRef.child('Challenges');
-    //     return entriesRef.once('value')
-    //         .then((snap)=>{
-    //             let title;
+    // helper to get challenge title by challengeID
+    lookupChallengesTitle(challengeID) {
+        let entriesRef = dbRef.child('Challenges');
+        return entriesRef.once('value')
+            .then((snap)=>{
+                let title = '';
                 
-    //             snap.forEach((childSnap)=>{
-    //                 let childKey = childSnap.key;
-    //                 let childData = childSnap.val();
-    //                 let found = (childData.key === challengeID);
-    //                 if (found) {
-    //                     console.log('Found');
-    //                     title = childData.key.title;
-    //                 }
-    //                 return title;
-    //             });
-    //             if (!title) {
-    //                 console.log('Not found');
-    //             }
-    //             return false;
-    //         });
+                snap.forEach((childSnap)=>{
+                    let childData = childSnap.val();
+                    console.log(childData[challengeID]);
+                    if (childData[challengeID]) {
+                        console.log('Found');
+                        title = childData[challengeID].title;
+                        console.log(typeof(title));
+                        return title;
+                    }
+                    
+                });
+                if (!title) {
+                    console.log('Not found');
+                }
+                return title;
+            });
 
-    // }
+    }
 
     /**
      * toggles between the video and card categories
@@ -295,12 +298,6 @@ class Profile extends Component{
                                         title={myCompletedChallenge.title}
                                         endTime={myCompletedChallenge.endTime}/>) : []
                                 }
-
-
-                            {/* <ChallengeEntry
-                                title="Foods of Success"
-                                endTime="10/14/2020"
-                            /> */}
                         </div>
                     </TabPanel><TabPanel tabId="badges">
                         <div className="profile_badges-grid">

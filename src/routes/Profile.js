@@ -31,6 +31,7 @@ class Profile extends Component{
         points: "",
         cards: [],
         videos: [],
+        completedChallenges: [],
         isLoading: true, // true if the server is still loading cards data
         show: false, // false if modal is hidden
         cardSelected: "",
@@ -59,10 +60,12 @@ class Profile extends Component{
                 badge: userInfo[this.state.userUID]['badge'],
                 points: userInfo[this.state.userUID]['points'],
                 cards: userInfo[this.state.userUID]['cards'],
-                videos: userInfo[this.state.userUID]['videos']
+                videos: userInfo[this.state.userUID]['videos'],
+                completedChallenges: userInfo[this.state.userUID]['completedChallenges']
             });
             this.getCardDetails();
             this.getVideos();
+            this.getCompletedChallenges();
         });
     }
 
@@ -143,6 +146,47 @@ class Profile extends Component{
         }
         this.setState({ videos: videoArr });
     }
+
+    // Store the current user's completed challenges in an array instead of json format
+    getCompletedChallenges() {
+        let completedChallenges = this.state.completedChallenges;
+        let completedChallengesArr = [];
+
+        for (let challenge in completedChallenges){
+            // let title = this.lookupChallengesTitle(challenge);
+            completedChallengesArr.push({
+                id: challenge,
+                endTime: completedChallenges[challenge].endTime,
+                startTime: completedChallenges[challenge].startTime,
+                title: "title"
+            })
+        }
+        this.setState({completedChallenges: completedChallengesArr});
+    }
+
+    // lookupChallengesTitle(challengeID) {
+    //     let entriesRef = dbRef.child('Challenges');
+    //     return entriesRef.once('value')
+    //         .then((snap)=>{
+    //             let title;
+                
+    //             snap.forEach((childSnap)=>{
+    //                 let childKey = childSnap.key;
+    //                 let childData = childSnap.val();
+    //                 let found = (childData.key === challengeID);
+    //                 if (found) {
+    //                     console.log('Found');
+    //                     title = childData.key.title;
+    //                 }
+    //                 return title;
+    //             });
+    //             if (!title) {
+    //                 console.log('Not found');
+    //             }
+    //             return false;
+    //         });
+
+    // }
 
     /**
      * toggles between the video and card categories
@@ -245,11 +289,18 @@ class Profile extends Component{
                                 status="accepted"
                             />
                             <h2 className="profile_challenges--title">Completed Challenges</h2>
-                            <ChallengeEntry
+                                {this.state.completedChallenges !== undefined ?
+                                Array.from(this.state.completedChallenges).map((myCompletedChallenge) =>
+                                    <ChallengeEntry
+                                        title={myCompletedChallenge.title}
+                                        endTime={myCompletedChallenge.endTime}/>) : []
+                                }
+
+
+                            {/* <ChallengeEntry
                                 title="Foods of Success"
-                                details="Eat at least 4 of your five a day."
-                                status="completed"
-                            />
+                                endTime="10/14/2020"
+                            /> */}
                         </div>
                     </TabPanel><TabPanel tabId="badges">
                         <div className="profile_badges-grid">

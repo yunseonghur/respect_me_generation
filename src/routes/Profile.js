@@ -166,28 +166,25 @@ class Profile extends Component{
     }
 
     // helper to get challenge title by challengeID
-    lookupChallengesTitle(challengeID) {
+    async lookupChallengesTitle(challengeID) {
         let entriesRef = dbRef.child('Challenges');
-        return entriesRef.once('value')
-            .then((snap)=>{
-                let title = '';
-                
-                snap.forEach((childSnap)=>{
-                    let childData = childSnap.val();
-                    console.log(childData[challengeID]);
-                    if (childData[challengeID]) {
-                        console.log('Found');
-                        title = childData[challengeID].title;
-                        console.log(typeof(title));
-                        return title;
-                    }
-                    
-                });
-                if (!title) {
-                    console.log('Not found');
-                }
+        const snap = await entriesRef.once('value');
+        let title = '';
+        snap.forEach((childSnap) => {
+            let childData = childSnap.val();
+            console.log(childData[challengeID]);
+            if (childData[challengeID]) {
+                console.log('Found');
+                title = childData[challengeID].title;
+                console.log(typeof (title));
                 return title;
-            });
+            }
+
+        });
+        if (!title) {
+            console.log('Not found');
+        }
+        return title;
 
     }
 

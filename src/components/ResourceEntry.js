@@ -3,7 +3,6 @@ import "./ResourceEntry.css";
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import ResourceImage from './ResourceImage';
-import ARTICLES from '../components/ResourceArticles';
 import fire from '../fire.js';
 
 const dbRef = fire.database().ref();
@@ -42,8 +41,7 @@ class ResourceEntry extends Component{
   }
 
   /**
-   * refactor: flatten database so all resources
-   * are stored in one level (no categories, just ids inside Resource)
+   * populate resources
    */
   getResourceEntry() {
     // read all resources from db

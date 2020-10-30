@@ -28,7 +28,7 @@ class Home extends Component{
                 <div className="home_resource-section">
                     <HomeResourceEntry tag="study" eventKey="0" />
                     <HomeResourceEntry tag="health" eventKey="1" />
-                    <HomeResourceEntry tag="relationship" eventKey="2" />
+                    <HomeResourceEntry tag="relationships" eventKey="2" />
                 </div>
             </div>
         );

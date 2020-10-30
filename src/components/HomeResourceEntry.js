@@ -1,11 +1,12 @@
 import React from 'react';
 import '../components/HomeResourceEntry.css';
 import ResourceImage from '../components/ResourceImage';
-import ARTICLES from '../components/ResourceArticles';
 import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { withRouter } from 'react-router-dom';
+import fire from '../fire.js';
 
+const dbRef = fire.database().ref();
 
 /**
  * @param {string} tag the resource entry category (e.g. "study")
@@ -17,37 +18,40 @@ class HomeResourceEntry extends React.Component{
   };
 
   componentWillMount() {
-    // this.setState({ entries: this.props.resourcesEntries })
     this.getResourceEntry();
   }
 
-  getResourceEntry() {
-    // Grabbing all content from ARTICLES
-    let resources = [];
-
-    ARTICLES.map(ARTICLE => {
-      resources.push({
-        id: ARTICLE.id,
-        title: ARTICLE.title,
-        image: ARTICLE.image,
-        tag: ARTICLE.tag,
-        link: ARTICLE.link
-      });
-      return null; 
+  /**
+   * Parse the objects from firebase into lists.
+   * 
+   * @param {Object}  
+   * @param {String} resourceType the tag prop
+   */
+  parseResource(resourceObj, resourceType) {
+    const parsed = Object.keys(resourceObj).map((key, index) => {
+        return resourceObj[key];
     })
 
-    // Filtering: gets the resource article with a particular tag
-    let articleEntries = [];
+    this.setState({entries: parsed});
+  }
 
-    for (let entry in resources) {
-      if (resources[entry].tag === this.props.tag){
-        articleEntries.push(resources[entry]);
-      } else {
-        console.log("no such tag found in articles.");
-      }
-    }
-    // set the state of this component to match tag
-    this.setState({ entries: articleEntries});
+  /**
+   * populate resource sections
+   */
+  getResourceEntry() {
+    // read all resources from db
+    dbRef.child('Resources').child(this.props.tag).once('value').then(function(snap) {
+        const result = snap.val();
+        // console.log(result);
+
+        return result;
+    })
+        .then((res) => {
+            this.parseResource(res, this.props.tag);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
   }
 
   toResource = (event) => {
@@ -68,9 +72,9 @@ class HomeResourceEntry extends React.Component{
               <FontAwesomeIcon icon={faArrowCircleRight} />
           </button>
         </div>
-        {this.state.entries.map((entry)=> 
+        {this.state.entries.map((entry, index)=> 
           <ResourceImage 
-            key={entry.id} 
+            key={index} 
             title={entry.title} 
             image={entry.image}
             link={entry.link} />

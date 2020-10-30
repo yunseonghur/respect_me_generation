@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 /**
  * The resource page is a React-Bootstrap accordion Component.
- * We decided to refactor each accordion 'fold' into its own component: ResourceEntry.
+ * Each accordion 'fold' is its own component: ResourceEntry.
  */
 class Resources extends Component{
 
@@ -27,7 +27,7 @@ class Resources extends Component{
                 return categoryClicked
             } 
         } else {
-            console.log("no default key passed in")
+            console.log("no default key passed in") // do not open any section
             return "0"
         }
     }
@@ -40,7 +40,7 @@ class Resources extends Component{
                     <Accordion className="resources_accordion" defaultActiveKey={this.getContentClicked()}>
                         <ResourceEntry tag="study" eventKey="0" defaultActiveKey={this.state.categoryClicked} /> 
                         <ResourceEntry tag="health" eventKey="1" defaultActiveKey={this.state.categoryClicked} /> 
-                        <ResourceEntry tag="relationship" eventKey="2" defaultActiveKey={this.state.categoryClicked} /> 
+                        <ResourceEntry tag="relationships" eventKey="2" defaultActiveKey={this.state.categoryClicked} /> 
                     </Accordion>
                 </div>
         );

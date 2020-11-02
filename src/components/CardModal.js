@@ -1,8 +1,8 @@
 import React from 'react';
-import ARTICLES from '../components/ResourceArticles';
 import MyCard from '../components/MyCard';
 import { Container, Row, Button, Modal } from 'react-bootstrap';
 import "./CardModal.css";
+import HomeResourceEntry from '../components/HomeResourceEntry';
 
 /**
  * A modal that is displayed when a card is created, and suggests relevant resources.
@@ -15,6 +15,27 @@ import "./CardModal.css";
  * @param {string} tag chosen for card
  */
 class CardModal extends React.Component {
+
+    state = {
+        eventKey: 0
+      };
+
+    componentWillMount() {
+        this.decideEventKey();
+      }
+
+    /**
+     * Chooses what section to open on Resources page.
+     */
+    decideEventKey() {
+        if (this.props.tag === 'study') {
+            this.setState({eventKey:0});
+        } else if (this.props.tag === 'health') {
+            this.setState({eventKey:1});
+        } else {
+            this.setState({eventKey:2});
+        }
+    }
 
     render() {
         return (
@@ -36,20 +57,12 @@ class CardModal extends React.Component {
                         </Row>
                         <Row className="card-modal__body--row--text" >
                             <div id="tagResource">
-                            { this.props.tag !== "all" ? <div>You selected #{this.props.tag}. Check out these articles!</div> : null}
-                                {
-                                    ARTICLES.map(ARTICLE => {
-                                        if (ARTICLE.tag === this.props.tag){
-                                            return (
-                                                <div key={ARTICLE.id}>
-                                                    <br />
-                                                    <a href={ARTICLE.link} target="blank">{ARTICLE.title}</a>
-                                                </div>
-                                            );
-                                        }
-                                        return null
-                                    })
-                                }
+                            { this.props.tag !== "all" ? 
+                            <div>
+                                <p>You selected #{this.props.tag}. Check out these articles!</p>
+                                <HomeResourceEntry tag={this.props.tag} eventKey={this.state.eventKey} />
+                            </div>
+                            : null}
                             </div>
                         </Row>
                     </Container>

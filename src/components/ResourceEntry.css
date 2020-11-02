@@ -1,6 +1,18 @@
-/* 
-.resource-entry__img {
-  height: 150px;
-  width: 250px;
-  margin: 10px;
-} */
+.resource-entry {
+  text-align: center;
+}
+
+.resource-entry>.card-header {
+  background-color: white;
+  font-size: 16pt;
+  text-align: left;
+
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.resource-entry>.card-header::after {
+  color: #25df95;
+  float: right;
+  content: "+";
+}

@@ -15,6 +15,7 @@ import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import 'react-web-tabs/dist/react-web-tabs.css';
 import ChallengeEntry from '../components/ChallengeEntry';
+import ChallengeActive from '../components/ChallengeActive';
 
 
 const dbRef = fire.database().ref();
@@ -32,6 +33,8 @@ class Profile extends Component{
         cards: [],
         videos: [],
         completedChallenges: [],
+        subscriptions: [],
+        activeChallenge: [],
         isLoading: true, // true if the server is still loading cards data
         show: false, // false if modal is hidden
         cardSelected: "",
@@ -61,11 +64,17 @@ class Profile extends Component{
                 points: userInfo[this.state.userUID]['points'],
                 cards: userInfo[this.state.userUID]['cards'],
                 videos: userInfo[this.state.userUID]['videos'],
-                completedChallenges: userInfo[this.state.userUID]['completedChallenges']
+                completedChallenges: userInfo[this.state.userUID]['completedChallenges'],
+                subscriptions: userInfo[this.state.userUID]['subscriptions'],
+                activeChallenge: userInfo[this.state.userUID]['activeChallenge']
             });
             this.getCardDetails();
             this.getVideos();
             this.getCompletedChallenges();
+            this.getSubscriptions();
+            this.getRandomChallengeActive();
+            console.log("get user info active challenge")
+            console.log(this.state.activeChallenge);
         });
     }
 
@@ -147,6 +156,17 @@ class Profile extends Component{
         this.setState({ videos: videoArr });
     }
 
+    // Store the user's subscriptions in an simple array instead of in json format
+    // return": ["health", "study"]
+    getSubscriptions() {
+        let subscriptions = this.state.subscriptions;
+        let subscriptionsArr = [];
+        for (let subscription in subscriptions){
+            subscriptionsArr.push(subscriptions[subscription]);
+        }
+        this.setState({subscriptions: subscriptionsArr});
+    }
+
     // Store the current user's completed challenges in an array instead of json format
     async getCompletedChallenges() {
         let completedChallenges = this.state.completedChallenges;
@@ -154,7 +174,6 @@ class Profile extends Component{
 
         for (let challenge in completedChallenges){
             let title = await this.lookupChallengesTitle(challenge);
-            console.log("Try to find " + title);
             completedChallengesArr.push({
                 id: challenge,
                 endTime: completedChallenges[challenge].endTime,
@@ -172,19 +191,60 @@ class Profile extends Component{
         let title = '';
         snap.forEach((childSnap) => {
             let childData = childSnap.val();
-            console.log(childData[challengeID]);
+            // console.log(childData[challengeID]);
             if (childData[challengeID]) {
-                console.log('Found');
                 title = childData[challengeID].title;
-                console.log(typeof (title));
                 return title;
             }
-
         });
         if (!title) {
             console.log('Not found');
         }
         return title;
+    }
+
+    async getRandomChallengeActive() {
+        // get a list of potential challenges which the user hasn't completed yet
+        let potentialChallenges = [];
+        let userSubscriptions = this.state.subscriptions; // get list of user subscriptions
+        // Only get challenges user is subscribed too
+        for (let subscription in userSubscriptions){
+            let challengesRef = fire.database().ref("Challenges/"+userSubscriptions[subscription]);
+            await challengesRef.once('value', snap => {
+                let challenges = snap.val();
+                for (let challenge in challenges ){
+                    potentialChallenges.push(challenges[challenge]);
+                }
+            })
+        }
+
+        // select random challenge from list potential challenges
+        let newChallengeBool = false;
+        let randomChallenge;
+        while (!newChallengeBool) {
+            let randomNumber = Math.floor(Math.random() * potentialChallenges.length);
+            randomChallenge = potentialChallenges[randomNumber];
+            let randomChallengeKey = Object.keys(randomChallenge)[0]; // get unique challenge id
+            let foundCompleted = false;
+            
+            // see if random challenge picked has been completed already
+            for (let challenge in this.state.completedChallenges) {
+                if (Object.keys(challenge)[0] === randomChallengeKey) {
+                        console.log("Challenge completed already");
+                        foundCompleted = true;
+                        break;
+                    }
+            }
+            if (!foundCompleted) {
+                newChallengeBool = true;
+            }
+        }
+
+        // get user id to set the active challenge as the random one.
+        let userUID = this.state.userUID
+        dbRef.child('User/'+ userUID + '/activeChallenge').set(randomChallenge);
+
+        this.setState({activeChallenge: randomChallenge});
 
     }
 
@@ -198,7 +258,7 @@ class Profile extends Component{
             console.log("cards already opened.")
         }
     }
-    
+
     toggleOpenVideos = () => {
         if (this.state.videoVisible === false) {
             this.setState({videoVisible: true, cardVisible: false})
@@ -217,9 +277,9 @@ class Profile extends Component{
         } else {
             badgeIcon = <img className='img' src={advBadge} alt='Advanced Badge'></img>
         };
-        
+
         return (
-            
+
             <div>
                 {/* header section with the profile picture and points. */}
                 <div className="profile_header">
@@ -248,12 +308,12 @@ class Profile extends Component{
                             <Container>
                                 <CardDeck className="row row-cols-sm-2 row-cols-md-3">
                                     { this.state.cards !== undefined ?
-                                        Array.from(this.state.cards).map((myCard)=> 
-                                            <MyCard 
-                                                key={myCard.id} 
-                                                id={myCard.id} 
-                                                background={myCard.background} 
-                                                text={myCard.text} 
+                                        Array.from(this.state.cards).map((myCard)=>
+                                            <MyCard
+                                                key={myCard.id}
+                                                id={myCard.id}
+                                                background={myCard.background}
+                                                text={myCard.text}
                                                 commentCount={myCard.numComments}
                                                 upvoteCount={myCard.upvote}
                                                 downvoteCount={myCard.downvote}
@@ -262,10 +322,10 @@ class Profile extends Component{
                                     }
 
                                     {this.state.show ?
-                                        <AddComment 
-                                            show={this.state.show} 
-                                            cardOwnerUID={this.state.userUID} 
-                                            cardID={this.state.cardSelected} 
+                                        <AddComment
+                                            show={this.state.show}
+                                            cardOwnerUID={this.state.userUID}
+                                            cardID={this.state.cardSelected}
                                             onHide={() => this.setState({show: false})}/> : null}
                                 </CardDeck>
                             </Container>
@@ -274,7 +334,7 @@ class Profile extends Component{
                     <TabPanel tabId="videos">
                         <div className="videos">
                                 { this.state.videos !== undefined ?
-                                Array.from(this.state.videos).map((myVideo)=> 
+                                Array.from(this.state.videos).map((myVideo)=>
                                     <UserVideo key={myVideo.id} videoId={myVideo.id}/>)
                                 : []
                                 }
@@ -283,15 +343,19 @@ class Profile extends Component{
                     <TabPanel tabId="challenges">
                         <div className="profile_challenges">
                             <h2 className="profile_challenges--title">Active Challenges</h2>
-                            <ChallengeEntry
-                                title="Catching some more zZZ's"
-                                details="Sleep is important for immune function and helps you tackle a new day!"
-                                status="accepted"
-                            />
+                            {console.log("creating active challenge")}
+                            {console.log(this.state.activeChallenge)}
+                            {this.state.activeChallenge !== undefined ?
+                                    <ChallengeActive
+                                        title={this.state.activeChallenge.title}
+                                        startTime={"2020"}/> : []
+                                }
+
                             <h2 className="profile_challenges--title">Completed Challenges</h2>
                                 {this.state.completedChallenges !== undefined ?
                                 Array.from(this.state.completedChallenges).map((myCompletedChallenge) =>
                                     <ChallengeEntry
+                                        key={myCompletedChallenge.id}
                                         title={myCompletedChallenge.title}
                                         endTime={myCompletedChallenge.endTime}/>) : []
                                 }

@@ -15,6 +15,7 @@ import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import 'react-web-tabs/dist/react-web-tabs.css';
 import ChallengeEntry from '../components/ChallengeEntry';
+import Badge from '../components/Badge';
 
 
 const dbRef = fire.database().ref();
@@ -31,6 +32,7 @@ class Profile extends Component{
         points: "",
         cards: [],
         videos: [],
+        myBadges: [],
         isLoading: true, // true if the server is still loading cards data
         show: false, // false if modal is hidden
         cardSelected: "",
@@ -59,10 +61,12 @@ class Profile extends Component{
                 badge: userInfo[this.state.userUID]['badge'],
                 points: userInfo[this.state.userUID]['points'],
                 cards: userInfo[this.state.userUID]['cards'],
-                videos: userInfo[this.state.userUID]['videos']
+                videos: userInfo[this.state.userUID]['videos'],
+                myBadges: userInfo[this.state.userUID]['myBadges']
             });
             this.getCardDetails();
             this.getVideos();
+            this.getMyBadges();
         });
     }
 
@@ -142,6 +146,56 @@ class Profile extends Component{
             });
         }
         this.setState({ videos: videoArr });
+    }
+
+    /**
+     * Load the image of the current users's badges.
+     */
+    async getMyBadges() {
+      let myBadges = this.state.myBadges;
+      let badgeImgArr = [];
+
+      await dbRef.child('Badges').on('value', snap => {
+        const badgeRepo = snap.val();
+        for (let badge in badgeRepo){
+          for (let index in myBadges){
+            if(myBadges[index] === badge) {
+              // badgeImgArr.push(badgeRepo[badge].image);
+              badgeImgArr.push({
+                id: badge,
+                src: badgeRepo[badge].image
+            });
+            }
+          }
+        }
+      });
+      this.setState({ myBadges: badgeImgArr });
+      console.log(this.state.myBadges);
+
+      this.showMyBadges();
+    }
+
+    showMyBadges() {
+      let myBadges = this.state.myBadges;
+      let badgesGrid = document.getElementsByClassName('profile_badges-grid')[0];
+      console.log(badgesGrid);
+      badgesGrid.append(<p>heello</p>);
+      console.log(badgesGrid);
+
+      return (
+        myBadges !== undefined ? 
+          Array.from(this.state.myBadges).map((myBadge)=> console.log(myBadge))
+        : []
+      );
+      // return (
+      //   Array.from(this.state.myBadges).map((myBadge)=> 
+      //    console.log(this.state.myBadges[myBadge])
+      //   )
+        // <img 
+        //   key={myBadge.id} 
+        //   src={myBadge.src}
+        //   alt={myBadge.id} />)
+      // );
     }
 
     /**
@@ -253,14 +307,6 @@ class Profile extends Component{
                         </div>
                     </TabPanel><TabPanel tabId="badges">
                         <div className="profile_badges-grid">
-                            <div>1</div>
-                            <div>2</div>
-                            <div>3</div>
-                            <div>4</div>
-                            <div>5</div>
-                            <div>6</div>
-                            <div>7</div>
-                            <div>8</div>
                         </div>
                     </TabPanel>
                 </Tabs>

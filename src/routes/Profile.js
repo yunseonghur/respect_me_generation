@@ -186,16 +186,15 @@ class Profile extends Component{
         this.setState({completedChallenges: completedChallengesArr});
     }
 
-    // helper to get challenge title by challengeID
-    async lookupChallengesTitle(challengeID) {
+    // helper to get challenge title by challengeId
+    async lookupChallengesTitle(challengeId) {
         let entriesRef = dbRef.child('Challenges');
         const snap = await entriesRef.once('value');
         let title = '';
         snap.forEach((childSnap) => {
             let childData = childSnap.val();
-            // console.log(childData[challengeID]);
-            if (childData[challengeID]) {
-                title = childData[challengeID].title;
+            if (childData[challengeId]) {
+                title = childData[challengeId].title;
                 return title;
             }
         });
@@ -207,6 +206,9 @@ class Profile extends Component{
 
     async getRandomChallengeActive() {
         console.log("getting random challenge");
+
+        let dateObject = new Date();
+        let date = dateObject.getMonth()+1 + "/" + dateObject.getDay()+1 + "/" + dateObject.getFullYear();
         // get a list of potential challenges which the user hasn't completed yet
         let potentialChallenges = [];
         let userSubscriptions = this.state.subscriptions; // get list of user subscriptions
@@ -218,6 +220,7 @@ class Profile extends Component{
                 for (let challenge in challenges ){
                     let tempChallenge = challenges[challenge];
                     tempChallenge.challengeId = challenge;
+                    tempChallenge.startTime = date;
                     potentialChallenges.push(tempChallenge);
                 }
             })
@@ -235,7 +238,6 @@ class Profile extends Component{
             
             // see if random challenge picked has been completed already
             for (let challenge in this.state.completedChallenges) {
-                console.log(challenge);
                 if (challenge === randomChallengeKey) {
                         console.log("Challenge completed already");
                         foundCompleted = true;
@@ -247,8 +249,7 @@ class Profile extends Component{
             }
         }
         // get user id to set the active challenge as the random one.
-        let userUID = this.state.userUID
-        dbRef.child('User/'+ userUID + '/activeChallenge').set(randomChallenge);
+        dbRef.child('User/'+ this.state.userUID + '/activeChallenge').set(randomChallenge);
         this.setState({activeChallenge: randomChallenge});
     }
 
@@ -258,6 +259,18 @@ class Profile extends Component{
     }
 
     completeChallenge = () => {
+        let dateObject = new Date();
+        let challengeId = this.state.activeChallenge.challengeId;
+        let completedChallenge = {
+                startTime: this.state.activeChallenge.startTime,
+                endTime: dateObject.getMonth()+1 + "/" + dateObject.getDay()+1 + "/" + dateObject.getFullYear()
+        }
+            
+        // }
+        console.log(completedChallenge);
+        dbRef.child('User/'+ this.state.userUID + '/completedChallenges/').child(challengeId).set(completedChallenge);
+        dbRef.child('User/'+ this.state.userUID + '/activeChallenge/').remove();
+        this.getRandomChallengeActive();
 
     }
 
@@ -359,17 +372,18 @@ class Profile extends Component{
                             {this.state.activeChallenge !== undefined ?
                                     <ChallengeActive
                                         title={this.state.activeChallenge.title}
-                                        startTime={"2020"}
+                                        startTime={this.state.activeChallenge.startTime}
+                                        completeChallenge={this.completeChallenge}
                                         skipChallenge={this.skipChallenge}/> : []
                                 }
 
-                            {/* <h2 className="profile_challenges--title">Completed Challenges</h2>
+                            <h2 className="profile_challenges--title">Completed Challenges</h2>
                                 {this.state.completedChallenges !== undefined ?
                                 Array.from(this.state.completedChallenges).map((myCompletedChallenge) =>
                                     <ChallengeEntry
                                         title={myCompletedChallenge.title}
                                         endTime={myCompletedChallenge.endTime}/>) : []
-                                } */}
+                                }
                         </div>
                     </TabPanel><TabPanel tabId="badges">
                         <div className="profile_badges-grid">

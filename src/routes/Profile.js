@@ -16,7 +16,9 @@ import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import 'react-web-tabs/dist/react-web-tabs.css';
 import ChallengeEntry from '../components/ChallengeEntry';
 import ChallengeActive from '../components/ChallengeActive';
-
+import ChallengeNoEntry from '../components/ChallengeNoEntry';
+import { scryRenderedDOMComponentsWithClass } from 'react-dom/test-utils';
+import { useParams } from 'react-router-dom';
 
 const dbRef = fire.database().ref();
 
@@ -72,11 +74,7 @@ class Profile extends Component{
             this.getVideos();
             this.getCompletedChallenges();
             this.getSubscriptions();
-            if (!this.state.activeChallenge) {
-                this.getRandomChallengeActive();
-                console.log("get user info active challenge")
-                console.log(this.state.activeChallenge);
-            }
+            this.getRandomChallengeActive();
         });
     }
 
@@ -225,26 +223,40 @@ class Profile extends Component{
                 }
             })
         }
-        console.log(potentialChallenges);
         // select random challenge from list potential challenges
         let newChallengeBool = false;
         let randomChallenge;
         let randomChallengeKey;
+        let completedChallenges = this.state.completedChallenges;
+        let potentialCopy = potentialChallenges;
         while (!newChallengeBool) {
+            if (potentialCopy.length === 0) {
+                console.log("no more potential challenges");
+                this.setState({activeChallenge: undefined});
+                this.getCompletedChallenges();
+                return undefined;
+            }
             let randomNumber = Math.floor(Math.random() * potentialChallenges.length);
             randomChallenge = potentialChallenges[randomNumber];
             randomChallengeKey = randomChallenge.challengeId; // get unique challenge id
             let foundCompleted = false;
             
             // see if random challenge picked has been completed already
-            for (let challenge in this.state.completedChallenges) {
+            for (let challenge in completedChallenges) {
                 if (challenge === randomChallengeKey) {
+                    console.log(potentialCopy);
+                    console.log(challenge);
+                    console.log(randomChallengeKey);
                         console.log("Challenge completed already");
                         foundCompleted = true;
+                        // eslint-disable-next-line no-loop-func
+                        potentialCopy = potentialCopy.filter(item => item !== randomChallenge);
+                        console.log(potentialCopy);
                         break;
                     }
             }
             if (!foundCompleted) {
+                console.log("Found new random challenge");
                 newChallengeBool = true;
             }
         }
@@ -270,8 +282,8 @@ class Profile extends Component{
         console.log(completedChallenge);
         dbRef.child('User/'+ this.state.userUID + '/completedChallenges/').child(challengeId).set(completedChallenge);
         dbRef.child('User/'+ this.state.userUID + '/activeChallenge/').remove();
+        
         this.getRandomChallengeActive();
-
     }
 
     /**
@@ -374,7 +386,7 @@ class Profile extends Component{
                                         title={this.state.activeChallenge.title}
                                         startTime={this.state.activeChallenge.startTime}
                                         completeChallenge={this.completeChallenge}
-                                        skipChallenge={this.skipChallenge}/> : []
+                                        skipChallenge={this.skipChallenge}/> : <ChallengeNoEntry/>
                                 }
 
                             <h2 className="profile_challenges--title">Completed Challenges</h2>

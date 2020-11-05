@@ -38,9 +38,21 @@ class Resources extends Component{
                     <h2>RESOURCES</h2>
 
                     <Accordion className="resources_accordion" defaultActiveKey={this.getContentClicked()}>
-                        <ResourceEntry tag="study" eventKey="0" defaultActiveKey={this.state.categoryClicked} /> 
-                        <ResourceEntry tag="health" eventKey="1" defaultActiveKey={this.state.categoryClicked} /> 
-                        <ResourceEntry tag="relationships" eventKey="2" defaultActiveKey={this.state.categoryClicked} /> 
+                        <ResourceEntry 
+                            tag="study" 
+                            eventKey="0" 
+                            defaultActiveKey={this.state.categoryClicked} 
+                        /> 
+                        <ResourceEntry 
+                            tag="health" 
+                            eventKey="1" 
+                            defaultActiveKey={this.state.categoryClicked} 
+                        /> 
+                        <ResourceEntry 
+                            tag="relationships" 
+                            eventKey="2" 
+                            defaultActiveKey={this.state.categoryClicked} 
+                        /> 
                     </Accordion>
                 </div>
         );

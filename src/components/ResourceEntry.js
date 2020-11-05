@@ -3,14 +3,16 @@ import "./ResourceEntry.css";
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import ResourceImage from './ResourceImage';
+import { withRouter } from 'react-router-dom';
+import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import fire from '../fire.js';
 
 const dbRef = fire.database().ref();
 
 /**
- * Represents a accordion fold on the Resources ROUTE. 
- * ! fix the component so its only getting data for its category
- * -> now it prints 3 times
+ * on homepage, isPreview === true: no accordion, only 4 entries
+ * on resource page, isPreview === false: accordion, all entries 
  * 
  * @param {*} tag 
  * @param {*} eventKey decides which fold is opened after click
@@ -19,11 +21,13 @@ const dbRef = fire.database().ref();
 class ResourceEntry extends Component{
 
   state = {
-    entries: []
+    entries: [],
+    isPreview: false
   };
 
   componentWillMount() {
     this.getResourceEntry();
+    this.setState({isPreview: this.props.isPreview});
   }
 
   /**
@@ -59,32 +63,68 @@ class ResourceEntry extends Component{
         })
   }
 
+  /**
+   * Go to Resource page with clicked tab open
+   * @param {*} event 
+   */
+  toResource = (event) => {
+    let categoryClicked = this.props.eventKey;
+
+    this.props.history.push({
+      pathname: "/resources",
+      state: {detail: categoryClicked}
+    });
+  }
+
   render(){
     return (
-      <div className="resource-entry">
-        <Accordion.Toggle 
-            className="resource-entry__card--header" 
-            as={Card.Header} 
-            variant="link" 
-            eventKey={this.props.eventKey}
-        >
-          {this.props.tag}
-        </Accordion.Toggle>
-        <Accordion.Collapse eventKey={this.props.eventKey}>
-          <Card.Body className="resource-entry__card--body">
-            {(this.state.entries.map((entry, index)=> 
-            <ResourceImage 
-              className="resource-entry__card--img"
-              key={index} 
-              image={entry.image} 
-              title={entry.title} 
-              link={entry.link} />
-            ))}
-          </Card.Body>
-        </Accordion.Collapse>
+
+        <div>
+        {this.state.isPreview ? (
+            <div className="hre">
+            <div className="hre__header">
+              <h1 className="hre__title">#{this.props.tag}</h1>
+              <button className="hre__btn--more" name={this.props.eventKey} onClick={this.toResource}>
+                  <FontAwesomeIcon icon={faArrowCircleRight} />
+              </button>
+            </div>
+            {this.state.entries.map((entry, index)=> 
+              <ResourceImage 
+                key={index} 
+                title={entry.title} 
+                image={entry.image}
+                link={entry.link} />
+            )}
+          </div>
+        ) : (
+            <div className="resource-entry">
+                <Accordion.Toggle 
+                className="resource-entry__card--header" 
+                as={Card.Header} 
+                variant="link" 
+                eventKey={this.props.eventKey}
+                >
+                    {this.props.tag}
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey={this.props.eventKey}>
+                <Card.Body className="resource-entry__card--body">
+                    {(this.state.entries.map((entry, index)=> 
+                        <ResourceImage 
+                        className="resource-entry__card--img"
+                        key={index} 
+                        image={entry.image} 
+                        title={entry.title} 
+                        link={entry.link} />
+                        ))}
+                </Card.Body>
+                </Accordion.Collapse>
+            </div>
+        )}
       </div>
-    );
+
+    )
   }
+  
 }
 
-export default ResourceEntry;
+export default withRouter(ResourceEntry);

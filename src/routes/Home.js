@@ -11,7 +11,7 @@ import MiniBoard from '../components/MiniBoard';
  * Houses 3 main component parts: 
  * - Quote
  * - MiniBoard
- * - HomeResourceEntry(s)
+ * - ResourceEntries
  */
 class Home extends Component{
     

@@ -2,7 +2,7 @@ import React from 'react';
 import MyCard from '../components/MyCard';
 import { Container, Row, Button, Modal } from 'react-bootstrap';
 import "./CardModal.css";
-import HomeResourceEntry from '../components/HomeResourceEntry';
+import ResourceEntry from './ResourceEntry';
 
 /**
  * A modal that is displayed when a card is created, and suggests relevant resources.
@@ -60,7 +60,7 @@ class CardModal extends React.Component {
                             { this.props.tag !== "all" ? 
                             <div>
                                 <p>You selected #{this.props.tag}. Check out these articles!</p>
-                                <HomeResourceEntry tag={this.props.tag} eventKey={this.state.eventKey} />
+                                <ResourceEntry isPreview={true} tag={this.props.tag} eventKey={this.state.eventKey} />
                             </div>
                             : null}
                             </div>

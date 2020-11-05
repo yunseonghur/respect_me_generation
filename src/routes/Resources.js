@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import "../routes/Resources.css";
 import Accordion from 'react-bootstrap/Accordion';
 import ResourceEntry from "../components/ResourceEntry";
+import AdminUploadResource from "../components/AdminUploadResource";
 import { withRouter } from 'react-router-dom';
 
 /**
@@ -36,7 +37,6 @@ class Resources extends Component{
         return (
                 <div className="resources_wrapper">
                     <h2>RESOURCES</h2>
-
                     <Accordion className="resources_accordion" defaultActiveKey={this.getContentClicked()}>
                         <ResourceEntry 
                             tag="study" 
@@ -54,6 +54,7 @@ class Resources extends Component{
                             defaultActiveKey={this.state.categoryClicked} 
                         /> 
                     </Accordion>
+                    <AdminUploadResource/>
                 </div>
         );
     }

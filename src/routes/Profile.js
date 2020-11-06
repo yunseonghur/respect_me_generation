@@ -15,7 +15,6 @@ import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import 'react-web-tabs/dist/react-web-tabs.css';
 import ChallengeEntry from '../components/ChallengeEntry';
-import Badge from '../components/Badge';
 
 
 const dbRef = fire.database().ref();
@@ -157,45 +156,21 @@ class Profile extends Component{
 
       await dbRef.child('Badges').on('value', snap => {
         const badgeRepo = snap.val();
-        for (let badge in badgeRepo){
-          for (let index in myBadges){
-            if(myBadges[index] === badge) {
-              // badgeImgArr.push(badgeRepo[badge].image);
+
+        for (let index in myBadges){
+          for (let id in badgeRepo){
+            if(myBadges[index] === id) {
               badgeImgArr.push({
-                id: badge,
-                src: badgeRepo[badge].image
-            });
+                id,
+                image: badgeRepo[id].image,
+                tag: badgeRepo[id].tag,
+                title: badgeRepo[id].title
+              });
             }
           }
         }
+        this.setState({ myBadges: badgeImgArr });
       });
-      this.setState({ myBadges: badgeImgArr });
-      console.log(this.state.myBadges);
-
-      this.showMyBadges();
-    }
-
-    showMyBadges() {
-      let myBadges = this.state.myBadges;
-      let badgesGrid = document.getElementsByClassName('profile_badges-grid')[0];
-      console.log(badgesGrid);
-      badgesGrid.append(<p>heello</p>);
-      console.log(badgesGrid);
-
-      return (
-        myBadges !== undefined ? 
-          Array.from(this.state.myBadges).map((myBadge)=> console.log(myBadge))
-        : []
-      );
-      // return (
-      //   Array.from(this.state.myBadges).map((myBadge)=> 
-      //    console.log(this.state.myBadges[myBadge])
-      //   )
-        // <img 
-        //   key={myBadge.id} 
-        //   src={myBadge.src}
-        //   alt={myBadge.id} />)
-      // );
     }
 
     /**
@@ -237,7 +212,7 @@ class Profile extends Component{
                     <img className='profile_header--image' src={profile} alt='Profile Pic'></img>
                     <a data-for='proftt' data-tip={this.state.badge}>{badgeIcon}</a>
                     <a className="profile_header--points" data-for='proftt' data-tip='Your Points'>
-                        <FontAwesomeIcon class="profile_header--coin" icon={faCoins}/> x{this.state.points}
+                        <FontAwesomeIcon className="profile_header--coin" icon={faCoins}/> x{this.state.points}
                     </a>
                     <ReactTooltip id="proftt" place='bottom' type='warning' effect='float' />
                 </div>
@@ -307,6 +282,16 @@ class Profile extends Component{
                         </div>
                     </TabPanel><TabPanel tabId="badges">
                         <div className="profile_badges-grid">
+                          { this.state.myBadges !== undefined ?
+                          Array.from(this.state.myBadges).map((myBadge, index) =>  
+                            <img 
+                              className="profile_badges--image"
+                              key={index} 
+                              src={myBadge.image}
+                              alt={myBadge.title} />
+                            ) 
+                            : []
+                          }
                         </div>
                     </TabPanel>
                 </Tabs>

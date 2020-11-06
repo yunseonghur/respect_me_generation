@@ -54,12 +54,7 @@
   padding: 10px;
   grid-row: span 1;
   grid-column: span 1;
-  border: 1px solid black;
-}
-
-.profile_badges--image {
-  width: 80px;
-  height: auto;
+  /* border: 1px solid black; */
 }
 
 .profile_post--loader {

@@ -15,6 +15,7 @@ import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import 'react-web-tabs/dist/react-web-tabs.css';
 import ChallengeEntry from '../components/ChallengeEntry';
+import Badge from '../components/Badge';
 
 
 const dbRef = fire.database().ref();
@@ -284,11 +285,10 @@ class Profile extends Component{
                         <div className="profile_badges-grid">
                           { this.state.myBadges !== undefined ?
                           Array.from(this.state.myBadges).map((myBadge, index) =>  
-                            <img 
-                              className="profile_badges--image"
+                            <Badge
                               key={index} 
                               src={myBadge.image}
-                              alt={myBadge.title} />
+                              title={myBadge.title} />
                             ) 
                             : []
                           }

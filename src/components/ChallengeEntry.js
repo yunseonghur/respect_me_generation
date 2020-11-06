@@ -3,16 +3,8 @@ import "./ChallengeEntry.css";
 
 const ChallengeEntry = (props) => {
 
-    const recordTaskComplete = () => {
-        console.log("completed!");
-    }
-
-    const recordTaskSkipped = () => {
-        console.log("skipped!");
-    }
-
     return (
-      <div className="challenge-entry">
+      <div id={props.key} className="challenge-entry">
 
           {/* challenge image */}
           <div className="challenge-entry_img">

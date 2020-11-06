@@ -74,7 +74,9 @@ class Profile extends Component{
             this.getVideos();
             this.getCompletedChallenges();
             this.getSubscriptions();
-            this.getRandomChallengeActive();
+            if (!this.state.activeChallenge) {
+                this.getRandomChallengeActive();
+            }
         });
     }
 
@@ -206,7 +208,10 @@ class Profile extends Component{
         console.log("getting random challenge");
 
         let dateObject = new Date();
-        let date = dateObject.getMonth()+1 + "/" + dateObject.getDay()+1 + "/" + dateObject.getFullYear();
+        let day = dateObject.getDay() + 1;
+        let month = dateObject.getMonth() + 1;
+        let year = dateObject.getFullYear();
+        let date = day + "/" + month + "/" + year;
         // get a list of potential challenges which the user hasn't completed yet
         let potentialChallenges = [];
         let userSubscriptions = this.state.subscriptions; // get list of user subscriptions
@@ -272,10 +277,13 @@ class Profile extends Component{
 
     completeChallenge = () => {
         let dateObject = new Date();
+        let day = dateObject.getDay() + 1;
+        let month = dateObject.getMonth() +1;
+        let year = dateObject.getFullYear();
         let challengeId = this.state.activeChallenge.challengeId;
         let completedChallenge = {
                 startTime: this.state.activeChallenge.startTime,
-                endTime: dateObject.getMonth()+1 + "/" + dateObject.getDay()+1 + "/" + dateObject.getFullYear()
+                endTime: day + "/" + month + "/" + year
         }
             
         // }

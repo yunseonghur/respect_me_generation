@@ -1,9 +1,15 @@
 /* library specific classes */
-.fab-item button {
-    width: 54px;
-    height: 43px;
-    margin: 0;
-    padding: 0;
+.fab-container {
+  bottom: 85px !important;
+  right: 12px !important;
+}
+
+.fab-item {
+  background-color: #16A9C9 !important;
+  width: 54px;
+  height: 43px;
+  margin: 0;
+  padding: 0;
 }
 
 .modal-btn {

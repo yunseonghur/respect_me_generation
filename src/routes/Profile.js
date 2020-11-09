@@ -234,6 +234,7 @@ class Profile extends Component{
         let randomChallengeKey;
         let completedChallenges = this.state.completedChallenges;
         let potentialCopy = potentialChallenges;
+        let a = new Array(60).fill(false);
         while (!newChallengeBool) {
             if (potentialCopy.length === 0) {
                 console.log("no more potential challenges");
@@ -241,24 +242,34 @@ class Profile extends Component{
                 this.getCompletedChallenges();
                 return undefined;
             }
-            let randomNumber = Math.floor(Math.random() * potentialChallenges.length);
-            randomChallenge = potentialChallenges[randomNumber];
+            let randomNumber = Math.floor(Math.random() * potentialCopy.length);
+            randomChallenge = potentialCopy[randomNumber];
             randomChallengeKey = randomChallenge.challengeId; // get unique challenge id
             let foundCompleted = false;
-            
+
+
             // see if random challenge picked has been completed already
             for (let challenge in completedChallenges) {
-                if (challenge === randomChallengeKey) {
-                    console.log(potentialCopy);
-                    console.log(challenge);
-                    console.log(randomChallengeKey);
+
+                try {
+                    if (challenge === this.state.activeChallenge.activeChallenge.challengeId) {
+                        break;
+                    }
+                } catch (error) {
+                    console.log("no current active challenge")
+                } finally {
+                    if (challenge === randomChallengeKey ) {
+                        console.log(potentialCopy);
+                        console.log(challenge);
+                        console.log(randomChallengeKey);
                         console.log("Challenge completed already");
                         foundCompleted = true;
                         // eslint-disable-next-line no-loop-func
                         potentialCopy = potentialCopy.filter(item => item !== randomChallenge);
                         console.log(potentialCopy);
                         break;
-                    }
+                        }
+                }
             }
             if (!foundCompleted) {
                 console.log("Found new random challenge");

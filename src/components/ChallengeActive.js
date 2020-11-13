@@ -1,6 +1,5 @@
 import React from 'react';
 import "./ChallengeEntry.css";
-import fire from '../fire.js';
 
 const ChallengeActive = (props) => {
 

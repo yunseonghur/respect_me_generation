@@ -146,7 +146,7 @@ class FloatingButton extends Component {
           <Button tooltip="Add a card" onClick={this.goToCreateCard} disabled>
             <img src={note} alt="Add a card"/>
           </Button>
-          <Button rotate={true} styles={{backgroundColor: "#16A9C9"}}>
+          <Button rotate={true} styles={{backgroundColor: "#2AFFA9", width:"43px", height:"43px"}}>
             <img src={plus} alt="Add" />
           </Button>
         </Container>

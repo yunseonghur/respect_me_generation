@@ -90,7 +90,7 @@ class Navigation extends Component {
         </Nav>
         <LogOutModal show={this.state.logOutModal} onHide={()=> this.setState({logOutModal: false})}/>
 
-        <FloatingButton />
+        <FloatingButton/>
       </div>
     )
   }

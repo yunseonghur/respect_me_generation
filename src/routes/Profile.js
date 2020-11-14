@@ -15,6 +15,7 @@ import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import 'react-web-tabs/dist/react-web-tabs.css';
 import ChallengeEntry from '../components/ChallengeEntry';
+import Badge from '../components/Badge';
 
 
 const dbRef = fire.database().ref();
@@ -31,6 +32,7 @@ class Profile extends Component{
         points: "",
         cards: [],
         videos: [],
+        myBadges: [],
         isLoading: true, // true if the server is still loading cards data
         show: false, // false if modal is hidden
         cardSelected: "",
@@ -59,10 +61,12 @@ class Profile extends Component{
                 badge: userInfo[this.state.userUID]['badge'],
                 points: userInfo[this.state.userUID]['points'],
                 cards: userInfo[this.state.userUID]['cards'],
-                videos: userInfo[this.state.userUID]['videos']
+                videos: userInfo[this.state.userUID]['videos'],
+                myBadges: userInfo[this.state.userUID]['myBadges']
             });
             this.getCardDetails();
             this.getVideos();
+            this.getMyBadges();
         });
     }
 
@@ -145,6 +149,32 @@ class Profile extends Component{
     }
 
     /**
+     * Load the image of the current users's badges.
+     */
+    async getMyBadges() {
+      let myBadges = this.state.myBadges;
+      let badgeImgArr = [];
+
+      await dbRef.child('Badges').on('value', snap => {
+        const badgeRepo = snap.val();
+
+        for (let index in myBadges){
+          for (let id in badgeRepo){
+            if(myBadges[index] === id) {
+              badgeImgArr.push({
+                id,
+                image: badgeRepo[id].image,
+                tag: badgeRepo[id].tag,
+                title: badgeRepo[id].title
+              });
+            }
+          }
+        }
+        this.setState({ myBadges: badgeImgArr });
+      });
+    }
+
+    /**
      * toggles between the video and card categories
      */
     toggleOpenCards = () => {
@@ -183,7 +213,7 @@ class Profile extends Component{
                     <img className='profile_header--image' src={profile} alt='Profile Pic'></img>
                     <a data-for='proftt' data-tip={this.state.badge}>{badgeIcon}</a>
                     <a className="profile_header--points" data-for='proftt' data-tip='Your Points'>
-                        <FontAwesomeIcon class="profile_header--coin" icon={faCoins}/> x{this.state.points}
+                        <FontAwesomeIcon className="profile_header--coin" icon={faCoins}/> x{this.state.points}
                     </a>
                     <ReactTooltip id="proftt" place='bottom' type='warning' effect='float' />
                 </div>
@@ -253,14 +283,15 @@ class Profile extends Component{
                         </div>
                     </TabPanel><TabPanel tabId="badges">
                         <div className="profile_badges-grid">
-                            <div>1</div>
-                            <div>2</div>
-                            <div>3</div>
-                            <div>4</div>
-                            <div>5</div>
-                            <div>6</div>
-                            <div>7</div>
-                            <div>8</div>
+                          { this.state.myBadges !== undefined ?
+                          Array.from(this.state.myBadges).map((myBadge, index) =>  
+                            <Badge
+                              key={index} 
+                              src={myBadge.image}
+                              title={myBadge.title} />
+                            ) 
+                            : []
+                          }
                         </div>
                     </TabPanel>
                 </Tabs>

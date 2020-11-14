@@ -8,6 +8,8 @@ import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LogOutModal from "./LogOutModal";
 import ReactTooltip from 'react-tooltip';
+import FloatingButton from "./FloatingButton";
+
 
 /**
  * Navigation bar
@@ -87,6 +89,8 @@ class Navigation extends Component {
           <ReactTooltip id='main' place='bottom' type='dark' effect='float' />
         </Nav>
         <LogOutModal show={this.state.logOutModal} onHide={()=> this.setState({logOutModal: false})}/>
+
+        <FloatingButton />
       </div>
     )
   }

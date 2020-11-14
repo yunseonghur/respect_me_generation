@@ -1,33 +1,26 @@
-/* library specific classes */
-.fab-container {
-  bottom: 85px !important;
-  right: 12px !important;
+.comminuty-board__toggle-buttons--btn {
+  margin: 5px 5px;
+  border-radius: 500px;
 }
 
-.fab-item {
-  background-color: #16A9C9 !important;
-  width: 54px;
-  height: 43px;
-  margin: 0;
-  padding: 0;
+.comminuty-board {
+  margin-top: 70px;
+  margin-bottom: 180px;
+  text-align: center;
 }
 
-.modal-btn {
-  width: 200px;
-  margin: 2px;
+.comminuty-board__header--title {
+  margin-bottom: 5px;
+  font-size: 2.5rem;
 }
 
-.modal-body {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+.comminuty-board__header--prompt {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
 }
 
-/* .toast {
-  display: inline-block;
-  color: black;
-  margin: 10px;
-  z-index: 100;
-  right: 0;
-  position: absolute;
-} */
+.comminuty-board__toggle-buttons {
+  margin-bottom: 15px;
+}
+

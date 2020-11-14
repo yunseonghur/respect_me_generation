@@ -11,14 +11,14 @@ import CreateCard from "./routes/CreateCard";
 function App() {
   return (
     <HashRouter>
-    <Navigation />
-    <Route path="/" exact={true} component={Home} />
-    <Route path="/communityBoard" component={CommunityBoard} />
-    <Route path="/resources" component={Resources} />
-    <Route path="/profile" component={Profile} />
-    <Route path="/login" component={Login} />
-    <Route path="/createCard" component={CreateCard} />
-  </HashRouter>
+      <Navigation />
+      <Route path="/" exact={true} component={Home} />
+      <Route path="/communityBoard" component={CommunityBoard} />
+      <Route path="/resources" component={Resources} />
+      <Route path="/profile" component={Profile} />
+      <Route path="/login" component={Login} />
+      <Route path="/createCard" component={CreateCard} />
+    </HashRouter>
   );
 }
 

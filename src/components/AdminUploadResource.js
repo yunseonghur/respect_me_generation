@@ -1,5 +1,9 @@
 import React from 'react';
+import { useState } from 'react';
 import "./AdminUploadResource.css"
+import fire from '../fire.js';
+
+const db = fire.database();
 
 /**
  * Admin use to upload a resource to firebase.
@@ -8,39 +12,62 @@ const AdminUploadResource = () => {
 
     const styles = {
         container: {
-            backgroundColor: 'beige',
+            border: '1px solid black',
             marginTop: '50px',
-            marginRight: '100px',
-            marginLeft: '100px',
             padding: '10px',
             textAlign: 'left'
         }
+    }
+
+    const [title, setTitle] = useState("");
+    const [img, setImg] = useState("");
+    const [url, setUrl] = useState("");
+    const [category, setCategory] = useState("");
+
+    /* stores input entry into database */
+    const handleSubmit = (e) => {
+        var key = db.ref().child('Resource').push().key;
+            
+        db.ref("Resources/" + 'study').child(key).set({
+            image: e.target.resImage.value,
+            link: e.target.resLink.value,
+            tag: 'study',
+            title: e.target.resTitle.value
+        }).then((result) => {
+            console.log(result);
+        }).catch((err) => {
+            console.log(err);
+        }) 
     }
 
     return (
 
         <div className="resource_upload--container" style={styles.container}>
             <h1>Admin Use: Upload a Resource</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label>
-                        Resource Title:
-                        <input type="text" name="res-title" />
+                        <p>Resource Title:</p>
+                        <input type="text" name="resTitle" />
                     </label>
                     <label>
-                        Resource Link:
-                        <input type="text" name="res-link" />
+                        <p>Resource Url:</p>
+                        <input type="text" name="resLink" />
                     </label>
                 </div>
 
                 <div>
                     <label>
-                        Resource Image:
-                        <input type="text" name="res-image" />
+                        <p>Resource Image Url:</p>
+                        <input type="text" name="resImage" />
                     </label>
                     <label>
-                        Resource Category:
-                        <input type="text" name="res-image" />
+                        <p>Resource Category:</p>
+                        <select>
+                            <option defaultValue value="study">study</option>
+                            <option value="health">health</option>
+                            <option value="relationships">relationships</option>
+                        </select>
                     </label>
                 </div>
 

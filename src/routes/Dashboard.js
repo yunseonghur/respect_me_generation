@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import "./Profile.css";
-import UserVideo from "../components/UserVideo";
 import fire from "../fire.js";
 import basicBadge from "../images/badge_flat.jpg";
 import advBadge from "../images/adv_badge.png";
 import ReactTooltip from "react-tooltip";
 import { Tabs, Tab, TabPanel, TabList } from "react-web-tabs";
 import ChallengeEntry from "../components/ChallengeEntry";
-import Badge from "../components/Badge";
 import Board from "../components/Board";
 import PostsIcon from "../images/PostsIcon";
 import AchievementIcon from "../images/AchievementIcon";
@@ -227,9 +225,7 @@ class Dashboard extends Component {
           <TabList className="dahsboard_tabs__list">
             <Tab tabFor="cards">
               <PostsIcon className="dashboard_tabs__list--tab-icon" />
-              <span className="dashboard_tabs__list--tab-text" span>
-                Cards
-              </span>
+              <span className="dashboard_tabs__list--tab-text">Cards</span>
             </Tab>
             <Tab tabFor="challenges">
               <ChallengeIcon className="dashboard_tabs__list--tab-icon" />

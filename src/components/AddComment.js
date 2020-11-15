@@ -84,8 +84,6 @@ class AddComment extends Component {
         background: cards[card].imgOption,
         text: cards[card].text,
         numComments: this.countComments(cards[card].comments),
-        upvote: this.countUpvotes(cards[card].upvote),
-        downvote: this.countDownvotes(cards[card].downvote),
       });
     }
     this.setState({
@@ -196,29 +194,6 @@ class AddComment extends Component {
       <Comment key={comment.key} user={comment.id} comment={comment.text} />
     ));
   }
-
-  /**
-   * Return count of upVote
-   * @param {int} upVotes
-   * */
-  countUpvotes = (upVotes) => {
-    if (upVotes != null) {
-      return upVotes;
-    }
-    return "0";
-  };
-
-  /**
-   * Return count of downVote
-   * @param {int} downVotes
-   */
-  countDownvotes = (downVotes) => {
-    if (downVotes != null) {
-      return downVotes;
-    }
-    return "0";
-  };
-
   /**
    * Displays the card selected
    */
@@ -239,12 +214,6 @@ class AddComment extends Component {
           numComments = this.countComments(
             userInfo[this.props.cardOwnerUID]["cards"][this.props.cardID]["comments"]
           );
-          upvote = this.countUpvotes(
-            userInfo[this.props.cardOwnerUID]["cards"][this.props.cardID]["upvote"]
-          );
-          downvote = this.countDownvotes(
-            userInfo[this.props.cardOwnerUID]["cards"][this.props.cardID]["downvote"]
-          );
         }
       });
     return (
@@ -254,8 +223,6 @@ class AddComment extends Component {
         background={imgOption}
         text={text}
         commentCount={numComments}
-        upvoteCount={upvote}
-        downvoteCount={downvote}
       />
     );
   }
@@ -341,78 +308,6 @@ class AddComment extends Component {
   }
 
   /**
-   *  Increase count of upvote if the vote is valid
-   *  */
-  upvoteClicked = async () => {
-    let cardOwnerUID = this.props.cardOwnerUID;
-    let cardID = this.props.cardID;
-    await this.verifyVote(cardOwnerUID, cardID);
-    if (this.state.isValid) {
-      let upvote;
-      dbRef
-        .ref("User/" + cardOwnerUID)
-        .once("value")
-        .then(function (snapshot) {
-          let card = snapshot.child("cards/" + cardID).val();
-          if (card["upvote"] != null) {
-            upvote = card["upvote"];
-            upvote += 1;
-          } else {
-            upvote = 1;
-          }
-          dbRef
-            .ref("User/" + cardOwnerUID)
-            .child("cards/" + cardID)
-            .update({
-              upvote,
-            });
-        });
-      // record userUID to keep track of the user's upvote
-      this.recordUser(cardOwnerUID, cardID);
-    } else {
-      if (!this.state.loginModal) {
-        this.setState({ showVoteError: true });
-      }
-    }
-  };
-
-  /**
-   * Increase count of downvote if the vote is valid
-   */
-  downvoteClicked = async () => {
-    let cardOwnerUID = this.props.cardOwnerUID;
-    let cardID = this.props.cardID;
-    await this.verifyVote(cardOwnerUID, cardID);
-    if (this.state.isValid) {
-      let downvote;
-      dbRef
-        .ref("User/" + cardOwnerUID)
-        .once("value")
-        .then(function (snapshot) {
-          let card = snapshot.child("cards/" + cardID).val();
-          if (card["downvote"] != null) {
-            downvote = card["downvote"];
-            downvote += 1;
-          } else {
-            downvote = 1;
-          }
-          dbRef
-            .ref("User/" + cardOwnerUID)
-            .child("cards/" + cardID)
-            .update({
-              downvote,
-            });
-        });
-      // record userUID to keep track of the user's upvote
-      this.recordUser(cardOwnerUID, cardID);
-    } else {
-      if (!this.state.loginModal) {
-        this.setState({ showVoteError: true });
-      }
-    }
-  };
-
-  /**
    * counts the number of comments a user has.
    * @param {Comment} cardCommentObj a card comment object stored in user
    */
@@ -463,38 +358,6 @@ class AddComment extends Component {
             <div>
               <Row>
                 <Col>{this.displayCard()}</Col>
-              </Row>
-              <Row>
-                <Col>
-                  <p className="add-comment__modal__body--prompt">Do you like this post?</p>
-                  <FontAwesomeIcon
-                    className="add-comment__modal__body--upvote"
-                    icon={faThumbsUp}
-                    onClick={this.upvoteClicked}
-                  />
-                  <FontAwesomeIcon
-                    className="add-comment__modal__body--downvote"
-                    icon={faThumbsDown}
-                    onClick={this.downvoteClicked}
-                  />
-                  <LoginModal
-                    show={this.state.loginModal}
-                    onHide={() => this.setState({ loginModal: false })}
-                  />
-                  <br />
-                  <br />
-                </Col>
-              </Row>
-              <Row>
-                {this.state.showVoteError ? (
-                  <div className="add-comment__modal__body--error">
-                    You already voted!
-                    <br />
-                    <br />
-                  </div>
-                ) : null}
-                <br />
-                <br />
               </Row>
               <Row>
                 <Col>{this.getComments()}</Col>

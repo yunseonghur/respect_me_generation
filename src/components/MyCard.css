@@ -45,19 +45,9 @@
   margin-right: 8px;
 }
 
-.mycard__card__overlay__text-bottom--upvote-count {
-  display: inline-block;
-  margin-right: 8px;
-}
-
 .mycard__card__overlay__text-bottom--comment {
   display: inline-block;
   margin-right: 8px;
-}
-
-.mycard__card__overlay__text-bottom--upvote {
-  display: inline-block;
-  margin-right: 3px;
 }
 
 .mycard__card__overlay {

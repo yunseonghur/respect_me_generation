@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
  * @param {function} onClick should show the AddComment modal
  * @param {string} background
  * @param {int} commentCount
- * @param {int} upvoteCount
  */
 class MyCard extends Component {
   render() {
@@ -29,13 +28,6 @@ class MyCard extends Component {
               />
               <span className="mycard__card__overlay__text-bottom--comment-count mycard__card__overlay__text=bottom--icon-item">
                 {this.props.commentCount}
-              </span>
-              <FontAwesomeIcon
-                className="mycard__card__overlay__text-bottom--upvote"
-                icon={faThumbsUp}
-              />
-              <span className="mycard__card__overlay__text-bottom--upvote-count mycard__card__overlay__text-bottom--icon-item">
-                {this.props.upvoteCount}
               </span>
             </Card.Text>
           </Card.ImgOverlay>

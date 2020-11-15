@@ -10,7 +10,7 @@ class PostsIcon extends Component {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g clip-path="url(#clip0)">
+        <g clipPath="url(#clip0)">
           <path
             d="M0 9.98243C0 4.45958 4.47715 -0.0175781 10 -0.0175781H54.1667C59.6895 -0.0175781 64.1667 4.45957 64.1667 9.98242V54.1491C64.1667 59.6719 59.6895 64.1491 54.1667 64.1491H10C4.47716 64.1491 0 59.6719 0 54.1491V9.98243Z"
             fill="black"

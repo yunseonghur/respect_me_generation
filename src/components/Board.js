@@ -71,13 +71,9 @@ class Board extends Component {
   render() {
     return (
       <div className="board">
-        <div className="board__header">
-          <h2 className="board__header--title">COMMUNITY BOARD</h2>
-          <h5 className="board__header--prompt">What is your community talking about today?</h5>
-        </div>
         {this.state.cardVisible ? (
           <div className="board__toggle-buttons">
-            <ButtonGroup>
+            {/* <ButtonGroup>
               <Button
                 name="all"
                 onClick={this.handleTag}
@@ -110,7 +106,7 @@ class Board extends Component {
               >
                 health
               </Button>
-            </ButtonGroup>
+            </ButtonGroup> */}
           </div>
         ) : (
           <div>

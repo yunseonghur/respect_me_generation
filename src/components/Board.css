@@ -4,7 +4,7 @@
 }
 
 .board {
-  margin-top: 70px;
+  margin-top: 20px;
   margin-bottom: 180px;
   text-align: center;
 }
@@ -23,4 +23,3 @@
 .board__toggle-buttons {
   margin-bottom: 15px;
 }
-

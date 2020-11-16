@@ -12,6 +12,7 @@ import fire from "./fire.js";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [userLoaded, setUserLoaded] = useState(false);
   useEffect(() => {
     authListener();
   });
@@ -22,17 +23,20 @@ function App() {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
+        setUserLoaded(true);
       }
     });
   };
   return (
     <HashRouter>
       <Navigation />
-      {user ? (
-        <Route path="/" exact={true} component={Dashboard} />
-      ) : (
-        <Route path="/" exact={true} component={Login} />
-      )}
+      {userLoaded ? (
+        user ? (
+          <Route path="/" exact={true} component={Dashboard} />
+        ) : (
+          <Route path="/" exact={true} component={Login} />
+        )
+      ) : null}
       <Route path="/communityBoard" component={CommunityBoard} />
       <Route path="/resources" component={Resources} />
       <Route path="/profile" component={Profile} />

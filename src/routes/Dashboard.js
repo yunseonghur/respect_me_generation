@@ -216,8 +216,9 @@ class Dashboard extends Component {
             <a data-for="proftt" data-tip={this.state.badge}>
               {badgeIcon}
             </a>
-            <a className="dashboard_header__points--text" data-for="proftt" data-tip="Your Points">
-              {this.state.points} Points
+            <a className="dashboard_header__points__info" data-for="proftt" data-tip="Your Points">
+              <span className="dashboard_header__points__info--number">{this.state.points}</span>
+              <span className="dashboard_header__points__info--text"> Points</span>
             </a>
             <ReactTooltip id="proftt" place="bottom" type="warning" effect="float" />
           </div>

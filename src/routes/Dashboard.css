@@ -7,15 +7,20 @@
   width: 70px;
 }
 .dashboard_header--username {
-  font-size: 18pt;
+  font-size: 35px;
 }
 .dashboard_header--badge-icon {
   height: 30px;
   width: 30px;
   margin-right: 5px;
 }
-.dashboard_header__points {
-  font-size: 12pt;
+.dashboard_header__points__info--number {
+  font-weight: 700;
+  font-size: 18px;
+}
+.dashboard_header__points__info--text {
+  font-weight: 400;
+  font-size: 18px;
 }
 .dashboard_tabs {
   margin: 0 auto;
@@ -33,12 +38,16 @@
 .rwt__tab[aria-selected="true"] svg.dashboard_tabs__list--tab-icon path {
   fill: rgba(42, 255, 169, 1);
 }
-
-.dahsboard_tabs__list {
-  color: rgb(164, 165, 178);
+.dashboard_tabs__list--tab-text {
   font-weight: 700;
+  font-size: 16px;
 }
-
+.dashboard_tabs__list--tab-text:focus {
+  color: white;
+}
+.rwt__tablist .rwt__tab[aria-selected="false"] {
+  color: rgb(164, 165, 178);
+}
 .rwt__tablist:not([aria-orientation="vertical"]) .rwt__tab[aria-selected="true"]:after {
   border: none;
 }

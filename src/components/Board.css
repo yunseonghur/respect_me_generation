@@ -3,6 +3,19 @@
   border-radius: 500px;
 }
 
+.board__toggle-buttons--btn {
+  background-color: transparent;
+  color: rgba(164, 165, 178, 1);
+  font-weight: 700;
+  border: unset;
+}
+
+.board__toggle-buttons--btn:focus {
+  color: black;
+  border-bottom: 3px solid rgba(42, 255, 169, 1);
+  border-radius: 0;
+  outline: none;
+}
 .board {
   margin-top: 20px;
   margin-bottom: 180px;

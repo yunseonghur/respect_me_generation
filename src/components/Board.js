@@ -108,28 +108,14 @@ class Board extends Component {
               </Button>
             </ButtonGroup> */}
           </div>
-        ) : (
-          <div>
-            <br />
-            <br />
-            <br />
-          </div>
-        )}
+        ) : null}
         <ButtonGroup>
-          <Button
-            className="board__toggle-buttons--btn"
-            variant="light"
-            onClick={this.toggleOpenCards}
-          >
-            Cards
-          </Button>
-          <Button
-            variant="light"
-            className="board__toggle-buttons--btn"
-            onClick={this.toggleOpenVideos}
-          >
-            Videos
-          </Button>
+          <button className="board__toggle-buttons--btn" onClick={this.toggleOpenCards}>
+            CARDS
+          </button>
+          <button className="board__toggle-buttons--btn" onClick={this.toggleOpenVideos}>
+            VIDEOS
+          </button>
         </ButtonGroup>
         <div>{this.state.cardVisible ? <Cards tag={this.state.tag} /> : <VideoDisplay />}</div>
       </div>

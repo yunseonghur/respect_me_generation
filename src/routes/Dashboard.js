@@ -212,13 +212,15 @@ class Dashboard extends Component {
             alt="Profile Pic"
           />
           <div className="dashboard_header--username">{this.state.username}</div>
-          <a data-for="proftt" data-tip={this.state.badge}>
-            {badgeIcon}
-          </a>
-          <a className="dashboard_header--points" data-for="proftt" data-tip="Your Points">
-            {this.state.points} Points
-          </a>
-          <ReactTooltip id="proftt" place="bottom" type="warning" effect="float" />
+          <div className="dashboard_header__points">
+            <a data-for="proftt" data-tip={this.state.badge}>
+              {badgeIcon}
+            </a>
+            <a className="dashboard_header__points--text" data-for="proftt" data-tip="Your Points">
+              {this.state.points} Points
+            </a>
+            <ReactTooltip id="proftt" place="bottom" type="warning" effect="float" />
+          </div>
         </div>
 
         <Tabs className="dashboard_tabs" defaultTab="cards">

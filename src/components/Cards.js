@@ -1,7 +1,6 @@
 import React from "react";
 import MyCard from "./MyCard";
 import { CardDeck } from "react-bootstrap";
-import AddComment from "./AddComment";
 import fire from "../fire";
 import loading from "../images/loading.gif";
 import "./Cards.css";
@@ -18,7 +17,6 @@ class Cards extends React.Component {
       cardSelected: "",
       isLoading: true,
       showCards: true,
-      visible: false,
       cards: [],
       tag: "",
     };
@@ -62,20 +60,6 @@ class Cards extends React.Component {
   }
 
   /**
-   * Visible state setter when card is clicked
-   */
-  cardClicked = () => {
-    this.setState({ visible: true });
-  };
-
-  /**
-   * Visible state setter when card is closed
-   */
-  hideModal = () => {
-    this.setState({ visible: false });
-  };
-
-  /**
    * Returns the Google UID of card owner
    */
   getCardOwner = (cardId) => {
@@ -103,7 +87,7 @@ class Cards extends React.Component {
     let cardComment = cardCommentObj;
     let commentNumber = 0;
     if (cardComment != null) {
-      // count and increment commentNumber
+      //count and increment commentNumber
       for (let count in cardComment) {
         commentNumber++;
       }

@@ -4,9 +4,7 @@ import Card from "react-bootstrap/Card";
 import "./MyCard.css";
 import CommentsIcon from "../images/CommentsIcon.js";
 import AddComment from "./AddComment";
-import fire from "../fire";
 
-const dbRef = fire.database().ref();
 /**
  * Represents a single card object.
  * Called in CardModal.js, Cards.js, AddComment.js, Profile.js

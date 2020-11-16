@@ -110,13 +110,17 @@ class Dashboard extends Component {
 
           <div className="dashboard_header--username">{this.state.username}</div>
           <div className="dashboard_header__points">
-            <a data-for="proftt" data-tip={this.state.badge}>
+            <span data-for="proftt" data-tip={this.state.badge}>
               {badgeIcon}
-            </a>
-            <a className="dashboard_header__points__info" data-for="proftt" data-tip="Your Points">
+            </span>
+            <span
+              className="dashboard_header__points__info"
+              data-for="proftt"
+              data-tip="Your Points"
+            >
               <span className="dashboard_header__points__info--number">{this.state.points}</span>
               <span className="dashboard_header__points__info--text"> Points</span>
-            </a>
+            </span>
             <ReactTooltip id="proftt" place="bottom" type="warning" effect="float" />
           </div>
         </div>

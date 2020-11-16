@@ -54,7 +54,7 @@
   padding: 10px;
   grid-row: span 1;
   grid-column: span 1;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .profile_post--loader {

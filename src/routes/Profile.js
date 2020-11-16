@@ -18,6 +18,7 @@ import ChallengeEntry from "../components/ChallengeEntry";
 import ChallengeGameModal from "../components/ChallengeGameModal";
 import ChallengeActive from '../components/ChallengeActive';
 import ChallengeNoEntry from '../components/ChallengeNoEntry';
+import Badge from '../components/Badge';
 import { scryRenderedDOMComponentsWithClass } from 'react-dom/test-utils';
 import { useParams } from 'react-router-dom';
 
@@ -38,6 +39,7 @@ class Profile extends Component{
         completedChallenges: [],
         subscriptions: [],
         activeChallenge: [],
+        myBadges: [],
         isLoading: true, // true if the server is still loading cards data
         show: false, // false if modal is hidden
         cardSelected: "",
@@ -70,7 +72,8 @@ class Profile extends Component{
                 videos: userInfo[this.state.userUID]['videos'],
                 completedChallenges: userInfo[this.state.userUID]['completedChallenges'],
                 subscriptions: userInfo[this.state.userUID]['subscriptions'],
-                activeChallenge: userInfo[this.state.userUID]['activeChallenge']
+                activeChallenge: userInfo[this.state.userUID]['activeChallenge'],
+                myBadges: userInfo[this.state.userUID]['myBadges']
             });
             this.getCardDetails();
             this.getVideos();
@@ -79,6 +82,8 @@ class Profile extends Component{
             if (!this.state.activeChallenge) {
                 this.getRandomChallengeActive();
             }
+            this.getMyBadges();
+
         });
     }
 
@@ -307,6 +312,32 @@ class Profile extends Component{
     }
 
     /**
+     * Load the image of the current users's badges.
+     */
+    async getMyBadges() {
+      let myBadges = this.state.myBadges;
+      let badgeImgArr = [];
+
+      await dbRef.child('Badges').on('value', snap => {
+        const badgeRepo = snap.val();
+
+        for (let index in myBadges){
+          for (let id in badgeRepo){
+            if(myBadges[index] === id) {
+              badgeImgArr.push({
+                id,
+                image: badgeRepo[id].image,
+                tag: badgeRepo[id].tag,
+                title: badgeRepo[id].title
+              });
+            }
+          }
+        }
+        this.setState({ myBadges: badgeImgArr });
+      });
+    }
+
+    /**
      * toggles between the video and card categories
      */
     toggleOpenCards = () => {
@@ -436,16 +467,17 @@ class Profile extends Component{
             </div>
           </TabPanel>
           <TabPanel tabId="badges">
-            <div className="profile_badges-grid">
-              <div>1</div>
-              <div>2</div>
-              <div>3</div>
-              <div>4</div>
-              <div>5</div>
-              <div>6</div>
-              <div>7</div>
-              <div>8</div>
-            </div>
+          <div className="profile_badges-grid">
+                          { this.state.myBadges !== undefined ?
+                          Array.from(this.state.myBadges).map((myBadge, index) =>  
+                            <Badge
+                              key={index} 
+                              src={myBadge.image}
+                              title={myBadge.title} />
+                            ) 
+                            : []
+                          }
+                        </div>
           </TabPanel>
         </Tabs>
         <ChallengeGameModal

@@ -12,6 +12,7 @@ import fire from "../fire.js";
  * Called in CommunityBoard.js
  */
 class Board extends Component {
+  tags = ["all", "study", "health", "relationship"];
   constructor(props) {
     super(props);
     this.state = {
@@ -71,69 +72,30 @@ class Board extends Component {
   render() {
     return (
       <div className="board">
-        <div className="board__header">
-          <h2 className="board__header--title">COMMUNITY BOARD</h2>
-          <h5 className="board__header--prompt">What is your community talking about today?</h5>
-        </div>
-        {this.state.cardVisible ? (
+        {this.props.tagVisible ? (
           <div className="board__toggle-buttons">
             <ButtonGroup>
-              <Button
-                name="all"
-                onClick={this.handleTag}
-                variant="outline-primary"
-                className="rounded-pill board__toggle-buttons--btn"
-              >
-                ALL
-              </Button>
-              <Button
-                name="study"
-                onClick={this.handleTag}
-                variant="outline-primary"
-                className="rounded-pill board__toggle-buttons--btn"
-              >
-                study
-              </Button>
-              <Button
-                name="relationship"
-                onClick={this.handleTag}
-                variant="outline-primary"
-                className="rounded-pill board__toggle-buttons--btn"
-              >
-                relationship
-              </Button>
-              <Button
-                name="health"
-                onClick={this.handleTag}
-                variant="outline-primary"
-                className="rounded-pill board__toggle-buttons--btn"
-              >
-                health
-              </Button>
+              {this.tags.map((value, index) => (
+                <Button
+                  name={value}
+                  key={index}
+                  onClick={this.handleTag}
+                  variant="outline-primary"
+                  className="rounded-pill board__toggle-buttons-btn"
+                >
+                  {value}
+                </Button>
+              ))}
             </ButtonGroup>
           </div>
-        ) : (
-          <div>
-            <br />
-            <br />
-            <br />
-          </div>
-        )}
+        ) : null}
         <ButtonGroup>
-          <Button
-            className="board__toggle-buttons--btn"
-            variant="light"
-            onClick={this.toggleOpenCards}
-          >
-            Cards
-          </Button>
-          <Button
-            variant="light"
-            className="board__toggle-buttons--btn"
-            onClick={this.toggleOpenVideos}
-          >
-            Videos
-          </Button>
+          <button className="board__toggle-buttons--btn" onClick={this.toggleOpenCards}>
+            CARDS
+          </button>
+          <button className="board__toggle-buttons--btn" onClick={this.toggleOpenVideos}>
+            VIDEOS
+          </button>
         </ButtonGroup>
         <div>{this.state.cardVisible ? <Cards tag={this.state.tag} /> : <VideoDisplay />}</div>
       </div>

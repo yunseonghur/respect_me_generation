@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import './CommunityBoard.css';
-import Board from '../components/Board';
-import { Container, Button, Link } from 'react-floating-action-button';
-import fire from '../fire.js';
-import VideoBadgeModal from '../components/VideoBadgeModal';
-import LoginModal from '../components/LoginModal';
+import React, { Component } from "react";
+import "./CommunityBoard.css";
+import Board from "../components/Board";
+import { Container, Button, Link } from "react-floating-action-button";
+import fire from "../fire.js";
+import VideoBadgeModal from "../components/VideoBadgeModal";
+import LoginModal from "../components/LoginModal";
 
 const db = fire.database();
 
@@ -141,27 +141,38 @@ class CommunityBoard extends Component {
   render() {
     return (
       <div>
-        <Board />
+        <Board tagVisible={true} />
+        {/* the (+) button */}
+        <Container>
+          <Link tooltip="Upload a video">
+            <Button onClick={this.uploadHandler} disabled>
+              <img
+                src="https://img.icons8.com/material-outlined/24/000000/camcorder-pro.png"
+                alt="Upload a video"
+              />
+            </Button>
+          </Link>
+          <Link tooltip="Add a card">
+            <Button onClick={this.goToCreateCard} disabled>
+              <img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card" />
+            </Button>
+          </Link>
+          <Button rotate={true}>
+            <img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add" />
+          </Button>
+        </Container>
 
-                {/* the (+) button */}
-                <Container>
-                    <Link tooltip="Upload a video">
-                        <Button onClick={this.uploadHandler} disabled>
-                            <img src="https://img.icons8.com/material-outlined/24/000000/camcorder-pro.png" alt="Upload a video"/>
-                        </Button>
-                    </Link>
-                    <Link tooltip="Add a card" >
-                        <Button onClick={this.goToCreateCard} disabled>
-                            <img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card"/>
-                        </Button>
-                    </Link>
-                    <Button rotate={true}><img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add"/></Button>
-                </Container>
-
-                <VideoBadgeModal show={this.state.displayErrorMessage} onHide={()=> this.setState({displayErrorMessage: false})} />
-                <LoginModal show={this.state.displayLoginModal} onHide={()=> this.setState({displayLoginModal: false})} />
-            </div>
-        )}
+        <VideoBadgeModal
+          show={this.state.displayErrorMessage}
+          onHide={() => this.setState({ displayErrorMessage: false })}
+        />
+        <LoginModal
+          show={this.state.displayLoginModal}
+          onHide={() => this.setState({ displayLoginModal: false })}
+        />
+      </div>
+    );
+  }
 }
 
 export default CommunityBoard;

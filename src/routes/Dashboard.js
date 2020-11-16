@@ -129,7 +129,7 @@ class Dashboard extends Component {
           <TabList className="dahsboard_tabs__list">
             <Tab tabFor="cards">
               <PostsIcon className="dashboard_tabs__list--tab-icon" />
-              <span className="dashboard_tabs__list--tab-text">Cards</span>
+              <span className="dashboard_tabs__list--tab-text">Posts</span>
             </Tab>
             <Tab tabFor="challenges">
               <ChallengeIcon className="dashboard_tabs__list--tab-icon" />

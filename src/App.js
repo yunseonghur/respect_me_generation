@@ -23,7 +23,6 @@ function App() {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
-        setUserLoaded(true);
       }
     });
   };
@@ -43,7 +42,6 @@ function App() {
       ) : (
         <Route path="/" exact={true} component={Login} />
       )}
-      {/* {userLoaded ? displayLogin : null} */}
       <Route path="/communityBoard" component={CommunityBoard} />
       <Route path="/resources" component={Resources} />
       <Route path="/profile" component={Profile} />

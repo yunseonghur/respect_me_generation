@@ -16,6 +16,10 @@ import { Tabs, Tab, TabPanel, TabList } from "react-web-tabs";
 import "react-web-tabs/dist/react-web-tabs.css";
 import ChallengeEntry from "../components/ChallengeEntry";
 import ChallengeGameModal from "../components/ChallengeGameModal";
+import ChallengeActive from '../components/ChallengeActive';
+import ChallengeNoEntry from '../components/ChallengeNoEntry';
+import { scryRenderedDOMComponentsWithClass } from 'react-dom/test-utils';
+import { useParams } from 'react-router-dom';
 
 const dbRef = fire.database().ref();
 
@@ -23,49 +27,60 @@ const dbRef = fire.database().ref();
  * The user profile page where they can view (and in the future edit/delete)
  * their own posts, along with checking their current points and badge.
  */
-class Profile extends Component {
-  state = {
-    userUID: "",
-    username: "",
-    badge: "",
-    points: "",
-    cards: [],
-    videos: [],
-    isLoading: true, // true if the server is still loading cards data
-    show: false, // false if modal is hidden
-    cardSelected: "",
-    videoVisible: false,
-    cardVisible: true, // starts out showing cards
-    challengeModalVisible: false,
-  };
+class Profile extends Component{
+    state = {
+        userUID: "",
+        username: "",
+        badge: "",
+        points: "",
+        cards: [],
+        videos: [],
+        completedChallenges: [],
+        subscriptions: [],
+        activeChallenge: [],
+        isLoading: true, // true if the server is still loading cards data
+        show: false, // false if modal is hidden
+        cardSelected: "",
+        videoVisible: false,
+        cardVisible: true,   // starts out showing cards
+        challengeModalVisible: false,
+    };
 
-  // Get current user's name and uid if exist
-  componentDidMount() {
-    fire.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          username: user.displayName,
-          userUID: user.uid,
+    // Get current user's name and uid if exist
+    componentDidMount(){
+        fire.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({
+                    username: user.displayName,
+                    userUID: user.uid
+                });
+                this.getUserInfo();
+            }
         });
-        this.getUserInfo();
-      }
-    });
-  }
+    }
 
-  // Get current user's info: badge, points, cards, and videos
-  getUserInfo() {
-    dbRef.child("User").on("value", (snap) => {
-      const userInfo = snap.val();
-      this.setState({
-        badge: userInfo[this.state.userUID]["badge"],
-        points: userInfo[this.state.userUID]["points"],
-        cards: userInfo[this.state.userUID]["cards"],
-        videos: userInfo[this.state.userUID]["videos"],
-      });
-      this.getCardDetails();
-      this.getVideos();
-    });
-  }
+    // Get current user's info: badge, points, cards, and videos
+    getUserInfo(){
+        dbRef.child('User').on('value', snap => {
+            const userInfo = snap.val();
+            this.setState({
+                badge: userInfo[this.state.userUID]['badge'],
+                points: userInfo[this.state.userUID]['points'],
+                cards: userInfo[this.state.userUID]['cards'],
+                videos: userInfo[this.state.userUID]['videos'],
+                completedChallenges: userInfo[this.state.userUID]['completedChallenges'],
+                subscriptions: userInfo[this.state.userUID]['subscriptions'],
+                activeChallenge: userInfo[this.state.userUID]['activeChallenge']
+            });
+            this.getCardDetails();
+            this.getVideos();
+            this.getCompletedChallenges();
+            this.getSubscriptions();
+            if (!this.state.activeChallenge) {
+                this.getRandomChallengeActive();
+            }
+        });
+    }
 
   // Set a flag for modal to true to appear
   showModal = () => {
@@ -144,15 +159,170 @@ class Profile extends Component {
     this.setState({ videos: videoArr });
   }
 
-  /**
-   * toggles between the video and card categories
-   */
-  toggleOpenCards = () => {
-    if (this.state.cardVisible === false) {
-      this.setState({ cardVisible: true, videoVisible: false });
-    } else {
-      console.log("cards already opened.");
+    // Store the user's subscriptions in an simple array instead of in json format
+    // return": ["health", "study"]
+    getSubscriptions() {
+        let subscriptions = this.state.subscriptions;
+        let subscriptionsArr = [];
+        for (let subscription in subscriptions){
+            subscriptionsArr.push(subscriptions[subscription]);
+        }
+        this.setState({subscriptions: subscriptionsArr});
     }
+
+    // Store the current user's completed challenges in an array instead of json format
+    async getCompletedChallenges() {
+        let completedChallenges = this.state.completedChallenges;
+        let completedChallengesArr = [];
+
+        for (let challenge in completedChallenges){
+            let title = await this.lookupChallengesTitle(challenge);
+            completedChallengesArr.push({
+                id: challenge,
+                endTime: completedChallenges[challenge].endTime,
+                startTime: completedChallenges[challenge].startTime,
+                title: title
+            })
+        }
+        this.setState({completedChallenges: completedChallengesArr});
+    }
+
+    // helper to get challenge title by challengeId
+    async lookupChallengesTitle(challengeId) {
+        let entriesRef = dbRef.child('Challenges');
+        const snap = await entriesRef.once('value');
+        let title = '';
+        snap.forEach((childSnap) => {
+            let childData = childSnap.val();
+            if (childData[challengeId]) {
+                title = childData[challengeId].title;
+                return title;
+            }
+        });
+        if (!title) {
+            console.log('Not found');
+        }
+        return title;
+    }
+
+    async getRandomChallengeActive() {
+        console.log("getting random challenge");
+
+        let dateObject = new Date();
+        let day = dateObject.getDay() + 1;
+        let month = dateObject.getMonth() + 1;
+        let year = dateObject.getFullYear();
+        let date = day + "/" + month + "/" + year;
+        // get a list of potential challenges which the user hasn't completed yet
+        let potentialChallenges = [];
+        let userSubscriptions = this.state.subscriptions; // get list of user subscriptions
+        // Only get challenges user is subscribed too
+        for (let subscription in userSubscriptions){
+            let challengesRef = fire.database().ref("Challenges/"+userSubscriptions[subscription]);
+            await challengesRef.once('value', snap => {
+                let challenges = snap.val();
+                for (let challenge in challenges ){
+                    let tempChallenge = challenges[challenge];
+                    tempChallenge.challengeId = challenge;
+                    tempChallenge.startTime = date;
+                    potentialChallenges.push(tempChallenge);
+                }
+            })
+        }
+        // select random challenge from list potential challenges
+        let newChallengeBool = false;
+        let randomChallenge;
+        let randomChallengeKey;
+        let completedChallenges = this.state.completedChallenges;
+        let potentialCopy = potentialChallenges;
+        let a = new Array(60).fill(false);
+        while (!newChallengeBool) {
+            if (potentialCopy.length === 0) {
+                console.log("no more potential challenges");
+                this.setState({activeChallenge: undefined});
+                this.getCompletedChallenges();
+                return undefined;
+            }
+            let randomNumber = Math.floor(Math.random() * potentialCopy.length);
+            randomChallenge = potentialCopy[randomNumber];
+            randomChallengeKey = randomChallenge.challengeId; // get unique challenge id
+            let foundCompleted = false;
+
+
+            // see if random challenge picked has been completed already
+            for (let challenge in completedChallenges) {
+
+                try {
+                    if (challenge === this.state.activeChallenge.activeChallenge.challengeId) {
+                        break;
+                    }
+                } catch (error) {
+                    console.log("no current active challenge")
+                } finally {
+                    if (challenge === randomChallengeKey ) {
+                        console.log(potentialCopy);
+                        console.log(challenge);
+                        console.log(randomChallengeKey);
+                        console.log("Challenge completed already");
+                        foundCompleted = true;
+                        // eslint-disable-next-line no-loop-func
+                        potentialCopy = potentialCopy.filter(item => item !== randomChallenge);
+                        console.log(potentialCopy);
+                        break;
+                        }
+                }
+            }
+            if (!foundCompleted) {
+                console.log("Found new random challenge");
+                newChallengeBool = true;
+            }
+        }
+        // get user id to set the active challenge as the random one.
+        dbRef.child('User/'+ this.state.userUID + '/activeChallenge').set(randomChallenge);
+        this.setState({activeChallenge: randomChallenge});
+    }
+
+    skipChallenge = () => {
+        dbRef.child('User/'+ this.state.userUID + '/activeChallenge').remove();
+        this.getRandomChallengeActive();
+    }
+
+    completeChallenge = () => {
+        let dateObject = new Date();
+        let day = dateObject.getDay() + 1;
+        let month = dateObject.getMonth() +1;
+        let year = dateObject.getFullYear();
+        let challengeId = this.state.activeChallenge.challengeId;
+        let completedChallenge = {
+                startTime: this.state.activeChallenge.startTime,
+                endTime: day + "/" + month + "/" + year
+        }
+            
+        // }
+        console.log(completedChallenge);
+        dbRef.child('User/'+ this.state.userUID + '/completedChallenges/').child(challengeId).set(completedChallenge);
+        dbRef.child('User/'+ this.state.userUID + '/activeChallenge/').remove();
+        
+        this.getRandomChallengeActive();
+    }
+
+    /**
+     * toggles between the video and card categories
+     */
+    toggleOpenCards = () => {
+        if (this.state.cardVisible === false) {
+            this.setState({cardVisible: true, videoVisible: false})
+        } else {
+            console.log("cards already opened.")
+        }
+    }
+
+    toggleOpenVideos = () => {
+        if (this.state.videoVisible === false) {
+            this.setState({videoVisible: true, cardVisible: false})
+        } else {
+            console.log("videos already opened.")
+        }
   };
 
   toggleOpenVideos = () => {
@@ -248,12 +418,21 @@ class Profile extends Component {
           <TabPanel tabId="challenges">
             <div className="profile_challenges">
               <button onClick={this.showChallengeModal}>Start Challenge!</button>
-              <h2 className="profile_challenges--title">Completed Challenges</h2>
-              <ChallengeEntry
-                title="Foods of Success"
-                details="Eat at least 4 of your five a day."
-                status="completed"
-              />
+                <h2 className="profile_challenges--title">Active Challenges</h2>
+                {this.state.activeChallenge !== undefined ?
+                        <ChallengeActive
+                            title={this.state.activeChallenge.title}
+                            startTime={this.state.activeChallenge.startTime}
+                            completeChallenge={this.completeChallenge}
+                            skipChallenge={this.skipChallenge}/> : <ChallengeNoEntry/>
+                    }
+                <h2 className="profile_challenges--title">Completed Challenges</h2>
+                    {this.state.completedChallenges !== undefined ?
+                    Array.from(this.state.completedChallenges).map((myCompletedChallenge) =>
+                        <ChallengeEntry
+                            title={myCompletedChallenge.title}
+                            endTime={myCompletedChallenge.endTime}/>) : []
+                    }
             </div>
           </TabPanel>
           <TabPanel tabId="badges">

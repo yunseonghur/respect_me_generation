@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "kayak_sans_light-webfont";
+  /* src: url("../fonts/kayak_sans_light-webfont.woff2"); */
+  src: url("../src/fonts/kayak_sans_light-webfont.woff2");
+}
+
+body {
+  font-family: "kayak_sans_light-webfont";
+}

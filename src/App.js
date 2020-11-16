@@ -8,6 +8,7 @@ import Login from "./routes/Login";
 import Navigation from "./components/Navigation";
 import CreateCard from "./routes/CreateCard";
 import Dashboard from "./routes/Dashboard";
+import "./App.css";
 
 function App() {
   return (

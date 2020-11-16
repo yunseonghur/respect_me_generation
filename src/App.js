@@ -27,16 +27,23 @@ function App() {
       }
     });
   };
+
+  const hideLogin = () => {
+    document.getElementById("firebaseui-auth-container").style.visibility = "hidden";
+  };
+  const displayLogin = () => {
+    document.getElementById("firebaseui-auth-container").style.visibility = "unset";
+  };
+
   return (
     <HashRouter>
       <Navigation />
-      {userLoaded ? (
-        user ? (
-          <Route path="/" exact={true} component={Dashboard} />
-        ) : (
-          <Route path="/" exact={true} component={Login} />
-        )
-      ) : null}
+      {user ? (
+        <Route path="/" exact={true} component={Dashboard} />
+      ) : (
+        <Route path="/" exact={true} component={Login} />
+      )}
+      {/* {userLoaded ? displayLogin : null} */}
       <Route path="/communityBoard" component={CommunityBoard} />
       <Route path="/resources" component={Resources} />
       <Route path="/profile" component={Profile} />

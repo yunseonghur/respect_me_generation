@@ -4,7 +4,7 @@ import "firebase/auth";
 import fire from "../fire";
 import * as firebaseui from "firebaseui";
 import "../routes/Login.css";
-import HomeFirstSectionLogo from "../images/HomeFirstSectionLogo.js";
+import LoginLogo from "../images/LoginLogo.js";
 
 /**
  * This component lets users login via their Google account.
@@ -57,11 +57,11 @@ class Login extends Component {
             </div>
             <div className="login__container__left__button">
               {/* <button className="home-not-logged-in_container__left__button--login">LOGIN</button> */}
-              {/* <div id="firebaseui-auth-container" /> */}
+              <div id="firebaseui-auth-container" />
             </div>
           </div>
           <div className="login__container__right col">
-            <HomeFirstSectionLogo className="login__container__right--logo" />
+            <LoginLogo className="login__container__right--logo" />
           </div>
         </div>
       </div>

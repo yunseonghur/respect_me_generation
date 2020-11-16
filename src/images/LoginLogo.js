@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class HomeFirstSectionLogo extends Component {
+class LoginLogo extends Component {
   render() {
     return (
       <>
@@ -77,4 +77,4 @@ class HomeFirstSectionLogo extends Component {
   }
 }
 
-export default HomeFirstSectionLogo;
+export default LoginLogo;

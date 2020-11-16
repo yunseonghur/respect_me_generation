@@ -31,7 +31,7 @@ class MyCard extends Component {
   year = this.timestamp.getFullYear();
   hour = this.timestamp.getHours();
   minute = "0" + this.timestamp.getMinutes();
-  formatedDate =
+  formattedDate =
     this.year +
     "/" +
     this.month +
@@ -51,7 +51,7 @@ class MyCard extends Component {
             <Card.Text className="mycard__card__overlay__text-header">
               <span className="mycard__card__overlay__text-header--tag">{this.props.tag}</span>
               <span className="mycard__card__overlay__text-header--timestamp">
-                {this.formatedDate}
+                {this.formattedDate}
               </span>
             </Card.Text>
             <Card.Text className="mycard__card__overlay--text">{this.props.text}</Card.Text>

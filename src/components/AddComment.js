@@ -106,6 +106,7 @@ class AddComment extends Component {
           .push({
             comment: this.state.newComment,
             user: this.state.username,
+            timestamp: Date.now(),
           });
         this.increasePoints(this.state.userUID);
         this.setState({ newComment: "" });
@@ -186,12 +187,18 @@ class AddComment extends Component {
               key: comment,
               id: comments[comment].user,
               text: comments[comment].comment,
+              timestamp: comments[comment].timestamp,
             });
           }
         }
       });
     return commentDetails.map((comment) => (
-      <Comment key={comment.key} user={comment.id} comment={comment.text} />
+      <Comment
+        key={comment.key}
+        user={comment.id}
+        comment={comment.text}
+        timestamp={comment.timestamp}
+      />
     ));
   }
   /**
@@ -251,38 +258,6 @@ class AddComment extends Component {
     }
   };
 
-  /**
-   * Check if the user has voted for this card
-   */
-  verifyVote = async (cardOwnerUID, cardID) => {
-    let userUID = this.state.userUID;
-    await this.verifyUser(userUID);
-    if (this.state.loginModal) {
-      return;
-    }
-    await dbRef
-      .ref("User/" + cardOwnerUID)
-      .once("value")
-      .then((snapshot) => {
-        let card = snapshot.child("cards/" + cardID).val();
-        if (card["votes"] != null) {
-          for (let vote in card["votes"]) {
-            for (let user in card["votes"][vote]) {
-              // if the user has voted, return isValid as false
-              if (card["votes"][vote][user] === userUID) {
-                this.setState({ isValid: false });
-              }
-              // if the user hasn't voted yet for this card, return isValid as true
-              else {
-                this.setState({ isValid: true });
-              }
-            }
-          }
-        } else {
-          this.setState({ isValid: true });
-        }
-      });
-  };
   deleteCard = () => {
     dbRef
       .ref("User/" + this.props.cardOwnerUID)

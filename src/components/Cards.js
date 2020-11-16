@@ -40,6 +40,7 @@ class Cards extends React.Component {
           text: cards[card].text,
           comments: cards[card].comments,
           timestamp: cards[card].timestamp,
+          tag: cards[card].tag,
         });
       }
     }
@@ -77,14 +78,14 @@ class Cards extends React.Component {
   /**
    * Returns the Google UID of card owner
    */
-  getCardOwner = () => {
+  getCardOwner = (cardId) => {
     let cardOwnerUID;
     dbRef.child("User").on("value", (snap) => {
       const users = snap.val();
       for (let user in users) {
         let cards = users[user].cards;
         for (let card in cards) {
-          if (card === this.state.cardSelected) {
+          if (card === cardId) {
             cardOwnerUID = user;
           }
         }
@@ -134,13 +135,13 @@ class Cards extends React.Component {
               comments: cards[card].comments,
               numComments: commentNumber,
               timestamp: cards[card].timestamp,
+              tag: cards[card].tag,
             });
           }
         }
       } else if (this.props.tag === "all") {
         for (let card in cards) {
           let commentNumber = this.countComments(cards[card].comments);
-
           cardCollected.push({
             id: card,
             background: cards[card].imgOption,
@@ -148,6 +149,7 @@ class Cards extends React.Component {
             comments: cards[card].comments,
             numComments: commentNumber,
             timestamp: cards[card].timestamp,
+            tag: cards[card].tag,
           });
         }
       }
@@ -184,25 +186,18 @@ class Cards extends React.Component {
             {Array.from(this.sortByTag()).map((card) => (
               <div key={card.id}>
                 <MyCard
+                  clickable={true}
                   key={card.id}
                   id={card.id}
                   background={card.background}
                   text={card.text}
                   commentCount={card.numComments}
-                  onClick={() => {
-                    this.setState({ visible: true, cardSelected: card.id });
-                  }}
+                  tag={card.tag}
+                  timestamp={card.timestamp}
+                  cardOwnerUID={this.getCardOwner(card.id)}
                 />{" "}
               </div>
             ))}
-            {this.state.visible ? (
-              <AddComment
-                show={this.state.visible}
-                cardOwnerUID={this.getCardOwner()}
-                cardID={this.state.cardSelected}
-                onHide={() => this.setState({ visible: false })}
-              />
-            ) : null}
           </CardDeck>
         ) : (
           <div className="cards__loader">

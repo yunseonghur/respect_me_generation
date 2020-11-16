@@ -3,7 +3,7 @@ import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 import Comment from "./Comment";
 import fire from "../fire";
 import MyCard from "./MyCard";
-import { faFlag, faThumbsUp, faThumbsDown, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faFlag, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from "./ReportModal";
 import "./AddComment.css";
@@ -201,8 +201,6 @@ class AddComment extends Component {
     let imgOption;
     let text;
     let numComments;
-    let upvote;
-    let downvote;
     dbRef
       .ref()
       .child("User")
@@ -223,6 +221,8 @@ class AddComment extends Component {
         background={imgOption}
         text={text}
         commentCount={numComments}
+        tag={this.props.tag}
+        timestamp={this.props.timestamp}
       />
     );
   }

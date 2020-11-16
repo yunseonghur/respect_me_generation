@@ -12,6 +12,7 @@ import fire from "../fire.js";
  * Called in CommunityBoard.js
  */
 class Board extends Component {
+  tags = ["all", "study", "health", "relationship"];
   constructor(props) {
     super(props);
     this.state = {
@@ -71,42 +72,21 @@ class Board extends Component {
   render() {
     return (
       <div className="board">
-        {this.state.cardVisible ? (
+        {this.props.tagVisible ? (
           <div className="board__toggle-buttons">
-            {/* <ButtonGroup>
-              <Button
-                name="all"
-                onClick={this.handleTag}
-                variant="outline-primary"
-                className="rounded-pill board__toggle-buttons--btn"
-              >
-                ALL
-              </Button>
-              <Button
-                name="study"
-                onClick={this.handleTag}
-                variant="outline-primary"
-                className="rounded-pill board__toggle-buttons--btn"
-              >
-                study
-              </Button>
-              <Button
-                name="relationship"
-                onClick={this.handleTag}
-                variant="outline-primary"
-                className="rounded-pill board__toggle-buttons--btn"
-              >
-                relationship
-              </Button>
-              <Button
-                name="health"
-                onClick={this.handleTag}
-                variant="outline-primary"
-                className="rounded-pill board__toggle-buttons--btn"
-              >
-                health
-              </Button>
-            </ButtonGroup> */}
+            <ButtonGroup>
+              {this.tags.map((value, index) => (
+                <Button
+                  name={value}
+                  key={index}
+                  onClick={this.handleTag}
+                  variant="outline-primary"
+                  className="rounded-pill board__toggle-buttons-btn"
+                >
+                  {value}
+                </Button>
+              ))}
+            </ButtonGroup>
           </div>
         ) : null}
         <ButtonGroup>

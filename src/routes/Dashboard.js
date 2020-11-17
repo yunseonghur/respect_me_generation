@@ -5,7 +5,7 @@ import basicBadge from "../images/badge_flat.jpg";
 import advBadge from "../images/adv_badge.png";
 import ReactTooltip from "react-tooltip";
 import { Tabs, Tab, TabPanel, TabList } from "react-web-tabs";
-import Board from "../components/Board";
+import CommunityBoard from "./CommunityBoard";
 import PostsIcon from "../images/PostsIcon";
 import AchievementIcon from "../images/AchievementIcon";
 import BookMarkIcon from "../images/BookMarkIcon";
@@ -146,7 +146,7 @@ class Dashboard extends Component {
           </TabList>
           <TabPanel tabId="cards">
             <div className="cards">
-              <Board />
+              <CommunityBoard />
             </div>
           </TabPanel>
           <TabPanel tabId="challenges">

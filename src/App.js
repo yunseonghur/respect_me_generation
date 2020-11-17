@@ -42,7 +42,7 @@ function App() {
       ) : (
         <Route path="/" exact={true} component={Login} />
       )}
-      <Route path="/communityBoard" component={CommunityBoard} />
+      <Route path="/communityBoard" component={() => <CommunityBoard tagVisible={true} />} />
       <Route path="/resources" component={Resources} />
       <Route path="/profile" component={Profile} />
       <Route path="/createCard" component={CreateCard} />

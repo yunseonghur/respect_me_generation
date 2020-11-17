@@ -54,8 +54,8 @@ class Navigation extends Component {
    * Adds points and assign badge to first time users
    * @param {firebaseUser.uid} userId
    */
-  addUserData(userId) {
-    this.db
+  async addUserData(userId) {
+    await this.db
       .ref("User/" + userId)
       .once("value")
       .then(function (snapshot) {
@@ -75,8 +75,8 @@ class Navigation extends Component {
   /**
    * Authentication listener
    */
-  authListener() {
-    fire.auth().onAuthStateChanged((user) => {
+  async authListener() {
+    await fire.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
           user: user,
@@ -88,10 +88,6 @@ class Navigation extends Component {
         this.setState({ user: null });
       }
     });
-  }
-
-  style = {
-    
   }
 
   getProfileActiveIcon = () => {
@@ -121,7 +117,6 @@ class Navigation extends Component {
   render() {
     return (
       <div className="navigation">
-
         <nav className="navbar navbar-expand justify-content-center">
           <a className="navigation__brand" href="/">
             <img className="navigation__brand--img" src={RMG_PrimaryIcon}></img>
@@ -129,12 +124,12 @@ class Navigation extends Component {
           <div className="navbar-collapse collapse w-100">
             <div className="navbar-nav w-100 justify-content-center">
               {this.state.user ? (
-                  <span data-for="main" data-tip="Dashboard" onMouseOver={this.getProfileActiveIcon} onMouseLeave={this.getProfileInactiveIcon}>
-                    <Nav.Link href="/">
-                      <img className="navigation__item" src={this.state.profileIcon} />
-                    </Nav.Link>
-                  </span>
-                ) : null}
+                <span data-for="main" data-tip="Dashboard" onMouseOver={this.getProfileActiveIcon} onMouseLeave={this.getProfileInactiveIcon}>
+                  <Nav.Link href="/">
+                    <img className="navigation__item" src={this.state.profileIcon} />
+                  </Nav.Link>
+                </span>) 
+                : null}
                 <span data-for="main" data-tip="Resources" onMouseOver={this.getResourceActiveIcon} onMouseLeave={this.getResourceInactiveIcon}>
                   <Nav.Link href="#resources">
                   <img className="navigation__item" src={this.state.resourceIcon} />
@@ -148,12 +143,20 @@ class Navigation extends Component {
             </div>
             <div className="nav navbar-nav justify-content-end">
                 {this.state.userImage === "" ? (
-                <div className="navigation__item--user-image_loader" />
+                <div className="navigation__item--user-image_loader"/>
               ) : (
-                <img className="navigation__item--user-image rounded-pill"
-                  src={this.state.userImage}
-                  alt="Profile Pic"
-                />
+                <div>
+                  <img className="navigation__item--user-image rounded-pill"
+                    src={this.state.userImage}
+                    alt="Profile Pic"
+                  />
+                  <Nav.Link
+                    className="navigation__item navigation__item--logout"
+                    onClick={() => this.setState({ logOutModal: true })}
+                  >
+                    Log Out
+                  </Nav.Link>
+                </div>
               )}
             </div>
           </div>

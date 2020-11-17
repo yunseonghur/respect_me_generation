@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./Profile.css";
 import fire from "../fire.js";
 import basicBadge from "../images/badge_flat.jpg";
 import advBadge from "../images/adv_badge.png";
@@ -10,6 +9,7 @@ import PostsIcon from "../images/PostsIcon";
 import AchievementIcon from "../images/AchievementIcon";
 import BookMarkIcon from "../images/BookMarkIcon";
 import ChallengeIcon from "../images/ChallengeIcon";
+import "react-web-tabs/dist/react-web-tabs.css";
 import "./Dashboard.css";
 
 const dbRef = fire.database().ref();

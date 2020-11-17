@@ -28,6 +28,7 @@ class Cards extends React.Component {
    */
   getCards(users) {
     let cardCollected = [];
+
     for (let user in users) {
       let cards = users[user].cards;
 
@@ -48,10 +49,34 @@ class Cards extends React.Component {
     });
   }
 
+  getUserCards(users) {
+    let cardCollected = [];
+    let cards = users[this.props.userUID].cards;
+    for (let card in cards) {
+      let commentNumber = this.countComments(cards[card].comments);
+      cardCollected.push({
+        id: card,
+        background: cards[card].imgOption,
+        text: cards[card].text,
+        comments: cards[card].comments,
+        numComments: commentNumber,
+        timestamp: cards[card].timestamp,
+        tag: cards[card].tag,
+      });
+    }
+    this.setState({
+      cards: cardCollected,
+      isLoading: false,
+    });
+  }
   componentDidMount() {
     dbRef.child("User").on("value", (snap) => {
       const users = snap.val();
-      this.getCards(users);
+      if (this.props.from === "dashboard") {
+        this.getUserCards(users);
+      } else {
+        this.getCards(users);
+      }
     });
   }
 
@@ -167,21 +192,37 @@ class Cards extends React.Component {
           </div>
         ) : this.state.showCards ? (
           <CardDeck className="cards__card-deck row">
-            {Array.from(this.sortByTag()).map((card) => (
-              <div key={card.id}>
-                <MyCard
-                  clickable={true}
-                  key={card.id}
-                  id={card.id}
-                  background={card.background}
-                  text={card.text}
-                  commentCount={card.numComments}
-                  tag={card.tag}
-                  timestamp={card.timestamp}
-                  cardOwnerUID={this.getCardOwner(card.id)}
-                />{" "}
-              </div>
-            ))}
+            {this.props.from === "dashboard"
+              ? Array.from(this.sortByTimestamp(this.state.cards)).map((card) => (
+                  <div key={card.id}>
+                    <MyCard
+                      clickable={true}
+                      key={card.id}
+                      id={card.id}
+                      background={card.background}
+                      text={card.text}
+                      commentCount={card.numComments}
+                      tag={card.tag}
+                      timestamp={card.timestamp}
+                      cardOwnerUID={this.getCardOwner(card.id)}
+                    />
+                  </div>
+                ))
+              : Array.from(this.sortByTag()).map((card) => (
+                  <div key={card.id}>
+                    <MyCard
+                      clickable={true}
+                      key={card.id}
+                      id={card.id}
+                      background={card.background}
+                      text={card.text}
+                      commentCount={card.numComments}
+                      tag={card.tag}
+                      timestamp={card.timestamp}
+                      cardOwnerUID={this.getCardOwner(card.id)}
+                    />
+                  </div>
+                ))}
           </CardDeck>
         ) : (
           <div className="cards__loader">

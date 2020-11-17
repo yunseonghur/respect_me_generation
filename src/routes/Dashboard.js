@@ -11,6 +11,7 @@ import BookMarkIcon from "../images/BookMarkIcon";
 import ChallengeIcon from "../images/ChallengeIcon";
 import "react-web-tabs/dist/react-web-tabs.css";
 import "./Dashboard.css";
+import ChallengeEntry from "../components/ChallengeEntry.js";
 
 const dbRef = fire.database().ref();
 
@@ -26,6 +27,7 @@ class Dashboard extends Component {
     badge: "",
     points: "",
     myBadges: [],
+    videos: [],
   };
 
   // Get current user's name and uid if exist
@@ -146,11 +148,13 @@ class Dashboard extends Component {
           </TabList>
           <TabPanel tabId="cards">
             <div className="cards">
-              <CommunityBoard />
+              <CommunityBoard from="dashboard" userUID={this.state.userUID} />
             </div>
           </TabPanel>
           <TabPanel tabId="challenges">
-            <div className="challenges"></div>
+            <div className="challenges">
+              <ChallengeEntry />
+            </div>
           </TabPanel>
           <TabPanel tabId="achievements">
             <div className="dashboard_achievements"></div>

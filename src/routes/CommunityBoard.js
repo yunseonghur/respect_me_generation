@@ -5,7 +5,8 @@ import VideoDisplay from "../components/VideoDisplay";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 import fire from "../fire.js";
-
+import UserVideo from "../components/UserVideo";
+const dbRef = fire.database().ref();
 /**
  * Component that handles toggling display of cards and videos.
  * Actual data is being displayed by Card and VideoDisplay components.
@@ -22,19 +23,16 @@ class CommunityBoard extends Component {
       tag: "all", // selected tag to sort
       videoVisible: false,
       cardVisible: true, // starts out showing cards
+      videos: [],
     };
     this.toggleOpenCards = this.toggleOpenCards.bind(this);
     this.toggleOpenVideos = this.toggleOpenVideos.bind(this);
   }
 
   componentDidMount() {
-    fire.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          userUID: user.uid,
-        });
-      }
-    });
+    if (this.props.from === "dashboard") {
+      this.getUserInfo();
+    }
   }
 
   /**
@@ -64,10 +62,31 @@ class CommunityBoard extends Component {
   toggleOpenVideos = () => {
     if (this.state.videoVisible === false) {
       this.setState({ videoVisible: true, cardVisible: false });
-    } else {
-      console.log("videos already opened.");
     }
   };
+  getUserInfo() {
+    dbRef.child("User").on("value", (snap) => {
+      const userInfo = snap.val();
+      this.setState(
+        {
+          videos: userInfo[this.props.userUID]["videos"],
+        },
+        () => {
+          this.getVideos();
+        }
+      );
+    });
+  }
+  getVideos() {
+    let videos = this.state.videos;
+    let videoArr = [];
+    for (let video in videos) {
+      videoArr.push({
+        id: videos[video],
+      });
+    }
+    this.setState({ videos: videoArr });
+  }
 
   render() {
     return (
@@ -97,7 +116,19 @@ class CommunityBoard extends Component {
             VIDEOS
           </button>
         </ButtonGroup>
-        <div>{this.state.cardVisible ? <Cards tag={this.state.tag} /> : <VideoDisplay />}</div>
+        <div>
+          {this.state.cardVisible ? (
+            <Cards tag={this.state.tag} from={this.props.from} userUID={this.props.userUID} />
+          ) : this.props.from === "dashboard" ? (
+            <div className="videos">
+              {Array.from(this.state.videos).map((myVideo) => (
+                <UserVideo key={myVideo.id} videoId={myVideo.id} />
+              ))}
+            </div>
+          ) : (
+            <VideoDisplay />
+          )}
+        </div>
       </div>
     );
   }

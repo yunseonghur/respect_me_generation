@@ -100,7 +100,7 @@ class CommunityBoard extends Component {
                   key={index}
                   onClick={this.handleTag}
                   variant="outline-primary"
-                  className="rounded-pill community-board__toggle-buttons-btn"
+                  className="rounded-pill community-board__toggle-buttons--btn"
                 >
                   {value}
                 </Button>

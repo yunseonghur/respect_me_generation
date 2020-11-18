@@ -1,14 +1,10 @@
 .community-board__toggle-buttons--btn {
-  margin: 5px 5px;
-  border-radius: 500px;
-}
-
-.community-board__toggle-buttons--btn {
   background-color: transparent;
   color: rgba(164, 165, 178, 1);
   font-weight: 700;
   border: unset;
-  font-size: 16px;
+  font-size: 16px !important;
+  margin: 0 10px;
 }
 
 .community-board__toggle-buttons--btn:focus {

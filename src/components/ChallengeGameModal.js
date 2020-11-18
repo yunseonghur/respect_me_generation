@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Modal, ButtonGroup, Button } from "react-bootstrap";
-import challenge from "../images/challenge.gif";
+import { Modal } from "react-bootstrap";
 import "./ChallengeGameModal.css";
 import ChallengeGameModalStep1 from "./ChallengeGameModalStep1";
 import ChallengeGameModalStep2 from "./ChallengeGameModalStep2";
@@ -25,13 +24,13 @@ class ChallengeGameModal extends Component {
     }
     this._next = this._next.bind(this)
     this._prev = this._prev.bind(this)
-    this.handleChange = this.handleChange.bind(this);
+    this.selectCategoryButton = this.selectCategoryButton.bind(this);
   }
 
-  handleChange(event) {
-    const {name, value} = event.target;
+  selectCategoryButton(event) {
+    const {name} = event.target;
     this.setState({
-      [name]: value
+      category: name
     })
   }
 
@@ -104,7 +103,7 @@ class ChallengeGameModal extends Component {
     }
     // ...else render nothing
     return null;
-  }
+  } 
 
   render() {
     return (
@@ -121,16 +120,20 @@ class ChallengeGameModal extends Component {
         </Modal.Header>
         <Modal.Body className="challenge-game-modal__body">
           <ChallengeGameModalStep1
-            currentStep={this.state.currentStep}
-            handeChange={this.handleChange}
+              currentStep={this.state.currentStep}
+              selectCategoryButton={this.selectCategoryButton}
           ></ChallengeGameModalStep1>
+
            <ChallengeGameModalStep2
-            currentStep={this.state.currentStep}
-            handeChange={this.handleChange}
+              currentStep={this.state.currentStep}
+              category={this.state.category}
+              getRandomChallenge={this.props.getRandomChallenge}
+              completedChallenges={this.props.completedChallenges}
           ></ChallengeGameModalStep2>
+
            <ChallengeGameModalStep3
-            currentStep={this.state.currentStep}
-            handeChange={this.handleChange}
+              currentStep={this.state.currentStep}
+              handleChange={this.handleChange}
           ></ChallengeGameModalStep3>
         </Modal.Body>
         <Modal.Footer className="challenge-game-modal__footer"> 

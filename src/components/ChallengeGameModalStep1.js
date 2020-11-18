@@ -4,10 +4,20 @@ import challenge from "../images/challenge.gif";
 import "./ChallengeGameModalStep1.css";
 
 class ChallengeGameModalStep1 extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            category: '',
+            variant: ''
+        }
+    
+    }
+
     categories = {
-        study: "outline-primary",
-        health: "outline-secondary",
-        relationship: "outline-danger",
+        Study: "outline-primary",
+        Health: "outline-success",
+        Relationship: "outline-danger",
       };
 
     render() {
@@ -29,7 +39,10 @@ class ChallengeGameModalStep1 extends Component {
                      <Button
                          key={category}
                          variant={color}
+                         name={category}
+                         value={this.props.category}
                          className="challenge-game-modal__body__bth-group--categories"
+                         onClick= {this.props.selectCategoryButton}
                      >
                          {category}
                      </Button>

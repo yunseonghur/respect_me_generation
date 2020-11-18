@@ -144,140 +144,146 @@ class CreateCardModal extends React.Component {
   }
   render() {
     return (
-      <Modal
-        className="create-card-modal"
-        aria-labelledby="contained-modal-title-vcenter"
-        animation={false}
-        show={this.props.show}
-        onHide={this.props.onHide}
-        size="md"
-        centered
-      >
-        <Modal.Header className="create-card-modal__header" closeButton></Modal.Header>
-        <Modal.Body className="create-card-modal__body">
-          <div className="create-card-modal__body__wrapper">
-            <form onSubmit={this.handleSubmit}>
-              <div className="create-card-modal__body__wrapper__tags">
-                <p className="create-card-modal__body__wrapper--title">
-                  Step 1: Select a Category (Tag)
-                </p>
-                <div className="create-card-modal__body__wrapper__tags--buttons">
-                  <ButtonGroup>
-                    {this.tags.map((value, index) => (
-                      <Button
-                        name={value}
-                        key={index}
-                        onClick={this.handleTagChange}
-                        variant="outline-primary"
-                        className="rounded-pill community-board__toggle-buttons--btn"
-                      >
-                        {value}
-                      </Button>
-                    ))}
-                  </ButtonGroup>
-                </div>
-              </div>
-              <div className="create-card-modal__body__wrapper__img">
-                <p className="create-card-modal__body__wrapper--title">
-                  Step 2: Select a Background
-                </p>
-                <CardColumns className="create-card-modal__body__wrapper__card-columns">
-                  <div className="create-card-modal__body__wrapper__img__opt">
-                    <label>
-                      <Card className="create-card-modal__body__wrapper__img__opt__card">
-                        <Card.Img
-                          className="create-card-modal__body__wrapper__img__opt__card-img"
-                          src={
-                            "https://i.pinimg.com/564x/aa/b8/49/aab84958979e408935c1b472deacda43.jpg"
-                          }
-                        />
-                      </Card>
-                      <input
-                        type="radio"
-                        value="1"
-                        checked={this.state.imgOption === "1"}
-                        onChange={this.handleImgChange}
-                      />
-                    </label>
+      <div>
+        {this.state.createdCard ? (
+          <CardModal
+            id={this.cardKey}
+            imgsrc={this.state.imgSrc}
+            text={this.state.text}
+            tag={this.state.tag}
+            animation={false}
+            show={this.state.createdCard}
+            tag={this.state.tag}
+            timestamp={this.state.timestamp}
+            onHide={() => this.setState({ createdCard: false })}
+          />
+        ) : (
+          <Modal
+            className="create-card-modal"
+            aria-labelledby="contained-modal-title-vcenter"
+            animation={false}
+            show={this.props.show}
+            onHide={this.props.onHide}
+            size="md"
+            centered
+          >
+            <Modal.Header className="create-card-modal__header" closeButton></Modal.Header>
+            <Modal.Body className="create-card-modal__body">
+              <div className="create-card-modal__body__wrapper">
+                <form onSubmit={this.handleSubmit}>
+                  <div className="create-card-modal__body__wrapper__tags">
+                    <p className="create-card-modal__body__wrapper--title">
+                      Step 1: Select a Category (Tag)
+                    </p>
+                    <div className="create-card-modal__body__wrapper__tags--buttons">
+                      <ButtonGroup>
+                        {this.tags.map((value, index) => (
+                          <Button
+                            name={value}
+                            key={index}
+                            onClick={this.handleTagChange}
+                            variant="outline-primary"
+                            className="rounded-pill community-board__toggle-buttons--btn"
+                          >
+                            {value}
+                          </Button>
+                        ))}
+                      </ButtonGroup>
+                    </div>
                   </div>
-                  <div className="create-card-modal__body__wrapper__img__opt">
-                    <label>
-                      <Card className="create-card-modal__body__wrapper__img__opt__card">
-                        <Card.Img
-                          className="create-card-modal__body__wrapper__img__opt__card-img"
-                          src={
-                            "https://i.pinimg.com/564x/73/96/bd/7396bd1cbf9e8ef8c73be0476290fd95.jpg"
-                          }
-                        />
-                      </Card>
-                      <input
-                        type="radio"
-                        value="2"
-                        checked={this.state.imgOption === "2"}
-                        onChange={this.handleImgChange}
-                      />
-                    </label>
+                  <div className="create-card-modal__body__wrapper__img">
+                    <p className="create-card-modal__body__wrapper--title">
+                      Step 2: Select a Background
+                    </p>
+                    <CardColumns className="create-card-modal__body__wrapper__card-columns">
+                      <div className="create-card-modal__body__wrapper__img__opt">
+                        <label>
+                          <Card className="create-card-modal__body__wrapper__img__opt__card">
+                            <Card.Img
+                              className="create-card-modal__body__wrapper__img__opt__card-img"
+                              src={
+                                "https://i.pinimg.com/564x/aa/b8/49/aab84958979e408935c1b472deacda43.jpg"
+                              }
+                            />
+                          </Card>
+                          <input
+                            type="radio"
+                            value="1"
+                            checked={this.state.imgOption === "1"}
+                            onChange={this.handleImgChange}
+                          />
+                        </label>
+                      </div>
+                      <div className="create-card-modal__body__wrapper__img__opt">
+                        <label>
+                          <Card className="create-card-modal__body__wrapper__img__opt__card">
+                            <Card.Img
+                              className="create-card-modal__body__wrapper__img__opt__card-img"
+                              src={
+                                "https://i.pinimg.com/564x/73/96/bd/7396bd1cbf9e8ef8c73be0476290fd95.jpg"
+                              }
+                            />
+                          </Card>
+                          <input
+                            type="radio"
+                            value="2"
+                            checked={this.state.imgOption === "2"}
+                            onChange={this.handleImgChange}
+                          />
+                        </label>
+                      </div>
+                      <div className="create-card-modal__body__wrapper__img__opt">
+                        <label>
+                          <Card className="create-card-modal__body__wrapper__img__opt__card">
+                            <Card.Img
+                              className="create-card-modal__body__wrapper__img__opt__card-img"
+                              src={
+                                "https://i.pinimg.com/564x/40/39/5c/40395c9d7cd4263ce1eb1d9eae47b920.jpg"
+                              }
+                            />
+                          </Card>
+                          <input
+                            type="radio"
+                            value="3"
+                            checked={this.state.imgOption === "3"}
+                            onChange={this.handleImgChange}
+                          />
+                        </label>
+                      </div>
+                    </CardColumns>
                   </div>
-                  <div className="create-card-modal__body__wrapper__img__opt">
-                    <label>
-                      <Card className="create-card-modal__body__wrapper__img__opt__card">
-                        <Card.Img
-                          className="create-card-modal__body__wrapper__img__opt__card-img"
-                          src={
-                            "https://i.pinimg.com/564x/40/39/5c/40395c9d7cd4263ce1eb1d9eae47b920.jpg"
-                          }
-                        />
-                      </Card>
-                      <input
-                        type="radio"
-                        value="3"
-                        checked={this.state.imgOption === "3"}
-                        onChange={this.handleImgChange}
-                      />
-                    </label>
+                  <div className="create-card-modal__body__wrapper__text">
+                    <p className="create-card-modal__body__wrapper--title">
+                      Step 3: Enter Your Message
+                    </p>
+                    <textarea
+                      name="text"
+                      class="create-card-modal__body__wrapper__text--text-area"
+                      onChange={this.handleTxtChange}
+                    />
                   </div>
-                </CardColumns>
-              </div>
-              <div className="create-card-modal__body__wrapper__text">
-                <p className="create-card-modal__body__wrapper--title">
-                  Step 3: Enter Your Message
-                </p>
-                <textarea
-                  name="text"
-                  class="create-card-modal__body__wrapper__text--text-area"
-                  onChange={this.handleTxtChange}
+                  <div className="create-card-modal__body__wrapper__submit">
+                    <button
+                      className="create-card-modal__body__wrapper__submit--button"
+                      onClick={this.handleSubmit}
+                      size="lg"
+                    >
+                      Post it!
+                    </button>
+                  </div>
+                </form>
+
+                <TextLengthModal
+                  animation={false}
+                  show={this.state.textLengthModal}
+                  onHide={() => this.setState({ textLengthModal: false })}
+                  textLength={75}
                 />
               </div>
-              <div className="create-card-modal__body__wrapper__submit">
-                <button
-                  className="create-card-modal__body__wrapper__submit--button"
-                  onClick={this.handleSubmit}
-                  size="lg"
-                >
-                  Post it!
-                </button>
-              </div>
-            </form>
-            <CardModal
-              id={this.cardKey}
-              imgsrc={this.state.imgSrc}
-              text={this.state.text}
-              tag={this.state.tag}
-              animation={false}
-              show={this.state.createdCard}
-              tag={this.state.tag}
-              timestamp={this.state.timestamp}
-              onHide={() => this.setState({ createdCard: false })}
-            />
-            <TextLengthModal
-              animation={false}
-              show={this.state.textLengthModal}
-              onHide={() => this.setState({ textLengthModal: false })}
-              textLength={75}
-            />
-          </div>
-        </Modal.Body>
-      </Modal>
+            </Modal.Body>
+          </Modal>
+        )}
+      </div>
     );
   }
 }

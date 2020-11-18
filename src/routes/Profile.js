@@ -483,6 +483,8 @@ class Profile extends Component{
         <ChallengeGameModal
           show={this.state.challengeModalVisible}
           onHide={this.showChallengeModal}
+          getRandomChallenge={this.getRandomChallenge}
+          completedChallenges={this.state.completedChallenges}
         />
         ;
       </div> // closing root node

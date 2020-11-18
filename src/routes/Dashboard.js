@@ -12,6 +12,8 @@ import ChallengeIcon from "../images/ChallengeIcon";
 import "react-web-tabs/dist/react-web-tabs.css";
 import "./Dashboard.css";
 import ChallengeEntry from "../components/ChallengeEntry.js";
+import Achievement from "../components/Achievement.js";
+
 
 const dbRef = fire.database().ref();
 
@@ -55,31 +57,6 @@ class Dashboard extends Component {
         videos: userInfo[this.state.userUID]["videos"],
         myBadges: userInfo[this.state.userUID]["myBadges"],
       });
-    });
-  }
-  /**
-   * Load the image of the current users's badges.
-   */
-  async getMyBadges() {
-    let myBadges = this.state.myBadges;
-    let badgeImgArr = [];
-
-    await dbRef.child("Badges").on("value", (snap) => {
-      const badgeRepo = snap.val();
-
-      for (let index in myBadges) {
-        for (let id in badgeRepo) {
-          if (myBadges[index] === id) {
-            badgeImgArr.push({
-              id,
-              image: badgeRepo[id].image,
-              tag: badgeRepo[id].tag,
-              title: badgeRepo[id].title,
-            });
-          }
-        }
-      }
-      this.setState({ myBadges: badgeImgArr });
     });
   }
 
@@ -157,7 +134,9 @@ class Dashboard extends Component {
             </div>
           </TabPanel>
           <TabPanel tabId="achievements">
-            <div className="dashboard_achievements"></div>
+            <div className="dashboard_achievements">
+              <Achievement userUID={this.state.userUID} />
+            </div>
           </TabPanel>
           <TabPanel tabId="saved">
             <div className="profile_saved-grid"></div>

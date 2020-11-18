@@ -1,0 +1,32 @@
+.achievement__badges {
+  display: block;
+  background-color: transparent;
+  font-weight: 700;
+  border: unset;
+  font-size: 16px !important;
+  margin: 20px;
+  text-align: center
+}
+
+.achievement__badges--subtitle {
+  width: fit-content;
+  color: #303454;
+  border-bottom: 3px solid rgba(42, 255, 169, 1);
+  border-radius: 0;
+  outline: none;
+  margin: auto;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.achievement__badges--count {
+  float: right;
+  margin-right: 10px;
+}
+
+.achievement__badges--container {
+  margin-top: 40px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  background-color: #303454;
+}

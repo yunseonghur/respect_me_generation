@@ -125,19 +125,19 @@ class Navigation extends Component {
             <div className="navbar-nav w-100 justify-content-center">
               {this.state.user ? (
                 <span data-for="main" data-tip="Dashboard" onMouseOver={this.getProfileActiveIcon} onMouseLeave={this.getProfileInactiveIcon}>
-                  <Nav.Link href="/">
-                    <img className="navigation__item" src={this.state.profileIcon} />
+                  <Nav.Link className="navigation__item" href="/">
+                    <img className="navigation__item--img" src={this.state.profileIcon} />
                   </Nav.Link>
                 </span>) 
                 : null}
                 <span data-for="main" data-tip="Resources" onMouseOver={this.getResourceActiveIcon} onMouseLeave={this.getResourceInactiveIcon}>
-                  <Nav.Link href="#resources">
-                  <img className="navigation__item" src={this.state.resourceIcon} />
+                  <Nav.Link className="navigation__item" href="#resources">
+                  <img className="navigation__item--img" src={this.state.resourceIcon} />
                   </Nav.Link>
                 </span>
                 <span data-for="main" data-tip="Community Board" onMouseOver={this.getCommunityActiveIcon} onMouseLeave={this.getCommunityInactiveIcon}>
-                  <Nav.Link href="#communityBoard">
-                    <img className="navigation__item" src={this.state.communityIcon} />
+                  <Nav.Link className="navigation__item" href="#communityBoard">
+                    <img className="navigation__item--img" src={this.state.communityIcon} />
                   </Nav.Link>
                 </span>
             </div>
@@ -175,3 +175,4 @@ class Navigation extends Component {
 }
 
 export default Navigation;
+

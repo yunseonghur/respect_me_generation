@@ -73,9 +73,9 @@ class CardModal extends React.Component {
           </Container>
         </Modal.Body>
         <Modal.Footer className="card-modal__footer" centered="true">
-          <Button className="card-modal__footer--btn" href="/communityBoard">
+          <button className="card-modal__footer--btn" href="/communityBoard">
             Go to Community Board
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     );

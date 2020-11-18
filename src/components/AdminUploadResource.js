@@ -19,16 +19,16 @@ const AdminUploadResource = () => {
         }
     }
 
-    const [title, setTitle] = useState("");
-    const [img, setImg] = useState("");
-    const [url, setUrl] = useState("");
-    const [category, setCategory] = useState("");
+    // const [title, setTitle] = useState("");
+    // const [img, setImg] = useState("");
+    // const [url, setUrl] = useState("");
+    // const [category, setCategory] = useState("");
 
     /* stores input entry into database */
     const handleSubmit = (e) => {
-        var key = db.ref().child('Resource').push().key;
+        var key = db.ref().child('study').push().key;
             
-        db.ref("Resources/" + 'study').child(key).set({
+        db.ref("Resources/").child('study/' + key).set({
             image: e.target.resImage.value,
             link: e.target.resLink.value,
             tag: 'study',

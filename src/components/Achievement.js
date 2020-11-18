@@ -9,7 +9,7 @@ const dbRef = fire.database().ref();
 class Achievement extends Component {
   state = {
     myBadges: [],
-    totalBadgeCount: "",
+    totalBadgeCount: "0",
     myBadgeCount: ""
   };
 

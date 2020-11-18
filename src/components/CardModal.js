@@ -1,6 +1,6 @@
 import React from "react";
 import MyCard from "../components/MyCard";
-import { Container, Row, Button, Modal } from "react-bootstrap";
+import { Container, Row, Modal } from "react-bootstrap";
 import "./CardModal.css";
 import HomeResourceEntry from "../components/HomeResourceEntry";
 
@@ -72,11 +72,6 @@ class CardModal extends React.Component {
             </Row>
           </Container>
         </Modal.Body>
-        <Modal.Footer className="card-modal__footer" centered="true">
-          <button className="card-modal__footer--btn" href="/communityBoard">
-            Go to Community Board
-          </button>
-        </Modal.Footer>
       </Modal>
     );
   }

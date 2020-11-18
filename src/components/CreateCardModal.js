@@ -1,7 +1,7 @@
 import React from "react";
 import fire from "../fire";
 import "../routes/CreateCard.css";
-import { ButtonGroup, Tab, CardDeck, Card, Button, Modal, CardColumns } from "react-bootstrap";
+import { ButtonGroup, Card, Button, Modal, CardColumns } from "react-bootstrap";
 import TextLengthModal from "../components/TextLengthModal";
 import CardModal from "../components/CardModal";
 import "./CreateCardModal.css";
@@ -153,7 +153,6 @@ class CreateCardModal extends React.Component {
             tag={this.state.tag}
             animation={false}
             show={this.state.createdCard}
-            tag={this.state.tag}
             timestamp={this.state.timestamp}
             onHide={() => this.setState({ createdCard: false })}
           />
@@ -258,7 +257,7 @@ class CreateCardModal extends React.Component {
                     </p>
                     <textarea
                       name="text"
-                      class="create-card-modal__body__wrapper__text--text-area"
+                      className="create-card-modal__body__wrapper__text--text-area"
                       onChange={this.handleTxtChange}
                     />
                   </div>

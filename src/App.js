@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import { HashRouter, Route } from "react-router-dom";
 import CommunityBoard from "./routes/CommunityBoard";
 import Resources from "./routes/Resources";
@@ -13,8 +13,12 @@ function App() {
   const [user, setUser] = useState(null);
   const [userLoaded, setUserLoaded] = useState(false);
   useEffect(() => {
-    authListener();
-  });
+    fire.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      }
+    });
+  }, [user]);
   /**
    * Authentication listener
    */

@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import './FloatingButton.css';
-import { withRouter } from 'react-router-dom';
-import { Container, Button } from 'react-floating-action-button';
-import fire from '../fire.js';
-import VideoBadgeModal from './VideoBadgeModal';
-import LoginModal from './LoginModal';
-import plus from '../images/icon-plus.png';
-import video from '../images/icon-video.png';
-import note from '../images/icon-note.png';
+import React, { Component } from "react";
+import "./FloatingButton.css";
+import { withRouter } from "react-router-dom";
+import { Container, Button } from "react-floating-action-button";
+import fire from "../fire.js";
+import VideoBadgeModal from "./VideoBadgeModal";
+import LoginModal from "./LoginModal";
+import plus from "../images/icon-plus.png";
+import video from "../images/icon-video.png";
+import note from "../images/icon-note.png";
+import CreateCardModal from "./CreateCardModal";
 
 const db = fire.database();
 
@@ -25,6 +26,7 @@ class FloatingButton extends Component {
       points: "",
       displayErrorMessage: false, // if user does not have 'advanced' badge, cannot post video
       displayLoginModal: false, // if user isn't logged in, cannot create cards
+      displayCreateCardModal: false, // display create card modal
     };
     this.getCurrentUser();
   }
@@ -56,9 +58,9 @@ class FloatingButton extends Component {
     });
   }
 
-  goToCreateCard = () => {
+  displayCreateCardModal = () => {
     if (this.state.userUID != null) {
-      this.props.history.push("/createCard");
+      this.setState({ displayCreateCardModal: true });
     } else {
       this.setState({
         displayLoginModal: true,
@@ -136,23 +138,35 @@ class FloatingButton extends Component {
       });
   }
 
-  render(){
+  render() {
     return (
       <div>
         <Container>
           <Button tooltip="Upload a video" onClick={this.uploadHandler} disabled>
-            <img src={video} alt="Upload a video"/>
+            <img src={video} alt="Upload a video" />
           </Button>
-          <Button tooltip="Add a card" onClick={this.goToCreateCard} disabled>
-            <img src={note} alt="Add a card"/>
+          <Button tooltip="Add a card" onClick={this.displayCreateCardModal} disabled>
+            <img src={note} alt="Add a card" />
           </Button>
-          <Button rotate={true} styles={{backgroundColor: "#2AFFA9", width:"43px", height:"43px"}}>
+          <Button
+            rotate={true}
+            styles={{ backgroundColor: "#2AFFA9", width: "43px", height: "43px" }}
+          >
             <img src={plus} alt="Add" />
           </Button>
         </Container>
-
-        <VideoBadgeModal show={this.state.displayErrorMessage} onHide={()=> this.setState({displayErrorMessage: false})} />
-        <LoginModal show={this.state.displayLoginModal} onHide={()=> this.setState({displayLoginModal: false})} />
+        <CreateCardModal
+          show={this.state.displayCreateCardModal}
+          onHide={() => this.setState({ displayCreateCardModal: false })}
+        />
+        <VideoBadgeModal
+          show={this.state.displayErrorMessage}
+          onHide={() => this.setState({ displayErrorMessage: false })}
+        />
+        <LoginModal
+          show={this.state.displayLoginModal}
+          onHide={() => this.setState({ displayLoginModal: false })}
+        />
       </div>
     );
   }

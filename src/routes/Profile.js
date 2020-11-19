@@ -39,7 +39,7 @@ class Profile extends Component{
         videos: [],
         completedChallenges: [],
         subscriptions: [],
-        activeChallenge: [],
+        activeChallenges: [],
         myBadges: [],
         isLoading: true, // true if the server is still loading cards data
         show: false, // false if modal is hidden
@@ -73,16 +73,14 @@ class Profile extends Component{
                 videos: userInfo[this.state.userUID]['videos'],
                 completedChallenges: userInfo[this.state.userUID]['completedChallenges'],
                 subscriptions: userInfo[this.state.userUID]['subscriptions'],
-                activeChallenge: userInfo[this.state.userUID]['activeChallenge'],
+                activeChallenges: userInfo[this.state.userUID]['activeChallenges'],
                 myBadges: userInfo[this.state.userUID]['myBadges']
             });
             this.getCardDetails();
             this.getVideos();
             this.getCompletedChallenges();
             this.getSubscriptions();
-            // if (!this.state.activeChallenge) {
-            //     this.getRandomChallengeActive();
-            // }
+            this.getActiveChallenges();
             this.getMyBadges();
 
         });
@@ -176,6 +174,16 @@ class Profile extends Component{
         this.setState({subscriptions: subscriptionsArr});
     }
 
+    //Store the user's active challenges in a simple array instead of in json format
+    getActiveChallenges() {
+      let activeChallenges = this.state.activeChallenges;
+      let activeChallengesArr = [];
+      for (let activeChallenge in activeChallenges){
+        activeChallengesArr.push(activeChallenges[activeChallenge]);
+      }
+      this.setState({activeChallenges: activeChallengesArr});
+  }
+
     // Store the current user's completed challenges in an array instead of json format
     async getCompletedChallenges() {
         let completedChallenges = this.state.completedChallenges;
@@ -211,89 +219,8 @@ class Profile extends Component{
         return title;
     }
 
-    // async getRandomChallengeActive() {
-    //     // console.log("getting random challenge");
-
-    //     let dateObject = new Date();
-    //     let day = dateObject.getDay() + 1;
-    //     let month = dateObject.getMonth() + 1;
-    //     let year = dateObject.getFullYear();
-    //     let date = day + "/" + month + "/" + year;
-    //     // get a list of potential challenges which the user hasn't completed yet
-    //     let potentialChallenges = [];
-    //     let userSubscriptions = this.state.subscriptions; // get list of user subscriptions
-    //     // Only get challenges user is subscribed too
-    //     for (let subscription in userSubscriptions){
-    //         let challengesRef = fire.database().ref("Challenges/"+userSubscriptions[subscription]);
-    //         await challengesRef.once('value', snap => {
-    //             let challenges = snap.val();
-    //             for (let challenge in challenges ){
-    //                 let tempChallenge = challenges[challenge];
-    //                 tempChallenge.challengeId = challenge;
-    //                 tempChallenge.startTime = date;
-    //                 potentialChallenges.push(tempChallenge);
-    //             }
-    //         })
-    //     }
-    //     // select random challenge from list potential challenges
-    //     let newChallengeBool = false;
-    //     let randomChallenge;
-    //     let randomChallengeKey;
-    //     let completedChallenges = this.state.completedChallenges;
-    //     let potentialCopy = potentialChallenges;
-    //     let a = new Array(60).fill(false);
-    //     while (!newChallengeBool) {
-    //         if (potentialCopy.length === 0) {
-    //             // console.log("no more potential challenges");
-    //             this.setState({activeChallenge: undefined});
-    //             this.getCompletedChallenges();
-    //             return undefined;
-    //         }
-    //         let randomNumber = Math.floor(Math.random() * potentialCopy.length);
-    //         randomChallenge = potentialCopy[randomNumber];
-    //         randomChallengeKey = randomChallenge.challengeId; // get unique challenge id
-    //         let foundCompleted = false;
-
-
-    //         // see if random challenge picked has been completed already
-    //         for (let challenge in completedChallenges) {
-
-    //             try {
-    //                 if (challenge === this.state.activeChallenge.activeChallenge.challengeId) {
-    //                     break;
-    //                 }
-    //             } catch (error) {
-    //                 console.log("no current active challenge")
-    //             } finally {
-    //                 if (challenge === randomChallengeKey ) {
-    //                     // console.log(potentialCopy);
-    //                     // console.log(challenge);
-    //                     // console.log(randomChallengeKey);
-    //                     // console.log("Challenge completed already");
-    //                     foundCompleted = true;
-    //                     // eslint-disable-next-line no-loop-func
-    //                     potentialCopy = potentialCopy.filter(item => item !== randomChallenge);
-    //                     console.log(potentialCopy);
-    //                     break;
-    //                     }
-    //             }
-    //         }
-    //         if (!foundCompleted) {
-    //             // console.log("Found new random challenge");
-    //             newChallengeBool = true;
-    //         }
-    //     }
-    //     // get user id to set the active challenge as the random one.
-    //     dbRef.child('User/'+ this.state.userUID + '/activeChallenge').set(randomChallenge);
-    //     this.setState({activeChallenge: randomChallenge});
-    // }
-
-    skipChallenge = () => {
-      dbRef.child('User/'+ this.state.userUID + '/activeChallenge').remove();
-    }
-
     cancelChallenge = () => {
-      dbRef.child('User/'+ this.state.userUID + '/activeChallenge').remove();
+      dbRef.child('User/'+ this.state.userUID + '/activeChallenges/' + this.state.activeChallenge.challengeId).remove();
     }
 
     completeChallenge = () => {
@@ -310,7 +237,7 @@ class Profile extends Component{
         // }
         console.log(completedChallenge);
         dbRef.child('User/'+ this.state.userUID + '/completedChallenges/').child(challengeId).set(completedChallenge);
-        dbRef.child('User/'+ this.state.userUID + '/activeChallenge/').remove();
+        dbRef.child('User/'+ this.state.userUID + '/activeChallenges/' + this.state.activeChallenge.challengeId).remove();
     }
 
     /**
@@ -456,12 +383,13 @@ class Profile extends Component{
             <div className="profile_challenges">
               <button onClick={this.showChallengeModal}>Start Challenge!</button>
                 <h2 className="profile_challenges--title">Active Challenges</h2>
-                {this.state.activeChallenge !== undefined ?
+                    {this.state.activeChallenges !== undefined ?
+                    Array.from(this.state.activeChallenges).map((myActiveChallenge) =>
                         <ChallengeCurrent
-                            title={this.state.activeChallenge.title}
-                            startTime={this.state.activeChallenge.startTime}
+                            title={myActiveChallenge.title}
+                            startTime={myActiveChallenge.startTime}
                             completeChallenge={this.completeChallenge}
-                            cancelChallenge={this.cancelChallenge}/> : <ChallengeNoEntry/>
+                            cancelChallenge={this.cancelChallenge}/>) : <ChallengeNoEntry/>
                     }
                 <h2 className="profile_challenges--title">Completed Challenges</h2>
                     {this.state.completedChallenges !== undefined ?
@@ -491,7 +419,7 @@ class Profile extends Component{
           onHide={this.showChallengeModal}
           hideChallengeModal={this.hideChallengeModal}
           getRandomChallenge={this.getRandomChallenge}
-          activeChallenge={this.state.activeChallenge}
+          activeChallenges={this.state.activeChallenges}
           completedChallenges={this.state.completedChallenges}
           userUID={this.state.userUID}
         />

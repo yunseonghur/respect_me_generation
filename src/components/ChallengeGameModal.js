@@ -127,7 +127,7 @@ class ChallengeGameModal extends Component {
               category={this.state.category}
               getRandomChallenge={this.props.getRandomChallenge}
               completedChallenges={this.props.completedChallenges}
-              activeChallenge={this.props.activeChallenge}
+              activeChallenges={this.props.activeChallenges}
               userUID={this.props.userUID}
               hideChallengeModal={this.props.hideChallengeModal}
           ></ChallengeGameModalStep2>

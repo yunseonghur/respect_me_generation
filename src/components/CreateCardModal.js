@@ -1,6 +1,5 @@
 import React from "react";
 import fire from "../fire";
-import "../routes/CreateCard.css";
 import { ButtonGroup, Card, Button, Modal, CardColumns } from "react-bootstrap";
 import TextLengthModal from "../components/TextLengthModal";
 import CardModal from "../components/CardModal";

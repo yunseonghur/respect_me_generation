@@ -6,3 +6,9 @@
 body {
   font-family: "kayak_sans_regular-webfont" !important;
 }
+
+.card {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}

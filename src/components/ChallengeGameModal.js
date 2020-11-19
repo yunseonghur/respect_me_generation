@@ -6,7 +6,7 @@ import ChallengeGameModalStep2 from "./ChallengeGameModalStep2";
 import ChallengeGameModalStep3 from "./ChallengeGameModalStep3";
 
 
-const MAX_PAGE = 3;
+const MAX_PAGE = 2;
 /**
  * Component that appears when user clicks on the flag to report a post on the card modal.
  * Called in CreateCard.js
@@ -25,6 +25,12 @@ class ChallengeGameModal extends Component {
     this._next = this._next.bind(this)
     this._prev = this._prev.bind(this)
     this.selectCategoryButton = this.selectCategoryButton.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      show: this.props.show
+    })
   }
 
   selectCategoryButton(event) {
@@ -62,10 +68,6 @@ class ChallengeGameModal extends Component {
     return null;
   }
 
-
-
-
-
   get previousButton(){
     let currentStep = this.state.currentStep;
     // If the current step is not 1, then render the "previous" button
@@ -96,15 +98,8 @@ class ChallengeGameModal extends Component {
     }
 
     if(currentStep === MAX_PAGE){
-      return (
-        <button 
-          className="btn btn-primary float-right" 
-          type="button" onClick={this._submit}>
-        Submit
-        </button>        
-      )
+      //Have no next button if at last page
     }
-    // ...else render nothing
     return null;
   } 
 
@@ -133,12 +128,9 @@ class ChallengeGameModal extends Component {
               getRandomChallenge={this.props.getRandomChallenge}
               completedChallenges={this.props.completedChallenges}
               activeChallenge={this.props.activeChallenge}
+              userUID={this.props.userUID}
+              hideChallengeModal={this.props.hideChallengeModal}
           ></ChallengeGameModalStep2>
-
-           <ChallengeGameModalStep3
-              currentStep={this.state.currentStep}
-              handleChange={this.handleChange}
-          ></ChallengeGameModalStep3>
         </Modal.Body>
         <Modal.Footer className="challenge-game-modal__footer"> 
           {this.previousButton}

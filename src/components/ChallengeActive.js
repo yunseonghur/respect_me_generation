@@ -16,7 +16,7 @@ const ChallengeActive = (props) => {
                 {props.title}
             </h3>
             <div className="challenge-entry_text--buttons">
-                <button onClick={props.completeChallenge}>I'm done!</button>
+                <button onClick={props.addChallenge}>Add challenge!</button>
                 <button onClick={props.skipChallenge}>Skip</button>
             </div>
           </div>

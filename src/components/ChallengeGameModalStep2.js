@@ -67,7 +67,7 @@ class ChallengeGameModalStep2 extends Component {
             for (let challenge in completedChallenges) {
     
                 try {
-                    if (challenge === this.props.activeChallenge.activeChallenge.challengeId) {
+                    if (challenge === this.props.activeChallenge.challengeId) {
                         break;
                     }
                 } catch (error) {
@@ -93,7 +93,6 @@ class ChallengeGameModalStep2 extends Component {
         console.log(randomChallenge);
     
         // // // get user id to set the active challenge as the random one.
-        // // dbRef.child('User/'+ this.state.userUID + '/activeChallenge').set(randomChallenge);
         this.setState({randomChallenge: randomChallenge});
     }
   
@@ -104,6 +103,9 @@ class ChallengeGameModalStep2 extends Component {
 
     addChallenge = () => {
         console.log('add challenge to dashboard')
+        fire.database().ref().child('User/'+ this.props.userUID + '/activeChallenge').set(this.state.randomChallenge);
+        this.props.hideChallengeModal();
+
     }
 
 
@@ -118,7 +120,7 @@ class ChallengeGameModalStep2 extends Component {
             <ChallengeActive
                 title={this.state.randomChallenge.title}
                 startTime={this.state.randomChallenge.startTime}
-                completeChallenge={this.completeChallenge}
+                addChallenge={this.addChallenge}
                 skipChallenge={this.skipChallenge}
             ></ChallengeActive>
 

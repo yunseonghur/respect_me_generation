@@ -31,7 +31,7 @@ class ChallengeGameModalStep1 extends Component {
             <div>
                 <img className="challenge-game-modal__body--image" src={challenge} />
              </div>
-
+                <div>{this.state.category}</div>
              <ButtonGroup size="lg" className="challenge-game-modal__body__bth-group">
                  <div className="challenge-game-modal__body__btn-group--categories">
                  {Object.entries(this.categories).map(([category, color]) => {

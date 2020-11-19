@@ -64,6 +64,7 @@ class CommunityBoard extends Component {
       this.setState({ videoVisible: true, cardVisible: false });
     }
   };
+
   getUserInfo() {
     dbRef.child("User").on("value", (snap) => {
       const userInfo = snap.val();
@@ -77,6 +78,7 @@ class CommunityBoard extends Component {
       );
     });
   }
+  
   getVideos() {
     let videos = this.state.videos;
     let videoArr = [];

@@ -11,8 +11,7 @@ import fire from '../fire.js';
 const dbRef = fire.database().ref();
 
 /**
- * on homepage, isPreview === true: no accordion, only 4 entries
- * on resource page, isPreview === false: accordion, all entries 
+ * !depreciated: resources displayed like cards on resource page 
  * 
  * @param {*} tag 
  * @param {*} eventKey decides which fold is opened after click

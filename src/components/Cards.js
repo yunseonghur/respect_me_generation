@@ -8,7 +8,7 @@ const dbRef = fire.database().ref();
 
 /**
  * A layout displaying cards from all users.
- * Called in CommunityBoard.js and MiniBoard.js
+ * Called in CommunityBoard.js
  */
 class Cards extends React.Component {
   constructor(props) {

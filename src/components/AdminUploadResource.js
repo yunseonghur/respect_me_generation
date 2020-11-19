@@ -44,6 +44,7 @@ const AdminUploadResource = () => {
 
         <div className="resource_upload--container" style={styles.container}>
             <h1>Admin Use: Upload a Resource</h1>
+            <p>(*currently only adds to study category)</p>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>

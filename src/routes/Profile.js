@@ -18,6 +18,7 @@ import ChallengeEntry from "../components/ChallengeEntry";
 import ChallengeGameModal from "../components/ChallengeGameModal";
 import ChallengeActive from '../components/ChallengeActive';
 import ChallengeNoEntry from '../components/ChallengeNoEntry';
+import ChallengeCurrent from '../components/ChallengeCurrent';
 import Badge from '../components/Badge';
 import { scryRenderedDOMComponentsWithClass } from 'react-dom/test-utils';
 import { useParams } from 'react-router-dom';
@@ -292,6 +293,10 @@ class Profile extends Component{
         this.getRandomChallengeActive();
     }
 
+    cancelChallenge = () => {
+      dbRef.child('User/'+ this.state.userUID + '/activeChallenge').remove();
+    }
+
     completeChallenge = () => {
         let dateObject = new Date();
         let day = dateObject.getDay() + 1;
@@ -451,11 +456,11 @@ class Profile extends Component{
               <button onClick={this.showChallengeModal}>Start Challenge!</button>
                 <h2 className="profile_challenges--title">Active Challenges</h2>
                 {this.state.activeChallenge !== undefined ?
-                        <ChallengeActive
+                        <ChallengeCurrent
                             title={this.state.activeChallenge.title}
                             startTime={this.state.activeChallenge.startTime}
                             completeChallenge={this.completeChallenge}
-                            skipChallenge={this.skipChallenge}/> : <ChallengeNoEntry/>
+                            cancelChallenge={this.cancelChallenge}/> : <ChallengeNoEntry/>
                     }
                 <h2 className="profile_challenges--title">Completed Challenges</h2>
                     {this.state.completedChallenges !== undefined ?

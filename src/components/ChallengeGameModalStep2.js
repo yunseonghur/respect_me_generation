@@ -12,18 +12,20 @@ class ChallengeGameModalStep2 extends Component {
         super(props);
         this.state = {
             category: '',
-            title: '',
-            startTime:''
+            randomChallenge: ''
         }
         this.getRandomChallenge = this.getRandomChallenge.bind(this);
-
     }
 
-    async getRandomChallenge(event) {
+    componentDidUpdate(prevProps) {
+        if (this.props.category !== prevProps.category) {
+            this.getRandomChallenge();
+        }
+    }
+
+    async getRandomChallenge() {
         console.log("getting random challenge");
-        console.log("getting random challenge");
-        const { name } = event.target;
-        console.log(name);
+        console.log(this.props.activeChallenge);
         let dateObject = new Date();
         let day = dateObject.getDay() + 1;
         let month = dateObject.getMonth() + 1;
@@ -31,11 +33,11 @@ class ChallengeGameModalStep2 extends Component {
         let date = day + "/" + month + "/" + year;
         // // get a list of potential challenges which the user hasn't completed yet
         let potentialChallenges = [];
-  
-        let challengesRef = fire.database().ref("Challenges/"+name);
+    
+        let challengesRef = fire.database().ref("Challenges/"+this.props.category);
         await challengesRef.once('value', snap => {
             let challenges = snap.val();
-            console.log(challenges);
+            console.log(challenges)
             for (let challenge in challenges ){
                 let tempChallenge = challenges[challenge];
                 tempChallenge.challengeId = challenge;
@@ -44,47 +46,42 @@ class ChallengeGameModalStep2 extends Component {
             }
         })
         // // select random challenge from list potential challenges
-  
+    
         console.log(potentialChallenges);
         let newChallengeBool = false;
         let randomChallenge;
         let randomChallengeKey;
         let completedChallenges = this.props.completedChallenges;
         let potentialCopy = potentialChallenges;
-        // console.log("potential copy")
-        // console.log(potentialCopy[1]);
         while (!newChallengeBool) {
             if (potentialCopy.length === 0) {
                 console.log("no more potential challenges");
             }
             let randomNumber = Math.floor(Math.random() * potentialCopy.length);
             randomChallenge = potentialCopy[randomNumber];
-            // console.log(randomChallenge);
-            // randomChallengeKey = randomChallenge.challengeId; // get unique challenge id
+            console.log(randomChallenge);
+            randomChallengeKey = randomChallenge.challengeId; // get unique challenge id
             let foundCompleted = false;
-  
-  
+    
             // see if random challenge picked has been completed already
             for (let challenge in completedChallenges) {
-  
+    
                 try {
-                    if (challenge === this.state.activeChallenge.activeChallenge.challengeId) {
+                    if (challenge === this.props.activeChallenge.activeChallenge.challengeId) {
                         break;
                     }
                 } catch (error) {
                     console.log("no current active challenge")
                 } finally {
                     if (challenge === randomChallengeKey ) {
-                        console.log(potentialCopy);
                         console.log(challenge);
                         console.log(randomChallengeKey);
                         console.log("Challenge completed already");
                         foundCompleted = true;
                         // eslint-disable-next-line no-loop-func
                         potentialCopy = potentialCopy.filter(item => item !== randomChallenge);
-                        console.log(potentialCopy);
                         break;
-                        }
+                    }
                 }
             }
             if (!foundCompleted) {
@@ -94,18 +91,20 @@ class ChallengeGameModalStep2 extends Component {
         }
         console.log("randomChallenge is: ")
         console.log(randomChallenge);
-        // // get user id to set the active challenge as the random one.
-        // dbRef.child('User/'+ this.state.userUID + '/activeChallenge').set(randomChallenge);
-        // this.setState({activeChallenge: randomChallenge});
+    
+        // // // get user id to set the active challenge as the random one.
+        // // dbRef.child('User/'+ this.state.userUID + '/activeChallenge').set(randomChallenge);
+        this.setState({randomChallenge: randomChallenge});
     }
   
 
+    skipChallenge = () => {
+        this.getRandomChallenge();
+    }
 
-    // componentDidMount(){
-    //     this.setState({
-    //         category: this.props.category
-    //     });
-    // }
+    addChallenge = () => {
+        console.log('add challenge to dashboard')
+    }
 
 
     render() {
@@ -116,19 +115,13 @@ class ChallengeGameModalStep2 extends Component {
         return(
             <div>
                 <div className="challenge-game-modal__body--prompt">{this.props.category}</div>
-            {/* <ChallengeActive
-                title={this.state.activeChallenge.title}
-                startTime={this.state.activeChallenge.startTime}
+            <ChallengeActive
+                title={this.state.randomChallenge.title}
+                startTime={this.state.randomChallenge.startTime}
                 completeChallenge={this.completeChallenge}
                 skipChallenge={this.skipChallenge}
-            ></ChallengeActive> */}
-            <Button
-                name={this.props.category}
-                onClick= {this.getRandomChallenge}
-                variant="primary"
-            >
-                getRandomChallenge
-            </Button>
+            ></ChallengeActive>
+
             </div>
             
         )

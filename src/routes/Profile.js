@@ -211,7 +211,7 @@ class Profile extends Component{
     }
 
     async getRandomChallengeActive() {
-        console.log("getting random challenge");
+        // console.log("getting random challenge");
 
         let dateObject = new Date();
         let day = dateObject.getDay() + 1;
@@ -243,7 +243,7 @@ class Profile extends Component{
         let a = new Array(60).fill(false);
         while (!newChallengeBool) {
             if (potentialCopy.length === 0) {
-                console.log("no more potential challenges");
+                // console.log("no more potential challenges");
                 this.setState({activeChallenge: undefined});
                 this.getCompletedChallenges();
                 return undefined;
@@ -265,10 +265,10 @@ class Profile extends Component{
                     console.log("no current active challenge")
                 } finally {
                     if (challenge === randomChallengeKey ) {
-                        console.log(potentialCopy);
-                        console.log(challenge);
-                        console.log(randomChallengeKey);
-                        console.log("Challenge completed already");
+                        // console.log(potentialCopy);
+                        // console.log(challenge);
+                        // console.log(randomChallengeKey);
+                        // console.log("Challenge completed already");
                         foundCompleted = true;
                         // eslint-disable-next-line no-loop-func
                         potentialCopy = potentialCopy.filter(item => item !== randomChallenge);
@@ -278,7 +278,7 @@ class Profile extends Component{
                 }
             }
             if (!foundCompleted) {
-                console.log("Found new random challenge");
+                // console.log("Found new random challenge");
                 newChallengeBool = true;
             }
         }
@@ -484,6 +484,7 @@ class Profile extends Component{
           show={this.state.challengeModalVisible}
           onHide={this.showChallengeModal}
           getRandomChallenge={this.getRandomChallenge}
+          activeChallenge={this.state.activeChallenge}
           completedChallenges={this.state.completedChallenges}
         />
         ;

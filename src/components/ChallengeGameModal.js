@@ -63,6 +63,9 @@ class ChallengeGameModal extends Component {
   }
 
 
+
+
+
   get previousButton(){
     let currentStep = this.state.currentStep;
     // If the current step is not 1, then render the "previous" button
@@ -129,6 +132,7 @@ class ChallengeGameModal extends Component {
               category={this.state.category}
               getRandomChallenge={this.props.getRandomChallenge}
               completedChallenges={this.props.completedChallenges}
+              activeChallenge={this.props.activeChallenge}
           ></ChallengeGameModalStep2>
 
            <ChallengeGameModalStep3

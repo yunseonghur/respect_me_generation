@@ -1,7 +1,33 @@
 import React from 'react';
 import "./ChallengeEntry.css";
+import fire from "../fire.js";
+
 
 const ChallengeCurrent = (props) => {
+
+    const cancelChallenge = () => {
+        console.log("cancel active challenge")
+        console.log(props.userUID);
+        console.log(props.challengeId);
+        fire.database().ref().child('User/'+ props.userUID + '/activeChallenges/' + props.challengeId).remove();
+    }
+
+    const completeChallenge = () => {
+        let dateObject = new Date();
+        let day = dateObject.getDay() + 1;
+        let month = dateObject.getMonth() +1;
+        let year = dateObject.getFullYear();
+        let completedChallenge = {
+                startTime: props.startTime,
+                endTime: day + "/" + month + "/" + year
+        }
+            
+        // }
+        console.log(completedChallenge);
+        console.log(props.challengeId);
+        fire.database().ref().child('User/'+ props.userUID + '/completedChallenges/').child(props.challengeId).set(completedChallenge);
+        fire.database().ref().child('User/'+ props.userUID + '/activeChallenges/' + props.challengeId).remove();
+    }
 
     return (
         <div className="challenge-entry">
@@ -16,8 +42,8 @@ const ChallengeCurrent = (props) => {
                 {props.title}
             </h3>
             <div className="challenge-entry_text--buttons">
-                <button onClick={props.completeChallenge}>I'm done!</button>
-                <button onClick={props.cancelChallenge}>Cancel</button>
+                <button onClick={completeChallenge}>I'm done!</button>
+                <button onClick={cancelChallenge}>Cancel</button>
             </div>
           </div>
 

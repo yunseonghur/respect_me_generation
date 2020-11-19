@@ -219,27 +219,6 @@ class Profile extends Component{
         return title;
     }
 
-    cancelChallenge = () => {
-      dbRef.child('User/'+ this.state.userUID + '/activeChallenges/' + this.state.activeChallenge.challengeId).remove();
-    }
-
-    completeChallenge = () => {
-        let dateObject = new Date();
-        let day = dateObject.getDay() + 1;
-        let month = dateObject.getMonth() +1;
-        let year = dateObject.getFullYear();
-        let challengeId = this.state.activeChallenge.challengeId;
-        let completedChallenge = {
-                startTime: this.state.activeChallenge.startTime,
-                endTime: day + "/" + month + "/" + year
-        }
-            
-        // }
-        console.log(completedChallenge);
-        dbRef.child('User/'+ this.state.userUID + '/completedChallenges/').child(challengeId).set(completedChallenge);
-        dbRef.child('User/'+ this.state.userUID + '/activeChallenges/' + this.state.activeChallenge.challengeId).remove();
-    }
-
     /**
      * Load the image of the current users's badges.
      */
@@ -388,8 +367,8 @@ class Profile extends Component{
                         <ChallengeCurrent
                             title={myActiveChallenge.title}
                             startTime={myActiveChallenge.startTime}
-                            completeChallenge={this.completeChallenge}
-                            cancelChallenge={this.cancelChallenge}/>) : <ChallengeNoEntry/>
+                            userUID={this.state.userUID}
+                            challengeId={myActiveChallenge.challengeId}/>) : <ChallengeNoEntry/>
                     }
                 <h2 className="profile_challenges--title">Completed Challenges</h2>
                     {this.state.completedChallenges !== undefined ?

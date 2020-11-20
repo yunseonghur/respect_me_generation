@@ -47,6 +47,7 @@ class Profile extends Component{
         videoVisible: false,
         cardVisible: true,   // starts out showing cards
         challengeModalVisible: false,
+        numberOfActiveChallenges: ""
     };
 
     // Get current user's name and uid if exist
@@ -74,8 +75,11 @@ class Profile extends Component{
                 completedChallenges: userInfo[this.state.userUID]['completedChallenges'],
                 subscriptions: userInfo[this.state.userUID]['subscriptions'],
                 activeChallenges: userInfo[this.state.userUID]['activeChallenges'],
-                myBadges: userInfo[this.state.userUID]['myBadges']
+                myBadges: userInfo[this.state.userUID]['myBadges'],
+                numberOfActiveChallenges: Object.keys(userInfo[this.state.userUID]['activeChallenges']).length
             });
+            console.log("length of activeChallenges")
+            console.log(this.state.numberOfActiveChallenges);
             this.getCardDetails();
             this.getVideos();
             this.getCompletedChallenges();
@@ -84,6 +88,16 @@ class Profile extends Component{
             this.getMyBadges();
 
         });
+    }
+
+    updateActiveChallenges(userUID){
+      dbRef.child('User').on('value', snap => {
+        const userInfo = snap.val();
+        this.setState({
+            activeChallenges: userInfo[userUID]['activeChallenges']
+        });
+        this.getActiveChallenges();
+    });
     }
 
   // Set a flag for modal to true to appear
@@ -201,26 +215,17 @@ class Profile extends Component{
         this.setState({completedChallenges: completedChallengesArr});
     }
 
-    // helper to get challenge title by challengeId
-    // async lookupChallengesTitle(challengeId) {
-    //     let title = '';
-    //     let entriesRef = dbRef.child('Challenges');
-    //      entriesRef.on('value', async snap => {
-    //         let childData = await snap.val();
-    //         for (let child in childData) {
-    //           if (childData[child][challengeId]) {
-    //               title = childData[child][challengeId].title;
-    //               console.log(title);
-    //               return title;
-    //           }
-    //         }
-          
-    //     });
-    //     if (!title) {
-    //         console.log('Not found');
-    //     }
-    //     return title;
-    // }
+    handleCompleteChallenge = (event) => {
+      this.getCompletedChallenges();
+    }
+
+
+    cancelChallenge = () => {
+      console.log("cancel active challenge")
+      console.log(this.state.userUID);
+      console.log(this.state.challengeId);
+      fire.database().ref().child('User/'+ this.state.userUID + '/activeChallenges/' + this.state.challengeId).remove();
+  }
 
     /**
      * Load the image of the current users's badges.
@@ -363,7 +368,9 @@ class Profile extends Component{
           </TabPanel>
           <TabPanel tabId="challenges">
             <div className="profile_challenges">
-              <button onClick={this.showChallengeModal}>Start Challenge!</button>
+              {this.state.numberOfActiveChallenges < 3 ?
+                (<button onClick={this.showChallengeModal}>Start Challenge!</button>) : null
+              }
                 <h2 className="profile_challenges--title">Active Challenges</h2>
                     {this.state.activeChallenges !== undefined ?
                     Array.from(this.state.activeChallenges).map((myActiveChallenge) =>
@@ -371,7 +378,9 @@ class Profile extends Component{
                             title={myActiveChallenge.title}
                             startTime={myActiveChallenge.startTime}
                             userUID={this.state.userUID}
-                            challengeId={myActiveChallenge.challengeId}/>) : <ChallengeNoEntry/>
+                            updateActiveChallenges={this.updateActiveChallenges}
+                            challengeId={myActiveChallenge.challengeId}
+                            getcompleteChallenge={this.getcompleteChallenge}/>) : <ChallengeNoEntry/>
                     }
                 <h2 className="profile_challenges--title">Completed Challenges</h2>
                     {this.state.completedChallenges !== undefined ?
@@ -400,6 +409,7 @@ class Profile extends Component{
           show={this.state.challengeModalVisible}
           onHide={this.showChallengeModal}
           hideChallengeModal={this.hideChallengeModal}
+          updateActiveChallenges={this.updateActiveChallenges}
           getRandomChallenge={this.getRandomChallenge}
           activeChallenges={this.state.activeChallenges}
           completedChallenges={this.state.completedChallenges}

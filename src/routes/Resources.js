@@ -99,14 +99,14 @@ class Resources extends Component {
         <div className="resource_row">
           {this.state.entries
             ? this.state.entries.map((item, index) => (
-                <div className="resource_row--item" key={index}>
+                <a className="resource_row--item" key={index} href={item.link} target="_blank">
                   <button onClick={this.addToSaved}>+</button>
                   <img alt="resource" src={item.image} />
                   <div>
                     <h2>{item.title}</h2>
                     <h4>should attribute to database -- some short preview of article</h4>
                   </div>
-                </div>
+                </a>
               ))
             : null}
         </div>

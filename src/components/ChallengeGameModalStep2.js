@@ -24,8 +24,6 @@ class ChallengeGameModalStep2 extends Component {
     }
 
     async getRandomChallenge() {
-        console.log("getting random challenge");
-        console.log(this.props.activeChallenges);
         let dateObject = new Date();
         let day = dateObject.getDate();
         let month = dateObject.getMonth() + 1;
@@ -37,7 +35,6 @@ class ChallengeGameModalStep2 extends Component {
         let challengesRef = fire.database().ref("Challenges/"+this.props.category);
         await challengesRef.once('value', snap => {
             let challenges = snap.val();
-            console.log(challenges)
             for (let challenge in challenges ){
                 let tempChallenge = challenges[challenge];
                 tempChallenge.challengeId = challenge;
@@ -47,7 +44,6 @@ class ChallengeGameModalStep2 extends Component {
         })
         // // select random challenge from list potential challenges
     
-        console.log(potentialChallenges);
         let newChallengeBool = false;
         let randomChallenge;
         let randomChallengeKey;

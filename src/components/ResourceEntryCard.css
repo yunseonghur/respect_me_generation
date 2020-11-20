@@ -49,6 +49,10 @@
   transition: ease-in 0.1s;
 }
 
+.hide {
+  display: none;
+}
+
 @media only screen and (max-width: 375px) {
   .resource-entry-card__anchor {
     margin: 20px auto;

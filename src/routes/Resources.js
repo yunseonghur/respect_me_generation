@@ -8,12 +8,7 @@ import fire from "../fire.js";
 import ResourceEntryCard from "../components/ResourceEntryCard";
 
 const dbRef = fire.database().ref();
-const db = fire.database();
 
-/**
- * The resource page is a React-Bootstrap accordion Component.
- * Each accordion 'fold' is its own component: ResourceEntry.
- */
 class Resources extends Component {
   tags = ["all", "study", "health", "relationship"];
 
@@ -82,33 +77,10 @@ class Resources extends Component {
     this.setState({ entries: [...this.state.entries, ...parsed] });
   }
 
-  /**
-   * Event handler for tag selection.
-   */
-  handleTag = (event) => {
-    event.preventDefault();
-    this.setState({
-      tag: event.target.name,
-    });
-  };
-
   render() {
     return (
       <div className="resources_wrapper">
         <h2>RESOURCES</h2>
-        <ButtonGroup>
-          {this.tags.map((value, index) => (
-            <Button
-              name={value}
-              key={index}
-              onClick={this.handleTag}
-              variant="outline-primary"
-              className="rounded-pill community-board__toggle-buttons--btn"
-            >
-              {value}
-            </Button>
-          ))}
-        </ButtonGroup>
         <div className="resource_row">
           {this.state.entries
             ? this.state.entries.map((item, index) => (

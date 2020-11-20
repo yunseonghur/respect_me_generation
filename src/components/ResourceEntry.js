@@ -11,11 +11,7 @@ import fire from '../fire.js';
 const dbRef = fire.database().ref();
 
 /**
- * !depreciated: resources displayed like cards on resource page 
- * 
- * @param {*} tag 
- * @param {*} eventKey decides which fold is opened after click
- * @param {*} defaultActiveKey decides which fold is opened at FIRST
+ * @deprecated
  */
 class ResourceEntry extends Component{
 

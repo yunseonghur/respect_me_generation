@@ -16,3 +16,9 @@
   flex-flow: row wrap;
   justify-content: center;
 }
+
+@media only screen and (max-width: 375px) {
+  .resource_row {
+    display: unset;
+  }
+}

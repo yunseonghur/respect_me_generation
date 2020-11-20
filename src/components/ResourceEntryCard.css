@@ -2,9 +2,9 @@
   border: 1px solid #e4e4e4;
   border-radius: 10px;
   height: 250px;
-  flex-basis: 20%;
+  /* flex-basis: 20%; */
   width: 230px;
-  margin: 10px;
+  margin: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -48,4 +48,10 @@
   background-color: #108581;
   padding: 3px 10px;
   transition: ease-in 0.1s;
+}
+
+@media only screen and (max-width: 375px) {
+  .resource-entry-card__anchor {
+    margin: 20px auto;
+  }
 }

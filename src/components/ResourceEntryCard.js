@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../routes/Resources.css";
 import fire from "../fire.js";
 import "./ResourceEntryCard.css";
+import Col from "react-bootstrap/Col";
 
 const dbRef = fire.database().ref();
 const db = fire.database();

@@ -1,10 +1,10 @@
 import React from 'react';
 import "./ChallengeEntry.css";
 
-const ChallengeEntry = (props) => {
+const ChallengeActive = (props) => {
 
     return (
-      <div id={props.key} className="challenge-entry">
+        <div className="challenge-entry">
 
           {/* challenge image */}
           <div className="challenge-entry_img">
@@ -15,18 +15,18 @@ const ChallengeEntry = (props) => {
             <h3 className="challenge-entry_text--title">
                 {props.title}
             </h3>
-            {/* <div className="challenge-entry_text--buttons">
-                <button onClick={recordTaskComplete}>I'm done!</button>
-                <button onClick={recordTaskSkipped}>Skip</button>
-            </div> */}
+            <div className="challenge-entry_text--buttons">
+                <button onClick={props.addChallenge}>Add challenge!</button>
+                <button onClick={props.skipChallenge}>Skip</button>
+            </div>
           </div>
 
           {/* challenge status */}
           <div className="challenge-entry_status">
-              {props.endTime}
+              {props.startTime}
           </div>
       </div>
-    );
-  }
-  
-  export default ChallengeEntry;
+    )
+}
+
+export default ChallengeActive;

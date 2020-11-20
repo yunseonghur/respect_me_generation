@@ -4,11 +4,11 @@ import "./ChallengeEntry.css";
 const ChallengeEntry = (props) => {
   return (
     <div id={props.key} className="challenge-entry">
-      {/* challenge image
+      {/* challenge image */}
           <div className="challenge-entry_img">
-          </div> */}
+          </div>
 
-      {/* text */}
+
       <div className="challenge-entry_text">
         <h3 className="challenge-entry_text--title">
           {props.title}

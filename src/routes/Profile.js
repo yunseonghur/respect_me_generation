@@ -190,34 +190,37 @@ class Profile extends Component{
         let completedChallengesArr = [];
 
         for (let challenge in completedChallenges){
-            let title = await this.lookupChallengesTitle(challenge);
+            // let title = await this.lookupChallengesTitle(challenge);
             completedChallengesArr.push({
                 id: challenge,
                 endTime: completedChallenges[challenge].endTime,
                 startTime: completedChallenges[challenge].startTime,
-                title: title
+                title: completedChallenges[challenge].title
             })
         }
         this.setState({completedChallenges: completedChallengesArr});
     }
 
     // helper to get challenge title by challengeId
-    async lookupChallengesTitle(challengeId) {
-        let entriesRef = dbRef.child('Challenges');
-        const snap = await entriesRef.once('value');
-        let title = '';
-        snap.forEach((childSnap) => {
-            let childData = childSnap.val();
-            if (childData[challengeId]) {
-                title = childData[challengeId].title;
-                return title;
-            }
-        });
-        if (!title) {
-            console.log('Not found');
-        }
-        return title;
-    }
+    // async lookupChallengesTitle(challengeId) {
+    //     let title = '';
+    //     let entriesRef = dbRef.child('Challenges');
+    //      entriesRef.on('value', async snap => {
+    //         let childData = await snap.val();
+    //         for (let child in childData) {
+    //           if (childData[child][challengeId]) {
+    //               title = childData[child][challengeId].title;
+    //               console.log(title);
+    //               return title;
+    //           }
+    //         }
+          
+    //     });
+    //     if (!title) {
+    //         console.log('Not found');
+    //     }
+    //     return title;
+    // }
 
     /**
      * Load the image of the current users's badges.

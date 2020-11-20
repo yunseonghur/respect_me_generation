@@ -18,6 +18,7 @@ const ChallengeCurrent = (props) => {
         let month = dateObject.getMonth() +1;
         let year = dateObject.getFullYear();
         let completedChallenge = {
+                title: props.title,
                 startTime: props.startTime,
                 endTime: day + "/" + month + "/" + year
         }

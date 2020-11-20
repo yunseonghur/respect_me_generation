@@ -14,7 +14,6 @@ import "./Dashboard.css";
 import ChallengeEntry from "../components/ChallengeEntry.js";
 import Achievement from "../components/Achievement.js";
 import SavedResources from "../components/SavedResources.js";
-import Testing from "../Testing.js";
 
 const dbRef = fire.database().ref();
 

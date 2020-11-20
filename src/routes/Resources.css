@@ -1,11 +1,10 @@
-
 .resources_wrapper {
   text-align: center;
   margin: 0 auto;
   max-width: 1335px;
 }
 
-.resources_wrapper>h2 {
+.resources_wrapper > h2 {
   margin-top: 70px;
   margin-bottom: 20px;
   font-size: 2.5rem;
@@ -17,102 +16,3 @@
   flex-flow: row wrap;
   justify-content: center;
 }
-
-.resource_row>.resource_row--item {
-  border: 1px solid #E4E4E4;
-  border-radius: 10px;
-  height: 250px;
-  flex-basis: 20%;
-  width: 230px;
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
-}
-
-.resource_row>.resource_row--item:hover {
-  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.13);
-  transition: ease 0.5s;
-}
-
-.resource_row--item>img {
-  height: 45%;
-  width: 100%;
-  background-size: cover;
-  border-radius: 5px 5px 0px 0px;
-}
-
-.resource_row--item>div {
-  margin: 7px;
-  flex-direction: column;
-  height: 100%;
-}
-
-.resource_row--item>div>h4 {
-  color: grey;
-}
-
-.resource_row--item>button {
-  position: absolute;
-  font-size: 25pt;
-  border-style: none;
-  border-radius: 5px 0 0 0;
-  color: white;
-  background-color: #18C2BC;
-  padding: 3px 10px;
-  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.308);
-}
-
-.resource_row--item>button:hover {
-  color: white;
-  background-color: #108581;
-  padding: 3px 10px;
-  transition: ease-in 0.1s;
-}
-
-/* .resource_grid>.resource_grid--item {
-  height: 100px;
-  width: 100px;
-} */
-
-/* Small devices (landscape tablets, 500px and down) */
-/* @media only screen and (max-width: 500px) {
-  .resources_accordion {
-    padding-left: 50px;
-    padding-right: 50px;
-  }
-  .entry {
-    display: inline;
-  }
-  .entry img {
-    height: 130px;
-    width: 200px;
-    align-items: center;
-  }
-} */
-
-/* specifically for Iphon5/SE */
-/* @media only screen and (max-width: 320px) {
-  .entry img {
-    height: 100px;
-    width: 170px;
-  }
-} */
-
-/* .resources_accordion {
-  margin: 0 auto;
-}
-
-.entry {
-  display: inline-table;
-}
-
-.card-entry img {
-  height: 150px;
-  width: 250px;
-  margin: 10px;
-}
-
-.entry p {
-  font-size: 8pt;
-  text-align: center;
-} */

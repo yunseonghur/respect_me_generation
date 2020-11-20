@@ -5,8 +5,10 @@ import { withRouter } from "react-router-dom";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 import fire from "../fire.js";
+import ResourceEntryCard from "../components/ResourceEntryCard";
 
 const dbRef = fire.database().ref();
+const db = fire.database();
 
 /**
  * The resource page is a React-Bootstrap accordion Component.
@@ -19,6 +21,7 @@ class Resources extends Component {
     isLoading: true,
     tag: "all",
     entries: [],
+    userUID: null,
   };
 
   componentDidMount() {
@@ -26,7 +29,21 @@ class Resources extends Component {
     this.getResources("study");
     this.getResources("health");
     this.getResources("relationships");
+    this.getUserUID();
   }
+
+  /**
+   * Get current user ID
+   */
+  getUserUID = () => {
+    fire.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          userUID: user.uid,
+        });
+      }
+    });
+  };
 
   /**
    * Grab resources from database.
@@ -58,11 +75,11 @@ class Resources extends Component {
    */
   parseResource(resourceObj) {
     const parsed = Object.keys(resourceObj).map((key) => {
+      resourceObj[key]["key"] = key;
       return resourceObj[key];
     });
 
     this.setState({ entries: [...this.state.entries, ...parsed] });
-    console.log(this.state.entries);
   }
 
   /**
@@ -73,10 +90,6 @@ class Resources extends Component {
     this.setState({
       tag: event.target.name,
     });
-  };
-
-  addToSaved = () => {
-    console.log("added to saved");
   };
 
   render() {
@@ -99,14 +112,15 @@ class Resources extends Component {
         <div className="resource_row">
           {this.state.entries
             ? this.state.entries.map((item, index) => (
-                <a className="resource_row--item" key={index} href={item.link} target="_blank">
-                  <button onClick={this.addToSaved}>+</button>
-                  <img alt="resource" src={item.image} />
-                  <div>
-                    <h2>{item.title}</h2>
-                    <h4>should attribute to database -- some short preview of article</h4>
-                  </div>
-                </a>
+                // <a className="resource_row--item" key={index} href={item.link} target="_blank">
+                //   <button onClick={(e) => this.addToSaved(e, item)}>+</button>
+                //   <img alt="resource" src={item.image} />
+                //   <div>
+                //     <h2>{item.title}</h2>
+                //     <h4>should attribute to database -- some short preview of article</h4>
+                //   </div>
+                // </a>
+                <ResourceEntryCard key={index} item={item} />
               ))
             : null}
         </div>

@@ -6,11 +6,12 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 import fire from "../fire.js";
 import UserVideo from "../components/UserVideo";
+
+
 const dbRef = fire.database().ref();
 /**
- * Component that handles toggling display of cards and videos.
+ * Handles toggling display of cards and videos.
  * Actual data is being displayed by Card and VideoDisplay components.
- * Called in CommunityBoard.js
  */
 class CommunityBoard extends Component {
   tags = ["all", "study", "health", "relationship"];
@@ -78,7 +79,7 @@ class CommunityBoard extends Component {
       );
     });
   }
-  
+
   getVideos() {
     let videos = this.state.videos;
     let videoArr = [];

@@ -13,17 +13,11 @@ const AdminUploadResource = () => {
     const styles = {
         container: {
             border: '1px solid black',
-            marginTop: '50px',
+            margin: '50px',
             padding: '10px',
             textAlign: 'left'
         }
     }
-
-    // const [title, setTitle] = useState("");
-    // const [img, setImg] = useState("");
-    // const [url, setUrl] = useState("");
-    // const [category, setCategory] = useState("");
-
     /* stores input entry into database */
     const handleSubmit = (e) => {
         var key = db.ref().child('study').push().key;

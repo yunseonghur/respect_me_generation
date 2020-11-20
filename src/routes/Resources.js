@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import "../routes/Resources.css";
 import AdminUploadResource from "../components/AdminUploadResource";
 import { withRouter } from 'react-router-dom';
-import ResourceImage from '../components/ResourceImage';
-import Cards from "../components/Cards";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Button from "react-bootstrap/Button";
 import fire from '../fire.js';
 
 const dbRef = fire.database().ref();
@@ -13,8 +13,11 @@ const dbRef = fire.database().ref();
  * Each accordion 'fold' is its own component: ResourceEntry.
  */
 class Resources extends Component{
+    tags = ["all", "study", "health", "relationship"];
 
     state = { 
+        isLoading: true,
+        tag: "all",
         entries: []
     };
 
@@ -33,7 +36,6 @@ class Resources extends Component{
         dbRef.child('Resources').child(tag).once('value').then(function(snap) {
             const result = snap.val();
             // console.log(result);
-
             return result;
         })
             .then((res) => {
@@ -65,16 +67,45 @@ class Resources extends Component{
     handleTag = (event) => {
         event.preventDefault();
         this.setState({
-        tag: event.target.name,
+            tag: event.target.name,
         });
     };
+
+    addToSaved = () => {
+        console.log("added to saved");
+    }
 
     render() {
         return (
                 <div className="resources_wrapper">
                     <h2>RESOURCES</h2>
-
-                
+                    <ButtonGroup>
+                        {this.tags.map((value, index) => (
+                            <Button
+                                name={value}
+                                key={index}
+                                onClick={this.handleTag}
+                                variant="outline-primary"
+                                className="rounded-pill community-board__toggle-buttons--btn"
+                            >
+                                {value}
+                            </Button>
+                        ))}
+                    </ButtonGroup>
+                    <div className="resource_row">
+                        {this.state.entries ? 
+                            this.state.entries.map((item, index) => (
+                                <div className="resource_row--item">
+                                    <button onClick={this.addToSaved}>+</button>
+                                    <img alt="resource" src={item.image} />
+                                    <div>
+                                        <h2>{item.title}</h2>
+                                        <h4>should attribute to database -- some short preview of article</h4>
+                                    </div>
+                                </div>
+                            ))
+                        : null}
+                    </div>
                     <AdminUploadResource/>
                 </div>
         );

@@ -19,28 +19,10 @@ class SavedResources extends Component {
   getSavedResources() {
     dbRef.child("User").on("value", (snap) => {
       const userInfo = snap.val()[this.props.userUID]["savedResources"];
-      // this.parseResource(userInfo);
       if (userInfo) {
         this.parseResource(userInfo);
       }
     });
-
-    // dbRef
-    // .child("Resources")
-    // .child(tag)
-    // .once("value")
-    // .then(function (snap) {
-    //   const result = snap.val();
-    //   // console.log(result);
-    //   return result;
-    // })
-    // .then((res) => {
-    //   this.parseResource(res);
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
-    // });
   }
 
   /**

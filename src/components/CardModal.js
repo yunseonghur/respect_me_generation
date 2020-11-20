@@ -1,6 +1,6 @@
 import React from "react";
 import MyCard from "../components/MyCard";
-import { Container, Row, Modal, Button } from "react-bootstrap";
+import { Container, Row, Modal } from "react-bootstrap";
 import "./CardModal.css";
 import ResourceEntry from "./ResourceEntry";
 

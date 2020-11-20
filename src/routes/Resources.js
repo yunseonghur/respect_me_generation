@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import "../routes/Resources.css";
 import AdminUploadResource from "../components/AdminUploadResource";
 import { withRouter } from "react-router-dom";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Button from "react-bootstrap/Button";
 import fire from "../fire.js";
 import ResourceEntryCard from "../components/ResourceEntryCard";
 
 const dbRef = fire.database().ref();
-const db = fire.database();
 
 /**
  * The resource page is a React-Bootstrap accordion Component.
@@ -96,8 +93,8 @@ class Resources extends Component {
     return (
       <div className="resources_wrapper">
         <h2>RESOURCES</h2>
-        <ButtonGroup>
-          {this.tags.map((value, index) => (
+        {/* <ButtonGroup> */}
+        {/* {this.tags.map((value, index) => (
             <Button
               name={value}
               key={index}
@@ -107,8 +104,8 @@ class Resources extends Component {
             >
               {value}
             </Button>
-          ))}
-        </ButtonGroup>
+          ))} */}
+        {/* </ButtonGroup> */}
         <div className="resource_row">
           {this.state.entries
             ? this.state.entries.map((item, index) => (

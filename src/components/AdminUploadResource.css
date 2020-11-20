@@ -1,21 +1,23 @@
-h1 {
+.resource-upload__container--header {
   padding-bottom: 20px;
 }
 
-form {
+.resource-upload__container--form {
   font-size: 12pt;
 }
 
-form>label>input {
+.resource-upload__container--form > label > input {
   margin-left: 10px;
 }
 
-form>div:nth-child(1),  form>div:nth-child(2){
+.resource-upload__container--form > div:nth-child(1),
+.resource-upload__container--form > div:nth-child(2) {
   padding-top: 20px;
   display: flex;
   flex-direction: row;
 }
 
-form>div:nth-child(1)>label, form>div:nth-child(2)>label {
+.resource-upload__container--form > div:nth-child(1) > label,
+.resource-upload__container--form > div:nth-child(2) > label {
   flex: 1;
 }

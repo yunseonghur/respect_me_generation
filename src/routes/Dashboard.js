@@ -13,7 +13,8 @@ import "react-web-tabs/dist/react-web-tabs.css";
 import "./Dashboard.css";
 import ChallengeEntry from "../components/ChallengeEntry.js";
 import Achievement from "../components/Achievement.js";
-
+import SavedResources from "../components/SavedResources.js";
+import Testing from "../Testing.js";
 
 const dbRef = fire.database().ref();
 
@@ -118,7 +119,7 @@ class Dashboard extends Component {
               <AchievementIcon className="dashboard_tabs__list--tab-icon" />
               <span className="dashboard_tabs__list--tab-text">Achievements</span>
             </Tab>
-            <Tab tabFor="badges">
+            <Tab tabFor="saved">
               <BookMarkIcon className="dashboard_tabs__list--tab-icon" />
               <span className="dashboard_tabs__list--tab-text">Saved</span>
             </Tab>
@@ -139,7 +140,9 @@ class Dashboard extends Component {
             </div>
           </TabPanel>
           <TabPanel tabId="saved">
-            <div className="profile_saved-grid"></div>
+            <div className="dashboard-saved__grid">
+              <SavedResources userUID={this.state.userUID} />
+            </div>
           </TabPanel>
         </Tabs>
       </div> // closing root node

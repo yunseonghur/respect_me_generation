@@ -6,8 +6,8 @@
   text-align: center;
 }
 .create-card-modal__body__wrapper__img__opt__card {
-  width: 150px;
-  height: 150px;
+  width: 150px !important; /* override App.css */
+  height: 150px !important; /* override App.css */
 }
 .create-card-modal__body__wrapper__img__opt__card-img {
   width: 150px;

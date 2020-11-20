@@ -19,8 +19,28 @@ class SavedResources extends Component {
   getSavedResources() {
     dbRef.child("User").on("value", (snap) => {
       const userInfo = snap.val()[this.props.userUID]["savedResources"];
-      this.parseResource(userInfo);
+      // this.parseResource(userInfo);
+      if (userInfo) {
+        this.parseResource(userInfo);
+      }
     });
+
+    // dbRef
+    // .child("Resources")
+    // .child(tag)
+    // .once("value")
+    // .then(function (snap) {
+    //   const result = snap.val();
+    //   // console.log(result);
+    //   return result;
+    // })
+    // .then((res) => {
+    //   this.parseResource(res);
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
+    // });
   }
 
   /**
@@ -41,14 +61,16 @@ class SavedResources extends Component {
     return (
       <div className="resources_wrapper">
         <div className="resource_row">
-          {this.state.savedResources.map((resource, index) => (
-            <ResourceEntryCard
-              key={index}
-              item={resource}
-              userUID={this.props.userUID}
-              from="dashboard"
-            />
-          ))}
+          {this.state.savedResources
+            ? this.state.savedResources.map((resource, index) => (
+                <ResourceEntryCard
+                  key={index}
+                  item={resource}
+                  userUID={this.props.userUID}
+                  from="dashboard"
+                />
+              ))
+            : null}
         </div>
       </div>
     );

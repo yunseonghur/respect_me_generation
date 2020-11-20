@@ -73,3 +73,9 @@
     margin: unset;
   }
 }
+
+@media only screen and (max-width: 800px) {
+  .dashboard_tabs {
+    width: 100vw;
+  }
+}

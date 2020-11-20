@@ -129,7 +129,7 @@ class Dashboard extends Component {
             </div>
           </TabPanel>
           <TabPanel tabId="challenges">
-            <div className="challenges">
+            <div className="challenges" style={{'padding': '10px'}}>
               <ChallengeEntry />
             </div>
           </TabPanel>

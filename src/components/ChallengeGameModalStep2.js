@@ -27,7 +27,7 @@ class ChallengeGameModalStep2 extends Component {
         console.log("getting random challenge");
         console.log(this.props.activeChallenges);
         let dateObject = new Date();
-        let day = dateObject.getDay() + 1;
+        let day = dateObject.getDate();
         let month = dateObject.getMonth() + 1;
         let year = dateObject.getFullYear();
         let date = day + "/" + month + "/" + year;
@@ -105,9 +105,8 @@ class ChallengeGameModalStep2 extends Component {
         console.log('add challenge to dashboard')
         fire.database().ref().child('User/'+ this.props.userUID + '/activeChallenges/' + this.state.randomChallenge.challengeId).set(this.state.randomChallenge);
         this.props.hideChallengeModal();
-
+        // this.props.updateActiveChallenges(this.props.userUID);
     }
-
 
     render() {
         if (this.props.currentStep !== 2) {

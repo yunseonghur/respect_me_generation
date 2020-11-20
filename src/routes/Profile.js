@@ -76,7 +76,6 @@ class Profile extends Component{
                 subscriptions: userInfo[this.state.userUID]['subscriptions'],
                 activeChallenges: userInfo[this.state.userUID]['activeChallenges'],
                 myBadges: userInfo[this.state.userUID]['myBadges'],
-                numberOfActiveChallenges: Object.keys(userInfo[this.state.userUID]['activeChallenges']).length
             });
             console.log("length of activeChallenges")
             console.log(this.state.numberOfActiveChallenges);
@@ -90,11 +89,27 @@ class Profile extends Component{
         });
     }
 
-    updateActiveChallenges(userUID){
+    getNumberOfActiveChallenges() {
+      if (Object.keys(this.state.activeChallenges).length) {
+        this.setState({
+          numberOfActiveChallenges: Object.keys(this.state.activeChallenges).length
+        })
+      } else {
+        this.setState({
+          numberOfActiveChallenges: 0
+        })
+      }
+    }
+
+    handleUpdateActiveChallenges = () => {
+      this.updateActiveChallenges();
+    }
+
+    updateActiveChallenges = () => {
       dbRef.child('User').on('value', snap => {
         const userInfo = snap.val();
         this.setState({
-            activeChallenges: userInfo[userUID]['activeChallenges']
+            activeChallenges: userInfo[this.state.userUID]['activeChallenges']
         });
         this.getActiveChallenges();
     });
@@ -378,7 +393,7 @@ class Profile extends Component{
                             title={myActiveChallenge.title}
                             startTime={myActiveChallenge.startTime}
                             userUID={this.state.userUID}
-                            updateActiveChallenges={this.updateActiveChallenges}
+                            handleUpdateActiveChallenges={this.handleUpdateActiveChallenges}
                             challengeId={myActiveChallenge.challengeId}
                             getcompleteChallenge={this.getcompleteChallenge}/>) : <ChallengeNoEntry/>
                     }

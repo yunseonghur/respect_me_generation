@@ -27,23 +27,13 @@ class ChallengeGameModal extends Component {
     this.selectCategoryButton = this.selectCategoryButton.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({
-      show: this.props.show
-    })
-  }
 
   selectCategoryButton(event) {
     const {name} = event.target;
     this.setState({
       category: name
     })
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const {category} = this.state;
-    alert(`Category:  ${category}`)
+    this._next();
   }
 
   _next() {
@@ -64,10 +54,6 @@ class ChallengeGameModal extends Component {
     })
   }
 
-  _submit() {
-    return null;
-  }
-
   get previousButton(){
     let currentStep = this.state.currentStep;
     // If the current step is not 1, then render the "previous" button
@@ -83,25 +69,6 @@ class ChallengeGameModal extends Component {
     // ...else return nothing
     return null;
   }
-  
-  get nextButton(){
-    let currentStep = this.state.currentStep;
-    // If the current step is not 3, then render the "next" button
-    if(currentStep < MAX_PAGE){
-      return (
-        <button 
-          className="btn btn-primary float-right" 
-          type="button" onClick={this._next}>
-        Next
-        </button>        
-      )
-    }
-
-    if(currentStep === MAX_PAGE){
-      //Have no next button if at last page
-    }
-    return null;
-  } 
 
   render() {
     return (
@@ -130,11 +97,11 @@ class ChallengeGameModal extends Component {
               activeChallenges={this.props.activeChallenges}
               userUID={this.props.userUID}
               hideChallengeModal={this.props.hideChallengeModal}
+              updateActiveChallenges={this.props.updateActiveChallenges}
           ></ChallengeGameModalStep2>
         </Modal.Body>
         <Modal.Footer className="challenge-game-modal__footer"> 
           {this.previousButton}
-          {this.nextButton}
         </Modal.Footer>
       </Modal>
     );

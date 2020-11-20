@@ -10,11 +10,12 @@ const ChallengeCurrent = (props) => {
         console.log(props.userUID);
         console.log(props.challengeId);
         fire.database().ref().child('User/'+ props.userUID + '/activeChallenges/' + props.challengeId).remove();
+        props.handleUpdateActiveChallenges();
     }
 
     const completeChallenge = () => {
         let dateObject = new Date();
-        let day = dateObject.getDay() + 1;
+        let day = dateObject.getDate();
         let month = dateObject.getMonth() +1;
         let year = dateObject.getFullYear();
         let completedChallenge = {

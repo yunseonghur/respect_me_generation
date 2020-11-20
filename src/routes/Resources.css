@@ -1,57 +1,24 @@
-
 .resources_wrapper {
   text-align: center;
+  margin: 0 auto;
+  max-width: 1335px;
 }
 
-.resources_wrapper>h2 {
+.resources_wrapper > h2 {
   margin-top: 70px;
-  margin-bottom: 70px;
+  margin-bottom: 20px;
   font-size: 2.5rem;
 }
 
-.resources_accordion {
+.resource_row {
   margin: 0 auto;
-  padding-left: 100px;
-  padding-right: 100px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
 }
 
-/* styling another component */
-
-.entry {
-  display: inline-table;
-}
-
-.card-entry img {
-  height: 150px;
-  width: 250px;
-  margin: 10px;
-}
-
-.entry p {
-  font-size: 8pt;
-  text-align: center;
-}
-
-/* Small devices (landscape tablets, 500px and down) */
-@media only screen and (max-width: 500px) {
-  .resources_accordion {
-    padding-left: 50px;
-    padding-right: 50px;
-  }
-  .entry {
-    display: inline;
-  }
-  .entry img {
-    height: 130px;
-    width: 200px;
-    align-items: center;
-  }
-}
-
-/* specifically for Iphon5/SE */
-@media only screen and (max-width: 320px) {
-  .entry img {
-    height: 100px;
-    width: 170px;
+@media only screen and (max-width: 375px) {
+  .resource_row {
+    display: unset;
   }
 }

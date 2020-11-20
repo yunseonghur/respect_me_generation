@@ -1,175 +1,137 @@
 import React, { Component } from "react";
 import "./CommunityBoard.css";
-import Board from "../components/Board";
-import { Container, Button, Link } from "react-floating-action-button";
+import Cards from "../components/Cards";
+import VideoDisplay from "../components/VideoDisplay";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Button from "react-bootstrap/Button";
 import fire from "../fire.js";
-import VideoBadgeModal from "../components/VideoBadgeModal";
-import LoginModal from "../components/LoginModal";
+import UserVideo from "../components/UserVideo";
 
-const db = fire.database();
 
+const dbRef = fire.database().ref();
 /**
- * The route which hosts the main Board.js component and handles posting
- * cards and video via the big upload (+) button.
+ * Handles toggling display of cards and videos.
+ * Actual data is being displayed by Card and VideoDisplay components.
  */
 class CommunityBoard extends Component {
+  tags = ["all", "study", "health", "relationship"];
   constructor(props) {
     super(props);
     this.state = {
-      cards: [],
-      videos: [],
+      userUID: null,
       isLoading: true, // true if the server is still loading cards data
-      visible: true, // true if cards are visible & false if videos are visible
-      show: false,
-      userUID: null, // the current user
-      badge: "",
-      points: "",
-      displayErrorMessage: false, // if user does not have 'advanced' badge, cannot post video
-      displayLoginModal: false, // if user isn't logged in, cannot create cards
+      show: false, // false if modal is hidden
+      tag: "all", // selected tag to sort
+      videoVisible: false,
+      cardVisible: true, // starts out showing cards
+      videos: [],
     };
-    this.getCurrentUser();
+    this.toggleOpenCards = this.toggleOpenCards.bind(this);
+    this.toggleOpenVideos = this.toggleOpenVideos.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.from === "dashboard") {
+      this.getUserInfo();
+    }
   }
 
   /**
-   * Gets the current users badge level and points,
-   * because they need to be checked later for allowing functionalities.
+   * Event handler for tag selection
    */
-  getBadgePoints = () => {
-    db.ref()
-      .child("User")
-      .on("value", (snap) => {
-        const snapshot = snap.val();
-        this.setState({
-          badge: snapshot[this.state.userUID]["badge"],
-          points: snapshot[this.state.userUID]["points"],
-        });
-      });
+  handleTag = (event) => {
+    event.preventDefault();
+    this.setState({
+      tag: event.target.name,
+    });
   };
 
-  getCurrentUser() {
-    // get references that DON'T change
-    fire.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          userUID: user.uid,
-        });
-        this.getBadgePoints();
-      }
+  /**
+   * toggles between the video and card categories
+   */
+  toggleOpenCards = () => {
+    if (this.state.cardVisible === false) {
+      this.setState({ cardVisible: true, videoVisible: false });
+    } else {
+      console.log("cards already opened.");
+    }
+  };
+
+  /**
+   * toggles between the video and card categories
+   */
+  toggleOpenVideos = () => {
+    if (this.state.videoVisible === false) {
+      this.setState({ videoVisible: true, cardVisible: false });
+    }
+  };
+
+  getUserInfo() {
+    dbRef.child("User").on("value", (snap) => {
+      const userInfo = snap.val();
+      this.setState(
+        {
+          videos: userInfo[this.props.userUID]["videos"],
+        },
+        () => {
+          this.getVideos();
+        }
+      );
     });
   }
 
-  goToCreateCard = () => {
-    if (this.state.userUID != null) {
-      this.props.history.push("/createCard");
-    } else {
-      this.setState({
-        displayLoginModal: true,
+  getVideos() {
+    let videos = this.state.videos;
+    let videoArr = [];
+    for (let video in videos) {
+      videoArr.push({
+        id: videos[video],
       });
     }
-  };
-
-  /**
-   * Uploads a video via the Cloudinary widget.
-   * All uploads are currently tagged as project, so that
-   * all videos uploaded public_id can be retrieved via get in VideoDisplay.
-   */
-  uploadHandler = () => {
-    // requires the Cloudinary import on index.html
-    const myWidget = window.cloudinary.createUploadWidget(
-      {
-        cloudName: "respectmegen",
-        tags: ["project"],
-        uploadPreset: "h5awwspl",
-      },
-      (error, result) => {
-        if (!error && result && result.event === "success") {
-          console.log("Done! Here is the video info: ", result.info);
-          console.log("public_id: " + result.info.public_id);
-          console.log("userUID in createWidget: " + this.state.userUID);
-
-          if (this.state.userUID != null) {
-            // store the id into the current user:
-            var key = db.ref().child("videos").push().key;
-            var updates = {};
-            updates["/videos/" + key] = result.info.public_id;
-            db.ref("User/" + this.state.userUID).update(updates);
-            console.log("video " + result.info.public_id + "added to user " + this.state.userUID);
-            this.increasePoints(this.state.userUID);
-          } else if (this.state.userUID == null) {
-            console.log("Videos can only be uploaded by members.");
-          }
-        }
-      }
-    );
-
-    // only users with 100+ points ("advanced badge") can upload videos
-    console.log("current badge: " + this.state.badge + "\ncurrent points: " + this.state.points);
-    if (this.state.userUID != null && this.state.badge === "advanced") {
-      myWidget.open();
-    } else if (this.state.userUID != null && this.state.badge === "basic") {
-      this.setState({
-        displayErrorMessage: true,
-      });
-    } else if (this.state.userUID === null) {
-      this.setState({
-        displayLoginModal: true,
-      });
-    }
-  };
-
-  /**
-   * Gives points to user for creating a card post.
-   * @param {firebaseUser} currentUser
-   */
-  increasePoints(currentUser) {
-    console.log("increase points");
-    db.ref("User/" + currentUser)
-      .once("value")
-      .then(function (snapshot) {
-        let points = snapshot.child("points").val();
-        points += 20;
-        console.log(points);
-        fire
-          .database()
-          .ref("User/" + currentUser)
-          .update({
-            points,
-          });
-      });
+    this.setState({ videos: videoArr });
   }
 
   render() {
     return (
-      <div>
-        <Board tagVisible={true} />
-        {/* the (+) button */}
-        <Container>
-          <Link tooltip="Upload a video">
-            <Button onClick={this.uploadHandler} disabled>
-              <img
-                src="https://img.icons8.com/material-outlined/24/000000/camcorder-pro.png"
-                alt="Upload a video"
-              />
-            </Button>
-          </Link>
-          <Link tooltip="Add a card">
-            <Button onClick={this.goToCreateCard} disabled>
-              <img src="https://img.icons8.com/android/24/000000/note.png" alt="Add a card" />
-            </Button>
-          </Link>
-          <Button rotate={true}>
-            <img src="https://img.icons8.com/android/24/000000/plus.png" alt="Add" />
-          </Button>
-        </Container>
-
-        <VideoBadgeModal
-          show={this.state.displayErrorMessage}
-          onHide={() => this.setState({ displayErrorMessage: false })}
-        />
-        <LoginModal
-          show={this.state.displayLoginModal}
-          onHide={() => this.setState({ displayLoginModal: false })}
-        />
+      <div className="community-board">
+        {this.props.tagVisible ? (
+          <div className="community-board__toggle-buttons">
+            <ButtonGroup>
+              {this.tags.map((value, index) => (
+                <Button
+                  name={value}
+                  key={index}
+                  onClick={this.handleTag}
+                  variant="outline-primary"
+                  className="rounded-pill community-board__toggle-buttons--btn"
+                >
+                  {value}
+                </Button>
+              ))}
+            </ButtonGroup>
+          </div>
+        ) : null}
+        <ButtonGroup>
+          <button className="community-board__toggle-buttons--btn" onClick={this.toggleOpenCards}>
+            CARDS
+          </button>
+          <button className="community-board__toggle-buttons--btn" onClick={this.toggleOpenVideos}>
+            VIDEOS
+          </button>
+        </ButtonGroup>
+        <div>
+          {this.state.cardVisible ? (
+            <Cards tag={this.state.tag} from={this.props.from} userUID={this.props.userUID} />
+          ) : this.props.from === "dashboard" ? (
+            <div className="videos">
+              {Array.from(this.state.videos).map((myVideo) => (
+                <UserVideo key={myVideo.id} videoId={myVideo.id} />
+              ))}
+            </div>
+          ) : (
+            <VideoDisplay />
+          )}
+        </div>
       </div>
     );
   }

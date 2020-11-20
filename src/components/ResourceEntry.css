@@ -1,8 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap");
+
 .resource-entry {
   text-align: center;
 }
 
-.resource-entry>.card-header {
+.resource-entry > .card-header {
   background-color: white;
   font-size: 16pt;
   text-align: left;
@@ -11,8 +13,29 @@
   margin: 0 auto;
 }
 
-.resource-entry>.card-header::after {
+.resource-entry > .card-header::after {
   color: #25df95;
   float: right;
   content: "+";
+}
+
+/* isPreview == true */
+
+.hre {
+  padding-top: 20px;
+  padding-bottom: 30px;
+  max-width: 970px;
+  margin: 0 auto;
+}
+
+.hre__title {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.hre__btn--more {
+  font-size: 12px;
+  border: none;
 }

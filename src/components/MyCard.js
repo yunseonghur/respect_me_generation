@@ -27,7 +27,7 @@ class MyCard extends Component {
 
   timestamp = new Date(this.props.timestamp);
   date = this.timestamp.getDate();
-  month = this.timestamp.getMonth();
+  month = this.timestamp.getMonth() + 1;
   year = this.timestamp.getFullYear();
   hour = this.timestamp.getHours();
   minute = "0" + this.timestamp.getMinutes();

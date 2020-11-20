@@ -1,16 +1,20 @@
 import React, { Component } from "react";
-import "./Profile.css";
 import fire from "../fire.js";
 import basicBadge from "../images/badge_flat.jpg";
 import advBadge from "../images/adv_badge.png";
 import ReactTooltip from "react-tooltip";
 import { Tabs, Tab, TabPanel, TabList } from "react-web-tabs";
-import Board from "../components/Board";
+import CommunityBoard from "./CommunityBoard";
 import PostsIcon from "../images/PostsIcon";
 import AchievementIcon from "../images/AchievementIcon";
 import BookMarkIcon from "../images/BookMarkIcon";
 import ChallengeIcon from "../images/ChallengeIcon";
+import "react-web-tabs/dist/react-web-tabs.css";
 import "./Dashboard.css";
+import ChallengeEntry from "../components/ChallengeEntry.js";
+import Achievement from "../components/Achievement.js";
+import SavedResources from "../components/SavedResources.js";
+import Testing from "../Testing.js";
 
 const dbRef = fire.database().ref();
 
@@ -26,6 +30,7 @@ class Dashboard extends Component {
     badge: "",
     points: "",
     myBadges: [],
+    videos: [],
   };
 
   // Get current user's name and uid if exist
@@ -53,31 +58,6 @@ class Dashboard extends Component {
         videos: userInfo[this.state.userUID]["videos"],
         myBadges: userInfo[this.state.userUID]["myBadges"],
       });
-    });
-  }
-  /**
-   * Load the image of the current users's badges.
-   */
-  async getMyBadges() {
-    let myBadges = this.state.myBadges;
-    let badgeImgArr = [];
-
-    await dbRef.child("Badges").on("value", (snap) => {
-      const badgeRepo = snap.val();
-
-      for (let index in myBadges) {
-        for (let id in badgeRepo) {
-          if (myBadges[index] === id) {
-            badgeImgArr.push({
-              id,
-              image: badgeRepo[id].image,
-              tag: badgeRepo[id].tag,
-              title: badgeRepo[id].title,
-            });
-          }
-        }
-      }
-      this.setState({ myBadges: badgeImgArr });
     });
   }
 
@@ -139,24 +119,30 @@ class Dashboard extends Component {
               <AchievementIcon className="dashboard_tabs__list--tab-icon" />
               <span className="dashboard_tabs__list--tab-text">Achievements</span>
             </Tab>
-            <Tab tabFor="badges">
+            <Tab tabFor="saved">
               <BookMarkIcon className="dashboard_tabs__list--tab-icon" />
               <span className="dashboard_tabs__list--tab-text">Saved</span>
             </Tab>
           </TabList>
           <TabPanel tabId="cards">
             <div className="cards">
-              <Board />
+              <CommunityBoard from="dashboard" userUID={this.state.userUID} />
             </div>
           </TabPanel>
           <TabPanel tabId="challenges">
-            <div className="challenges"></div>
+            <div className="challenges">
+              <ChallengeEntry />
+            </div>
           </TabPanel>
           <TabPanel tabId="achievements">
-            <div className="dashboard_achievements"></div>
+            <div className="dashboard_achievements">
+              <Achievement userUID={this.state.userUID} />
+            </div>
           </TabPanel>
           <TabPanel tabId="saved">
-            <div className="profile_saved-grid"></div>
+            <div className="dashboard-saved__grid">
+              <SavedResources userUID={this.state.userUID} />
+            </div>
           </TabPanel>
         </Tabs>
       </div> // closing root node

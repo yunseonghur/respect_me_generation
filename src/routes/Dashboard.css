@@ -59,6 +59,12 @@
   color: white;
 }
 
+.card-deck {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media only screen and (max-width: 685px) {
   .dashboard_tabs__list--tab-text {
     display: none;

@@ -1,27 +1,36 @@
-/* library specific classes */
-.fab-item button {
-    width: 54px;
-    height: 43px;
-    margin: 0;
-    padding: 0;
+.community-board__toggle-buttons--btn {
+  background-color: transparent;
+  color: rgba(164, 165, 178, 1);
+  font-weight: 700;
+  border: unset;
+  font-size: 16px !important;
+  margin: 0 10px;
 }
 
-.modal-btn {
-  width: 200px;
-  margin: 2px;
-}
-
-.modal-body {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* .toast {
-  display: inline-block;
+.community-board__toggle-buttons--btn:focus {
   color: black;
-  margin: 10px;
-  z-index: 100;
-  right: 0;
-  position: absolute;
-} */
+  border-bottom: 3px solid rgba(42, 255, 169, 1);
+  border-radius: 0;
+  outline: none;
+}
+
+.community-board {
+  margin-top: 20px;
+  margin-bottom: 180px;
+  text-align: center;
+}
+
+.community-board__header--title {
+  margin-bottom: 5px;
+  font-size: 2.5rem;
+}
+
+.community-board__header--prompt {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+}
+
+.community-board__toggle-buttons {
+  margin-bottom: 15px;
+}

@@ -1,5 +1,7 @@
 .badge {
  background: none;
+ margin-right: 5px;
+ margin-left: 5px;
 }
 
 .badge_img {
@@ -9,5 +11,5 @@
 
 .badge_title {
   padding-top: 3px;
-  color: black;
+  color: white;
 }

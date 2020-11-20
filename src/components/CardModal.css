@@ -1,20 +1,27 @@
-.card-modal__body--container{
-    margin: auto;
+.card-modal__body--container {
+  margin: auto;
 }
 
 .card-modal__body--row--card {
-    display: block !important;
-    margin-left: auto;
-    margin-right: auto;
+  display: block !important;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .card-modal__body--row--text {
-    margin-left: auto;
-    margin-right:auto;
-    padding-left: 7px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 7px;
 }
 
 .card-modal__footer--btn {
-    width: 200px;
-    margin: 2px;
+  width: 165px;
+  border-radius: 100px;
+  padding: 5px 0;
+  background-color: rgba(42, 255, 169, 1);
+  border-color: transparent;
+  font-size: 12px;
+}
+.card-modal__footer--btn:focus {
+  outline: none;
 }

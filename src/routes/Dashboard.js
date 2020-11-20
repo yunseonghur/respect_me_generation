@@ -69,6 +69,7 @@ class Dashboard extends Component {
     });
     this.getCompletedChallenges();
     this.getActiveChallenges();
+    // this.getNumberOfActiveChallenges()
   }
 
 
@@ -109,7 +110,7 @@ class Dashboard extends Component {
         activeChallengesArr.push(activeChallenges[activeChallenge]);
       }
       this.setState({activeChallenges: activeChallengesArr});
-      
+      this.getNumberOfActiveChallenges(activeChallengesArr);
   }
 
     // Store the current user's completed challenges in an array instead of json format
@@ -129,10 +130,11 @@ class Dashboard extends Component {
         this.setState({completedChallenges: completedChallengesArr});
     }
 
-    getNumberOfActiveChallenges() {
-      if (Object.keys(this.state.activeChallenges).length) {
+    getNumberOfActiveChallenges(activeChallengesArr) {
+      console.log(Object.keys(activeChallengesArr).length);
+      if (Object.keys(activeChallengesArr).length) {
         this.setState({
-          numberOfActiveChallenges: Object.keys(this.state.activeChallenges).length
+          numberOfActiveChallenges: Object.keys(activeChallengesArr).length
         })
       } else {
         this.setState({

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import fire from "../fire.js";
-import Testing from "../Testing.js";
+import ResourceEntryCard from "./ResourceEntryCard.js";
 
 const dbRef = fire.database().ref();
 
@@ -39,10 +39,17 @@ class SavedResources extends Component {
 
   render() {
     return (
-      <div>
-        {this.state.savedResources.map((resource, index) => (
-          <Testing key={index} img={resource.image} title={resource.title} />
-        ))}
+      <div className="resources_wrapper">
+        <div className="resource_row">
+          {this.state.savedResources.map((resource, index) => (
+            <ResourceEntryCard
+              key={index}
+              item={resource}
+              userUID={this.props.userUID}
+              from="dashboard"
+            />
+          ))}
+        </div>
       </div>
     );
   }

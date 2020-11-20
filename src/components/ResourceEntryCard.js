@@ -18,7 +18,7 @@ class ResourceEntryCard extends Component {
     event.preventDefault();
     event.stopPropagation();
     event.nativeEvent.stopImmediatePropagation();
-    db.ref("User/" + this.state.userUID)
+    db.ref("User/" + this.props.userUID)
       .child("savedResources/" + item["key"])
       .set({
         image: item["image"],
@@ -34,7 +34,10 @@ class ResourceEntryCard extends Component {
         href={this.props.item.link}
         target="_blank"
       >
-        <button onClick={(e) => this.addToSaved(e, this.props.item)}>+</button>
+        {this.props.from === "dashboard" ? null : (
+          <button onClick={(e) => this.addToSaved(e, this.props.item)}>+</button>
+        )}
+
         <img alt="resource" src={this.props.item.image} />
         <div>
           <h2>{this.props.item.title}</h2>

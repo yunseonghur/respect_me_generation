@@ -120,7 +120,7 @@ class Resources extends Component {
                 //     <h4>should attribute to database -- some short preview of article</h4>
                 //   </div>
                 // </a>
-                <ResourceEntryCard key={index} item={item} />
+                <ResourceEntryCard key={index} item={item} userUID={this.state.userUID} />
               ))
             : null}
         </div>

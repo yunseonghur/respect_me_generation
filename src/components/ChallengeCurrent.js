@@ -10,7 +10,7 @@ const ChallengeCurrent = (props) => {
         console.log(props.userUID);
         console.log(props.challengeId);
         fire.database().ref().child('User/'+ props.userUID + '/activeChallenges/' + props.challengeId).remove();
-        props.handleUpdateActiveChallenges();
+        props.updateActiveChallenges();
     }
 
     const completeChallenge = () => {
@@ -29,6 +29,7 @@ const ChallengeCurrent = (props) => {
         console.log(props.challengeId);
         fire.database().ref().child('User/'+ props.userUID + '/completedChallenges/').child(props.challengeId).set(completedChallenge);
         fire.database().ref().child('User/'+ props.userUID + '/activeChallenges/' + props.challengeId).remove();
+        props.updateActiveChallenges();
     }
 
     return (

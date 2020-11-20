@@ -11,10 +11,12 @@ import BookMarkIcon from "../images/BookMarkIcon";
 import ChallengeIcon from "../images/ChallengeIcon";
 import "react-web-tabs/dist/react-web-tabs.css";
 import "./Dashboard.css";
-import ChallengeEntry from "../components/ChallengeEntry.js";
+import ChallengeEntry from "../components/ChallengeEntry";
+import ChallengeGameModal from "../components/ChallengeGameModal";
+import ChallengeNoEntry from '../components/ChallengeNoEntry';
+import ChallengeCurrent from '../components/ChallengeCurrent';
 import Achievement from "../components/Achievement.js";
 import SavedResources from "../components/SavedResources.js";
-import Testing from "../Testing.js";
 
 const dbRef = fire.database().ref();
 
@@ -31,6 +33,10 @@ class Dashboard extends Component {
     points: "",
     myBadges: [],
     videos: [],
+    completedChallenges: [],
+    activeChallenges: [],
+    challengeModalVisible: false,
+    numberOfActiveChallenges: ""
   };
 
   // Get current user's name and uid if exist
@@ -57,10 +63,102 @@ class Dashboard extends Component {
         cards: userInfo[this.state.userUID]["cards"],
         videos: userInfo[this.state.userUID]["videos"],
         myBadges: userInfo[this.state.userUID]["myBadges"],
+        completedChallenges: userInfo[this.state.userUID]['completedChallenges'],
+        activeChallenges: userInfo[this.state.userUID]['activeChallenges']
       });
     });
+    this.getCompletedChallenges();
+    this.getActiveChallenges();
   }
 
+
+  getCompletedChallenges() {
+      // read all resources from db
+      dbRef.child('User/'+ this.state.userUID + '/completedChallenges/').once('value').then(function(snap) {
+          const result = snap.val();
+          console.log(result);
+          return result;
+      })
+          .then((res) => {
+              this.formatCompletedChallenges(res);
+          })
+          .catch((err) => {
+              console.log(err);
+          })
+  }
+
+  getActiveChallenges() {
+    // read all resources from db
+    dbRef.child('User/'+ this.state.userUID + '/activeChallenges/').once('value').then(function(snap) {
+        const result = snap.val();
+        console.log(result);
+        return result;
+    })
+        .then((res) => {
+            this.formatActiveChallenges(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+}
+    //Store the user's active challenges in a simple array instead of in json format
+    formatActiveChallenges(activeChallenges) {
+      // let activeChallenges = this.state.activeChallenges;
+      let activeChallengesArr = [];
+      for (let activeChallenge in activeChallenges){
+        activeChallengesArr.push(activeChallenges[activeChallenge]);
+      }
+      this.setState({activeChallenges: activeChallengesArr});
+      
+  }
+
+    // Store the current user's completed challenges in an array instead of json format
+    formatCompletedChallenges(completedChallenges) {
+        // let completedChallenges = this.state.completedChallenges;
+        let completedChallengesArr = [];
+
+        for (let challenge in completedChallenges){
+            // let title = await this.lookupChallengesTitle(challenge);
+            completedChallengesArr.push({
+                id: challenge,
+                endTime: completedChallenges[challenge].endTime,
+                startTime: completedChallenges[challenge].startTime,
+                title: completedChallenges[challenge].title
+            })
+        }
+        this.setState({completedChallenges: completedChallengesArr});
+    }
+
+    getNumberOfActiveChallenges() {
+      if (Object.keys(this.state.activeChallenges).length) {
+        this.setState({
+          numberOfActiveChallenges: Object.keys(this.state.activeChallenges).length
+        })
+      } else {
+        this.setState({
+          numberOfActiveChallenges: 0
+        })
+      }
+    }
+
+  showChallengeModal = () => {
+    this.setState({ challengeModalVisible: !this.state.challengeModalVisible });
+  };
+
+  hideChallengeModal = () => {
+    this.setState({challengeModalVisible: false})
+  }
+
+  updateActiveChallenges = () => {
+    dbRef.child('User').on('value', snap => {
+      const userInfo = snap.val();
+      this.setState({
+          activeChallenges: userInfo[this.state.userUID]['activeChallenges']
+      });
+      this.getActiveChallenges();
+      this.getCompletedChallenges();
+  });
+  }
   render() {
     // determines which badge icon to use
     let badgeIcon;
@@ -131,7 +229,27 @@ class Dashboard extends Component {
           </TabPanel>
           <TabPanel tabId="challenges">
             <div className="challenges">
-              <ChallengeEntry />
+            {this.state.numberOfActiveChallenges < 3 ?
+                (<button onClick={this.showChallengeModal}>Start Challenge!</button>) : null
+              }
+                <h2 className="profile_challenges--title">Active Challenges</h2>
+                    {this.state.activeChallenges !== undefined ?
+                    Array.from(this.state.activeChallenges).map((myActiveChallenge) =>
+                        <ChallengeCurrent
+                            title={myActiveChallenge.title}
+                            startTime={myActiveChallenge.startTime}
+                            userUID={this.state.userUID}
+                            updateActiveChallenges={this.updateActiveChallenges}
+                            challengeId={myActiveChallenge.challengeId}
+                            getcompleteChallenge={this.getcompleteChallenge}/>) : <ChallengeNoEntry/>
+                    }
+                <h2 className="profile_challenges--title">Completed Challenges</h2>
+                    {this.state.completedChallenges !== undefined ?
+                    Array.from(this.state.completedChallenges).map((myCompletedChallenge) =>
+                        <ChallengeEntry
+                            title={myCompletedChallenge.title}
+                            endTime={myCompletedChallenge.endTime}/>) : []
+                    }
             </div>
           </TabPanel>
           <TabPanel tabId="achievements">
@@ -145,6 +263,16 @@ class Dashboard extends Component {
             </div>
           </TabPanel>
         </Tabs>
+        <ChallengeGameModal
+          show={this.state.challengeModalVisible}
+          onHide={this.showChallengeModal}
+          hideChallengeModal={this.hideChallengeModal}
+          updateActiveChallenges={this.updateActiveChallenges}
+          getRandomChallenge={this.getRandomChallenge}
+          activeChallenges={this.state.activeChallenges}
+          completedChallenges={this.state.completedChallenges}
+          userUID={this.state.userUID}
+        />
       </div> // closing root node
     );
   } // closing render function

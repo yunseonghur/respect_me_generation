@@ -105,7 +105,7 @@ class ChallengeGameModalStep2 extends Component {
         console.log('add challenge to dashboard')
         fire.database().ref().child('User/'+ this.props.userUID + '/activeChallenges/' + this.state.randomChallenge.challengeId).set(this.state.randomChallenge);
         this.props.hideChallengeModal();
-        // this.props.updateActiveChallenges(this.props.userUID);
+        this.props.updateActiveChallenges();
     }
 
     render() {

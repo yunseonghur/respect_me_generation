@@ -3,7 +3,6 @@ import { Modal } from "react-bootstrap";
 import "./ChallengeGameModal.css";
 import ChallengeGameModalStep1 from "./ChallengeGameModalStep1";
 import ChallengeGameModalStep2 from "./ChallengeGameModalStep2";
-import ChallengeGameModalStep3 from "./ChallengeGameModalStep3";
 
 
 const MAX_PAGE = 2;

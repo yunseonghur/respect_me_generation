@@ -112,14 +112,6 @@ class Resources extends Component {
         <div className="resource_row">
           {this.state.entries
             ? this.state.entries.map((item, index) => (
-                // <a className="resource_row--item" key={index} href={item.link} target="_blank">
-                //   <button onClick={(e) => this.addToSaved(e, item)}>+</button>
-                //   <img alt="resource" src={item.image} />
-                //   <div>
-                //     <h2>{item.title}</h2>
-                //     <h4>should attribute to database -- some short preview of article</h4>
-                //   </div>
-                // </a>
                 <ResourceEntryCard key={index} item={item} userUID={this.state.userUID} />
               ))
             : null}
@@ -131,37 +123,3 @@ class Resources extends Component {
 }
 
 export default withRouter(Resources);
-
-/* <Accordion className="resources_accordion" defaultActiveKey={this.getContentClicked()}>
-                        <ResourceEntry 
-                            tag="study" 
-                            eventKey="0" 
-                            defaultActiveKey={this.state.categoryClicked} 
-                        /> 
-                        <ResourceEntry 
-                            tag="health" 
-                            eventKey="1" 
-                            defaultActiveKey={this.state.categoryClicked} 
-                        /> 
-                        <ResourceEntry 
-                            tag="relationships" 
-                            eventKey="2" 
-                            defaultActiveKey={this.state.categoryClicked} 
-                        /> 
-                    </Accordion> */
-
-/**
- * If this route is being accessed via the Home (via clicking the resource arrow),
- * the corresponding section that was clicked on is opened by default.
- */
-// getContentClicked(){
-//     if (this.props.location != null) {
-//         if (this.props.location.state != null){
-//             let categoryClicked = this.props.location.state.detail
-//             return categoryClicked
-//         }
-//     } else {
-//         console.log("no default key passed in") // do not open any section
-//         return "0"
-//     }
-// }

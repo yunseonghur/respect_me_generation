@@ -2,7 +2,7 @@ import React from "react";
 import MyCard from "../components/MyCard";
 import { Container, Row, Modal, Button } from "react-bootstrap";
 import "./CardModal.css";
-import ResourceEntry from './ResourceEntry';
+import ResourceEntry from "./ResourceEntry";
 
 /**
  * A modal that is displayed when a card is created, and suggests relevant resources.
@@ -36,42 +36,49 @@ class CardModal extends React.Component {
     }
   }
 
-    render() {
-        return (
-            <Modal
-            className="card-modal"
-            size="md"
-            onHide={this.props.onHide}
-            show={this.props.show}
-            animation={false}
-            aria-labelledby="contained-modal-title-vcenter"
-            centered="true">
-                <Modal.Header className="card-modal__header" closeButton>
-                    <Modal.Title className="card-modal__header--title">Your Card</Modal.Title>
-                </Modal.Header>
-                <Modal.Body className="card-modal__body">
-                    <Container className="card-modal__body--container">
-                        <Row className="card-modal__body--row--card">
-                            <MyCard background={this.props.imgsrc} text={this.props.text} />
-                        </Row>
-                        <Row className="card-modal__body--row--text" >
-                            <div id="tagResource">
-                            { this.props.tag !== "all" ? 
-                            <div>
-                                <p>You selected #{this.props.tag}. Check out these articles!</p>
-                                <ResourceEntry isPreview={true} tag={this.props.tag} eventKey={this.state.eventKey} />
-                            </div>
-                            : null}
-                            </div>
-                        </Row>
-                    </Container>
-                </Modal.Body>
-                <Modal.Footer className="card-modal__footer" centered="true">
-                    <Button className="card-modal__footer--btn" href="#communityBoard">Go to Community Board</Button>
-                </Modal.Footer>
-        </Modal>
-        )
-    }
-};
+  render() {
+    return (
+      <Modal
+        className="card-modal"
+        size="md"
+        onHide={this.props.onHide}
+        show={this.props.show}
+        animation={false}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered="true"
+      >
+        <Modal.Header className="card-modal__header" closeButton>
+          <Modal.Title className="card-modal__header--title">Your Card</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="card-modal__body">
+          <Container className="card-modal__body--container">
+            <Row className="card-modal__body--row--card">
+              <MyCard
+                background={this.props.imgsrc}
+                text={this.props.text}
+                timestamp={this.props.timestamp}
+                tag={this.props.tag}
+              />
+            </Row>
+            <Row className="card-modal__body--row--text">
+              <div id="tagResource">
+                {this.props.tag !== "all" ? (
+                  <div>
+                    <p>You selected #{this.props.tag}. Check out these articles!</p>
+                    <ResourceEntry
+                      isPreview={true}
+                      tag={this.props.tag}
+                      eventKey={this.state.eventKey}
+                    />
+                  </div>
+                ) : null}
+              </div>
+            </Row>
+          </Container>
+        </Modal.Body>
+      </Modal>
+    );
+  }
+}
 
 export default CardModal;

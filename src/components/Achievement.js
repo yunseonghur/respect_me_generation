@@ -33,8 +33,10 @@ class Achievement extends Component {
 
       for (let id in badgeRepo){
         badgeCount++;
-        for (let index in myBadges){
-          if(myBadges[index] === id) {
+        // for (let index in myBadges){
+        //   if(myBadges[index] === id) {
+          for (let badgeID in myBadges){
+            if(badgeID === id) {
             badgeImgArr.push({
               id,
               image: badgeRepo[id].image,

@@ -29,6 +29,8 @@ const ChallengeCurrent = (props) => {
         console.log(props.challengeId);
         fire.database().ref().child('User/'+ props.userUID + '/completedChallenges/').child(props.challengeId).set(completedChallenge);
         fire.database().ref().child('User/'+ props.userUID + '/activeChallenges/' + props.challengeId).remove();
+        // write a badge id to myBadges node
+        fire.database().ref().child('User/'+ props.userUID + '/').child('myBadges').update({ [props.badgeId] : true });
         props.updateActiveChallenges();
     }
 

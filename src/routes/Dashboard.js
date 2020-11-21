@@ -246,6 +246,7 @@ class Dashboard extends Component {
                     title={myActiveChallenge.title}
                     startTime={myActiveChallenge.startTime}
                     userUID={this.state.userUID}
+                    badgeId={myActiveChallenge.badgeID}
                     updateActiveChallenges={this.updateActiveChallenges}
                     challengeId={myActiveChallenge.challengeId}
                     getcompleteChallenge={this.getcompleteChallenge}

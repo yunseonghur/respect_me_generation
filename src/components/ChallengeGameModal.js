@@ -24,6 +24,13 @@ class ChallengeGameModal extends Component {
     this._next = this._next.bind(this)
     this._prev = this._prev.bind(this)
     this.selectCategoryButton = this.selectCategoryButton.bind(this);
+    this.resetModalStep = this.resetModalStep.bind(this);
+  }
+
+  resetModalStep() {
+    this.setState({
+      currentStep: 1
+    })
   }
 
 
@@ -90,6 +97,7 @@ class ChallengeGameModal extends Component {
 
            <ChallengeGameModalStep2
               currentStep={this.state.currentStep}
+              resetModalStep={this.resetModalStep}
               category={this.state.category}
               getRandomChallenge={this.props.getRandomChallenge}
               completedChallenges={this.props.completedChallenges}

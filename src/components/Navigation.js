@@ -21,7 +21,7 @@ class Navigation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
+      user: null,
       userImage: "",
       profileIcon: UserProfileInactiveIcon,
       resourceIcon: ResourceInactiveIcon,
@@ -117,22 +117,22 @@ class Navigation extends Component {
   render() {
     return (
       <div className="navigation">
-        <nav className="navbar navbar-expand justify-content-center">
+        <nav className="navbar navbar-expand">
           <a className="navigation__brand" href="/">
             <img className="navigation__brand--img" src={RMG_PrimaryIcon}></img>
           </a>    
-          <div className="navbar-collapse collapse w-100">
-            <div className="navbar-nav w-100 justify-content-center">
-              {this.state.user ? (
+          {console.log("this.state.user: ")}
+          {console.log(this.state.user)}
+            {this.state.user ? (
+              <div className="navbar-nav w-100 justify-content-center">
                 <span data-for="main" data-tip="Dashboard" onMouseOver={this.getProfileActiveIcon} onMouseLeave={this.getProfileInactiveIcon}>
                   <Nav.Link className="navigation__item" href="/">
                     <img className="navigation__item--img" src={this.state.profileIcon} />
                   </Nav.Link>
-                </span>) 
-                : null}
+                </span>
                 <span data-for="main" data-tip="Resources" onMouseOver={this.getResourceActiveIcon} onMouseLeave={this.getResourceInactiveIcon}>
                   <Nav.Link className="navigation__item" href="#resources">
-                  <img className="navigation__item--img" src={this.state.resourceIcon} />
+                    <img className="navigation__item--img" src={this.state.resourceIcon} />
                   </Nav.Link>
                 </span>
                 <span data-for="main" data-tip="Community Board" onMouseOver={this.getCommunityActiveIcon} onMouseLeave={this.getCommunityInactiveIcon}>
@@ -140,7 +140,9 @@ class Navigation extends Component {
                     <img className="navigation__item--img" src={this.state.communityIcon} />
                   </Nav.Link>
                 </span>
-            </div>
+              </div>
+              ) 
+              : null}
             <div className="nav navbar-nav justify-content-end">
                 {this.state.userImage === "" ? (
                 <div className="navigation__item--user-image_loader"/>
@@ -159,7 +161,6 @@ class Navigation extends Component {
                 </div>
               )}
             </div>
-          </div>
           <ReactTooltip id="main" place="bottom" type="dark" effect="float" />
         </nav>
 

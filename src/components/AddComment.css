@@ -22,24 +22,24 @@
   margin-left: 100px;
 }
 
-.add-comment__modal__body--upvote {
-  position: absolute;
-  left: 0;
-  margin-left: 230px;
-  color: lightskyblue;
-}
-
-.add-comment__modal__body--downvote {
-  position: absolute;
-  left: 0;
-  margin-left: 250px;
-  color: lightsalmon;
-}
-
 .add-comment__modal__body--error {
   position: absolute;
   left: 0;
   margin-left: 120px;
+}
+.add-comment__modal__body__form__container {
+  display: flex;
+}
+.add-comment__modal__body__form__container__input--comments {
+  width: 200px;
+  margin-right: 5px;
+  height: 24.5px;
+}
+.add-comment__modal__body__form__container__submit {
+  text-align: right;
+}
+.add-comment__modal__body__form__container__submit--button {
+  float: right;
 }
 
 @media only screen and (max-width: 320px) {

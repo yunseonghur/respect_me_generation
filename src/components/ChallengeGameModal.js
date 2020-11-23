@@ -5,7 +5,6 @@ import ChallengeGameModalStep1 from "./ChallengeGameModalStep1";
 import ChallengeGameModalStep2 from "./ChallengeGameModalStep2";
 
 
-const MAX_PAGE = 2;
 /**
  * Component that appears when user clicks on the flag to report a post on the card modal.
  * Called in CreateCard.js
@@ -19,13 +18,27 @@ class ChallengeGameModal extends Component {
     super(props)
     this.state = {
       currentStep: 1,
-      category: ''
+      category: '',
+      challengeModalVisible: false
     }
     this._next = this._next.bind(this)
     this._prev = this._prev.bind(this)
     this.selectCategoryButton = this.selectCategoryButton.bind(this);
     this.resetModalStep = this.resetModalStep.bind(this);
   }
+
+  showChallengeModal = () => {
+    this.setState({ 
+      challengeModalVisible: !this.state.challengeModalVisible,
+      currentStep: 1 
+    });
+  };
+
+  hideChallengeModal = () => {
+    this.setState({ currentStep: 1 });
+    this.props.hideChallengeModal();
+  };
+
 
   resetModalStep() {
     this.setState({
@@ -82,7 +95,7 @@ class ChallengeGameModal extends Component {
         className="challenge-game-modal"
         show={this.props.show}
         animation={false}
-        onHide={this.props.onHide}
+        onHide={this.hideChallengeModal}
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >

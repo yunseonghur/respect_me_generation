@@ -19,10 +19,6 @@
   border-bottom: 3px solid rgba(42, 255, 169, 1);
 }
 
-.navigation__item:focus {
-  border-bottom: 3px solid rgba(42, 255, 169, 1);
-}
-
 .navigation__item--img {
   margin-right: 20px;
   margin-left: 20px;

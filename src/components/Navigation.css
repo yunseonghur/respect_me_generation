@@ -15,7 +15,11 @@
   outline: none;
 }
 
-.navigation__item:hover {
+.navigation__item#active {
+  border-bottom: 3px solid rgba(42, 255, 169, 1);
+}
+
+.navigation__item:focus {
   border-bottom: 3px solid rgba(42, 255, 169, 1);
 }
 

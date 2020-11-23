@@ -129,37 +129,37 @@ class Navigation extends Component {
             {this.state.user ? (
               <div className="navbar-nav w-100 justify-content-center">
                 <span data-for="main" data-tip="Dashboard">
-                  {/* <Nav.Link className="navigation__item" href="/" eventKey="1">
-                    {this.state.activeKey === "1" ? 
+                  {this.state.activeKey === "1" ? 
+                    <Nav.Link className="navigation__item" id="active" href="/" eventKey="1">
                       <img className="navigation__item--img" src={UserProfileActiveIcon} />
-                      : <img className="navigation__item--img" src={UserProfileInactiveIcon} />
-                    }
-                  </Nav.Link> */}
-                    {this.state.activeKey === "1" ? 
-                      <Nav.Link className="navigation__item" id="active" href="/" eventKey="1">
-                        <img className="navigation__item--img" src={UserProfileActiveIcon} />
-                      </Nav.Link>
-                      : 
-                      <Nav.Link className="navigation__item" href="/" eventKey="1">
-                        <img className="navigation__item--img" src={UserProfileInactiveIcon} />
-                      </Nav.Link>
-                    }
+                    </Nav.Link>
+                    : 
+                    <Nav.Link className="navigation__item" href="/" eventKey="1">
+                      <img className="navigation__item--img" src={UserProfileInactiveIcon} />
+                    </Nav.Link>
+                  }
                 </span>
                 <span data-for="main" data-tip="Resources">
-                  <Nav.Link className="navigation__item" href="#resources" eventKey="2">
-                    {this.state.activeKey === "2" ? 
+                  {this.state.activeKey === "2" ? 
+                    <Nav.Link className="navigation__item" id="active" href="#resources" eventKey="2">
                       <img className="navigation__item--img" src={ResourceActiveIcon} />
-                      : <img className="navigation__item--img" src={ResourceInactiveIcon} />
-                    }
-                  </Nav.Link>
+                    </Nav.Link>
+                    : 
+                    <Nav.Link className="navigation__item" href="#resources" eventKey="2">
+                      <img className="navigation__item--img" src={ResourceInactiveIcon} />
+                    </Nav.Link>
+                  }
                 </span>
                 <span data-for="main" data-tip="Community Board">
-                  <Nav.Link className="navigation__item" href="#communityBoard" eventKey="3">
-                    {this.state.activeKey === "3" ? 
+                  {this.state.activeKey === "3" ? 
+                    <Nav.Link className="navigation__item" id="active" href="#communityBoard" eventKey="3">
                       <img className="navigation__item--img" src={CommunityActiveIcon} />
-                      : <img className="navigation__item--img" src={CommunityInactiveIcon} />
-                    }
-                  </Nav.Link>
+                    </Nav.Link>
+                    : 
+                    <Nav.Link className="navigation__item" href="#communityBoard" eventKey="3">
+                      <img className="navigation__item--img" src={CommunityInactiveIcon} />
+                    </Nav.Link>
+                  }
                 </span>
               </div>
               ) 

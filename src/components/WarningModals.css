@@ -1,0 +1,5 @@
+/* css for ReportModal and LogOutModal */
+.warning-modal__body {
+  font-size: 12pt;
+  margin: 40px auto !important;
+}

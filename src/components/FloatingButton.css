@@ -1,25 +1,47 @@
-/* library specific classes */
-.fab-container {
+.floating-button__container {
   bottom: 85px !important;
   right: 20px !important;
   z-index: 999;
 }
 
-.fab-item {
+.floating-button__btn--video, .floating-button__btn--card {
   background-color: #2AFFA9 !important;
   width: 54px;
   height: 43px;
-  margin: 0;
-  padding: 0;
 }
 
-.modal-btn {
-  width: 200px;
-  margin: 2px;
+.floating-button__btn--video:hover, .floating-button__btn--card:hover {
+  filter: brightness(80%);
 }
 
-.modal-body {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+.floating-button__btn--video {
+  bottom: -65px !important;
+  right: 25px !important;
+}
+
+.floating-button__btn--card {
+  bottom: -55px !important;
+  right: 50px !important;
+}
+
+.floating-button__img {
+  width: 22px;
+  height: 22px;
+}
+
+.floating-button__img#rotate:hover {
+  width: 18px;
+  height: 18px;
+}
+
+.floating-button__btn--add {
+  background-color: #2AFFA9 !important;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.floating-button__btn--add:hover {
+  background-color: #303454 !important;
+  width: 34px !important;
+  height: 34px !important;
 }

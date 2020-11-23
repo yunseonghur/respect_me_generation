@@ -28,12 +28,14 @@ function App() {
     <HashRouter>
       <Navigation />
       {user ? (
+        <>
         <Route path="/" exact={true} component={Dashboard} />
+        <Route path="/communityBoard" component={() => <CommunityBoard tagVisible={true} />} />
+        <Route path="/resources" component={Resources} />
+        </>
       ) : (
         <Route path="/" exact={true} component={Login} />
       )}
-      <Route path="/communityBoard" component={() => <CommunityBoard tagVisible={true} />} />
-      <Route path="/resources" component={Resources} />
     </HashRouter>
   );
 }

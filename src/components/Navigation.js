@@ -21,12 +21,13 @@ class Navigation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
+      user: null,
       userImage: "",
       profileIcon: UserProfileInactiveIcon,
       resourceIcon: ResourceInactiveIcon,
       communityIcon: CommunityInactiveIcon,
       logOutModal: false,
+      activeKey: "1"
     };
     this.db = fire.database();
     this.authListener = this.authListener.bind(this);
@@ -114,33 +115,55 @@ class Navigation extends Component {
     this.setState({ communityIcon: CommunityInactiveIcon });
   }
 
+  handleSelect = (eventKey) => {
+    this.setState({ activeKey: eventKey });
+  }
+
   render() {
     return (
       <div className="navigation">
-        <nav className="navbar navbar-expand justify-content-center">
+        <Nav className="navbar navbar-expand" activeKey="1" onSelect={this.handleSelect}>
           <a className="navigation__brand" href="/">
-            <img className="navigation__brand--img" src={RMG_PrimaryIcon}></img>
+            <img className="navigation__brand--img" src={RMG_PrimaryIcon} alt="logo"></img>
           </a>    
-          <div className="navbar-collapse collapse w-100">
-            <div className="navbar-nav w-100 justify-content-center">
-              {this.state.user ? (
-                <span data-for="main" data-tip="Dashboard" onMouseOver={this.getProfileActiveIcon} onMouseLeave={this.getProfileInactiveIcon}>
-                  <Nav.Link className="navigation__item" href="/">
-                    <img className="navigation__item--img" src={this.state.profileIcon} />
-                  </Nav.Link>
-                </span>) 
-                : null}
-                <span data-for="main" data-tip="Resources" onMouseOver={this.getResourceActiveIcon} onMouseLeave={this.getResourceInactiveIcon}>
-                  <Nav.Link className="navigation__item" href="#resources">
-                  <img className="navigation__item--img" src={this.state.resourceIcon} />
+            {this.state.user ? (
+              <div className="navbar-nav w-100 justify-content-center">
+                <span data-for="main" data-tip="Dashboard">
+                  {/* <Nav.Link className="navigation__item" href="/" eventKey="1">
+                    {this.state.activeKey === "1" ? 
+                      <img className="navigation__item--img" src={UserProfileActiveIcon} />
+                      : <img className="navigation__item--img" src={UserProfileInactiveIcon} />
+                    }
+                  </Nav.Link> */}
+                    {this.state.activeKey === "1" ? 
+                      <Nav.Link className="navigation__item" id="active" href="/" eventKey="1">
+                        <img className="navigation__item--img" src={UserProfileActiveIcon} />
+                      </Nav.Link>
+                      : 
+                      <Nav.Link className="navigation__item" href="/" eventKey="1">
+                        <img className="navigation__item--img" src={UserProfileInactiveIcon} />
+                      </Nav.Link>
+                    }
+                </span>
+                <span data-for="main" data-tip="Resources">
+                  <Nav.Link className="navigation__item" href="#resources" eventKey="2">
+                    {this.state.activeKey === "2" ? 
+                      <img className="navigation__item--img" src={ResourceActiveIcon} />
+                      : <img className="navigation__item--img" src={ResourceInactiveIcon} />
+                    }
                   </Nav.Link>
                 </span>
-                <span data-for="main" data-tip="Community Board" onMouseOver={this.getCommunityActiveIcon} onMouseLeave={this.getCommunityInactiveIcon}>
-                  <Nav.Link className="navigation__item" href="#communityBoard">
-                    <img className="navigation__item--img" src={this.state.communityIcon} />
+                <span data-for="main" data-tip="Community Board">
+                  <Nav.Link className="navigation__item" href="#communityBoard" eventKey="3">
+                    {this.state.activeKey === "3" ? 
+                      <img className="navigation__item--img" src={CommunityActiveIcon} />
+                      : <img className="navigation__item--img" src={CommunityInactiveIcon} />
+                    }
                   </Nav.Link>
                 </span>
-            </div>
+              </div>
+              ) 
+              : null}
             <div className="nav navbar-nav justify-content-end">
                 {this.state.userImage === "" ? (
                 <div className="navigation__item--user-image_loader"/>
@@ -159,9 +182,8 @@ class Navigation extends Component {
                 </div>
               )}
             </div>
-          </div>
           <ReactTooltip id="main" place="bottom" type="dark" effect="float" />
-        </nav>
+        </Nav>
 
         <LogOutModal
           show={this.state.logOutModal}

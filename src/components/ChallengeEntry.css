@@ -7,7 +7,6 @@
   padding: 15px;
   border-radius: 15px;
   min-height: 100px;
-  min-width: 450px;
   max-width: 700px;
   margin: 0 auto;
 }
@@ -28,7 +27,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  margin: 0px 0px 0px 30px;
+  margin: 20px;
 }
 
 .challenge-entry_text>h4 {
@@ -42,6 +41,7 @@
 
 .challenge-entry_text--buttons>button {
   margin-right: 10px;
+  padding: 3px;
   width: 100px;
   font-size: 11pt;
   border: none;

@@ -96,12 +96,12 @@ class ChallengeGameModalStep2 extends Component {
         return(
             <div>
                 <div className="challenge-game-modal__body--prompt">{this.props.category}</div>
-            <ChallengeActive
-                title={this.state.randomChallenge.title}
-                startTime={this.state.randomChallenge.startTime}
-                addChallenge={this.addChallenge}
-                skipChallenge={this.skipChallenge}
-            ></ChallengeActive>
+                <ChallengeActive
+                    title={this.state.randomChallenge.title}
+                    startTime={this.state.randomChallenge.startTime}
+                    addChallenge={this.addChallenge}
+                    skipChallenge={this.skipChallenge}
+                ></ChallengeActive>
 
             </div>
             

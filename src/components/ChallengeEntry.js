@@ -12,7 +12,6 @@ const ChallengeEntry = (props) => {
       <div className="challenge-entry_text">
         <h3 className="challenge-entry_text--title">
           {props.title}
-          this can be potentially lots of text
         </h3>
       </div>
 

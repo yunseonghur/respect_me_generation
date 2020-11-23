@@ -78,7 +78,6 @@ class Dashboard extends Component {
       .once("value")
       .then(function (snap) {
         const result = snap.val();
-        console.log(result);
         return result;
       })
       .then((res) => {
@@ -96,7 +95,6 @@ class Dashboard extends Component {
       .once("value")
       .then(function (snap) {
         const result = snap.val();
-        console.log(result);
         return result;
       })
       .then((res) => {
@@ -132,7 +130,6 @@ class Dashboard extends Component {
   }
 
   getNumberOfActiveChallenges(activeChallengesArr) {
-    console.log(Object.keys(activeChallengesArr).length);
     if (Object.keys(activeChallengesArr).length) {
       this.setState({
         numberOfActiveChallenges: Object.keys(activeChallengesArr).length,

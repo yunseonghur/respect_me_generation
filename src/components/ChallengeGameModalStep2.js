@@ -66,9 +66,6 @@ class ChallengeGameModalStep2 extends Component {
             if (!activeChallengesKeys.includes(randomChallengeKey) &&
              !completedChallengeKeys.includes(randomChallengeKey) &&
              this.state.randomChallenge.challengeId !== randomChallengeKey) {
-                 console.log(potentialChallenges);
-                 console.log(randomChallenge);
-                 console.log(this.state.randomChallenge);
                 newChallengeBool = true;
             } 
             

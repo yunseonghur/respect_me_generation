@@ -20,7 +20,6 @@ const ChallengeEntry = (props) => {
         if (id === props.badgeID) {
           badgeImgTmp = badgeRepo[props.badgeID].image;
         }
-        // console.log(id);
       }
       setBadgeImg(badgeImgTmp);
     });

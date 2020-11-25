@@ -7,7 +7,6 @@ import Button from "react-bootstrap/Button";
 import fire from "../fire.js";
 import UserVideo from "../components/UserVideo";
 
-
 const dbRef = fire.database().ref();
 /**
  * Handles toggling display of cards and videos.
@@ -94,7 +93,7 @@ class CommunityBoard extends Component {
   render() {
     return (
       <div className="community-board">
-        {this.props.tagVisible ? (
+        {this.props.tagVisible && this.state.cardVisible ? (
           <div className="community-board__toggle-buttons">
             <ButtonGroup>
               {this.tags.map((value, index) => (

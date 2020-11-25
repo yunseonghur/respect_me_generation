@@ -231,33 +231,36 @@ class Dashboard extends Component {
           <TabPanel tabId="challenges">
             <div className="challenges">
               {this.state.numberOfActiveChallenges < 3 ? (
-                <button className="dashboard_challenges--button" onClick={this.showChallengeModal}>Start Challenge!</button>
+                <button className="dashboard_challenges--button" onClick={this.showChallengeModal}>
+                  Start Challenge!
+                </button>
               ) : null}
               <h2 className="dashboard_challenges--title">Active Challenges</h2>
               <p className="dashboard_challenges--count">
                 {this.state.numberOfActiveChallenges} of 3 active challenges
               </p>
               <div className="dashboard_challenges--entries">
-              {this.state.activeChallenges !== undefined ? (
-                Array.from(this.state.activeChallenges).map((myActiveChallenge) => (
-                  <ChallengeCurrent
-                    title={myActiveChallenge.title}
-                    startTime={myActiveChallenge.startTime}
-                    userUID={this.state.userUID}
-                    badgeId={myActiveChallenge.badgeID}
-                    updateActiveChallenges={this.updateActiveChallenges}
-                    challengeId={myActiveChallenge.challengeId}
-                    getcompleteChallenge={this.getcompleteChallenge}
-                  />
-                ))
-              ) : (
-                <ChallengeNoEntry />
-              )}
+                {this.state.activeChallenges !== undefined ? (
+                  Array.from(this.state.activeChallenges).map((myActiveChallenge) => (
+                    <ChallengeCurrent
+                      title={myActiveChallenge.title}
+                      startTime={myActiveChallenge.startTime}
+                      userUID={this.state.userUID}
+                      badgeId={myActiveChallenge.badgeID}
+                      updateActiveChallenges={this.updateActiveChallenges}
+                      challengeId={myActiveChallenge.challengeId}
+                      getcompleteChallenge={this.getcompleteChallenge}
+                    />
+                  ))
+                ) : (
+                  <ChallengeNoEntry />
+                )}
               </div>
               <h2 className="dashboard_challenges--title">Completed Challenges</h2>
               {this.state.completedChallenges !== undefined
                 ? Array.from(this.state.completedChallenges).map((myCompletedChallenge) => (
                     <ChallengeEntry
+                      badgeID={myCompletedChallenge.id}
                       title={myCompletedChallenge.title}
                       endTime={myCompletedChallenge.endTime}
                     />

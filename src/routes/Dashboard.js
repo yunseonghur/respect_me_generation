@@ -243,6 +243,7 @@ class Dashboard extends Component {
                 {this.state.activeChallenges !== undefined ? (
                   Array.from(this.state.activeChallenges).map((myActiveChallenge) => (
                     <ChallengeCurrent
+                      key={myActiveChallenge.challengeId}
                       title={myActiveChallenge.title}
                       startTime={myActiveChallenge.startTime}
                       userUID={this.state.userUID}

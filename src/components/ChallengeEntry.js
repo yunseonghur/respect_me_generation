@@ -29,7 +29,6 @@ const ChallengeEntry = (props) => {
     <div id={props.key} className="challenge-entry">
       {/* challenge image */}
       <img src={badgeImg} className="challenge-entry_img" />
-      {/* <div>{props.badgeID}</div> */}
 
       <div className="challenge-entry_text">
         <h3 className="challenge-entry_text--title">{props.title}</h3>

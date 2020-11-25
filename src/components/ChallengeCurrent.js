@@ -5,9 +5,6 @@ import Question from "../images/question.png";
 
 const ChallengeCurrent = (props) => {
   const cancelChallenge = () => {
-    console.log("cancel active challenge");
-    console.log(props.userUID);
-    console.log(props.challengeId);
     fire
       .database()
       .ref()

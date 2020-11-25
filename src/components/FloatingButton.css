@@ -36,12 +36,10 @@
 
 .floating-button__btn--add {
   background-color: #2AFFA9 !important;
-  width: 40px !important;
-  height: 40px !important;
+  width: 34px !important;
+  height: 34px !important;
 }
 
 .floating-button__btn--add:hover {
   background-color: #303454 !important;
-  width: 34px !important;
-  height: 34px !important;
 }

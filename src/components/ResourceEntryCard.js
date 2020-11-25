@@ -49,7 +49,7 @@ class ResourceEntryCard extends Component {
         <img alt="resource" src={this.props.item.image} />
         <div>
           <h2>{this.props.item.title}</h2>
-          <h4>should attribute to database -- some short preview of article</h4>
+          {/* <h4>should attribute to database -- some short preview of article</h4> */}
         </div>
       </a>
     );

@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import "./FloatingButton.css";
-import { withRouter } from "react-router-dom";
-import { Container, Button } from "react-floating-action-button";
-import fire from "../fire.js";
-import VideoBadgeModal from "./VideoBadgeModal";
-import LoginModal from "./LoginModal";
-import plus from "../images/icon-plus.png";
-import video from "../images/icon-video.png";
-import note from "../images/icon-note.png";
+import React, { Component } from 'react';
+import './FloatingButton.css';
+import { withRouter } from 'react-router-dom';
+import { Container, Button } from 'react-floating-action-button';
+import fire from '../fire.js';
+import VideoBadgeModal from './VideoBadgeModal';
+import LoginModal from './LoginModal';
+import PlusIcon from '../images/PlusIcon.svg';
+import PostCardIcon from '../images/PostCardIcon.svg';
+import PostVideoIcon from '../images/PostVideoIcon.svg';
 import CreateCardModal from "./CreateCardModal";
 
 const db = fire.database();
@@ -140,19 +140,17 @@ class FloatingButton extends Component {
 
   render() {
     return (
-      <div>
-        <Container>
-          <Button tooltip="Upload a video" onClick={this.uploadHandler} disabled>
-            <img src={video} alt="Upload a video" />
+      <div className="floating-button">
+        <Container className="floating-button__container">
+          <Button className="floating-button__btn--video" tooltip="Upload a video" onClick={this.uploadHandler} disabled>
+            <img className="floating-button__img" src={PostVideoIcon} alt="Upload a video"/>
           </Button>
-          <Button tooltip="Add a card" onClick={this.displayCreateCardModal} disabled>
-            <img src={note} alt="Add a card" />
+          <Button className="floating-button__btn--card" tooltip="Add a card" onClick={this.displayCreateCardModal} disabled>
+            <img className="floating-button__img" src={PostCardIcon} alt="Add a card"/>
           </Button>
-          <Button
-            rotate={true}
-            styles={{ backgroundColor: "#2AFFA9", width: "43px", height: "43px" }}
-          >
-            <img src={plus} alt="Add" />
+          {/* <Button className="floating-button__btn--add" rotate={true} styles={{backgroundColor: "#2AFFA9", width:"43px", height:"43px"}}> */}
+          <Button className="floating-button__btn--add" rotate={true}>
+            <img className="floating-button__img" id="rotate" src={PlusIcon} alt="Add" />
           </Button>
         </Container>
         <CreateCardModal

@@ -15,8 +15,8 @@ class ChallengeGameModalStep2 extends Component {
         this.getRandomChallenge = this.getRandomChallenge.bind(this);
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.category !== prevProps.category) {
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.category !== prevProps.category || prevState.randomChallenge === this.state.randomChallenge) {
             this.getRandomChallenge();
         }
     }
@@ -56,18 +56,19 @@ class ChallengeGameModalStep2 extends Component {
         let randomChallengeKey;
         while (!newChallengeBool) {
             if (potentialChallenges.length === 0) {
-                console.log("no more potential challenges");
                 break;
             }
             let randomNumber = Math.floor(Math.random() * potentialChallenges.length);
             randomChallenge = potentialChallenges[randomNumber];
             randomChallengeKey = randomChallenge.challengeId;
-            console.log("new keys");
 
+            // Check if randomChallenge is not already active, completed and not being shown
             if (!activeChallengesKeys.includes(randomChallengeKey) &&
              !completedChallengeKeys.includes(randomChallengeKey) &&
              this.state.randomChallenge.challengeId !== randomChallengeKey) {
-                console.log("found new challenge");
+                 console.log(potentialChallenges);
+                 console.log(randomChallenge);
+                 console.log(this.state.randomChallenge);
                 newChallengeBool = true;
             } 
             

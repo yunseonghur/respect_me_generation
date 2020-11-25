@@ -3,7 +3,7 @@ import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 import Comment from "./Comment";
 import fire from "../fire";
 import MyCard from "./MyCard";
-import { faFlag, faThumbsUp, faThumbsDown, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faFlag, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReportModal from "./ReportModal";
 import "./AddComment.css";
@@ -84,8 +84,6 @@ class AddComment extends Component {
         background: cards[card].imgOption,
         text: cards[card].text,
         numComments: this.countComments(cards[card].comments),
-        upvote: this.countUpvotes(cards[card].upvote),
-        downvote: this.countDownvotes(cards[card].downvote),
       });
     }
     this.setState({
@@ -108,6 +106,7 @@ class AddComment extends Component {
           .push({
             comment: this.state.newComment,
             user: this.state.username,
+            timestamp: Date.now(),
           });
         this.increasePoints(this.state.userUID);
         this.setState({ newComment: "" });
@@ -188,37 +187,20 @@ class AddComment extends Component {
               key: comment,
               id: comments[comment].user,
               text: comments[comment].comment,
+              timestamp: comments[comment].timestamp,
             });
           }
         }
       });
     return commentDetails.map((comment) => (
-      <Comment key={comment.key} user={comment.id} comment={comment.text} />
+      <Comment
+        key={comment.key}
+        user={comment.id}
+        comment={comment.text}
+        timestamp={comment.timestamp}
+      />
     ));
   }
-
-  /**
-   * Return count of upVote
-   * @param {int} upVotes
-   * */
-  countUpvotes = (upVotes) => {
-    if (upVotes != null) {
-      return upVotes;
-    }
-    return "0";
-  };
-
-  /**
-   * Return count of downVote
-   * @param {int} downVotes
-   */
-  countDownvotes = (downVotes) => {
-    if (downVotes != null) {
-      return downVotes;
-    }
-    return "0";
-  };
-
   /**
    * Displays the card selected
    */
@@ -226,8 +208,6 @@ class AddComment extends Component {
     let imgOption;
     let text;
     let numComments;
-    let upvote;
-    let downvote;
     dbRef
       .ref()
       .child("User")
@@ -239,12 +219,6 @@ class AddComment extends Component {
           numComments = this.countComments(
             userInfo[this.props.cardOwnerUID]["cards"][this.props.cardID]["comments"]
           );
-          upvote = this.countUpvotes(
-            userInfo[this.props.cardOwnerUID]["cards"][this.props.cardID]["upvote"]
-          );
-          downvote = this.countDownvotes(
-            userInfo[this.props.cardOwnerUID]["cards"][this.props.cardID]["downvote"]
-          );
         }
       });
     return (
@@ -254,8 +228,8 @@ class AddComment extends Component {
         background={imgOption}
         text={text}
         commentCount={numComments}
-        upvoteCount={upvote}
-        downvoteCount={downvote}
+        tag={this.props.tag}
+        timestamp={this.props.timestamp}
       />
     );
   }
@@ -284,38 +258,6 @@ class AddComment extends Component {
     }
   };
 
-  /**
-   * Check if the user has voted for this card
-   */
-  verifyVote = async (cardOwnerUID, cardID) => {
-    let userUID = this.state.userUID;
-    await this.verifyUser(userUID);
-    if (this.state.loginModal) {
-      return;
-    }
-    await dbRef
-      .ref("User/" + cardOwnerUID)
-      .once("value")
-      .then((snapshot) => {
-        let card = snapshot.child("cards/" + cardID).val();
-        if (card["votes"] != null) {
-          for (let vote in card["votes"]) {
-            for (let user in card["votes"][vote]) {
-              // if the user has voted, return isValid as false
-              if (card["votes"][vote][user] === userUID) {
-                this.setState({ isValid: false });
-              }
-              // if the user hasn't voted yet for this card, return isValid as true
-              else {
-                this.setState({ isValid: true });
-              }
-            }
-          }
-        } else {
-          this.setState({ isValid: true });
-        }
-      });
-  };
   deleteCard = () => {
     dbRef
       .ref("User/" + this.props.cardOwnerUID)
@@ -339,78 +281,6 @@ class AddComment extends Component {
         userUID,
       });
   }
-
-  /**
-   *  Increase count of upvote if the vote is valid
-   *  */
-  upvoteClicked = async () => {
-    let cardOwnerUID = this.props.cardOwnerUID;
-    let cardID = this.props.cardID;
-    await this.verifyVote(cardOwnerUID, cardID);
-    if (this.state.isValid) {
-      let upvote;
-      dbRef
-        .ref("User/" + cardOwnerUID)
-        .once("value")
-        .then(function (snapshot) {
-          let card = snapshot.child("cards/" + cardID).val();
-          if (card["upvote"] != null) {
-            upvote = card["upvote"];
-            upvote += 1;
-          } else {
-            upvote = 1;
-          }
-          dbRef
-            .ref("User/" + cardOwnerUID)
-            .child("cards/" + cardID)
-            .update({
-              upvote,
-            });
-        });
-      // record userUID to keep track of the user's upvote
-      this.recordUser(cardOwnerUID, cardID);
-    } else {
-      if (!this.state.loginModal) {
-        this.setState({ showVoteError: true });
-      }
-    }
-  };
-
-  /**
-   * Increase count of downvote if the vote is valid
-   */
-  downvoteClicked = async () => {
-    let cardOwnerUID = this.props.cardOwnerUID;
-    let cardID = this.props.cardID;
-    await this.verifyVote(cardOwnerUID, cardID);
-    if (this.state.isValid) {
-      let downvote;
-      dbRef
-        .ref("User/" + cardOwnerUID)
-        .once("value")
-        .then(function (snapshot) {
-          let card = snapshot.child("cards/" + cardID).val();
-          if (card["downvote"] != null) {
-            downvote = card["downvote"];
-            downvote += 1;
-          } else {
-            downvote = 1;
-          }
-          dbRef
-            .ref("User/" + cardOwnerUID)
-            .child("cards/" + cardID)
-            .update({
-              downvote,
-            });
-        });
-      // record userUID to keep track of the user's upvote
-      this.recordUser(cardOwnerUID, cardID);
-    } else {
-      if (!this.state.loginModal) {
-        this.setState({ showVoteError: true });
-      }
-    }
-  };
 
   /**
    * counts the number of comments a user has.
@@ -462,63 +332,36 @@ class AddComment extends Component {
           <Modal.Body className="add-comment__modal__body">
             <div>
               <Row>
-                <Col>{this.displayCard()}</Col>
-              </Row>
-              <Row>
-                <Col>
-                  <p className="add-comment__modal__body--prompt">Do you like this post?</p>
-                  <FontAwesomeIcon
-                    className="add-comment__modal__body--upvote"
-                    icon={faThumbsUp}
-                    onClick={this.upvoteClicked}
-                  />
-                  <FontAwesomeIcon
-                    className="add-comment__modal__body--downvote"
-                    icon={faThumbsDown}
-                    onClick={this.downvoteClicked}
-                  />
-                  <LoginModal
-                    show={this.state.loginModal}
-                    onHide={() => this.setState({ loginModal: false })}
-                  />
-                  <br />
-                  <br />
-                </Col>
-              </Row>
-              <Row>
-                {this.state.showVoteError ? (
-                  <div className="add-comment__modal__body--error">
-                    You already voted!
-                    <br />
-                    <br />
-                  </div>
-                ) : null}
-                <br />
-                <br />
+                <Col className="add-comment__modal__body--card">{this.displayCard()}</Col>
               </Row>
               <Row>
                 <Col>{this.getComments()}</Col>
               </Row>
               <br />
               <Form className="add-comment__modal__body__form" onSubmit={this.handleSubmit}>
-                <Row>
-                  <Col className="add-comment__modal__body__form__input-col">
+                <div className="add-comment__modal__body__form__container">
+                  <span className="add-comment__modal__body__form__container__input">
                     <Form.Group controlId="Comments">
                       <input
                         type="text"
-                        className="add-comment__modal__body__form__input-col--comments"
+                        className="add-comment__modal__body__form__container__input--comments"
                         placeholder="add your comment"
                         value={this.state.newComment}
                         onChange={this.handleInput}
                       />
                     </Form.Group>
-                  </Col>
-                  <Col>
+                  </span>
+                  <span className="add-comment__modal__body__form__container__submit">
                     <Form.Group>
-                      <Button onClick={this.writeComment}>Add Comment</Button>
+                      <Button
+                        className="add-comment__modal__body__form__container__submit--button"
+                        onClick={this.writeComment}
+                      >
+                        Add Comment
+                      </Button>
                     </Form.Group>
-                  </Col>
-                </Row>
+                  </span>
+                </div>
               </Form>
             </div>
           </Modal.Body>

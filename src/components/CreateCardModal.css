@@ -1,0 +1,40 @@
+.create-card-modal__body__wrapper--title {
+  font-size: 20px;
+  margin: 10px 0;
+}
+.create-card-modal__body__wrapper__tags--buttons {
+  text-align: center;
+}
+.create-card-modal__body__wrapper__img__opt__card {
+  width: 150px !important; /* override App.css */
+  height: 150px !important; /* override App.css */
+}
+.create-card-modal__body__wrapper__img__opt__card-img {
+  width: 150px;
+  height: 150px;
+}
+.create-card-modal__body__wrapper__card-columns {
+  text-align: center;
+}
+
+.create-card-modal__body__wrapper__text--text-area {
+  width: 100%;
+  height: 140px;
+}
+
+.create-card-modal__body__wrapper__submit {
+  float: right;
+  margin-top: 10px;
+}
+.create-card-modal__body__wrapper__submit--button {
+  width: 165px;
+  border-radius: 100px;
+  padding: 5px 0;
+  background-color: rgba(42, 255, 169, 1);
+  border-color: transparent;
+  font-size: 16px;
+}
+
+.create-card-modal__body__wrapper__submit--button:focus {
+  outline: none;
+}

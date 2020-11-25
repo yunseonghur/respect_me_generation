@@ -1,0 +1,15 @@
+.badge {
+ background: none;
+ margin-right: 5px;
+ margin-left: 5px;
+}
+
+.badge_img {
+  width: 80px;
+  height: auto;
+}
+
+.badge_title {
+  padding-top: 3px;
+  color: white;
+}

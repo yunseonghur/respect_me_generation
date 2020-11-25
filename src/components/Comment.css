@@ -5,8 +5,16 @@
   margin-bottom: 5px;
   width: 280px;
 }
-
 .comment__bottom-border {
   border-bottom: 1px solid rgba(0, 0, 0, 0.096);
   margin-bottom: 10px;
+}
+
+.comment__bottom-border--commenter {
+  font-size: 12pt;
+}
+.comment__bottom-border--date {
+  float: right;
+  font-size: 10pt;
+  color: rgb(192, 192, 192);
 }

@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "kayak_sans_regular-webfont";
+  src: url("../src/fonts/kayak_sans_regular-webfont.woff2");
+}
+
+body {
+  font-family: "kayak_sans_regular-webfont" !important;
+}
+
+.card {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}

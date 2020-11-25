@@ -1,7 +1,6 @@
 import React from "react";
 import MyCard from "./MyCard";
 import { CardDeck } from "react-bootstrap";
-import AddComment from "./AddComment";
 import fire from "../fire";
 import loading from "../images/loading.gif";
 import "./Cards.css";
@@ -9,7 +8,7 @@ const dbRef = fire.database().ref();
 
 /**
  * A layout displaying cards from all users.
- * Called in CommunityBoard.js and MiniBoard.js
+ * Called in CommunityBoard.js
  */
 class Cards extends React.Component {
   constructor(props) {
@@ -18,7 +17,6 @@ class Cards extends React.Component {
       cardSelected: "",
       isLoading: true,
       showCards: true,
-      visible: false,
       cards: [],
       tag: "",
     };
@@ -30,6 +28,7 @@ class Cards extends React.Component {
    */
   getCards(users) {
     let cardCollected = [];
+
     for (let user in users) {
       let cards = users[user].cards;
 
@@ -40,6 +39,7 @@ class Cards extends React.Component {
           text: cards[card].text,
           comments: cards[card].comments,
           timestamp: cards[card].timestamp,
+          tag: cards[card].tag,
         });
       }
     }
@@ -49,10 +49,34 @@ class Cards extends React.Component {
     });
   }
 
+  getUserCards(users) {
+    let cardCollected = [];
+    let cards = users[this.props.userUID].cards;
+    for (let card in cards) {
+      let commentNumber = this.countComments(cards[card].comments);
+      cardCollected.push({
+        id: card,
+        background: cards[card].imgOption,
+        text: cards[card].text,
+        comments: cards[card].comments,
+        numComments: commentNumber,
+        timestamp: cards[card].timestamp,
+        tag: cards[card].tag,
+      });
+    }
+    this.setState({
+      cards: cardCollected,
+      isLoading: false,
+    });
+  }
   componentDidMount() {
     dbRef.child("User").on("value", (snap) => {
       const users = snap.val();
-      this.getCards(users);
+      if (this.props.from === "dashboard") {
+        this.getUserCards(users);
+      } else {
+        this.getCards(users);
+      }
     });
   }
 
@@ -61,30 +85,16 @@ class Cards extends React.Component {
   }
 
   /**
-   * Visible state setter when card is clicked
-   */
-  cardClicked = () => {
-    this.setState({ visible: true });
-  };
-
-  /**
-   * Visible state setter when card is closed
-   */
-  hideModal = () => {
-    this.setState({ visible: false });
-  };
-
-  /**
    * Returns the Google UID of card owner
    */
-  getCardOwner = () => {
+  getCardOwner = (cardId) => {
     let cardOwnerUID;
     dbRef.child("User").on("value", (snap) => {
       const users = snap.val();
       for (let user in users) {
         let cards = users[user].cards;
         for (let card in cards) {
-          if (card === this.state.cardSelected) {
+          if (card === cardId) {
             cardOwnerUID = user;
           }
         }
@@ -102,7 +112,7 @@ class Cards extends React.Component {
     let cardComment = cardCommentObj;
     let commentNumber = 0;
     if (cardComment != null) {
-      // count and increment commentNumber
+      //count and increment commentNumber
       for (let count in cardComment) {
         commentNumber++;
       }
@@ -134,15 +144,13 @@ class Cards extends React.Component {
               comments: cards[card].comments,
               numComments: commentNumber,
               timestamp: cards[card].timestamp,
-              upvote: this.countUpvotes(cards[card].upvote),
-              downvote: this.countDownvotes(cards[card].downvote),
+              tag: cards[card].tag,
             });
           }
         }
       } else if (this.props.tag === "all") {
         for (let card in cards) {
           let commentNumber = this.countComments(cards[card].comments);
-
           cardCollected.push({
             id: card,
             background: cards[card].imgOption,
@@ -150,8 +158,7 @@ class Cards extends React.Component {
             comments: cards[card].comments,
             numComments: commentNumber,
             timestamp: cards[card].timestamp,
-            upvote: this.countUpvotes(cards[card].upvote),
-            downvote: this.countDownvotes(cards[card].downvote),
+            tag: cards[card].tag,
           });
         }
       }
@@ -171,28 +178,6 @@ class Cards extends React.Component {
     return cardCollected;
   }
 
-  /**
-   * Return count of upVote
-   * @param {int} upVotes
-   * */
-  countUpvotes = (upVotes) => {
-    if (upVotes != null) {
-      return upVotes;
-    }
-    return "0";
-  };
-
-  /**
-   * Return count of downVote
-   * @param {int} downVotes
-   */
-  countDownvotes = (downVotes) => {
-    if (downVotes != null) {
-      return downVotes;
-    }
-    return "0";
-  };
-
   render() {
     return (
       <div className="cards">
@@ -207,30 +192,37 @@ class Cards extends React.Component {
           </div>
         ) : this.state.showCards ? (
           <CardDeck className="cards__card-deck row">
-            {Array.from(this.sortByTag()).map((card) => (
-              <div key={card.id}>
-                <MyCard
-                  key={card.id}
-                  id={card.id}
-                  background={card.background}
-                  text={card.text}
-                  commentCount={card.numComments}
-                  upvoteCount={card.upvote}
-                  downvoteCount={card.downvote}
-                  onClick={() => {
-                    this.setState({ visible: true, cardSelected: card.id });
-                  }}
-                />{" "}
-              </div>
-            ))}
-            {this.state.visible ? (
-              <AddComment
-                show={this.state.visible}
-                cardOwnerUID={this.getCardOwner()}
-                cardID={this.state.cardSelected}
-                onHide={() => this.setState({ visible: false })}
-              />
-            ) : null}
+            {this.props.from === "dashboard"
+              ? Array.from(this.sortByTimestamp(this.state.cards)).map((card) => (
+                  <div key={card.id}>
+                    <MyCard
+                      clickable={true}
+                      key={card.id}
+                      id={card.id}
+                      background={card.background}
+                      text={card.text}
+                      commentCount={card.numComments}
+                      tag={card.tag}
+                      timestamp={card.timestamp}
+                      cardOwnerUID={this.getCardOwner(card.id)}
+                    />
+                  </div>
+                ))
+              : Array.from(this.sortByTag()).map((card) => (
+                  <div key={card.id}>
+                    <MyCard
+                      clickable={true}
+                      key={card.id}
+                      id={card.id}
+                      background={card.background}
+                      text={card.text}
+                      commentCount={card.numComments}
+                      tag={card.tag}
+                      timestamp={card.timestamp}
+                      cardOwnerUID={this.getCardOwner(card.id)}
+                    />
+                  </div>
+                ))}
           </CardDeck>
         ) : (
           <div className="cards__loader">

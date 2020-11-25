@@ -5,13 +5,16 @@ import VideoDisplay from "../components/VideoDisplay";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 import fire from "../fire.js";
+import UserVideo from "../components/UserVideo";
 
+
+const dbRef = fire.database().ref();
 /**
- * Component that handles toggling display of cards and videos.
+ * Handles toggling display of cards and videos.
  * Actual data is being displayed by Card and VideoDisplay components.
- * Called in CommunityBoard.js
  */
 class CommunityBoard extends Component {
+  tags = ["all", "study", "health", "relationship"];
   constructor(props) {
     super(props);
     this.state = {
@@ -21,19 +24,16 @@ class CommunityBoard extends Component {
       tag: "all", // selected tag to sort
       videoVisible: false,
       cardVisible: true, // starts out showing cards
+      videos: [],
     };
     this.toggleOpenCards = this.toggleOpenCards.bind(this);
     this.toggleOpenVideos = this.toggleOpenVideos.bind(this);
   }
 
   componentDidMount() {
-    fire.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          userUID: user.uid,
-        });
-      }
-    });
+    if (this.props.from === "dashboard") {
+      this.getUserInfo();
+    }
   }
 
   /**
@@ -63,79 +63,75 @@ class CommunityBoard extends Component {
   toggleOpenVideos = () => {
     if (this.state.videoVisible === false) {
       this.setState({ videoVisible: true, cardVisible: false });
-    } else {
-      console.log("videos already opened.");
     }
   };
 
+  getUserInfo() {
+    dbRef.child("User").on("value", (snap) => {
+      const userInfo = snap.val();
+      this.setState(
+        {
+          videos: userInfo[this.props.userUID]["videos"],
+        },
+        () => {
+          this.getVideos();
+        }
+      );
+    });
+  }
+
+  getVideos() {
+    let videos = this.state.videos;
+    let videoArr = [];
+    for (let video in videos) {
+      videoArr.push({
+        id: videos[video],
+      });
+    }
+    this.setState({ videos: videoArr });
+  }
+
   render() {
     return (
-      <div className="comminuty-board">
-        <div className="comminuty-board__header">
-          <h2 className="comminuty-board__header--title">COMMUNITY BOARD</h2>
-          <h5 className="comminuty-board__header--prompt">What is your community talking about today?</h5>
-        </div>
-        {this.state.cardVisible ? (
-          <div className="comminuty-board__toggle-buttons">
+      <div className="community-board">
+        {this.props.tagVisible ? (
+          <div className="community-board__toggle-buttons">
             <ButtonGroup>
-              <Button
-                name="all"
-                onClick={this.handleTag}
-                variant="outline-primary"
-                className="rounded-pill comminuty-board__toggle-buttons--btn"
-              >
-                ALL
-              </Button>
-              <Button
-                name="study"
-                onClick={this.handleTag}
-                variant="outline-primary"
-                className="rounded-pill comminuty-board__toggle-buttons--btn"
-              >
-                study
-              </Button>
-              <Button
-                name="relationship"
-                onClick={this.handleTag}
-                variant="outline-primary"
-                className="rounded-pill comminuty-board__toggle-buttons--btn"
-              >
-                relationship
-              </Button>
-              <Button
-                name="health"
-                onClick={this.handleTag}
-                variant="outline-primary"
-                className="rounded-pill comminuty-board__toggle-buttons--btn"
-              >
-                health
-              </Button>
+              {this.tags.map((value, index) => (
+                <Button
+                  name={value}
+                  key={index}
+                  onClick={this.handleTag}
+                  variant="outline-primary"
+                  className="rounded-pill community-board__toggle-buttons--btn"
+                >
+                  {value}
+                </Button>
+              ))}
             </ButtonGroup>
           </div>
-        ) : (
-          <div>
-            <br />
-            <br />
-            <br />
-          </div>
-        )}
+        ) : null}
         <ButtonGroup>
-          <Button
-            className="comminuty-board__toggle-buttons--btn"
-            variant="light"
-            onClick={this.toggleOpenCards}
-          >
-            Cards
-          </Button>
-          <Button
-            variant="light"
-            className="comminuty-board__toggle-buttons--btn"
-            onClick={this.toggleOpenVideos}
-          >
-            Videos
-          </Button>
+          <button className="community-board__toggle-buttons--btn" onClick={this.toggleOpenCards}>
+            CARDS
+          </button>
+          <button className="community-board__toggle-buttons--btn" onClick={this.toggleOpenVideos}>
+            VIDEOS
+          </button>
         </ButtonGroup>
-        <div>{this.state.cardVisible ? <Cards tag={this.state.tag} /> : <VideoDisplay />}</div>
+        <div>
+          {this.state.cardVisible ? (
+            <Cards tag={this.state.tag} from={this.props.from} userUID={this.props.userUID} />
+          ) : this.props.from === "dashboard" ? (
+            <div className="videos">
+              {Array.from(this.state.videos).map((myVideo) => (
+                <UserVideo key={myVideo.id} videoId={myVideo.id} />
+              ))}
+            </div>
+          ) : (
+            <VideoDisplay />
+          )}
+        </div>
       </div>
     );
   }

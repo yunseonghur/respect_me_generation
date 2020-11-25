@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./Home.css";
 import Quote from '../components/Quote';
-import HomeResourceEntry from '../components/HomeResourceEntry';
+import ResourceEntry from '../components/ResourceEntry';
 import MiniBoard from '../components/MiniBoard';
 
 
@@ -11,7 +11,7 @@ import MiniBoard from '../components/MiniBoard';
  * Houses 3 main component parts: 
  * - Quote
  * - MiniBoard
- * - HomeResourceEntry(s)
+ * - ResourceEntries
  */
 class Home extends Component{
     
@@ -25,10 +25,23 @@ class Home extends Component{
                     <MiniBoard />
                 </div>
 
-                <div className="home_resource-section">
-                    <HomeResourceEntry tag="study" eventKey="0" />
-                    <HomeResourceEntry tag="health" eventKey="1" />
-                    <HomeResourceEntry tag="relationship" eventKey="2" />
+                <div className="home_resource-section"> 
+                    <ResourceEntry 
+                        isPreview="true"
+                        tag="study" 
+                        eventKey="0" 
+                            
+                    /> 
+                    <ResourceEntry 
+                        isPreview="true"
+                        tag="health" 
+                        eventKey="1"  
+                    /> 
+                    <ResourceEntry 
+                        isPreview="true"
+                        tag="relationships" 
+                        eventKey="2" 
+                    /> 
                 </div>
             </div>
         );

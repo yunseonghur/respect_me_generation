@@ -8,6 +8,7 @@ import LoginModal from './LoginModal';
 import PlusIcon from '../images/PlusIcon.svg';
 import PostCardIcon from '../images/PostCardIcon.svg';
 import PostVideoIcon from '../images/PostVideoIcon.svg';
+import CreateCardModal from "./CreateCardModal";
 
 const db = fire.database();
 
@@ -25,6 +26,7 @@ class FloatingButton extends Component {
       points: "",
       displayErrorMessage: false, // if user does not have 'advanced' badge, cannot post video
       displayLoginModal: false, // if user isn't logged in, cannot create cards
+      displayCreateCardModal: false, // display create card modal
     };
     this.getCurrentUser();
   }
@@ -56,9 +58,9 @@ class FloatingButton extends Component {
     });
   }
 
-  goToCreateCard = () => {
+  displayCreateCardModal = () => {
     if (this.state.userUID != null) {
-      this.props.history.push("/createCard");
+      this.setState({ displayCreateCardModal: true });
     } else {
       this.setState({
         displayLoginModal: true,
@@ -136,14 +138,14 @@ class FloatingButton extends Component {
       });
   }
 
-  render(){
+  render() {
     return (
       <div className="floating-button">
         <Container className="floating-button__container">
           <Button className="floating-button__btn--video" tooltip="Upload a video" onClick={this.uploadHandler} disabled>
             <img className="floating-button__img" src={PostVideoIcon} alt="Upload a video"/>
           </Button>
-          <Button className="floating-button__btn--card" tooltip="Add a card" onClick={this.goToCreateCard} disabled>
+          <Button className="floating-button__btn--card" tooltip="Add a card" onClick={this.displayCreateCardModal} disabled>
             <img className="floating-button__img" src={PostCardIcon} alt="Add a card"/>
           </Button>
           {/* <Button className="floating-button__btn--add" rotate={true} styles={{backgroundColor: "#2AFFA9", width:"43px", height:"43px"}}> */}
@@ -151,9 +153,18 @@ class FloatingButton extends Component {
             <img className="floating-button__img" id="rotate" src={PlusIcon} alt="Add" />
           </Button>
         </Container>
-
-        <VideoBadgeModal show={this.state.displayErrorMessage} onHide={()=> this.setState({displayErrorMessage: false})} />
-        <LoginModal show={this.state.displayLoginModal} onHide={()=> this.setState({displayLoginModal: false})} />
+        <CreateCardModal
+          show={this.state.displayCreateCardModal}
+          onHide={() => this.setState({ displayCreateCardModal: false })}
+        />
+        <VideoBadgeModal
+          show={this.state.displayErrorMessage}
+          onHide={() => this.setState({ displayErrorMessage: false })}
+        />
+        <LoginModal
+          show={this.state.displayLoginModal}
+          onHide={() => this.setState({ displayLoginModal: false })}
+        />
       </div>
     );
   }

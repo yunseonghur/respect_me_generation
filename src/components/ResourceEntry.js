@@ -3,77 +3,123 @@ import "./ResourceEntry.css";
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import ResourceImage from './ResourceImage';
-import ARTICLES from '../components/ResourceArticles';
+import { withRouter } from 'react-router-dom';
+import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import fire from '../fire.js';
+
+const dbRef = fire.database().ref();
 
 /**
- * Represents a accordion fold on the Resources ROUTE. 
- * 
- * @param {*} tag 
- * @param {*} eventKey decides which fold is opened after click
- * @param {*} defaultActiveKey decides which fold is opened at FIRST
+ * @deprecated
  */
-
 class ResourceEntry extends Component{
 
   state = {
-    entries: []
+    entries: [],
+    isPreview: false
   };
 
   componentWillMount() {
     this.getResourceEntry();
+    this.setState({isPreview: this.props.isPreview});
   }
 
-  getResourceEntry() {
-    // Grabbing all content from ARTICLES
-    let resources = [];
-
-    ARTICLES.map(ARTICLE => {
-      resources.push({
-        id: ARTICLE.id,
-        title: ARTICLE.title,
-        image: ARTICLE.image,
-        tag: ARTICLE.tag,
-        link: ARTICLE.link
-      });
-      return null; 
+  /**
+   * Parse the objects from firebase into lists.
+   * 
+   * @param {Object}  
+   * @param {String} resourceType the tag prop
+   */
+  parseResource(resourceObj, resourceType) {
+    const parsed = Object.keys(resourceObj).map((key, index) => {
+        return resourceObj[key];
     })
 
-    // Filtering: gets the resource article with a particular tag
-    let articleEntries = [];
+    this.setState({entries: parsed});
+  }
 
-    for (let entry in resources) {
-      if (resources[entry].tag === this.props.tag){
-        articleEntries.push(resources[entry]);
-      } else {
-        console.log("no such tag found in articles.");
-      }
-    }
+  /**
+   * populate resources
+   */
+  getResourceEntry() {
+    // read all resources from db
+    dbRef.child('Resources').child(this.props.tag).once('value').then(function(snap) {
+        const result = snap.val();
+        // console.log(result);
 
-    // set the state of this component to match tag
-    this.setState({ entries: articleEntries});
+        return result;
+    })
+        .then((res) => {
+            this.parseResource(res, this.props.tag);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+  }
+
+  /**
+   * Go to Resource page with clicked tab open
+   * @param {*} event 
+   */
+  toResource = (event) => {
+    let categoryClicked = this.props.eventKey;
+
+    this.props.history.push({
+      pathname: "/resources",
+      state: {detail: categoryClicked}
+    });
   }
 
   render(){
     return (
-      <div className="resource-entry">
-        <Accordion.Toggle className="resource-entry__card--header" as={Card.Header} variant="link" eventKey={this.props.eventKey}>
-          {this.props.tag}
-        </Accordion.Toggle>
-        <Accordion.Collapse eventKey={this.props.eventKey}>
-          <Card.Body className="resource-entry__card--body">
-            {(this.state.entries.map((entry)=> 
-            <ResourceImage 
-              className="resource-entry__card--img"
-              key={entry.id} 
-              image={entry.image} 
-              title={entry.title} 
-              link={entry.link} />
-            ))}
-          </Card.Body>
-        </Accordion.Collapse>
+
+        <div>
+        {this.state.isPreview ? (
+            <div className="hre">
+            <div className="hre__header">
+              <h1 className="hre__title">#{this.props.tag}</h1>
+              <button className="hre__btn--more" name={this.props.eventKey} onClick={this.toResource}>
+                  <FontAwesomeIcon icon={faArrowCircleRight} />
+              </button>
+            </div>
+            {this.state.entries.map((entry, index)=> 
+              <ResourceImage 
+                key={index} 
+                title={entry.title} 
+                image={entry.image}
+                link={entry.link} />
+            )}
+          </div>
+        ) : (
+            <div className="resource-entry">
+                <Accordion.Toggle 
+                className="resource-entry__card--header" 
+                as={Card.Header} 
+                variant="link" 
+                eventKey={this.props.eventKey}
+                >
+                    {this.props.tag}
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey={this.props.eventKey}>
+                <Card.Body className="resource-entry__card--body">
+                    {(this.state.entries.map((entry, index)=> 
+                        <ResourceImage 
+                        className="resource-entry__card--img"
+                        key={index} 
+                        image={entry.image} 
+                        title={entry.title} 
+                        link={entry.link} />
+                        ))}
+                </Card.Body>
+                </Accordion.Collapse>
+            </div>
+        )}
       </div>
-    );
+
+    )
   }
+  
 }
 
-export default ResourceEntry;
+export default withRouter(ResourceEntry);

@@ -1,51 +1,95 @@
-import React, { Component} from 'react';
+import React, { Component } from "react";
 import "../routes/Resources.css";
-import Accordion from 'react-bootstrap/Accordion';
-import ResourceEntry from "../components/ResourceEntry";
-import { withRouter } from 'react-router-dom';
+import AdminUploadResource from "../components/AdminUploadResource";
+import { withRouter } from "react-router-dom";
+import fire from "../fire.js";
+import ResourceEntryCard from "../components/ResourceEntryCard";
 
-/**
- * The resource page is a React-Bootstrap accordion Component.
- * We decided to refactor each accordion 'fold' into its own component: ResourceEntry.
- */
-class Resources extends Component{
+const dbRef = fire.database().ref();
 
-    state = { 
-        studyResources: [],
-        healthResources: [],
-        relationshipResources: []
-    };
+class Resources extends Component {
+  tags = ["all", "study", "health", "relationship"];
 
-    /**
-     * If this route is being accessed via the Home (via clicking the resource arrow),
-     * the corresponding section that was clicked on is opened by default.
-     */
-    getContentClicked(){
-        if (this.props.location != null) {
-            if (this.props.location.state != null){
-                let categoryClicked = this.props.location.state.detail
-                return categoryClicked
-            } 
-        } else {
-            console.log("no default key passed in")
-            return "0"
-        }
-    }
+  state = {
+    isLoading: true,
+    tag: "all",
+    entries: [],
+    userUID: null,
+  };
 
-    render() {
-        return (
-                <div className="resources_wrapper">
-                    <h2>RESOURCES</h2>
+  componentDidMount() {
+    // may need to flatten database
+    this.getResources("study");
+    this.getResources("health");
+    this.getResources("relationships");
+    this.getUserUID();
+  }
 
-                    <Accordion className="resources_accordion" defaultActiveKey={this.getContentClicked()}>
-                        <ResourceEntry tag="study" eventKey="0" defaultActiveKey={this.state.categoryClicked} /> 
-                        <ResourceEntry tag="health" eventKey="1" defaultActiveKey={this.state.categoryClicked} /> 
-                        <ResourceEntry tag="relationship" eventKey="2" defaultActiveKey={this.state.categoryClicked} /> 
-                    </Accordion>
-                </div>
-        );
-    }
+  /**
+   * Get current user ID
+   */
+  getUserUID = () => {
+    fire.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          userUID: user.uid,
+        });
+      }
+    });
+  };
+
+  /**
+   * Grab resources from database.
+   */
+  getResources = (tag) => {
+    // read all resources from db
+    dbRef
+      .child("Resources")
+      .child(tag)
+      .once("value")
+      .then(function (snap) {
+        const result = snap.val();
+        // console.log(result);
+        return result;
+      })
+      .then((res) => {
+        this.parseResource(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  /**
+   * Parse the objects from firebase into entries.
+   *
+   * @param {Object}
+   * @param {String} resourceType the tag prop
+   */
+  parseResource(resourceObj) {
+    const parsed = Object.keys(resourceObj).map((key) => {
+      resourceObj[key]["key"] = key;
+      return resourceObj[key];
+    });
+
+    this.setState({ entries: [...this.state.entries, ...parsed] });
+  }
+
+  render() {
+    return (
+      <div className="resources_wrapper">
+        <h2>RESOURCES</h2>
+        <div className="resource_row">
+          {this.state.entries
+            ? this.state.entries.map((item, index) => (
+                <ResourceEntryCard key={index} item={item} userUID={this.state.userUID} />
+              ))
+            : null}
+        </div>
+        <AdminUploadResource />
+      </div>
+    );
+  }
 }
-
 
 export default withRouter(Resources);

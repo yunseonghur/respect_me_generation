@@ -1,0 +1,100 @@
+.dashboard_header {
+  text-align: center;
+  margin-bottom: 15px;
+}
+.dashboard_header--image_loader {
+  height: 122px;
+}
+.dashboard_header--image {
+  height: 70px;
+  width: 70px;
+}
+.dashboard_header--username {
+  font-size: 35px;
+}
+.dashboard_header--badge-icon {
+  height: 30px;
+  width: 30px;
+  margin-right: 5px;
+}
+.dashboard_header__points__info--number {
+  font-weight: 700;
+  font-size: 18px;
+}
+.dashboard_header__points__info--text {
+  font-weight: 400;
+  font-size: 18px;
+}
+.dashboard_tabs {
+  margin: 0 auto;
+  width: 70vw;
+  border: 1px solid #eaeaea;
+  border-radius: 15px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+.dashboard_tabs__list--tab-icon {
+  height: 15px;
+  width: 15px;
+  margin-right: 5px;
+}
+.rwt__tab[aria-selected="true"] svg.dashboard_tabs__list--tab-icon path {
+  fill: rgba(42, 255, 169, 1);
+}
+.dashboard_tabs__list--tab-text {
+  font-weight: 700;
+  font-size: 16px;
+}
+.dashboard_tabs__list--tab-text:focus {
+  color: white;
+}
+.rwt__tablist .rwt__tab[aria-selected="false"] {
+  color: rgb(164, 165, 178);
+}
+.rwt__tablist:not([aria-orientation="vertical"]) .rwt__tab[aria-selected="true"]:after {
+  border: none;
+}
+.rwt__tablist .rwt__tab[aria-selected="true"] {
+  background-color: rgba(48, 52, 84, 1);
+  color: white;
+}
+
+.card-deck {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 685px) {
+  .dashboard_tabs__list--tab-text {
+    display: none;
+  }
+  .dashboard_tabs__list--tab-icon {
+    margin: unset;
+  }
+}
+
+.challenges {
+  padding: 15px;
+}
+
+.dashboard_challenges--button {
+  margin-right: 10px;
+  width: 100px;
+  font-size: 11pt;
+  border: none;
+  background-color: #0BA8C3;
+  border-radius: 5px;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.dashboard_challenges--entries {
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 800px) {
+  .dashboard_tabs {
+    width: 100vw;
+  }
+}

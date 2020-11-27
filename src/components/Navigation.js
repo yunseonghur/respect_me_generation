@@ -13,7 +13,6 @@ import UserProfileActiveIcon from "../images/UserProfileActiveIcon.svg";
 import ResourceActiveIcon from "../images/ResourceActiveIcon.svg";
 import CommunityActiveIcon from "../images/CommunityActiveIcon.svg";
 
-
 /**
  * Navigation bar
  */
@@ -27,7 +26,7 @@ class Navigation extends Component {
       resourceIcon: ResourceInactiveIcon,
       communityIcon: CommunityInactiveIcon,
       logOutModal: false,
-      activeKey: "1"
+      activeKey: "1",
     };
     this.db = fire.database();
     this.authListener = this.authListener.bind(this);
@@ -81,7 +80,7 @@ class Navigation extends Component {
       if (user) {
         this.setState({
           user: user,
-          userImage: user.photoURL
+          userImage: user.photoURL,
         });
         this.writeUserData(user.uid, user.displayName, user.email);
         this.addUserData(user.uid);
@@ -93,31 +92,31 @@ class Navigation extends Component {
 
   getProfileActiveIcon = () => {
     this.setState({ profileIcon: UserProfileActiveIcon });
-  }
+  };
 
   getProfileInactiveIcon = () => {
     this.setState({ profileIcon: UserProfileInactiveIcon });
-  }
+  };
 
   getResourceActiveIcon = () => {
     this.setState({ resourceIcon: ResourceActiveIcon });
-  }
+  };
 
   getResourceInactiveIcon = () => {
     this.setState({ resourceIcon: ResourceInactiveIcon });
-  }
+  };
 
   getCommunityActiveIcon = () => {
     this.setState({ communityIcon: CommunityActiveIcon });
-  }
+  };
 
   getCommunityInactiveIcon = () => {
     this.setState({ communityIcon: CommunityInactiveIcon });
-  }
+  };
 
   handleSelect = (eventKey) => {
     this.setState({ activeKey: eventKey });
-  }
+  };
 
   render() {
     return (
@@ -125,63 +124,68 @@ class Navigation extends Component {
         <Nav className="navbar navbar-expand" activeKey="1" onSelect={this.handleSelect}>
           <a className="navigation__brand" href="/">
             <img className="navigation__brand--img" src={RMG_PrimaryIcon} alt="logo"></img>
-          </a>    
-            {this.state.user ? (
-              <div className="navbar-nav w-100 justify-content-center">
-                <span data-for="main" data-tip="Dashboard">
-                  {this.state.activeKey === "1" ? 
-                    <Nav.Link className="navigation__item" id="active" href="/" eventKey="1">
-                      <img className="navigation__item--img" src={UserProfileActiveIcon} />
-                    </Nav.Link>
-                    : 
-                    <Nav.Link className="navigation__item" href="/" eventKey="1">
-                      <img className="navigation__item--img" src={UserProfileInactiveIcon} />
-                    </Nav.Link>
-                  }
-                </span>
-                <span data-for="main" data-tip="Resources">
-                  {this.state.activeKey === "2" ? 
-                    <Nav.Link className="navigation__item" id="active" href="#resources" eventKey="2">
-                      <img className="navigation__item--img" src={ResourceActiveIcon} />
-                    </Nav.Link>
-                    : 
-                    <Nav.Link className="navigation__item" href="#resources" eventKey="2">
-                      <img className="navigation__item--img" src={ResourceInactiveIcon} />
-                    </Nav.Link>
-                  }
-                </span>
-                <span data-for="main" data-tip="Community Board">
-                  {this.state.activeKey === "3" ? 
-                    <Nav.Link className="navigation__item" id="active" href="#communityBoard" eventKey="3">
-                      <img className="navigation__item--img" src={CommunityActiveIcon} />
-                    </Nav.Link>
-                    : 
-                    <Nav.Link className="navigation__item" href="#communityBoard" eventKey="3">
-                      <img className="navigation__item--img" src={CommunityInactiveIcon} />
-                    </Nav.Link>
-                  }
-                </span>
-              </div>
-              ) 
-              : null}
-            <div className="nav navbar-nav justify-content-end">
-                {this.state.userImage === "" ? (
-                <div className="navigation__item--user-image_loader"/>
-              ) : (
-                <div>
-                  <img className="navigation__item--user-image rounded-pill"
-                    src={this.state.userImage}
-                    alt="Profile Pic"
-                  />
-                  <Nav.Link
-                    className="navigation__item navigation__item--logout"
-                    onClick={() => this.setState({ logOutModal: true })}
-                  >
-                    Log Out
+          </a>
+          {this.state.user ? (
+            <div className="navbar-nav w-100 justify-content-center">
+              <span data-for="main" data-tip="Dashboard">
+                {this.state.activeKey === "1" ? (
+                  <Nav.Link className="navigation__item" id="active" href="/" eventKey="1">
+                    <img className="navigation__item--img" src={UserProfileActiveIcon} />
                   </Nav.Link>
-                </div>
-              )}
+                ) : (
+                  <Nav.Link className="navigation__item" href="/" eventKey="1">
+                    <img className="navigation__item--img" src={UserProfileInactiveIcon} />
+                  </Nav.Link>
+                )}
+              </span>
+              <span data-for="main" data-tip="Resources">
+                {this.state.activeKey === "2" ? (
+                  <Nav.Link className="navigation__item" id="active" href="#resources" eventKey="2">
+                    <img className="navigation__item--img" src={ResourceActiveIcon} />
+                  </Nav.Link>
+                ) : (
+                  <Nav.Link className="navigation__item" href="#resources" eventKey="2">
+                    <img className="navigation__item--img" src={ResourceInactiveIcon} />
+                  </Nav.Link>
+                )}
+              </span>
+              <span data-for="main" data-tip="Community Board">
+                {this.state.activeKey === "3" ? (
+                  <Nav.Link
+                    className="navigation__item"
+                    id="active"
+                    href="#communityBoard"
+                    eventKey="3"
+                  >
+                    <img className="navigation__item--img" src={CommunityActiveIcon} />
+                  </Nav.Link>
+                ) : (
+                  <Nav.Link className="navigation__item" href="#communityBoard" eventKey="3">
+                    <img className="navigation__item--img" src={CommunityInactiveIcon} />
+                  </Nav.Link>
+                )}
+              </span>
             </div>
+          ) : null}
+          <div className="nav navbar-nav justify-content-end">
+            {this.state.userImage === "" ? (
+              <div className="navigation__item--user-image_loader" />
+            ) : (
+              <div>
+                <img
+                  className="navigation__item--user-image rounded-pill"
+                  src={this.state.userImage}
+                  alt="Profile Pic"
+                />
+                <Nav.Link
+                  className="navigation__item navigation__item--logout"
+                  onClick={() => this.setState({ logOutModal: true })}
+                >
+                  Log Out
+                </Nav.Link>
+              </div>
+            )}
+          </div>
           <ReactTooltip id="main" place="bottom" type="dark" effect="float" />
         </Nav>
 
@@ -189,12 +193,10 @@ class Navigation extends Component {
           show={this.state.logOutModal}
           onHide={() => this.setState({ logOutModal: false })}
         />
-
-        <FloatingButton />
+        {this.state.user ? <FloatingButton /> : null}
       </div>
     );
   }
 }
 
 export default Navigation;
-

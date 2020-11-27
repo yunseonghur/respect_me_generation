@@ -66,7 +66,7 @@ class Achievement extends Component {
         <p className="achievement__badges--count">
           {this.state.myBadgeCount} of {this.state.totalBadgeCount} badges collected
         </p>
-        <div className="achievement__badges--container">
+        <div className={ this.state.myBadgeCount===0? "" : "achievement__badges--container" }>
           {this.state.myBadges !== undefined ?
             Array.from(this.state.myBadges).map((myBadge, index) =>  
               <Badge

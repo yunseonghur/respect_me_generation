@@ -12,7 +12,7 @@ import CommunityInactiveIcon from "../images/CommunityInactiveIcon.svg";
 import UserProfileActiveIcon from "../images/UserProfileActiveIcon.svg";
 import ResourceActiveIcon from "../images/ResourceActiveIcon.svg";
 import CommunityActiveIcon from "../images/CommunityActiveIcon.svg";
-
+import { withRouter } from "react-router";
 
 /**
  * Navigation bar
@@ -23,11 +23,7 @@ class Navigation extends Component {
     this.state = {
       user: null,
       userImage: "",
-      profileIcon: UserProfileInactiveIcon,
-      resourceIcon: ResourceInactiveIcon,
-      communityIcon: CommunityInactiveIcon,
-      logOutModal: false,
-      activeKey: "1"
+      logOutModal: false
     };
     this.db = fire.database();
     this.authListener = this.authListener.bind(this);
@@ -91,72 +87,44 @@ class Navigation extends Component {
     });
   }
 
-  getProfileActiveIcon = () => {
-    this.setState({ profileIcon: UserProfileActiveIcon });
-  }
-
-  getProfileInactiveIcon = () => {
-    this.setState({ profileIcon: UserProfileInactiveIcon });
-  }
-
-  getResourceActiveIcon = () => {
-    this.setState({ resourceIcon: ResourceActiveIcon });
-  }
-
-  getResourceInactiveIcon = () => {
-    this.setState({ resourceIcon: ResourceInactiveIcon });
-  }
-
-  getCommunityActiveIcon = () => {
-    this.setState({ communityIcon: CommunityActiveIcon });
-  }
-
-  getCommunityInactiveIcon = () => {
-    this.setState({ communityIcon: CommunityInactiveIcon });
-  }
-
-  handleSelect = (eventKey) => {
-    this.setState({ activeKey: eventKey });
-  }
-
   render() {
     return (
       <div className="navigation">
-        <Nav className="navbar navbar-expand" activeKey="1" onSelect={this.handleSelect}>
+        <Nav className="navbar navbar-expand">
           <a className="navigation__brand" href="/">
             <img className="navigation__brand--img" src={RMG_PrimaryIcon} alt="logo"></img>
           </a>    
             {this.state.user ? (
               <div className="navbar-nav w-100 justify-content-center">
                 <span data-for="main" data-tip="Dashboard">
-                  {this.state.activeKey === "1" ? 
-                    <Nav.Link className="navigation__item" id="active" href="/" eventKey="1">
+                  {this.props.location.pathname === "/" ? 
+                    <Nav.Link className="navigation__item" id="active" href="/">
                       <img className="navigation__item--img" src={UserProfileActiveIcon} />
                     </Nav.Link>
                     : 
-                    <Nav.Link className="navigation__item" href="/" eventKey="1">
+                    <Nav.Link className="navigation__item" href="/">
                       <img className="navigation__item--img" src={UserProfileInactiveIcon} />
                     </Nav.Link>
                   }
                 </span>
                 <span data-for="main" data-tip="Resources">
-                  {this.state.activeKey === "2" ? 
-                    <Nav.Link className="navigation__item" id="active" href="#resources" eventKey="2">
+                  {this.props.location.pathname === "/resources" ? 
+                    <Nav.Link className="navigation__item" id="active" href="#resources">
                       <img className="navigation__item--img" src={ResourceActiveIcon} />
                     </Nav.Link>
                     : 
-                    <Nav.Link className="navigation__item" href="#resources" eventKey="2">
+                    <Nav.Link className="navigation__item" href="#resources">
                       <img className="navigation__item--img" src={ResourceInactiveIcon} />
                     </Nav.Link>
                   }
                 </span>
                 <span data-for="main" data-tip="Community Board">
-                  {this.state.activeKey === "3" ? 
-                    <Nav.Link className="navigation__item" id="active" href="#communityBoard" eventKey="3">
+                  {this.props.location.pathname === "/communityBoard" ? 
+                    <Nav.Link className="navigation__item" id="active" href="#communityBoard">
                       <img className="navigation__item--img" src={CommunityActiveIcon} />
                     </Nav.Link>
                     : 
-                    <Nav.Link className="navigation__item" href="#communityBoard" eventKey="3">
+                    <Nav.Link className="navigation__item" href="#communityBoard">
                       <img className="navigation__item--img" src={CommunityInactiveIcon} />
                     </Nav.Link>
                   }
@@ -196,5 +164,5 @@ class Navigation extends Component {
   }
 }
 
-export default Navigation;
+export default withRouter(Navigation);
 

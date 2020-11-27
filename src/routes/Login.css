@@ -62,7 +62,7 @@ li {
   font-family: "Titillium Web", sans-serif;
   font-weight: 300;
   font-size: 15pt;
-  width: 350px;
+  /* width: 350px; */
   margin: 10px 0;
 }
 
@@ -81,8 +81,14 @@ li {
 }
 
 @media only screen and (max-width: 980px) {
-  .login__container__right--logo {
+  .login__container__right {
     display: none;
+  }
+  .login__container {
+    text-align: center;
+  }
+  .login__container .firebaseui-list-item {
+    text-align: center;
   }
 }
 

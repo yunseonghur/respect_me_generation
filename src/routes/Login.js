@@ -52,8 +52,7 @@ class Login extends Component {
               </div>
             </div>
             <div className="login__container__left--description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere posuere ipsum
-              quis hendrerit. Etiam.
+              Built with kids, for kids, like you.
             </div>
             <div className="login__container__left__button">
               {/* <button className="home-not-logged-in_container__left__button--login">LOGIN</button> */}

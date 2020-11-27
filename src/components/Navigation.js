@@ -158,7 +158,7 @@ class Navigation extends Component {
           onHide={() => this.setState({ logOutModal: false })}
         />
 
-        <FloatingButton />
+        {this.state.user ? <FloatingButton /> : null}
       </div>
     );
   }

@@ -6,6 +6,9 @@ import Badge from '../components/Badge';
 
 const dbRef = fire.database().ref();
 
+/**
+ * Displays a collection of badges in Dashboard.
+ */
 class Achievement extends Component {
   state = {
     myBadges: [],
@@ -13,7 +16,7 @@ class Achievement extends Component {
     myBadgeCount: ""
   };
 
-  // Get current user's badges if exist
+  /** Get current user's badges if exist */
   componentDidMount(){
     dbRef.child('User').on('value', snap => {
       const userInfo = snap.val();
@@ -23,6 +26,8 @@ class Achievement extends Component {
 
   /**
    * Load the image of the current users's badges.
+   * 
+   * @param {Object} myBadges a badge node stored in user
    */
   getMyBadges(myBadges) {
     let badgeImgArr = [];
@@ -33,8 +38,6 @@ class Achievement extends Component {
 
       for (let id in badgeRepo){
         badgeCount++;
-        // for (let index in myBadges){
-        //   if(myBadges[index] === id) {
           for (let badgeID in myBadges){
             if(badgeID === id) {
             badgeImgArr.push({

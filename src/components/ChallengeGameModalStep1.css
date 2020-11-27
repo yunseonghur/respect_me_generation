@@ -1,17 +1,16 @@
 .challenge-game-modal__body {
     text-align: center;
-  }
-  .challenge-game-modal__body--image {
-    width: 150px;
-    height: 150px;
-  }
-  .challenge-game-modal__body--prompt {
-    font-size: 15pt;
-    font-weight: 500;
-  }
-  .challenge-game-modal__body__bth-group--categories {
-    margin: 10px;
-    font-size: 15pt !important;
-    border-radius: 10px !important;
-  }
-  
+}
+.challenge-game-modal__body--image {
+  width: 150px;
+  height: 150px;
+}
+.challenge-game-modal__body--prompt {
+  font-size: 15pt;
+  font-weight: 500;
+}
+.challenge-game-modal__body__bth-group--categories {
+  margin: 10px;
+  font-size: 15pt !important;
+  border-radius: 10px !important;
+}

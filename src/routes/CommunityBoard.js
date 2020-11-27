@@ -7,7 +7,6 @@ import Button from "react-bootstrap/Button";
 import fire from "../fire.js";
 import UserVideo from "../components/UserVideo";
 
-
 const dbRef = fire.database().ref();
 /**
  * Handles toggling display of cards and videos.
@@ -66,6 +65,9 @@ class CommunityBoard extends Component {
     }
   };
 
+  /**
+   * Gets current user's videos from firebase
+   */
   getUserInfo() {
     dbRef.child("User").on("value", (snap) => {
       const userInfo = snap.val();
@@ -80,6 +82,9 @@ class CommunityBoard extends Component {
     });
   }
 
+  /**
+   * Gives an id for each video
+   */
   getVideos() {
     let videos = this.state.videos;
     let videoArr = [];
@@ -94,7 +99,7 @@ class CommunityBoard extends Component {
   render() {
     return (
       <div className="community-board">
-        {this.props.tagVisible ? (
+        {this.props.tagVisible && this.state.cardVisible ? (
           <div className="community-board__toggle-buttons">
             <ButtonGroup>
               {this.tags.map((value, index) => (

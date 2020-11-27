@@ -42,6 +42,7 @@ class AddComment extends Component {
     this.handleInput = this.handleInput.bind(this);
   }
 
+  /** Get current user's name and uid if user exists */
   componentDidMount() {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -247,7 +248,7 @@ class AddComment extends Component {
 
   /**
    * Check if user is logged in.
-   * @param {firebaseUser} currentUser the currently logged in user.
+   * @param {string} userUID uid of the currently logged in user.
    */
   verifyUser = (userUID) => {
     if (userUID === "") {
@@ -258,6 +259,9 @@ class AddComment extends Component {
     }
   };
 
+  /**
+   * Remove the card from firebase
+   */
   deleteCard = () => {
     dbRef
       .ref("User/" + this.props.cardOwnerUID)
@@ -332,31 +336,36 @@ class AddComment extends Component {
           <Modal.Body className="add-comment__modal__body">
             <div>
               <Row>
-                <Col>{this.displayCard()}</Col>
+                <Col className="add-comment__modal__body--card">{this.displayCard()}</Col>
               </Row>
               <Row>
                 <Col>{this.getComments()}</Col>
               </Row>
               <br />
               <Form className="add-comment__modal__body__form" onSubmit={this.handleSubmit}>
-                <Row>
-                  <Col className="add-comment__modal__body__form__input-col">
+                <div className="add-comment__modal__body__form__container">
+                  <span className="add-comment__modal__body__form__container__input">
                     <Form.Group controlId="Comments">
                       <input
                         type="text"
-                        className="add-comment__modal__body__form__input-col--comments"
+                        className="add-comment__modal__body__form__container__input--comments"
                         placeholder="add your comment"
                         value={this.state.newComment}
                         onChange={this.handleInput}
                       />
                     </Form.Group>
-                  </Col>
-                  <Col>
+                  </span>
+                  <span className="add-comment__modal__body__form__container__submit">
                     <Form.Group>
-                      <Button onClick={this.writeComment}>Add Comment</Button>
+                      <Button
+                        className="add-comment__modal__body__form__container__submit--button"
+                        onClick={this.writeComment}
+                      >
+                        Add Comment
+                      </Button>
                     </Form.Group>
-                  </Col>
-                </Row>
+                  </span>
+                </div>
               </Form>
             </div>
           </Modal.Body>

@@ -1,6 +1,11 @@
 import React from 'react';
 import "./Badge.css";
 
+
+/**
+ * Displays the badge image and title.
+ * Called in Achievement.js
+ */
 const Badge = (props) => {
   return (
     <div className="badge">

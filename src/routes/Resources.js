@@ -5,8 +5,11 @@ import { withRouter } from "react-router-dom";
 import fire from "../fire.js";
 import ResourceEntryCard from "../components/ResourceEntryCard";
 
-const dbRef = fire.database().ref();
 
+const dbRef = fire.database().ref();
+/**
+ * The resources page where they can view and save resources.
+ */
 class Resources extends Component {
   tags = ["all", "study", "health", "relationship"];
 

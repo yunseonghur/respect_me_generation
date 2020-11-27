@@ -3,7 +3,6 @@ import MyCard from "./MyCard";
 import { CardDeck } from "react-bootstrap";
 import fire from "../fire";
 import loading from "../images/loading.gif";
-import "./Cards.css";
 const dbRef = fire.database().ref();
 
 /**
@@ -49,6 +48,10 @@ class Cards extends React.Component {
     });
   }
 
+  /**
+   * Grabs the current user's cards from firebase
+   * @param {firebaseUser} users
+   */
   getUserCards(users) {
     let cardCollected = [];
     let cards = users[this.props.userUID].cards;
@@ -69,6 +72,10 @@ class Cards extends React.Component {
       isLoading: false,
     });
   }
+
+  /**
+   * Displays appropriate cards depending on pages
+  */
   componentDidMount() {
     dbRef.child("User").on("value", (snap) => {
       const users = snap.val();
@@ -80,12 +87,16 @@ class Cards extends React.Component {
     });
   }
 
+  /**
+   * Updates the board when a tag is clicked to sort the cards
+  */
   static getDerivedStateFromProps(props, state) {
     return { tag: props.tag };
   }
 
   /**
    * Returns the Google UID of card owner
+   * @param {string} cardId an id of the card
    */
   getCardOwner = (cardId) => {
     let cardOwnerUID;
@@ -105,7 +116,7 @@ class Cards extends React.Component {
 
   /**
    * counts the number of comments a user has.
-   * @param {Comment} cardCommentObj a card comment object stored in user
+   * @param {Object} cardCommentObj a card comment object stored in user
    */
   countComments = (cardCommentObj) => {
     // count comments under each card
@@ -169,7 +180,7 @@ class Cards extends React.Component {
 
   /**
    * Sorts cards from users by timestamp
-   * @param {array} cardCollected a list of all cards from iterating through all users
+   * @param {Object} cardCollected a list of all cards from iterating through all users
    */
   sortByTimestamp(cardCollected) {
     cardCollected.sort(function (a, b) {

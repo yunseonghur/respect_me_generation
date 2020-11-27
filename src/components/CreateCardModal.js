@@ -46,6 +46,7 @@ class CreateCardModal extends React.Component {
     });
   }
 
+  // tag state is set when user selects a tag
   handleTagChange(event) {
     this.setState({
       tag: event.target.name,

@@ -18,8 +18,8 @@ import ChallengeCurrent from "../components/ChallengeCurrent";
 import Achievement from "../components/Achievement.js";
 import SavedResources from "../components/SavedResources.js";
 
-const dbRef = fire.database().ref();
 
+const dbRef = fire.database().ref();
 /**
  * The user profile page where they can view (and in the future edit/delete)
  * their own posts, along with checking their current points and badge.
@@ -69,9 +69,11 @@ class Dashboard extends Component {
     });
     this.getCompletedChallenges();
     this.getActiveChallenges();
-    // this.getNumberOfActiveChallenges()
   }
 
+  /**
+   * Gets the current user's completed challenges
+   */ 
   getCompletedChallenges() {
     // read all resources from db
     dbRef
@@ -79,7 +81,6 @@ class Dashboard extends Component {
       .once("value")
       .then(function (snap) {
         const result = snap.val();
-        console.log(result);
         return result;
       })
       .then((res) => {
@@ -90,6 +91,9 @@ class Dashboard extends Component {
       });
   }
 
+  /**
+   * Gets the current user's active challenges
+   */ 
   getActiveChallenges() {
     // read all resources from db
     dbRef
@@ -97,7 +101,6 @@ class Dashboard extends Component {
       .once("value")
       .then(function (snap) {
         const result = snap.val();
-        console.log(result);
         return result;
       })
       .then((res) => {
@@ -107,9 +110,9 @@ class Dashboard extends Component {
         console.log(err);
       });
   }
+
   //Store the user's active challenges in a simple array instead of in json format
   formatActiveChallenges(activeChallenges) {
-    // let activeChallenges = this.state.activeChallenges;
     let activeChallengesArr = [];
     for (let activeChallenge in activeChallenges) {
       activeChallengesArr.push(activeChallenges[activeChallenge]);
@@ -120,11 +123,9 @@ class Dashboard extends Component {
 
   // Store the current user's completed challenges in an array instead of json format
   formatCompletedChallenges(completedChallenges) {
-    // let completedChallenges = this.state.completedChallenges;
     let completedChallengesArr = [];
 
     for (let challenge in completedChallenges) {
-      // let title = await this.lookupChallengesTitle(challenge);
       completedChallengesArr.push({
         id: challenge,
         endTime: completedChallenges[challenge].endTime,
@@ -135,8 +136,10 @@ class Dashboard extends Component {
     this.setState({ completedChallenges: completedChallengesArr });
   }
 
+  /**
+   * Sets the number of active challeges
+   */ 
   getNumberOfActiveChallenges(activeChallengesArr) {
-    console.log(Object.keys(activeChallengesArr).length);
     if (Object.keys(activeChallengesArr).length) {
       this.setState({
         numberOfActiveChallenges: Object.keys(activeChallengesArr).length,
@@ -148,14 +151,23 @@ class Dashboard extends Component {
     }
   }
 
+  /**
+   * Displays the challenge game modal
+   */
   showChallengeModal = () => {
     this.setState({ challengeModalVisible: !this.state.challengeModalVisible });
   };
 
+  /**
+   * Hides the challenge game modal
+   */
   hideChallengeModal = () => {
     this.setState({ challengeModalVisible: false });
   };
 
+  /**
+   * Updates the challenges screen
+   */
   updateActiveChallenges = () => {
     dbRef.child("User").on("value", (snap) => {
       const userInfo = snap.val();
@@ -166,6 +178,7 @@ class Dashboard extends Component {
       this.getCompletedChallenges();
     });
   };
+
   render() {
     // determines which badge icon to use
     let badgeIcon;
@@ -237,28 +250,37 @@ class Dashboard extends Component {
           <TabPanel tabId="challenges">
             <div className="challenges">
               {this.state.numberOfActiveChallenges < 3 ? (
-                <button onClick={this.showChallengeModal}>Start Challenge!</button>
+                <button className="dashboard_challenges--button" onClick={this.showChallengeModal}>
+                  Start Challenge!
+                </button>
               ) : null}
-              <h2 className="profile_challenges--title">Active Challenges</h2>
-              {this.state.activeChallenges !== undefined ? (
-                Array.from(this.state.activeChallenges).map((myActiveChallenge) => (
-                  <ChallengeCurrent
-                    title={myActiveChallenge.title}
-                    startTime={myActiveChallenge.startTime}
-                    userUID={this.state.userUID}
-                    badgeId={myActiveChallenge.badgeID}
-                    updateActiveChallenges={this.updateActiveChallenges}
-                    challengeId={myActiveChallenge.challengeId}
-                    getcompleteChallenge={this.getcompleteChallenge}
-                  />
-                ))
-              ) : (
-                <ChallengeNoEntry />
-              )}
-              <h2 className="profile_challenges--title">Completed Challenges</h2>
+              <h2 className="dashboard_challenges--title">Active Challenges</h2>
+              <p className="dashboard_challenges--count">
+                {this.state.numberOfActiveChallenges} of 3 active challenges
+              </p>
+              <div className="dashboard_challenges--entries">
+                {this.state.activeChallenges !== undefined ? (
+                  Array.from(this.state.activeChallenges).map((myActiveChallenge) => (
+                    <ChallengeCurrent
+                      key={myActiveChallenge.challengeId}
+                      title={myActiveChallenge.title}
+                      startTime={myActiveChallenge.startTime}
+                      userUID={this.state.userUID}
+                      badgeId={myActiveChallenge.badgeID}
+                      updateActiveChallenges={this.updateActiveChallenges}
+                      challengeId={myActiveChallenge.challengeId}
+                      getcompleteChallenge={this.getcompleteChallenge}
+                    />
+                  ))
+                ) : (
+                  <ChallengeNoEntry />
+                )}
+              </div>
+              <h2 className="dashboard_challenges--title">Completed Challenges</h2>
               {this.state.completedChallenges !== undefined
                 ? Array.from(this.state.completedChallenges).map((myCompletedChallenge) => (
                     <ChallengeEntry
+                      badgeID={myCompletedChallenge.id}
                       title={myCompletedChallenge.title}
                       endTime={myCompletedChallenge.endTime}
                     />

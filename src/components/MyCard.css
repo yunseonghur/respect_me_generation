@@ -7,7 +7,6 @@
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   color: white;
   margin: 25px;
-  /* margin: 25px auto; */
 }
 
 .mycard__card:hover {
@@ -29,7 +28,6 @@ img.card-img.mycard__card--img {
   color: rgba(125, 128, 147, 1);
   padding: 2px 8px;
   border-radius: 100px;
-  /* font-size: 12px; */
 }
 .mycard__card__overlay__text-header--timestamp {
   color: rgb(192, 192, 192);
@@ -61,23 +59,3 @@ img.card-img.mycard__card--img {
   height: 20px;
   width: 20px;
 }
-
-/* @media only screen and (max-width: 370px) {
-  #cardWrapper {
-    width: fit-content;
-    margin-left: 65px;
-  }
-} */
-
-/*
-@media only screen and (max-width: 360px) {
-  #cardWrapper {
-    margin-left: 55px;
-  }
-}
-
-@media only screen and (max-width: 320px) {
-  #cardWrapper {
-    margin-left: 35px;
-  }
-} */

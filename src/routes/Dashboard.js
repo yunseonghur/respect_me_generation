@@ -18,8 +18,8 @@ import ChallengeCurrent from "../components/ChallengeCurrent";
 import Achievement from "../components/Achievement.js";
 import SavedResources from "../components/SavedResources.js";
 
-const dbRef = fire.database().ref();
 
+const dbRef = fire.database().ref();
 /**
  * The user profile page where they can view (and in the future edit/delete)
  * their own posts, along with checking their current points and badge.
@@ -71,6 +71,9 @@ class Dashboard extends Component {
     this.getActiveChallenges();
   }
 
+  /**
+   * Gets the current user's completed challenges
+   */ 
   getCompletedChallenges() {
     // read all resources from db
     dbRef
@@ -88,6 +91,9 @@ class Dashboard extends Component {
       });
   }
 
+  /**
+   * Gets the current user's active challenges
+   */ 
   getActiveChallenges() {
     // read all resources from db
     dbRef
@@ -104,6 +110,7 @@ class Dashboard extends Component {
         console.log(err);
       });
   }
+
   //Store the user's active challenges in a simple array instead of in json format
   formatActiveChallenges(activeChallenges) {
     let activeChallengesArr = [];
@@ -129,6 +136,9 @@ class Dashboard extends Component {
     this.setState({ completedChallenges: completedChallengesArr });
   }
 
+  /**
+   * Sets the number of active challeges
+   */ 
   getNumberOfActiveChallenges(activeChallengesArr) {
     if (Object.keys(activeChallengesArr).length) {
       this.setState({
@@ -141,14 +151,23 @@ class Dashboard extends Component {
     }
   }
 
+  /**
+   * Displays the challenge game modal
+   */
   showChallengeModal = () => {
     this.setState({ challengeModalVisible: !this.state.challengeModalVisible });
   };
 
+  /**
+   * Hides the challenge game modal
+   */
   hideChallengeModal = () => {
     this.setState({ challengeModalVisible: false });
   };
 
+  /**
+   * Updates the challenges screen
+   */
   updateActiveChallenges = () => {
     dbRef.child("User").on("value", (snap) => {
       const userInfo = snap.val();

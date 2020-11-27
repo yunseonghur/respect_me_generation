@@ -42,6 +42,7 @@ class AddComment extends Component {
     this.handleInput = this.handleInput.bind(this);
   }
 
+  /** Get current user's name and uid if user exists */
   componentDidMount() {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -247,7 +248,7 @@ class AddComment extends Component {
 
   /**
    * Check if user is logged in.
-   * @param {firebaseUser} currentUser the currently logged in user.
+   * @param {string} userUID uid of the currently logged in user.
    */
   verifyUser = (userUID) => {
     if (userUID === "") {
@@ -258,6 +259,9 @@ class AddComment extends Component {
     }
   };
 
+  /**
+   * Remove the card from firebase
+   */
   deleteCard = () => {
     dbRef
       .ref("User/" + this.props.cardOwnerUID)

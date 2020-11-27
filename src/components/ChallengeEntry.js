@@ -2,12 +2,21 @@ import React, { useState, useEffect } from "react";
 import "./ChallengeEntry.css";
 import fire from "../fire.js";
 
+/**
+ * Represent a completed challenge entry.
+ * Called in ChallengeGameModalStep2.js
+ * 
+ * @param {string} badgeId an id of the badge associated with this challenge
+ * @param {string} title a title of this challenge
+ * @param {string} endTime a timestamp of end date 
+ */
 const ChallengeEntry = (props) => {
   const dbRef = fire.database().ref();
   const [badgeImg, setBadgeImg] = useState();
   useEffect(() => {
     getMyBadges();
   });
+
   /**
    * Load the image of the current users's badges.
    */
@@ -24,6 +33,7 @@ const ChallengeEntry = (props) => {
       setBadgeImg(badgeImgTmp);
     });
   };
+
   return (
     <div id={props.key} className="challenge-entry">
       {/* challenge image */}

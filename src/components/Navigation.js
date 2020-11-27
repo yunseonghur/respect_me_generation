@@ -90,30 +90,37 @@ class Navigation extends Component {
     });
   }
 
+  /** Displays active profile icon */
   getProfileActiveIcon = () => {
     this.setState({ profileIcon: UserProfileActiveIcon });
   };
 
+  /** Displays inactive profile icon */
   getProfileInactiveIcon = () => {
     this.setState({ profileIcon: UserProfileInactiveIcon });
   };
 
+  /** Displays active resource icon */
   getResourceActiveIcon = () => {
     this.setState({ resourceIcon: ResourceActiveIcon });
   };
 
+  /** Displays inactive resource icon */
   getResourceInactiveIcon = () => {
     this.setState({ resourceIcon: ResourceInactiveIcon });
   };
 
+  /** Displays active community icon */
   getCommunityActiveIcon = () => {
     this.setState({ communityIcon: CommunityActiveIcon });
   };
 
+  /** Displays inactive community icon */
   getCommunityInactiveIcon = () => {
     this.setState({ communityIcon: CommunityInactiveIcon });
   };
 
+  /** Sets active nav item */
   handleSelect = (eventKey) => {
     this.setState({ activeKey: eventKey });
   };

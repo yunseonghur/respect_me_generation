@@ -65,6 +65,9 @@ class CommunityBoard extends Component {
     }
   };
 
+  /**
+   * Gets current user's videos from firebase
+   */
   getUserInfo() {
     dbRef.child("User").on("value", (snap) => {
       const userInfo = snap.val();
@@ -79,6 +82,9 @@ class CommunityBoard extends Component {
     });
   }
 
+  /**
+   * Gives an id for each video
+   */
   getVideos() {
     let videos = this.state.videos;
     let videoArr = [];

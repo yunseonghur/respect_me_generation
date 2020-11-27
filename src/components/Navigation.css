@@ -48,10 +48,6 @@
   top: 60px;
 }
 
-/* .svg:hover {
-  filter: invert(0.22) sepia(1) saturate(1.9) hue-rotate(86.4deg) brightness(1.13);
-} */
-
 @media only screen and (max-width: 768px) {
   .navigation__brand--img, .navigation__item--user-image {
     width: 30px;

@@ -7,11 +7,11 @@ import AddComment from "./AddComment";
 
 /**
  * Represents a single card object.
- * Called in CardModal.js, Cards.js, AddComment.js, Profile.js
+ * Called in Cards.js, AddComment.js, Profile.js
  *
  * @param {function} onClick should show the AddComment modal
  * @param {string} background
- * @param {int} commentCount
+ * @param {number} commentCount
  */
 class MyCard extends Component {
   constructor(props) {
@@ -21,6 +21,9 @@ class MyCard extends Component {
     };
   }
 
+  /**
+   * Displays the modal that contains comments
+   */
   openAddComment = () => {
     this.setState({ visible: !this.state.visible });
   };

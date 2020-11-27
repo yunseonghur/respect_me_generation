@@ -16,6 +16,9 @@ class LogoutModal extends React.Component {
     this.logOut = this.logOut.bind(this);
   }
 
+  /**
+   * Redirects the page to login page
+   */
   logOut() {
     fire
       .auth()

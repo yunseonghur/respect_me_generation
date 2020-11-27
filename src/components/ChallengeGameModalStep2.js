@@ -4,6 +4,15 @@ import ChallengeActive from '../components/ChallengeActive';
 import fire from "../fire.js";
 
 
+/**
+ * Represent the first page of the challenge game modal.
+ *
+ * @param {object} activeChallenges a list active challenges
+ * @param {object} completedChallenges a list of completed challenges
+ * @param {string} userUID uid of the current user
+ * @param {string} category a category selected by a user
+ * @param {number} currentStep page number for challenge game modal
+ */
 class ChallengeGameModalStep2 extends Component {
 
     constructor(props) {
@@ -21,6 +30,9 @@ class ChallengeGameModalStep2 extends Component {
         }
     }
 
+    /**
+     * Picks a random challenge from challenge entries
+     */
     async getRandomChallenge() {
         let activeChallengesKeys = [];
         let completedChallengeKeys = [];
@@ -36,7 +48,7 @@ class ChallengeGameModalStep2 extends Component {
         let month = dateObject.getMonth() + 1;
         let year = dateObject.getFullYear();
         let date = day + "/" + month + "/" + year;
-        // // get a list of potential challenges which the user hasn't completed yet
+        // get a list of potential challenges which the user hasn't completed yet
         let potentialChallenges = [];
     
         let challengesRef = fire.database().ref("Challenges/"+this.props.category);
@@ -74,11 +86,16 @@ class ChallengeGameModalStep2 extends Component {
         this.setState({randomChallenge: randomChallenge});
     }
   
-
+    /**
+     * Called when user skips the randomly picked challenge
+     */
     skipChallenge = () => {
         this.getRandomChallenge();
     }
 
+    /**
+     * Called when user accepts the randomly picked challenge
+     */
     addChallenge = () => {
         fire.database().ref().child('User/'+ this.props.userUID + '/activeChallenges/' + this.state.randomChallenge.challengeId).set(this.state.randomChallenge);
         this.props.hideChallengeModal();
@@ -100,7 +117,6 @@ class ChallengeGameModalStep2 extends Component {
                     addChallenge={this.addChallenge}
                     skipChallenge={this.skipChallenge}
                 ></ChallengeActive>
-
             </div>
             
         )

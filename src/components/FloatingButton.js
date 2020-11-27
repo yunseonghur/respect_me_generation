@@ -12,6 +12,10 @@ import CreateCardModal from "./CreateCardModal";
 
 const db = fire.database();
 
+
+/**
+ * Display the floating action button on the bottom right corner.
+ */
 class FloatingButton extends Component {
   constructor(props) {
     super(props);
@@ -148,7 +152,6 @@ class FloatingButton extends Component {
           <Button className="floating-button__btn--card" tooltip="Add a card" onClick={this.displayCreateCardModal} disabled>
             <img className="floating-button__img" src={PostCardIcon} alt="Add a card"/>
           </Button>
-          {/* <Button className="floating-button__btn--add" rotate={true} styles={{backgroundColor: "#2AFFA9", width:"43px", height:"43px"}}> */}
           <Button className="floating-button__btn--add" rotate={true}>
             <img className="floating-button__img" id="rotate" src={PlusIcon} alt="Add" />
           </Button>

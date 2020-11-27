@@ -3,6 +3,16 @@ import "./ChallengeEntry.css";
 import fire from "../fire.js";
 import Question from "../images/question.png";
 
+/**
+ * Represent a challenge entry in game modal.
+ * Called in ChallengeGameModalStep2.js
+ * 
+ * @param {string} userUID uid of the current user
+ * @param {string} challengeId an id of this challenge
+ * @param {string} badgeId an id of the badge associated with this challenge
+ * @param {string} title a title of this challenge
+ * @param {string} startTime a timestamp of start date 
+ */
 const ChallengeCurrent = (props) => {
   const cancelChallenge = () => {
     fire
@@ -23,8 +33,7 @@ const ChallengeCurrent = (props) => {
       startTime: props.startTime,
       endTime: day + "/" + month + "/" + year,
     };
-
-    // }
+    
     console.log(completedChallenge);
     console.log(props.challengeId);
     fire

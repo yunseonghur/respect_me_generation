@@ -28,8 +28,7 @@ class ChallengeGameModalStep2 extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (this.props.category !== prevProps.category ||
-             (prevState.randomChallenge === this.state.randomChallenge &&
-                 this.state.randomChallenge !== undefined)) {
+              prevState.randomChallenge === this.state.randomChallenge) {
             this.getRandomChallenge();
         }
     }

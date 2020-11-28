@@ -102,17 +102,30 @@ class CommunityBoard extends Component {
         {this.props.tagVisible && this.state.cardVisible ? (
           <div className="community-board__toggle-buttons">
             <ButtonGroup>
-              {this.tags.map((value, index) => (
-                <Button
-                  name={value}
-                  key={index}
-                  onClick={this.handleTag}
-                  variant="outline-primary"
-                  className="rounded-pill community-board__toggle-buttons--btn"
-                >
-                  {value}
-                </Button>
-              ))}
+              {this.tags.map((value, index) =>
+                this.state.tag === value ? (
+                  <Button
+                    id="community-board__toggle-buttons--btn-active"
+                    name={value}
+                    key={index}
+                    onClick={this.handleTag}
+                    variant="outline-primary"
+                    className="rounded-pill community-board__toggle-buttons--btn"
+                  >
+                    {value}
+                  </Button>
+                ) : (
+                  <Button
+                    name={value}
+                    key={index}
+                    onClick={this.handleTag}
+                    variant="outline-primary"
+                    className="rounded-pill community-board__toggle-buttons--btn"
+                  >
+                    {value}
+                  </Button>
+                )
+              )}
             </ButtonGroup>
           </div>
         ) : null}

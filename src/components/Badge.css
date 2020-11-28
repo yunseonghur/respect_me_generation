@@ -1,7 +1,9 @@
 .badge {
- background: none;
- margin-right: 5px;
- margin-left: 5px;
+  width: 200px;
+  height: 100px;
+  background: none;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .badge_img {
@@ -12,4 +14,5 @@
 .badge_title {
   padding-top: 3px;
   color: white;
+  font-size: 10px;
 }

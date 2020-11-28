@@ -155,7 +155,7 @@ class CreateCardModal extends React.Component {
           size="md"
           centered
         >
-          <Modal.Header className="create-card-modal__header" closeButton></Modal.Header>
+          <Modal.Header className="create-card-modal__header" closeButton />
           <Modal.Body className="create-card-modal__body">
             <div className="create-card-modal__body__wrapper">
               <form onSubmit={this.handleSubmit}>
@@ -165,17 +165,30 @@ class CreateCardModal extends React.Component {
                   </p>
                   <div className="create-card-modal__body__wrapper__tags--buttons">
                     <ButtonGroup>
-                      {this.tags.map((value, index) => (
-                        <Button
-                          name={value}
-                          key={index}
-                          onClick={this.handleTagChange}
-                          variant="outline-primary"
-                          className="rounded-pill community-board__toggle-buttons--btn"
-                        >
-                          {value}
-                        </Button>
-                      ))}
+                      {this.tags.map((value, index) =>
+                        this.state.tag === value ? (
+                          <Button
+                            id="community-board__toggle-buttons--btn-active"
+                            name={value}
+                            key={index}
+                            onClick={this.handleTagChange}
+                            variant="outline-primary"
+                            className="rounded-pill community-board__toggle-buttons--btn"
+                          >
+                            {value}
+                          </Button>
+                        ) : (
+                          <Button
+                            name={value}
+                            key={index}
+                            onClick={this.handleTagChange}
+                            variant="outline-primary"
+                            className="rounded-pill community-board__toggle-buttons--btn"
+                          >
+                            {value}
+                          </Button>
+                        )
+                      )}
                     </ButtonGroup>
                   </div>
                 </div>

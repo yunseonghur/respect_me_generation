@@ -77,13 +77,26 @@
 .challenges {
   padding: 15px;
 }
+.dashboard_challenges__title {
+  text-align: left;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.dashboard_challenges__title--active {
+  text-align: left;
+  font-size: 2rem;
+}
+.dashboard_challenges__title--count {
+  float: right;
+  margin-top: 9px;
+}
 
 .dashboard_challenges--button {
   margin-right: 10px;
   width: 100px;
   font-size: 11pt;
   border: none;
-  background-color: #0BA8C3;
+  background-color: #0ba8c3;
   border-radius: 5px;
   color: white;
   margin-bottom: 15px;

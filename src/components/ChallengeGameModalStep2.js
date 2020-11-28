@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./ChallengeGameModalStep1.css";
 import ChallengeActive from '../components/ChallengeActive';
 import fire from "../fire.js";
+import ChallengeNoEntry from "./ChallengeNoEntry";
 
 
 /**
@@ -19,13 +20,16 @@ class ChallengeGameModalStep2 extends Component {
         super(props);
         this.state = {
             category: '',
-            randomChallenge: ''
+            randomChallenge: undefined,
+            previousChallenge:''
         }
         this.getRandomChallenge = this.getRandomChallenge.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.category !== prevProps.category || prevState.randomChallenge === this.state.randomChallenge) {
+        if (this.props.category !== prevProps.category ||
+             (prevState.randomChallenge === this.state.randomChallenge &&
+                 this.state.randomChallenge !== undefined)) {
             this.getRandomChallenge();
         }
     }
@@ -34,14 +38,12 @@ class ChallengeGameModalStep2 extends Component {
      * Picks a random challenge from challenge entries
      */
     async getRandomChallenge() {
-        let activeChallengesKeys = [];
-        let completedChallengeKeys = [];
+        let inactiveChallengesKeys = [];
         for (let actChallenge in this.props.activeChallenges) {
-            activeChallengesKeys.push(this.props.activeChallenges[actChallenge].challengeId)
+            inactiveChallengesKeys.push(this.props.activeChallenges[actChallenge].challengeId)
         }
-
         for (let compChallenge in this.props.completedChallenges) {
-            completedChallengeKeys.push(this.props.completedChallenges[compChallenge].id)
+            inactiveChallengesKeys.push(this.props.completedChallenges[compChallenge].id)
         }
         let dateObject = new Date();
         let day = dateObject.getDate();
@@ -50,7 +52,7 @@ class ChallengeGameModalStep2 extends Component {
         let date = day + "/" + month + "/" + year;
         // get a list of potential challenges which the user hasn't completed yet
         let potentialChallenges = [];
-    
+        let potentialChallengesKeys = [];
         let challengesRef = fire.database().ref("Challenges/"+this.props.category);
         await challengesRef.once('value', snap => {
             let challenges = snap.val();
@@ -59,30 +61,23 @@ class ChallengeGameModalStep2 extends Component {
                 tempChallenge.challengeId = challenge;
                 tempChallenge.startTime = date;
                 potentialChallenges.push(tempChallenge);
+                potentialChallengesKeys.push(challenge);
             }
         })
-        // select random challenge from list potential challenges
-    
-        let newChallengeBool = false;
-        let randomChallenge;
-        let randomChallengeKey;
-        while (!newChallengeBool) {
-            if (potentialChallenges.length === 0) {
-                break;
-            }
-            let randomNumber = Math.floor(Math.random() * potentialChallenges.length);
-            randomChallenge = potentialChallenges[randomNumber];
-            randomChallengeKey = randomChallenge.challengeId;
 
-            // Check if randomChallenge is not already active, completed and not being shown
-            if (!activeChallengesKeys.includes(randomChallengeKey) &&
-             !completedChallengeKeys.includes(randomChallengeKey) &&
-             this.state.randomChallenge.challengeId !== randomChallengeKey) {
-                newChallengeBool = true;
-            } 
-            
+        // add previously shown challenge as inactive 
+        if (this.state.randomChallenge !== undefined) {
+            inactiveChallengesKeys.push(this.state.randomChallenge.challengeId)
         }
-        // get user id to set the active challenge as the random one.
+        // select random challenge from list potential challenges
+        let uncompletedChallenges = potentialChallengesKeys.filter(x => !inactiveChallengesKeys.includes(x));
+        let randomNumber = Math.floor(Math.random() * uncompletedChallenges.length);
+        let potentialChallengesIndex = potentialChallengesKeys.findIndex((element) => element === uncompletedChallenges[randomNumber]);
+        let randomChallenge = potentialChallenges[potentialChallengesIndex];
+
+        if (uncompletedChallenges === 0) {
+            this.setState({randomChallenge: undefined});
+        }
         this.setState({randomChallenge: randomChallenge});
     }
   
@@ -107,16 +102,21 @@ class ChallengeGameModalStep2 extends Component {
         if (this.props.currentStep !== 2) {
             return null
         }
-
+ 
         return(
             <div>
                 <div className="challenge-game-modal__body--prompt">{this.props.category}</div>
-                <ChallengeActive
-                    title={this.state.randomChallenge.title}
-                    startTime={this.state.randomChallenge.startTime}
-                    addChallenge={this.addChallenge}
-                    skipChallenge={this.skipChallenge}
-                ></ChallengeActive>
+                { this.state.randomChallenge !== undefined ? (
+                    <ChallengeActive
+                        title={this.state.randomChallenge.title}
+                        startTime={this.state.randomChallenge.startTime}
+                        addChallenge={this.addChallenge}
+                        skipChallenge={this.skipChallenge}
+                    ></ChallengeActive>
+                ): 
+                    <ChallengeNoEntry />
+                }
+
             </div>
             
         )

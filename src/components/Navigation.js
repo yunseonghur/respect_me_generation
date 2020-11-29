@@ -23,7 +23,7 @@ class Navigation extends Component {
     this.state = {
       user: null,
       userImage: "",
-      logOutModal: false
+      logOutModal: false,
     };
     this.db = fire.database();
     this.authListener = this.authListener.bind(this);
@@ -77,7 +77,7 @@ class Navigation extends Component {
       if (user) {
         this.setState({
           user: user,
-          userImage: user.photoURL
+          userImage: user.photoURL,
         });
         this.writeUserData(user.uid, user.displayName, user.email);
         this.addUserData(user.uid);
@@ -93,63 +93,87 @@ class Navigation extends Component {
         <Nav className="navbar navbar-expand">
           <a className="navigation__brand" href="/">
             <img className="navigation__brand--img" src={RMG_PrimaryIcon} alt="logo"></img>
-          </a>    
-            {this.state.user ? (
-              <div className="navbar-nav w-100 justify-content-center">
-                <span data-for="main" data-tip="Dashboard">
-                  {this.props.location.pathname === "/" ? 
-                    <Nav.Link className="navigation__item" id="active" href="/">
-                      <img className="navigation__item--img" src={UserProfileActiveIcon} />
-                    </Nav.Link>
-                    : 
-                    <Nav.Link className="navigation__item" href="/">
-                      <img className="navigation__item--img" src={UserProfileInactiveIcon} />
-                    </Nav.Link>
-                  }
-                </span>
-                <span data-for="main" data-tip="Resources">
-                  {this.props.location.pathname === "/resources" ? 
-                    <Nav.Link className="navigation__item" id="active" href="#resources">
-                      <img className="navigation__item--img" src={ResourceActiveIcon} />
-                    </Nav.Link>
-                    : 
-                    <Nav.Link className="navigation__item" href="#resources">
-                      <img className="navigation__item--img" src={ResourceInactiveIcon} />
-                    </Nav.Link>
-                  }
-                </span>
-                <span data-for="main" data-tip="Community Board">
-                  {this.props.location.pathname === "/communityBoard" ? 
-                    <Nav.Link className="navigation__item" id="active" href="#communityBoard">
-                      <img className="navigation__item--img" src={CommunityActiveIcon} />
-                    </Nav.Link>
-                    : 
-                    <Nav.Link className="navigation__item" href="#communityBoard">
-                      <img className="navigation__item--img" src={CommunityInactiveIcon} />
-                    </Nav.Link>
-                  }
-                </span>
-              </div>
-              ) 
-              : null}
-            <div className="nav navbar-nav justify-content-end">
-                {this.state.userImage === "" ? (
-                <div className="navigation__item--user-image_loader"/>
-              ) : (
-                <div>
-                  <img className="navigation__item--user-image rounded-pill"
-                    src={this.state.userImage}
-                    alt="Profile Pic"
-                  />
-                  <Nav.Link
-                    className="navigation__item navigation__item--logout"
-                    onClick={() => this.setState({ logOutModal: true })}
-                  >
-                    Log Out
+          </a>
+          {this.state.user ? (
+            <div className="navbar-nav w-100 justify-content-center">
+              <span data-for="main" data-tip="Dashboard">
+                {this.props.location.pathname === "/" ? (
+                  <Nav.Link className="navigation__item" id="active" href="/">
+                    <img
+                      alt="profile active"
+                      className="navigation__item--img"
+                      src={UserProfileActiveIcon}
+                    />
                   </Nav.Link>
-                </div>
-              )}
+                ) : (
+                  <Nav.Link className="navigation__item" href="/">
+                    <img
+                      alt="profile inactive"
+                      className="navigation__item--img"
+                      src={UserProfileInactiveIcon}
+                    />
+                  </Nav.Link>
+                )}
+              </span>
+              <span data-for="main" data-tip="Resources">
+                {this.props.location.pathname === "/resources" ? (
+                  <Nav.Link className="navigation__item" id="active" href="#resources">
+                    <img
+                      alt="resource active"
+                      className="navigation__item--img"
+                      src={ResourceActiveIcon}
+                    />
+                  </Nav.Link>
+                ) : (
+                  <Nav.Link className="navigation__item" href="#resources">
+                    <img
+                      alt="resource inactive"
+                      className="navigation__item--img"
+                      src={ResourceInactiveIcon}
+                    />
+                  </Nav.Link>
+                )}
+              </span>
+              <span data-for="main" data-tip="Community Board">
+                {this.props.location.pathname === "/communityBoard" ? (
+                  <Nav.Link className="navigation__item" id="active" href="#communityBoard">
+                    <img
+                      alt="community active"
+                      className="navigation__item--img"
+                      src={CommunityActiveIcon}
+                    />
+                  </Nav.Link>
+                ) : (
+                  <Nav.Link className="navigation__item" href="#communityBoard">
+                    <img
+                      alt="community inactive"
+                      className="navigation__item--img"
+                      src={CommunityInactiveIcon}
+                    />
+                  </Nav.Link>
+                )}
+              </span>
             </div>
+          ) : null}
+          <div className="nav navbar-nav justify-content-end">
+            {this.state.userImage === "" ? (
+              <div className="navigation__item--user-image_loader" />
+            ) : (
+              <div>
+                <img
+                  className="navigation__item--user-image rounded-pill"
+                  src={this.state.userImage}
+                  alt="Profile Pic"
+                />
+                <Nav.Link
+                  className="navigation__item navigation__item--logout"
+                  onClick={() => this.setState({ logOutModal: true })}
+                >
+                  Log Out
+                </Nav.Link>
+              </div>
+            )}
+          </div>
           <ReactTooltip id="main" place="bottom" type="dark" effect="float" />
         </Nav>
 
@@ -165,4 +189,3 @@ class Navigation extends Component {
 }
 
 export default withRouter(Navigation);
-

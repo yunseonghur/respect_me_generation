@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "../routes/Resources.css";
 import fire from "../fire.js";
 import "./ResourceEntryCard.css";
-import Toast from "react-bootstrap/Toast";
 
 const db = fire.database();
 

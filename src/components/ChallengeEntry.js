@@ -5,10 +5,10 @@ import fire from "../fire.js";
 /**
  * Represent a completed challenge entry.
  * Called in ChallengeGameModalStep2.js
- * 
+ *
  * @param {string} badgeId an id of the badge associated with this challenge
  * @param {string} title a title of this challenge
- * @param {string} endTime a timestamp of end date 
+ * @param {string} endTime a timestamp of end date
  */
 const ChallengeEntry = (props) => {
   const dbRef = fire.database().ref();
@@ -35,9 +35,9 @@ const ChallengeEntry = (props) => {
   };
 
   return (
-    <div id={props.key} className="challenge-entry">
+    <div className="challenge-entry">
       {/* challenge image */}
-      <img src={badgeImg} className="challenge-entry_img" />
+      <img alt="challenge entry" src={badgeImg} className="challenge-entry_img" />
 
       <div className="challenge-entry_text">
         <h3 className="challenge-entry_text--title">{props.title}</h3>

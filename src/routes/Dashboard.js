@@ -50,7 +50,6 @@ class Dashboard extends Component {
         this.getUserInfo();
       }
     });
-    console.log(this.state.activeChallenges);
   }
 
   // Get current user's info: badge, points, cards, and videos
@@ -284,6 +283,7 @@ class Dashboard extends Component {
               {this.state.completedChallenges !== undefined
                 ? Array.from(this.state.completedChallenges).map((myCompletedChallenge) => (
                     <ChallengeEntry
+                      key={myCompletedChallenge.id}
                       badgeID={myCompletedChallenge.id}
                       title={myCompletedChallenge.title}
                       endTime={myCompletedChallenge.endTime}

@@ -45,6 +45,15 @@
   float: right;
 }
 
+@media only screen and (max-width: 575px) {
+  .add-comment__modal__footer {
+    margin: 0 auto;
+  }
+  .add-comment__modal__footer.modal-footer {
+    border-top: unset;
+  }
+}
+
 @media only screen and (max-width: 320px) {
   .add-comment__modal__body__form__input-col--comments {
     width: 174px;

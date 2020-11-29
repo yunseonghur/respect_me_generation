@@ -369,8 +369,12 @@ class AddComment extends Component {
               </Form>
             </div>
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.props.onHide}>
+          <Modal.Footer className="add-comment__modal__footer">
+            <Button
+              className="add-comment__modal__footer--close"
+              variant="secondary"
+              onClick={this.props.onHide}
+            >
               Close
             </Button>
           </Modal.Footer>

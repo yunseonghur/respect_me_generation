@@ -142,10 +142,11 @@ class CommunityBoard extends Component {
             <Cards tag={this.state.tag} from={this.props.from} userUID={this.props.userUID} />
           ) : this.props.from === "dashboard" ? (
             <div className="videos">
-              {this.state.videos!== undefined?
-              Array.from(this.state.videos).map((myVideo) => (
-                <UserVideo key={myVideo.id} videoId={myVideo.id} />
-              )) : null }
+              {this.state.videos !== undefined
+                ? Array.from(this.state.videos).map((myVideo) => (
+                    <UserVideo key={myVideo.id} videoId={myVideo.id} />
+                  ))
+                : null}
             </div>
           ) : (
             <VideoDisplay />

@@ -29,9 +29,9 @@ function App() {
       <Navigation />
       {user ? (
         <>
-        <Route path="/" exact={true} component={Dashboard} />
-        <Route path="/communityBoard" component={() => <CommunityBoard tagVisible={true} />} />
-        <Route path="/resources" component={Resources} />
+          <Route path="/" exact={true} component={Dashboard} />
+          <Route path="/communityBoard" component={() => <CommunityBoard tagVisible={true} />} />
+          <Route path="/resources" component={() => <Resources userUID={user.uid} />} />
         </>
       ) : (
         <Route path="/" exact={true} component={Login} />

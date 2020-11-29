@@ -5,8 +5,8 @@ import { withRouter } from "react-router-dom";
 import fire from "../fire.js";
 import ResourceEntryCard from "../components/ResourceEntryCard";
 
-
 const dbRef = fire.database().ref();
+const db = fire.database();
 /**
  * The resources page where they can view and save resources.
  */
@@ -17,7 +17,7 @@ class Resources extends Component {
     isLoading: true,
     tag: "all",
     entries: [],
-    userUID: null,
+    savedResources: [],
   };
 
   componentDidMount() {
@@ -25,21 +25,8 @@ class Resources extends Component {
     this.getResources("study");
     this.getResources("health");
     this.getResources("relationships");
-    this.getUserUID();
+    this.getSavedResources();
   }
-
-  /**
-   * Get current user ID
-   */
-  getUserUID = () => {
-    fire.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          userUID: user.uid,
-        });
-      }
-    });
-  };
 
   /**
    * Grab resources from database.
@@ -52,11 +39,31 @@ class Resources extends Component {
       .once("value")
       .then(function (snap) {
         const result = snap.val();
-        // console.log(result);
         return result;
       })
       .then((res) => {
         this.parseResource(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  /**
+   * Get a list of saved resources
+   */
+  getSavedResources = () => {
+    dbRef
+      .child("User/" + this.props.userUID)
+      .child("savedResources")
+      .once("value")
+      .then(function (snap) {
+        const result = snap.val();
+        return result;
+      })
+      .then((res) => {
+        if (res !== null) {
+          this.parseSavedResource(res);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -74,9 +81,39 @@ class Resources extends Component {
       resourceObj[key]["key"] = key;
       return resourceObj[key];
     });
-
     this.setState({ entries: [...this.state.entries, ...parsed] });
   }
+
+  /**
+   * Parse the objects from firebase into entries.
+   *
+   * @param {Object}
+   */
+  parseSavedResource(resourceObj) {
+    const parsed = Object.keys(resourceObj).map((key) => {
+      return key;
+    });
+    this.setState({ savedResources: [...this.state.savedResources, ...parsed] });
+  }
+
+  /**
+   * Event handler for saving resource. Needs to be passed on to the child component.
+   * @param {*} event
+   */
+  addToSaved = (event, item) => {
+    event.preventDefault();
+    event.stopPropagation();
+    event.nativeEvent.stopImmediatePropagation();
+    db.ref("User/" + this.props.userUID)
+      .child("savedResources/" + item["key"])
+      .set({
+        image: item["image"],
+        link: item["link"],
+        title: item["title"],
+      });
+    // call getSavedResources to update savedResources state on button click
+    this.getSavedResources();
+  };
 
   render() {
     return (
@@ -85,7 +122,13 @@ class Resources extends Component {
         <div className="resource_row">
           {this.state.entries
             ? this.state.entries.map((item, index) => (
-                <ResourceEntryCard key={index} item={item} userUID={this.state.userUID} />
+                <ResourceEntryCard
+                  key={index}
+                  item={item}
+                  userUID={this.props.userUID}
+                  saved={this.state.savedResources.includes(item["key"])}
+                  addToSaved={this.addToSaved}
+                />
               ))
             : null}
         </div>

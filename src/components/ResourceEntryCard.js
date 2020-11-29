@@ -10,45 +10,38 @@ const db = fire.database();
  */
 class ResourceEntryCard extends Component {
   state = {
-    showToast: false,
-    className: "showing",
+    saved: "",
   };
-
-  /**
-   * Event handler for saving resource.
-   * @param {*} event
-   */
-  addToSaved = (event, item) => {
-    event.preventDefault();
-    event.stopPropagation();
-    event.nativeEvent.stopImmediatePropagation();
-    db.ref("User/" + this.props.userUID)
-      .child("savedResources/" + item["key"])
-      .set({
-        image: item["image"],
-        link: item["link"],
-        title: item["title"],
-      });
-
-    this.setState({ className: "hide" });
-  };
+  componentDidMount() {
+    this.setState({ saved: this.props.saved });
+  }
+  // /**
+  //  * Event handler for saving resource.
+  //  * @param {*} event
+  //  */
+  // addToSaved = (event, item) => {
+  //   event.preventDefault();
+  //   event.stopPropagation();
+  //   event.nativeEvent.stopImmediatePropagation();
+  //   db.ref("User/" + this.props.userUID)
+  //     .child("savedResources/" + item["key"])
+  //     .set({
+  //       image: item["image"],
+  //       link: item["link"],
+  //       title: item["title"],
+  //     });
+  // };
 
   render() {
     return (
       <a className="resource-entry-card__anchor" href={this.props.item.link} target="blank">
-        {this.props.from === "dashboard" ? null : (
-          <button
-            className={this.state.className}
-            onClick={(e) => this.addToSaved(e, this.props.item)}
-          >
-            +
-          </button>
+        {this.props.from === "dashboard" || this.props.saved ? null : (
+          <button onClick={(e) => this.props.addToSaved(e, this.props.item)}>+</button>
         )}
 
         <img alt="resource" src={this.props.item.image} />
         <div>
           <h2>{this.props.item.title}</h2>
-          {/* <h4>should attribute to database -- some short preview of article</h4> */}
         </div>
       </a>
     );

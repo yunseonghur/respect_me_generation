@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../routes/Resources.css";
-import fire from "../fire.js";
 import "./ResourceEntryCard.css";
 
 /**

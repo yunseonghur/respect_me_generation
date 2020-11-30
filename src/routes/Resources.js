@@ -5,7 +5,6 @@ import { withRouter } from "react-router-dom";
 import fire from "../fire.js";
 import ResourceEntryCard from "../components/ResourceEntryCard";
 
-const dbRef = fire.database().ref();
 const db = fire.database();
 /**
  * The resources page where they can view and save resources.
@@ -33,7 +32,7 @@ class Resources extends Component {
    */
   getResources = (tag) => {
     // read all resources from db
-    dbRef
+    db.ref()
       .child("Resources")
       .child(tag)
       .once("value")
@@ -52,7 +51,7 @@ class Resources extends Component {
    * Get a list of saved resources
    */
   getSavedResources = () => {
-    dbRef
+    db.ref()
       .child("User/" + this.props.userUID)
       .child("savedResources")
       .once("value")

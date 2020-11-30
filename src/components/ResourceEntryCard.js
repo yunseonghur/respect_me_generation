@@ -3,8 +3,6 @@ import "../routes/Resources.css";
 import fire from "../fire.js";
 import "./ResourceEntryCard.css";
 
-const db = fire.database();
-
 /**
  * Displays each resource entry in a card-like format.
  */
@@ -15,22 +13,6 @@ class ResourceEntryCard extends Component {
   componentDidMount() {
     this.setState({ saved: this.props.saved });
   }
-  // /**
-  //  * Event handler for saving resource.
-  //  * @param {*} event
-  //  */
-  // addToSaved = (event, item) => {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  //   event.nativeEvent.stopImmediatePropagation();
-  //   db.ref("User/" + this.props.userUID)
-  //     .child("savedResources/" + item["key"])
-  //     .set({
-  //       image: item["image"],
-  //       link: item["link"],
-  //       title: item["title"],
-  //     });
-  // };
 
   render() {
     return (

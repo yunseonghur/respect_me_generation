@@ -263,7 +263,7 @@ class Dashboard extends Component {
               <div className="dashboard_challenges--entries">
                 {this.state.activeChallenges === undefined ||
                 this.state.numberOfActiveChallenges === 0 ? (
-                  <ChallengeNoEntry />
+                  <ChallengeNoEntry title="Click Start Challenge to add challenges!" />
                 ) : (
                   Array.from(this.state.activeChallenges).map((myActiveChallenge) => (
                     <ChallengeCurrent

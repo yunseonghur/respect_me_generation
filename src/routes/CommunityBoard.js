@@ -130,22 +130,44 @@ class CommunityBoard extends Component {
           </div>
         ) : null}
         <ButtonGroup>
-          <button className="community-board__toggle-buttons--btn" onClick={this.toggleOpenCards}>
-            CARDS
-          </button>
-          <button className="community-board__toggle-buttons--btn" onClick={this.toggleOpenVideos}>
-            VIDEOS
-          </button>
+          {this.state.cardVisible ? (
+            <button
+              className="community-board__toggle-buttons--btn community-board__toggle-buttons--btn-selected"
+              onClick={this.toggleOpenCards}
+            >
+              CARDS
+            </button>
+          ) : (
+            <button className="community-board__toggle-buttons--btn" onClick={this.toggleOpenCards}>
+              CARDS
+            </button>
+          )}
+          {this.state.videoVisible ? (
+            <button
+              className="community-board__toggle-buttons--btn community-board__toggle-buttons--btn-selected"
+              onClick={this.toggleOpenVideos}
+            >
+              VIDEOS
+            </button>
+          ) : (
+            <button
+              className="community-board__toggle-buttons--btn"
+              onClick={this.toggleOpenVideos}
+            >
+              VIDEOS
+            </button>
+          )}
         </ButtonGroup>
         <div>
           {this.state.cardVisible ? (
             <Cards tag={this.state.tag} from={this.props.from} userUID={this.props.userUID} />
           ) : this.props.from === "dashboard" ? (
             <div className="videos">
-              {this.state.videos!== undefined?
-              Array.from(this.state.videos).map((myVideo) => (
-                <UserVideo key={myVideo.id} videoId={myVideo.id} />
-              )) : null }
+              {this.state.videos !== undefined
+                ? Array.from(this.state.videos).map((myVideo) => (
+                    <UserVideo key={myVideo.id} videoId={myVideo.id} />
+                  ))
+                : null}
             </div>
           ) : (
             <VideoDisplay />

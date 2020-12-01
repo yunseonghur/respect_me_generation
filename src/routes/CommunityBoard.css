@@ -6,13 +6,13 @@
   font-size: 16px !important;
   margin: 0 10px;
 }
-/* 
-.community-board__toggle-buttons--btn:focus {
+
+.community-board__toggle-buttons--btn-selected {
   color: black;
   border-bottom: 3px solid rgba(42, 255, 169, 1);
   border-radius: 0;
   outline: none;
-} */
+}
 
 #community-board__toggle-buttons--btn-active {
   background-color: #007bff;

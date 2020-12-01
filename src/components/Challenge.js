@@ -19,6 +19,7 @@ class Challenge extends Component {
       numberOfActiveChallenges: ""
     }
 
+  /** Get current user's Challenges if exist */
   componentDidMount(){
     db.ref().child('User').on('value', snap => {
       const userInfo = snap.val();
@@ -27,7 +28,7 @@ class Challenge extends Component {
     });
   }
 
-      /**
+  /**
    * Gets the current user's completed challenges
    */
   async getCompletedChallenges() {
@@ -47,7 +48,11 @@ class Challenge extends Component {
       });
   }
 
-  // Store the current user's completed challenges in an array instead of json format
+  /**
+   * Store the current user's completed challenges in an array instead of json format
+   * 
+   * @param {Object} completedChallenges completedChallange node stored in user
+   */
   formatCompletedChallenges(completedChallenges) {
     let completedChallengesArr = [];
     console.log(completedChallenges);
@@ -62,8 +67,12 @@ class Challenge extends Component {
     this.setState({ completedChallenges: completedChallengesArr,
       isCompletedMounted: true });
   }
-
-  //Store the user's active challenges in a simple array instead of in json format
+  
+  /**
+   * Store the user's active challenges in a simple array instead of in json format
+   * 
+   * @param {Object} activeChallenges activeChallange node stored in user
+   */
   formatActiveChallenges(activeChallenges) {
     let activeChallengesArr = [];
     for (let activeChallenge in activeChallenges) {
@@ -96,13 +105,15 @@ class Challenge extends Component {
       });
   }
 
-    /**
+  /**
    * Sets the number of active challeges
+   * 
+   * @param {Object} activeChallengesObject formatted activeChallange array
    */
-  getNumberOfActiveChallenges(activeChallengesArr) {
-    if (Object.keys(activeChallengesArr).length) {
+  getNumberOfActiveChallenges(activeChallengesObject) {
+    if (Object.keys(activeChallengesObject).length) {
       this.setState({
-        numberOfActiveChallenges: Object.keys(activeChallengesArr).length      });
+        numberOfActiveChallenges: Object.keys(activeChallengesObject).length      });
     } else {
       this.setState({
         numberOfActiveChallenges: 0,
@@ -132,6 +143,7 @@ class Challenge extends Component {
   hideChallengeModal = () => {
     this.setState({ challengeModalVisible: false });
   };
+
 
   render() {
       return (

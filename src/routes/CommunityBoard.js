@@ -130,12 +130,33 @@ class CommunityBoard extends Component {
           </div>
         ) : null}
         <ButtonGroup>
-          <button className="community-board__toggle-buttons--btn" onClick={this.toggleOpenCards}>
-            CARDS
-          </button>
-          <button className="community-board__toggle-buttons--btn" onClick={this.toggleOpenVideos}>
-            VIDEOS
-          </button>
+          {this.state.cardVisible ? (
+            <button
+              className="community-board__toggle-buttons--btn community-board__toggle-buttons--btn-selected"
+              onClick={this.toggleOpenCards}
+            >
+              CARDS
+            </button>
+          ) : (
+            <button className="community-board__toggle-buttons--btn" onClick={this.toggleOpenCards}>
+              CARDS
+            </button>
+          )}
+          {this.state.videoVisible ? (
+            <button
+              className="community-board__toggle-buttons--btn community-board__toggle-buttons--btn-selected"
+              onClick={this.toggleOpenVideos}
+            >
+              VIDEOS
+            </button>
+          ) : (
+            <button
+              className="community-board__toggle-buttons--btn"
+              onClick={this.toggleOpenVideos}
+            >
+              VIDEOS
+            </button>
+          )}
         </ButtonGroup>
         <div>
           {this.state.cardVisible ? (
